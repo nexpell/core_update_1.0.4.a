@@ -1,0 +1,159 @@
+<!-- login2fa_content -->
+<style>
+  .otp-digit {
+  max-width: 56px;
+  height: 56px;
+  font-size: 26px;
+  border-radius: 10px;
+  }
+@media (max-width: 480px) {
+  .otp-digit { max-width: 48px; height: 52px; font-size: 22px; }
+}
+</style>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-xl-10">
+      <div class="card shadow-lg overflow-hidden">
+        <div class="card-body p-0">
+          <div class="row g-0">
+            <!-- Linke Bildhälfte -->
+            <div class="col-sm-5 d-none d-sm-block sign_pic_bg"></div>
+
+            <!-- Rechte 2FA-Hälfte -->
+            <div class="col-sm-7 p-4">
+              <div class="text-start">
+                <!-- Überschrift -->
+                <div class="h3 fw-light">
+                  <h3>{login_headline}</h3>
+                </div>
+
+                <!-- Meldungen -->
+                {error_message}
+
+                <!-- Hinweistext -->
+                <p class="mb-4">{twofa_prompt}</p>
+
+                <!-- 2FA-Formular -->
+                <form id="otpForm" method="post" action="" autocomplete="one-time-code">
+                  <div class="mb-3">
+                    <label class="form-label">{enter_code}</label>
+                    <div class="d-grid gap-2 otp-inputs" data-otp-length="6" aria-label="Sicherheitscode">
+                      <div class="d-flex justify-content-between gap-2 flex-wrap">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
+                               class="form-control text-center otp-digit" aria-label="Ziffer 1" data-idx="0" name="otp[]">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
+                               class="form-control text-center otp-digit" aria-label="Ziffer 2" data-idx="1" name="otp[]">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
+                               class="form-control text-center otp-digit" aria-label="Ziffer 3" data-idx="2" name="otp[]">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
+                               class="form-control text-center otp-digit" aria-label="Ziffer 4" data-idx="3" name="otp[]">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
+                               class="form-control text-center otp-digit" aria-label="Ziffer 5" data-idx="4" name="otp[]">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1"
+                               class="form-control text-center otp-digit" aria-label="Ziffer 6" data-idx="5" name="otp[]">
+                      </div>
+                      <!-- Zusammengesetzter Code -->
+                      <input type="hidden" name="code" id="otpHidden" value="">
+                    </div>
+                  </div>
+
+                  <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="remember_device" name="remember_device" value="1">
+                    <label class="form-check-label" for="remember_device">{remember_device}</label>
+                  </div>
+
+                  <!-- Für No-JS-Fallback behalten, aber verstecken (Autosubmit aktiv) -->
+                  <button class="btn btn-primary w-100 d-none" type="submit">{confirm}</button>
+                </form>
+
+                <hr>
+
+                <!-- Resend -->
+                <form method="post" action="" class="mt-2">
+                  <input type="hidden" name="resend" value="1">
+                  <button class="btn btn-secondary w-100" type="submit">{resend}</button>
+                </form>
+
+              </div>
+            </div>
+            <!-- Ende rechte Spalte -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(() => {
+  const form   = document.getElementById('otpForm');
+  if (!form) return;
+  const hidden = document.getElementById('otpHidden');
+  const inputs = Array.from(form.querySelectorAll('.otp-digit'));
+  const len    = parseInt(form.querySelector('.otp-inputs')?.dataset?.otpLength || inputs.length, 10);
+
+  const sanitize = s => (s || '').replace(/\D/g, '').slice(0, len);
+
+  const joinAndMaybeSubmit = () => {
+    const code = inputs.map(i => i.value).join('');
+    hidden.value = code;
+    if (code.length === len) {
+      setTimeout(() => form.submit(), 0);
+    }
+  };
+
+  // init
+  inputs.forEach(i => i.value = '');
+  (inputs[0] || form).focus();
+
+  inputs.forEach((el, idx) => {
+    el.addEventListener('input', () => {
+      el.value = (el.value.match(/\d/) || [''])[0];
+      if (el.value && idx < len - 1) inputs[idx + 1].focus();
+      joinAndMaybeSubmit();
+    });
+
+    el.addEventListener('keydown', (e) => {
+      const k = e.key;
+      if (k === 'ArrowLeft' && idx > 0) { e.preventDefault(); inputs[idx - 1].focus(); }
+      if (k === 'ArrowRight' && idx < len - 1) { e.preventDefault(); inputs[idx + 1].focus(); }
+      if (k === 'Backspace') {
+        if (el.value) {
+          el.value = '';
+        } else if (idx > 0) {
+          inputs[idx - 1].value = '';
+          inputs[idx - 1].focus();
+        }
+        hidden.value = inputs.map(i => i.value).join('');
+        e.preventDefault();
+      }
+    });
+
+    el.addEventListener('focus', () => el.select(), { passive: true });
+
+    // Paste in ein beliebiges Feld verteilt die Ziffern
+    el.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const text = sanitize((e.clipboardData || window.clipboardData).getData('text'));
+      if (!text) return;
+
+      let i = idx;
+      for (const ch of text) {
+        if (i >= len) break;
+        inputs[i++].value = ch;
+      }
+      if (i < len && text.length > (len - idx)) {
+        let j = 0;
+        while (i < len && j < idx) inputs[i++].value = text[j++];
+      }
+      (inputs.find(x => !x.value) || inputs[len-1]).focus();
+      joinAndMaybeSubmit();
+    });
+  });
+
+  // Fallback: vor Submit noch einmal zusammensetzen
+  form.addEventListener('submit', () => {
+    hidden.value = inputs.map(i => i.value).join('');
+  });
+})();
+</script>
+<!-- END -->

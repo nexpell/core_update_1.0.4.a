@@ -25,30 +25,110 @@ $labels = [];
 $visitors = [];
 $maxonline_values = [];
 
+function nx_fill_daily_buckets(string $since_date, string $end_date): array {
+    $buckets = [];
+    $day_pointer = strtotime($since_date);
+
+    while ($day_pointer <= strtotime($end_date)) {
+        $key = date('Y-m-d', $day_pointer);
+        $buckets[$key] = ['hits' => 0, 'maxonline' => 0];
+        $day_pointer += 86400;
+    }
+
+    return $buckets;
+}
+
+function nx_fill_monthly_buckets(string $since_date, string $end_date): array {
+    $buckets = [];
+    $month_pointer = strtotime($since_date);
+
+    while ($month_pointer < strtotime($end_date)) {
+        $key = date('Y-m-01', $month_pointer);
+        $buckets[$key] = ['hits' => 0, 'maxonline' => 0];
+        $month_pointer = strtotime('+1 month', $month_pointer);
+    }
+
+    return $buckets;
+}
+
+function nx_merge_daily_chart_data(mysqli $_database, array &$buckets, string $since_date, string $end_date): void {
+    $stats_result = $_database->query("
+        SELECT DATE(created_at) AS day, SUM(COALESCE(pageviews, 1)) AS count
+        FROM visitor_statistics
+        WHERE DATE(created_at) BETWEEN '$since_date' AND '$end_date'
+        GROUP BY day
+        ORDER BY day ASC
+    ");
+    while ($stats_result && ($row = $stats_result->fetch_assoc())) {
+        if (!isset($buckets[$row['day']])) {
+            continue;
+        }
+        $buckets[$row['day']]['hits'] = (int)$row['count'];
+    }
+
+    $counter_result = $_database->query("
+        SELECT DATE(date) AS day, MAX(maxonline) AS maxpeak, SUM(hits) AS fallback_hits
+        FROM visitor_daily_counter
+        WHERE date BETWEEN '$since_date' AND '$end_date'
+        GROUP BY day
+        ORDER BY day ASC
+    ");
+    while ($counter_result && ($row = $counter_result->fetch_assoc())) {
+        if (!isset($buckets[$row['day']])) {
+            continue;
+        }
+
+        if ((int)$buckets[$row['day']]['hits'] === 0) {
+            $buckets[$row['day']]['hits'] = (int)$row['fallback_hits'];
+        }
+
+        $buckets[$row['day']]['maxonline'] = (int)$row['maxpeak'];
+    }
+}
+
+function nx_merge_monthly_chart_data(mysqli $_database, array &$buckets, string $since_date): void {
+    $stats_result = $_database->query("
+        SELECT DATE_FORMAT(created_at, '%Y-%m-01') AS month_start, SUM(COALESCE(pageviews, 1)) AS count
+        FROM visitor_statistics
+        WHERE created_at >= '$since_date'
+        GROUP BY month_start
+        ORDER BY month_start ASC
+    ");
+    while ($stats_result && ($row = $stats_result->fetch_assoc())) {
+        if (!isset($buckets[$row['month_start']])) {
+            continue;
+        }
+        $buckets[$row['month_start']]['hits'] = (int)$row['count'];
+    }
+
+    $counter_result = $_database->query("
+        SELECT DATE_FORMAT(date, '%Y-%m-01') AS month_start, SUM(hits) AS fallback_hits, MAX(maxonline) AS maxpeak
+        FROM visitor_daily_counter
+        WHERE date >= '$since_date'
+        GROUP BY month_start
+        ORDER BY month_start ASC
+    ");
+    while ($counter_result && ($row = $counter_result->fetch_assoc())) {
+        if (!isset($buckets[$row['month_start']])) {
+            continue;
+        }
+
+        if ((int)$buckets[$row['month_start']]['hits'] === 0) {
+            $buckets[$row['month_start']]['hits'] = (int)$row['fallback_hits'];
+        }
+
+        $buckets[$row['month_start']]['maxonline'] = (int)$row['maxpeak'];
+    }
+}
+
 switch ($range) {
     case 'week':
         // Letzte 7 Tage inkl. heute
         $since_date = date('Y-m-d', strtotime("-6 days"));
         $end_date   = date('Y-m-d');
 
-        $day_pointer = strtotime($since_date);
-        $days_array = [];
-        while ($day_pointer <= strtotime($end_date)) {
-            $key = date('Y-m-d', $day_pointer);
-            $days_array[$key] = ['hits' => 0, 'maxonline' => 0];
-            $day_pointer += 86400;
-        }
-
-        $result = $_database->query("
-            SELECT DATE(date) as day, SUM(hits) as count, MAX(maxonline) as maxpeak
-            FROM visitor_daily_counter
-            WHERE date BETWEEN '$since_date' AND '$end_date'
-            GROUP BY day
-            ORDER BY day ASC
-        ");
-        while ($row = $result->fetch_assoc()) {
-            $days_array[$row['day']] = ['hits' => (int)$row['count'], 'maxonline' => (int)$row['maxpeak']];
-        }
+        $days_array = nx_fill_daily_buckets($since_date, $end_date);
+        nx_merge_daily_chart_data($_database, $days_array, $since_date, $end_date);
 
         foreach ($days_array as $day => $values) {
             $labels[] = date('D', strtotime($day));
@@ -62,24 +142,8 @@ switch ($range) {
         $since_date = date('Y-m-d', strtotime("-29 days"));
         $end_date   = date('Y-m-d');
 
-        $day_pointer = strtotime($since_date);
-        $days_array = [];
-        while ($day_pointer <= strtotime($end_date)) {
-            $key = date('Y-m-d', $day_pointer);
-            $days_array[$key] = ['hits' => 0, 'maxonline' => 0];
-            $day_pointer += 86400;
-        }
-
-        $result = $_database->query("
-            SELECT DATE(date) as day, SUM(hits) as count, MAX(maxonline) as maxpeak
-            FROM visitor_daily_counter
-            WHERE date BETWEEN '$since_date' AND '$end_date'
-            GROUP BY day
-            ORDER BY day ASC
-        ");
-        while ($row = $result->fetch_assoc()) {
-            $days_array[$row['day']] = ['hits' => (int)$row['count'], 'maxonline' => (int)$row['maxpeak']];
-        }
+        $days_array = nx_fill_daily_buckets($since_date, $end_date);
+        nx_merge_daily_chart_data($_database, $days_array, $since_date, $end_date);
 
         foreach ($days_array as $day => $values) {
             $labels[] = date('d.m.', strtotime($day));
@@ -93,24 +157,8 @@ switch ($range) {
         $since_date = date('Y-m-01', strtotime("-5 months"));
         $end_date   = date('Y-m-01', strtotime("+1 month"));
 
-        $months_array = [];
-        $month_pointer = strtotime($since_date);
-        while ($month_pointer < strtotime($end_date)) {
-            $key = date('Y-m-01', $month_pointer);
-            $months_array[$key] = ['hits' => 0, 'maxonline' => 0];
-            $month_pointer = strtotime('+1 month', $month_pointer);
-        }
-
-        $result = $_database->query("
-            SELECT DATE_FORMAT(date, '%Y-%m-01') as month_start, SUM(hits) as count, MAX(maxonline) as maxpeak
-            FROM visitor_daily_counter
-            WHERE date >= '$since_date'
-            GROUP BY month_start
-            ORDER BY month_start ASC
-        ");
-        while ($row = $result->fetch_assoc()) {
-            $months_array[$row['month_start']] = ['hits' => (int)$row['count'], 'maxonline' => (int)$row['maxpeak']];
-        }
+        $months_array = nx_fill_monthly_buckets($since_date, $end_date);
+        nx_merge_monthly_chart_data($_database, $months_array, $since_date);
 
         foreach ($months_array as $month => $values) {
             $labels[] = date('M Y', strtotime($month));
@@ -124,24 +172,8 @@ switch ($range) {
         $since_date = date('Y-m-01', strtotime("-11 months"));
         $end_date   = date('Y-m-01', strtotime("+1 month"));
 
-        $months_array = [];
-        $month_pointer = strtotime($since_date);
-        while ($month_pointer < strtotime($end_date)) {
-            $key = date('Y-m-01', $month_pointer);
-            $months_array[$key] = ['hits' => 0, 'maxonline' => 0];
-            $month_pointer = strtotime('+1 month', $month_pointer);
-        }
-
-        $result = $_database->query("
-            SELECT DATE_FORMAT(date, '%Y-%m-01') as month_start, SUM(hits) as count, MAX(maxonline) as maxpeak
-            FROM visitor_daily_counter
-            WHERE date >= '$since_date'
-            GROUP BY month_start
-            ORDER BY month_start ASC
-        ");
-        while ($row = $result->fetch_assoc()) {
-            $months_array[$row['month_start']] = ['hits' => (int)$row['count'], 'maxonline' => (int)$row['maxpeak']];
-        }
+        $months_array = nx_fill_monthly_buckets($since_date, $end_date);
+        nx_merge_monthly_chart_data($_database, $months_array, $since_date);
 
         foreach ($months_array as $month => $values) {
             $labels[] = date('M Y', strtotime($month));
@@ -375,6 +407,16 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
 // Sprachlabels
 $visitsLabel   = $languageService->get('visits');
 $visitorsLabel = $languageService->get('visits');
+
+function nx_json_script($value): string {
+    $json = json_encode(
+        $value,
+        JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_SUBSTITUTE
+    );
+
+    return $json !== false ? $json : 'null';
+}
+
 ?>
     <!-- KPI Cards -->
     <div class="row g-4">
@@ -532,6 +574,13 @@ $visitorsLabel = $languageService->get('visits');
                     </form>
 
                     <div id="visitorsChart" style="height:320px;"></div>
+                    <script>
+                        window.__visitorTraffic = {
+                            labels: <?= nx_json_script($labels) ?>,
+                            visitors: <?= nx_json_script($visitors) ?>,
+                            pageviews: <?= nx_json_script($maxonline_values) ?>
+                        };
+                    </script>
                 </div>
             </div>
         </div>
@@ -666,28 +715,28 @@ $visitorsLabel = $languageService->get('visits');
 document.addEventListener('DOMContentLoaded', function () {
 
     // --- Daten aus PHP ---
-    const rangeLabels = <?= json_encode($labels) ?>;
-    const visitsLabel = <?= json_encode($visitsLabel) ?>;
+    const rangeLabels = <?= nx_json_script($labels) ?>;
+    const visitsLabel = <?= nx_json_script($visitsLabel) ?>;
 
-    const visitorsData = <?= json_encode($visitors) ?>;
-    const maxOnlineData = <?= json_encode($maxonline_values) ?>;
+    const visitorsData = <?= nx_json_script($visitors) ?>;
+    const maxOnlineData = <?= nx_json_script($maxonline_values) ?>;
 
-    const topPagesLabels = <?= json_encode(array_column($top_pages, 'page')) ?>;
-    const topPagesData = <?= json_encode(array_column($top_pages, 'visits')) ?>;
+    const topPagesLabels = <?= nx_json_script(array_column($top_pages, 'page')) ?>;
+    const topPagesData = <?= nx_json_script(array_column($top_pages, 'visits')) ?>;
 
-    const topCountriesLabels = <?= json_encode(array_column($top_countries, 'country_code')) ?>;
-    const topCountriesData = <?= json_encode(array_column($top_countries, 'visitors')) ?>;
+    const topCountriesLabels = <?= nx_json_script(array_column($top_countries, 'country_code')) ?>;
+    const topCountriesData = <?= nx_json_script(array_column($top_countries, 'visitors')) ?>;
 
-    const deviceLabels = <?= json_encode(array_keys($device_data)) ?>;
-    const deviceSeries = <?= json_encode(array_values($device_data)) ?>;
+    const deviceLabels = <?= nx_json_script(array_keys($device_data)) ?>;
+    const deviceSeries = <?= nx_json_script(array_values($device_data)) ?>;
 
-    const osLabels = <?= json_encode(array_keys($os_data)) ?>;
-    const osSeries = <?= json_encode(array_values($os_data)) ?>;
+    const osLabels = <?= nx_json_script(array_keys($os_data)) ?>;
+    const osSeries = <?= nx_json_script(array_values($os_data)) ?>;
 
-    const browserLabels = <?= json_encode(array_keys($browser_data)) ?>;
-    const browserSeries = <?= json_encode(array_values($browser_data)) ?>;
+    const browserLabels = <?= nx_json_script(array_keys($browser_data)) ?>;
+    const browserSeries = <?= nx_json_script(array_values($browser_data)) ?>;
 
-    const UI_PRIMARY = <?= json_encode($uiPrimaryColor ?? '') ?>;
+    const UI_PRIMARY = <?= nx_json_script($uiPrimaryColor ?? '') ?>;
     function cssVar(name, fallback = '') {
         const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
         return v || fallback;
@@ -846,63 +895,96 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     }
 
-    // --- Daily Page Views (Besuche + MaxOnline) ---
-    const visitorsEl = document.querySelector('#visitorsChart');
-    if (visitorsEl) {
-        
-        const visitorsOptions = {
-            chart: {
-                type: 'area',
-                height: 320,
-                toolbar: { show: false }
-            },
-            colors: [AC_PRIMARY, AC_PRIMARY],
-            series: [
-                { name: visitsLabel, data: visitorsData },
-                { name: 'MaxOnline', data: maxOnlineData }
-            ],
+    // --- Daily Page Views (wie in info.php) ---
+    if (window.ApexCharts && window.__visitorTraffic) {
+        const el = document.querySelector('#visitorsChart');
 
-            xaxis: {
-                categories: rangeLabels,
-                axisBorder: { show: false },
-                axisTicks: { show: false },
-                labels: { style: { colors: '#6B7280' } }
-            },
+        if (el) {
+            const t = window.__visitorTraffic;
+            const locale = document.documentElement.lang || 'de-DE';
 
-            yaxis: [
-                {
-                    min: 0,
-                    title: { text: 'Hits' },
+            const visitorOptions = {
+                chart: {
+                    type: 'area',
+                    height: 320,
+                    toolbar: { show: false }
+                },
+                colors: [AC_PRIMARY, AC_PRIMARY],
+                series: [
+                    { name: visitsLabel, data: t.visitors || [] },
+                    { name: 'MaxOnline', data: t.pageviews || [] }
+                ],
+                yaxis: [
+                    {
+                        title: { text: visitsLabel },
+                        labels: { formatter: v => Math.round(v) }
+                    },
+                    {
+                        opposite: true,
+                        title: { text: 'MaxOnline' },
+                        labels: { formatter: v => Math.round(v) }
+                    }
+                ],
+                xaxis: {
+                    categories: t.labels || [],
+                    labels: {
+                        rotate: -45,
+                        formatter: function (value) {
+                            const d = new Date(value);
+                            if (Number.isNaN(d.getTime())) return value;
+                            return d.toLocaleDateString(locale, { day: '2-digit', month: '2-digit' });
+                        }
+                    },
                     axisBorder: { show: false },
                     axisTicks: { show: false }
                 },
-                {
-                    min: 0,
-                    opposite: true,
-                    title: { text: 'MaxOnline' },
-                    axisBorder: { show: false },
-                    axisTicks: { show: false }
+                stroke: { curve: 'smooth', width: 2, dashArray: [0, 6] },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        gradientToColors: ['#93C5FD', '#FCA5A5'],
+                        inverseColors: false,
+                        opacityFrom: 0.35,
+                        opacityTo: 0.03,
+                        stops: [0, 90, 100]
+                    }
+                },
+                markers: { size: 0, hover: { sizeOffset: 2 } },
+                dataLabels: { enabled: false },
+                tooltip: { shared: true, intersect: false },
+                legend: {
+                    show: true,
+                    position: 'top',
+                    horizontalAlign: 'center',
+                    offsetY: 8,
+                    markers: { show: false },
+                    formatter: function (seriesName, opts) {
+                        const dashed = opts.seriesIndex === 1;
+                        return `
+                            <span style="display:inline-flex;align-items:center;gap:6px">
+                                <svg width="30" height="6" viewBox="0 0 30 6" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="0" y1="3" x2="30" y2="3"
+                                          stroke="${AC_PRIMARY}"
+                                          stroke-width="2"
+                                          stroke-dasharray="${dashed ? '6,6' : '0'}"
+                                          stroke-linecap="round" />
+                                </svg>
+                                <span>${seriesName}</span>
+                            </span>
+                        `;
+                    }
+                },
+                grid: {
+                    show: true,
+                    borderColor: 'rgba(0,0,0,0.08)',
+                    strokeDashArray: 4,
+                    padding: { bottom: 20 }
                 }
-            ],
+            };
 
-            stroke: { curve: 'smooth', width: 2, dashArray: [0, 6] }, 
-            fill: { type: 'gradient', gradient: { shadeIntensity: 1, gradientToColors: ['#93C5FD', '#FCA5A5'], inverseColors: false, opacityFrom: 0.35, opacityTo: 0.03, stops: [0, 90, 100] } },
-
-            markers: { size: 0, hover: { sizeOffset: 2 } },
-
-            dataLabels: { enabled: false },
-
-            tooltip: { shared: true, intersect: false },
-
-            legend: { show: false },
-
-            grid: {
-                show: true,
-                borderColor: 'rgba(0,0,0,0.08)',
-                strokeDashArray: 4
-            }
-        };
-        new ApexCharts(visitorsEl, visitorsOptions).render();
+            new ApexCharts(el, visitorOptions).render();
+        }
     }
 
     // --- Top Pages ---

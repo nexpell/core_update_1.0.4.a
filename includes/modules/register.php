@@ -25,14 +25,12 @@ global $_database, $languageService;
 $lang = $languageService->detectLanguage();
 $languageService->readModule('register');
 
-$recaptcha = nx_get_recaptcha_config();
-$webkey = $recaptcha['webkey'];
-$seckey = $recaptcha['seckey'];
-$recaptcha_active = $recaptcha['enabled'];
+$get = mysqli_fetch_assoc(safe_query("SELECT * FROM settings"));
+$webkey = $get['webkey'];
+$seckey = $get['seckey'];
 
-if ($recaptcha_active) {
-    nx_mark_recaptcha_required();
-}
+/* PATCH: reCAPTCHA aktiv? */
+$recaptcha_active = (!empty($webkey) && !empty($seckey));
 
 $form_data = $_POST ?? [];
 
@@ -49,8 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         'samesite' => 'Lax',
     ]);
 }
-
-nx_form_guard_prepare('register', $_SERVER['REQUEST_METHOD'] !== 'POST');
 
 $csrf_token = $_SESSION['csrf_token'] ?? '';
 
@@ -83,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     /* ============================
        PATCH 1: Honeypot (nur wenn reCAPTCHA AUS)
        ============================ */
-    if (!empty($_POST['company'] ?? '')) {
+    if (!$recaptcha_active && !empty($_POST['company'] ?? '')) {
         $_SESSION['error_message'] = $languageService->get('register_failed');
         header("Location: " . SeoUrlHandler::convertToSeoUrl('index.php?site=register'));
         exit;
@@ -106,14 +102,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     unset($_SESSION['csrf_token'], $_SESSION['csrf_token_time']);
     setcookie('NXCSRF', '', time() - 3600, '/');
-
-    if (nx_form_guard_is_too_fast('register', 4)) {
-        $errors[] = $languageService->get('submission_too_fast');
-    }
-
-    if (!nx_rate_limit_consume('register', 5, 1800, $ip_address)) {
-        $errors[] = $languageService->get('too_many_attempts');
-    }
 
     /* ============================
        Validierung (unverändert)
@@ -144,8 +132,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($recaptcha_active) {
         if (empty($_POST['g-recaptcha-response'])) {
             $errors[] = "reCAPTCHA fehlt";
-        } elseif (!nx_verify_recaptcha((string)$_POST['g-recaptcha-response'], (string)($_SERVER['REMOTE_ADDR'] ?? ''))) {
-            $errors[] = "reCAPTCHA nicht bestanden";
+        } else {
+            $verify_url =
+                "https://www.google.com/recaptcha/api/siteverify"
+                . "?secret=" . urlencode($seckey)
+                . "&response=" . urlencode($_POST['g-recaptcha-response'])
+                . "&remoteip=" . urlencode($_SERVER['REMOTE_ADDR']);
+
+            $res = json_decode(file_get_contents($verify_url), true);
+            if (!($res['success'] ?? false)) {
+                $errors[] = "reCAPTCHA nicht bestanden";
+            }
         }
     }
 
@@ -170,7 +167,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $role = 1;
     $is_active = 0;
 
-    $stmt = $_database->prepare("INSERT INTO users (username, email, registerdate, role, is_active) VALUES (?, ?, CURRENT_TIMESTAMP(), ?, ?)");
+    $twofaSettings = [];
+    if ($res = $_database->query("SELECT twofa_force_all FROM settings LIMIT 1")) {
+        $twofaSettings = $res->fetch_assoc() ?: [];
+        $res->free();
+    }
+    $forceAll = (int)($twofaSettings['twofa_force_all'] ?? 1) === 1;
+    $twofaDefault = $forceAll ? 1 : 0;
+
+    $stmt = $_database->prepare("
+        INSERT INTO users (username, email, registerdate, role, is_active, twofa_enabled, twofa_method)
+        VALUES (?, ?, CURRENT_TIMESTAMP(), ?, ?, {$twofaDefault}, 'email')
+    ");
     $stmt->bind_param("ssii", $username, $email, $role, $is_active);
     if (!$stmt->execute()) {
         die("Fehler beim Einfügen: " . $stmt->error);
@@ -224,9 +232,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("sii", $activation_code, $activation_expires, $userID);
     $stmt->execute();
 
-    $activation_link = 'https://' . $_SERVER['HTTP_HOST'] . SeoUrlHandler::convertToSeoUrl(
-        'index.php?site=activate&code=' . urlencode($activation_code)
-    );
+    $activation_link = 'https://' . $_SERVER['HTTP_HOST'] . '/index.php?site=activate&code=' . urlencode($activation_code);
 
     $settings_result = safe_query("SELECT * FROM `settings`");
     $settings = mysqli_fetch_assoc($settings_result);
@@ -262,8 +268,6 @@ $loginlink = '<a href="' . SeoUrlHandler::convertToSeoUrl('index.php?site=login'
 
 $form_action = SeoUrlHandler::convertToSeoUrl('index.php?site=register') ?: 'index.php?site=register';
 if (!$form_action) { $form_action = 'index.php?site=register'; }
-
-nx_form_guard_prepare('register', true);
 
 
 

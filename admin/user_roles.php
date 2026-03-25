@@ -18,39 +18,6 @@ $action = $_GET['action'] ?? '';
 require_once "../system/config.inc.php";
 require_once "../system/functions.php";
 
-$getLocalizedText = static function (?string $raw) use ($languageService): string {
-    $raw = trim((string)$raw);
-    if ($raw === '') {
-        return '';
-    }
-
-    $currentLang = method_exists($languageService, 'detectLanguage')
-        ? (string)$languageService->detectLanguage()
-        : (string)($_SESSION['language'] ?? 'de');
-
-    $extract = static function (string $text, string $lang): string {
-        $pattern = '/\[\[lang:' . preg_quote($lang, '/') . '\]\](.*?)(?=\[\[lang:|$)/si';
-        if (preg_match($pattern, $text, $match)) {
-            return trim((string)$match[1]);
-        }
-        return '';
-    };
-
-    $localized = $extract($raw, $currentLang);
-    if ($localized !== '') {
-        return $localized;
-    }
-
-    foreach (['de', 'en', 'it'] as $fallbackLang) {
-        $fallbackText = $extract($raw, $fallbackLang);
-        if ($fallbackText !== '') {
-            return $fallbackText;
-        }
-    }
-
-    return $raw;
-};
-
 if ($action == "edit_role_rights") {
  
 // CSRF-Token generieren
@@ -67,38 +34,9 @@ $moduleRights = [];
 if (isset($_GET['roleID'])) {
     $roleID = (int)$_GET['roleID'];
 
-    $currentLang = method_exists($languageService, 'detectLanguage')
-        ? (string)$languageService->detectLanguage()
-        : (string)($_SESSION['language'] ?? 'de');
-    $currentLangEsc = escape($currentLang);
-
-    // Modul-Liste abrufen (multilang-first, mit Legacy-Fallback)
+    // Modul-Liste abrufen
     $modules = [];
-    $hasLinkNameColumn = false;
-    $nameColumnCheck = safe_query("SHOW COLUMNS FROM navigation_dashboard_links LIKE 'name'");
-    if ($nameColumnCheck && mysqli_num_rows($nameColumnCheck) > 0) {
-        $hasLinkNameColumn = true;
-    }
-    if ($hasLinkNameColumn) {
-        $result = safe_query("
-            SELECT l.linkID, l.catID, l.modulname, COALESCE(ld.content, l.name, l.modulname) AS name
-            FROM navigation_dashboard_links l
-            LEFT JOIN navigation_dashboard_lang ld
-              ON ld.content_key = CONCAT('nav_link_', l.linkID)
-             AND ld.language = '" . $currentLangEsc . "'
-            ORDER BY l.sort ASC
-        ");
-    } else {
-        $result = safe_query("
-            SELECT l.linkID, l.catID, l.modulname, COALESCE(ld.content, l.modulname) AS name
-            FROM navigation_dashboard_links l
-            LEFT JOIN navigation_dashboard_lang ld
-              ON ld.content_key = CONCAT('nav_link_', l.linkID)
-             AND ld.language = '" . $currentLangEsc . "'
-            ORDER BY l.sort ASC
-        ");
-    }
-
+    $result = safe_query("SELECT linkID, catID, modulname, name FROM navigation_dashboard_links ORDER BY sort ASC");
     if (!$result) {
         die($languageService->get('error_fetching_modules') . ": " . $_database->error);
     }
@@ -115,30 +53,7 @@ if (isset($_GET['roleID'])) {
 
     // Kategorie-Liste abrufen
     $categories = [];
-    $hasCategoryNameColumn = false;
-    $catNameColumnCheck = safe_query("SHOW COLUMNS FROM navigation_dashboard_categories LIKE 'name'");
-    if ($catNameColumnCheck && mysqli_num_rows($catNameColumnCheck) > 0) {
-        $hasCategoryNameColumn = true;
-    }
-    if ($hasCategoryNameColumn) {
-        $result = safe_query("
-            SELECT c.catID, c.modulname, COALESCE(cl.content, c.name, c.modulname) AS name
-            FROM navigation_dashboard_categories c
-            LEFT JOIN navigation_dashboard_lang cl
-              ON cl.content_key = CONCAT('nav_cat_', c.catID)
-             AND cl.language = '" . $currentLangEsc . "'
-            ORDER BY c.sort ASC
-        ");
-    } else {
-        $result = safe_query("
-            SELECT c.catID, c.modulname, COALESCE(cl.content, c.modulname) AS name
-            FROM navigation_dashboard_categories c
-            LEFT JOIN navigation_dashboard_lang cl
-              ON cl.content_key = CONCAT('nav_cat_', c.catID)
-             AND cl.language = '" . $currentLangEsc . "'
-            ORDER BY c.sort ASC
-        ");
-    }
+    $result = safe_query("SELECT catID, name, modulname FROM navigation_dashboard_categories ORDER BY sort ASC");
     if (!$result) {
         die($languageService->get('error_fetching_categories') . ": " . $_database->error);
     }
@@ -263,7 +178,9 @@ if (isset($_GET['roleID'])) {
                         <div class="accordion rightsAccordion" id="rightsAccordion">
                             <?php foreach ($categories as $cat): ?>
                                 <?php
-                                $catTitle = $getLocalizedText((string)($cat['name'] ?? ''));
+                                $translate = new multiLanguage($lang);
+                                $translate->detectLanguages($cat['name']);
+                                $catTitle = $translate->getTextByLanguage($cat['name']);
                                 $catKey   = $cat['modulname'];
                                 $catID    = (int)$cat['catID'];
                                 $catModules = $modulesByCategory[$catID] ?? [];
@@ -338,7 +255,8 @@ if (isset($_GET['roleID'])) {
                                             <?php if (!empty($catModules)): ?>
                                                 <div class="row g-2 module-grid" data-category="<?= $catID ?>">
                                                     <?php foreach ($catModules as $mod):
-                                                        $modTitle = $getLocalizedText((string)($mod['name'] ?? ''));
+                                                        $translate->detectLanguages($mod['name']);
+                                                        $modTitle = $translate->getTextByLanguage($mod['name']);
                                                         $modKey = $mod['modulname'];
                                                         $isChecked = in_array($modKey, $moduleRights, true);
                                                     ?>
@@ -645,16 +563,18 @@ elseif ($action === "user_role_details") {
     }
     $rolesText = implode(', ', $roleNamesEscaped);
 
+    if (!isset($lang)) $lang = 'de';
+    if (!class_exists('multiLanguage')) {
+        require_once BASE_PATH . '/system/core/classes/multiLanguage.php';
+    }
+    $translate = new multiLanguage($lang);
+
     $rolesHtml = '';
 
 // Durch jede Rolle iterieren
 foreach ($roles as $role) {
     $roleID   = (int)$role['roleID'];
     $roleName = htmlspecialchars($role['role_name']);
-    $currentLang = method_exists($languageService, 'detectLanguage')
-        ? (string)$languageService->detectLanguage()
-        : (string)($_SESSION['language'] ?? 'de');
-    $currentLangEsc = escape($currentLang);
 
     // Rechte dieser Rolle laden (Links + Kategorien)
     $catOrder     = [];
@@ -666,20 +586,14 @@ foreach ($roles as $role) {
     $linkRightsQuery = "
         SELECT
             l.catID,
-            COALESCE(c_lang.content, c.name, c.modulname) AS category_name,
-            COALESCE(l_lang.content, l.name, l.modulname) AS module_name,
+            c.name AS category_name,
+            l.name AS module_name,
             ar.modulname
         FROM user_role_admin_navi_rights ar
         JOIN navigation_dashboard_links l
             ON LOWER(CONVERT(ar.modulname USING utf8mb4)) COLLATE utf8mb4_general_ci = LOWER(l.modulname)
         LEFT JOIN navigation_dashboard_categories c
             ON l.catID = c.catID
-        LEFT JOIN navigation_dashboard_lang l_lang
-            ON l_lang.content_key = CONCAT('nav_link_', l.linkID)
-           AND l_lang.language = '" . $currentLangEsc . "'
-        LEFT JOIN navigation_dashboard_lang c_lang
-            ON c_lang.content_key = CONCAT('nav_cat_', c.catID)
-           AND c_lang.language = '" . $currentLangEsc . "'
         WHERE ar.roleID = $roleID AND ar.type = 'link'
         ORDER BY c.sort ASC, l.sort ASC
     ";
@@ -699,13 +613,10 @@ foreach ($roles as $role) {
 
     // Kategorienrechte (Kategorie freigeschaltet, ggf. ohne einzelne Module)
     $catRightsQuery = "
-        SELECT c.catID, COALESCE(c_lang.content, c.name, c.modulname) AS category_name, ar.modulname
+        SELECT c.catID, c.name AS category_name, ar.modulname
         FROM user_role_admin_navi_rights ar
         JOIN navigation_dashboard_categories c
             ON LOWER(CONVERT(ar.modulname USING utf8mb4)) COLLATE utf8mb4_general_ci = LOWER(c.modulname)
-        LEFT JOIN navigation_dashboard_lang c_lang
-            ON c_lang.content_key = CONCAT('nav_cat_', c.catID)
-           AND c_lang.language = '" . $currentLangEsc . "'
         WHERE ar.roleID = $roleID AND ar.type = 'category'
         ORDER BY c.sort ASC
     ";
@@ -722,7 +633,7 @@ foreach ($roles as $role) {
     }
 
     // Wenn keinerlei Rechte vorhanden sind, dennoch eine Info ausgeben
-    $hasAnyRights = (count(array_filter($catModules)) > 0) || !empty($catUnlocked);
+    $hasAnyRights = (count(array_filter($catModules)) > 0);
     $rolesHtml .= '
         <div class="card shadow-sm border-0 mb-4 mt-4">
             <div class="card-header">
@@ -748,7 +659,8 @@ foreach ($roles as $role) {
 
     foreach ($catOrder as $catID) {
         $rawTitle = $catTitlesRaw[$catID] ?? 'Allgemein';
-        $catTitle = htmlspecialchars($getLocalizedText((string)$rawTitle));
+        $translate->detectLanguages($rawTitle);
+        $catTitle = htmlspecialchars($translate->getTextByLanguage($rawTitle));
 
         $modules = $catModules[$catID] ?? [];
         $totalModules = count($modules);
@@ -793,7 +705,8 @@ foreach ($roles as $role) {
                 <div class="row g-2 module-grid" data-category="' . $catID . '">';
 
             foreach ($modules as $m) {
-                $displayName = htmlspecialchars($getLocalizedText((string)($m['module_name'] ?? '')));
+                $translate->detectLanguages($m['module_name']);
+                $displayName = htmlspecialchars($translate->getTextByLanguage($m['module_name']));
                 $modulname   = htmlspecialchars($m['modulname']);
 
                 $rolesHtml .= '
@@ -1144,42 +1057,42 @@ function nx_getForumPermissionsByRole(int $roleID): string
                         <label for="role_id" class="form-label mb-0 small text-muted">
                             <?= $languageService->get('role_name') ?>:
                         </label>
-                        <select
-                            name="role_id"
-                            id="role_id"
-                            class="form-select form-select-sm"
-                            required
-                        >
-                        <?php
-                        $roles_for_assign = safe_query("
-                            SELECT * FROM user_roles
-                            WHERE is_active = 1
-                            AND (
-                                '$currentMaxRole' = 'admin'
-                                OR (
-                                    '$currentMaxRole' = 'co-admin'
-                                    AND role_name NOT LIKE '%admin%'
-                                )
-                            )
-                            ORDER BY role_name
-                        ");
+<select
+    name="role_id"
+    id="role_id"
+    class="form-select form-select-sm"
+    required
+>
+<?php
+$roles_for_assign = safe_query("
+    SELECT * FROM user_roles
+    WHERE is_active = 1
+    AND (
+        '$currentMaxRole' = 'admin'
+        OR (
+            '$currentMaxRole' = 'co-admin'
+            AND role_name NOT LIKE '%admin%'
+        )
+    )
+    ORDER BY role_name
+");
 
-                        if ($roles_for_assign && mysqli_num_rows($roles_for_assign) > 0):
-                        ?>
-                            <option selected><?= $languageService->get('select_role') ?></option>
+if ($roles_for_assign && mysqli_num_rows($roles_for_assign) > 0):
+?>
+    <option selected><?= $languageService->get('select_role') ?></option>
 
-                            <?php while ($role = mysqli_fetch_assoc($roles_for_assign)) : ?>
-                                <option value="<?= $role['roleID'] ?>">
-                                    <?= htmlspecialchars($role['role_name']) ?>
-                                </option>
-                            <?php endwhile; ?>
+    <?php while ($role = mysqli_fetch_assoc($roles_for_assign)) : ?>
+        <option value="<?= $role['roleID'] ?>">
+            <?= htmlspecialchars($role['role_name']) ?>
+        </option>
+    <?php endwhile; ?>
 
-                        <?php else: ?>
-                            <option selected disabled>
-                                <?= $languageService->get('not_authorized_to_assign_roles') ?>
-                            </option>
-                        <?php endif; ?>
-                        </select>
+<?php else: ?>
+    <option selected disabled>
+        <?= $languageService->get('not_authorized_to_assign_roles') ?>
+    </option>
+<?php endif; ?>
+</select>
 
                     </div>
                 </div>
@@ -1473,8 +1386,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!function_exists('generate_csrf_token') || !function_exists('verify_csrf_token')) nx_redirect('admincenter.php?site=user_roles', 'danger', 'alert_csrf_functions_missing', false);
         if (!verify_csrf_token($_POST['csrf_token'] ?? '')) nx_redirect('admincenter.php?site=user_roles', 'danger', 'alert_invalid_csrf', false);
 
-        $username = trim((string)($_POST['username'] ?? ''));
-        $email = strtolower(trim((string)($_POST['email'] ?? '')));
+        $username = mysqli_real_escape_string($_database, (string)($_POST['username'] ?? ''));
+        $email = mysqli_real_escape_string($_database, (string)($_POST['email'] ?? ''));
         $new_password_plain = trim((string)($_POST['password'] ?? ''));
         $reset_password = isset($_POST['reset_password']) && (string)$_POST['reset_password'] === '1';
 
@@ -1493,7 +1406,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $new_pepper = LoginSecurity::generateRandomPepper();
             $pepper_encrypted = LoginSecurity::encryptPepper($new_pepper);
-            $password_hash = LoginSecurity::createPasswordHash($new_password_plain, $email, $new_pepper);
+            $password_hash = password_hash($new_password_plain . $new_pepper, PASSWORD_DEFAULT);
 
             $stmt = $_database->prepare("UPDATE users SET username = ?, password_hash = ?, password_pepper = ? WHERE userID = ?");
             if ($stmt === false) nx_redirect('admincenter.php?site=user_roles', 'danger', 'SQL error: ' . (string)$_database->error, true, true);
@@ -1618,12 +1531,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $username = trim((string)($_POST['username'] ?? ''));
     $emailRaw = trim((string)($_POST['email'] ?? ''));
-    //$email = strtolower(filter_var($emailRaw, FILTER_SANITIZE_EMAIL));
-    $email = \nexpell\LoginSecurity::normalizeEmail($emailRaw);
+    $email = filter_var($emailRaw, FILTER_SANITIZE_EMAIL);
     $password = (string)($_POST['password'] ?? '');
 
     // Validierung
-    if ($username === '') nx_redirect('admincenter.php?site=user_roles', 'warning', 'alert_information_incomplete', false);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) nx_redirect('admincenter.php?site=user_roles', 'warning', 'alert_invalid_email', false);
     if (mb_strlen($password) < 8) nx_redirect('admincenter.php?site=user_roles', 'warning', 'alert_password_too_short', false);
     // Prüfen ob Email bereits vorhanden ist
@@ -1640,39 +1551,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 
     // Benutzer einfügen (registerdate als DATETIME)
-    $roleID = 12;
-    $pepper_plain = LoginSecurity::generatePepper();
-    $pepper_encrypted = LoginSecurity::encryptPepper($pepper_plain);
-    if ($pepper_encrypted === null) nx_redirect('admincenter.php?site=user_roles', 'danger', 'alert_save_failed', false);
-    //$password_hash = LoginSecurity::createPasswordHash($password, $email, $pepper_plain);
-
-    // Email nochmal exakt so holen wie gespeichert
-    $normalizedEmail = strtolower(trim($email));
-
-    $password_hash = LoginSecurity::createPasswordHash($password, $normalizedEmail, $pepper_plain);
-
-    $query = "INSERT INTO users (username, email, registerdate, role, is_active, password_hash, password_pepper) VALUES (?, ?, NOW(), ?, 1, ?, ?)";
+    $query = "INSERT INTO users (username, email, registerdate) VALUES (?, ?, NOW())";
     if ($stmt = $_database->prepare($query)) {
-    $stmt->bind_param('ssiss', $username, $email, $roleID, $password_hash, $pepper_encrypted);
+    $stmt->bind_param('ss', $username, $email);
     $stmt->execute();
     $userID = $_database->insert_id;
 
     if ($userID > 0) {
-        $stmtUsername = $_database->prepare("INSERT INTO user_username (userID, username) VALUES (?, ?)");
-        if ($stmtUsername) {
-            $stmtUsername->bind_param('is', $userID, $username);
-            $stmtUsername->execute();
-            $stmtUsername->close();
-        }
+
+        $roleID = 12;
 
         $queryRole = "INSERT INTO user_role_assignments (userID, roleID) VALUES (?, ?)";
             if ($stmtRole = $_database->prepare($queryRole)) {
                 $stmtRole->bind_param('ii', $userID, $roleID);
                 $stmtRole->execute();
-                $stmtRole->close();
             }
-            nx_audit_update('user_roles', (string)$userID, true, null, 'admincenter.php?site=user_roles');
-            nx_redirect('admincenter.php?site=user_roles', 'success', 'alert_saved', false);
+
+            $pepper_plain     = LoginSecurity::generatePepper();
+            $pepper_encrypted = LoginSecurity::encryptPepper($pepper_plain);
+            $password_hash    = LoginSecurity::createPasswordHash($password, $email, $pepper_plain);
+
+            $query = "UPDATE users SET password_hash = ?, password_pepper = ?, is_active = 1 WHERE userID = ?";
+            if ($stmt = $_database->prepare($query)) {
+                $stmt->bind_param('ssi', $password_hash, $pepper_encrypted, $userID);
+                $stmt->execute();
+                nx_audit_update('user_roles', (string)$userID, true, null, 'admincenter.php?site=user_roles');
+                nx_redirect('admincenter.php?site=user_roles', 'success', 'alert_saved', false);
+            } else {
+                nx_redirect('admincenter.php?site=user_roles', 'danger', 'alert_db_error', false);
+            }
         } else {
             nx_redirect('admincenter.php?site=user_roles', 'danger', 'alert_save_failed', false);
         }
@@ -1793,8 +1700,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['activate_user'])) {
 
     nx_redirect('admincenter.php?site=user_roles', 'danger', 'alert_save_failed', false);
 }
+
+if (isset($_GET['clear_remember_device'])) {
+    $clearRememberUid = (int)($_GET['clear_remember_device'] ?? 0);
+    $twofaCheckRes = safe_query("SELECT twofa_force_all FROM settings LIMIT 1");
+    $twofaCheckOn = false;
+    if ($twofaCheckRes && ($twofaCheckRow = mysqli_fetch_assoc($twofaCheckRes))) {
+        $twofaCheckOn = (int)($twofaCheckRow['twofa_force_all'] ?? 0) === 1;
+    }
+    $backUrl = 'admincenter.php?site=user_roles' . ($page > 1 ? '&page=' . $page : '');
+    if ($clearRememberUid > 0 && $twofaCheckOn) {
+        safe_query("UPDATE users SET remember_device_salt = NULL WHERE userID = {$clearRememberUid}");
+        nx_audit_update('user_roles', (string)$clearRememberUid, true, null, $backUrl, ['remember_device_salt' => 'cleared']);
+        nx_redirect($backUrl, 'success', 'alert_remember_device_cleared', false);
+    }
+    nx_redirect($backUrl, 'danger', 'alert_save_failed', false);
+}
+
 // Abfrage der Benutzer für die aktuelle Seite
 $users = safe_query("SELECT * FROM users ORDER BY userID LIMIT $offset, $users_per_page");
+
+$settingsTwofaForceAll = false;
+$twofaSettingsRes = safe_query("SELECT twofa_force_all FROM settings LIMIT 1");
+if ($twofaSettingsRes && ($twofaSettingsRow = mysqli_fetch_assoc($twofaSettingsRes))) {
+    $settingsTwofaForceAll = (int)($twofaSettingsRow['twofa_force_all'] ?? 0) === 1;
+}
 ?>
 <div class="mb-4 mt-4">
     <div class="d-flex gap-2 flex-wrap">
@@ -1839,6 +1769,11 @@ $users = safe_query("SELECT * FROM users ORDER BY userID LIMIT $offset, $users_p
                         <th class="d-none d-md-table-cell"><?= $languageService->get('email') ?></th>
                         <th class="d-none d-lg-table-cell"><?= $languageService->get('registered_on') ?></th>
                         <th style="width: 250px;"><?= $languageService->get('status') ?? $languageService->get('activated') ?></th>
+                        <?php if ($settingsTwofaForceAll): ?>
+                        <th style="width: 180px;" title="<?= htmlspecialchars($languageService->get('remember_device_trust_column_title')) ?>">
+                            <?= htmlspecialchars($languageService->get('remember_device_trust_column')) ?>
+                        </th>
+                        <?php endif; ?>
                         <th style="width: 525px;"><?= $languageService->get('actions') ?></th>
                     </tr>
                 </thead>
@@ -1875,6 +1810,40 @@ $users = safe_query("SELECT * FROM users ORDER BY userID LIMIT $offset, $users_p
                                     </span>
                                 </div>
                             </td>
+
+                            <?php if ($settingsTwofaForceAll): ?>
+                            <td>
+                                <?php
+                                $rdSalt = $user['remember_device_salt'] ?? '';
+                                $rdHas = ($rdSalt !== '' && $rdSalt !== null);
+                                $clearRememberUrl = 'admincenter.php?site=user_roles&clear_remember_device=' . (int)$user['userID'];
+                                if ($page > 1) {
+                                    $clearRememberUrl .= '&page=' . $page;
+                                }
+                                ?>
+                                <span class="d-inline-flex align-items-center flex-wrap gap-1">
+                                    <span class="badge <?= $rdHas ? 'bg-info' : 'bg-secondary' ?>"
+                                          title="<?= htmlspecialchars($languageService->get('remember_device_trust_column_title')) ?>">
+                                        <?= htmlspecialchars($rdHas
+                                            ? $languageService->get('active')
+                                            : $languageService->get('inactive')
+                                        ) ?>
+                                    </span>
+                                    <?php if ($rdHas) : ?>
+                                        <a href="#"
+                                           class="text-danger ms-1"
+                                           role="button"
+                                           title="<?= htmlspecialchars($languageService->get('remember_device_clear_title')) ?>"
+                                           aria-label="<?= htmlspecialchars($languageService->get('remember_device_clear_title')) ?>"
+                                           data-bs-toggle="modal"
+                                           data-bs-target="#confirmDeleteModal"
+                                           data-delete-url="<?= htmlspecialchars($clearRememberUrl, ENT_QUOTES, 'UTF-8') ?>">
+                                            <i class="bi bi-x-circle" aria-hidden="true"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                </span>
+                            </td>
+                            <?php endif; ?>
 
                             <td>
                                 <div class="d-flex flex-wrap gap-1">
@@ -1948,6 +1917,7 @@ $users = safe_query("SELECT * FROM users ORDER BY userID LIMIT $offset, $users_p
                 </tbody>
             </table>
         </div>
+    <?php if ($total_pages > 1): ?>
     <!-- Pagination -->
 <nav aria-label="Seiten-Navigation">
   <ul class="pagination justify-content-center">
@@ -1997,6 +1967,7 @@ $users = safe_query("SELECT * FROM users ORDER BY userID LIMIT $offset, $users_p
 
   </ul>
 </nav>
+    <?php endif; ?>
 </div>
 
 </div></div>

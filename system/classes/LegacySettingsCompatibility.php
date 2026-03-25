@@ -7,9 +7,7 @@ class LegacySettingsCompatibility
     public static function ensureSchema(\mysqli $database): void
     {
         $legacySettingsColumns = [
-            'use_seo_urls' => "ALTER TABLE `settings` ADD COLUMN `use_seo_urls` TINYINT(1) NOT NULL DEFAULT 1",
-            'update_channel' => "ALTER TABLE `settings` ADD COLUMN `update_channel` VARCHAR(32) NOT NULL DEFAULT 'stable'",
-            'keywords' => "ALTER TABLE `settings` ADD COLUMN `keywords` TEXT NULL",
+            'update_channel' => "ALTER TABLE `settings` ADD COLUMN `update_channel` VARCHAR(32) NOT NULL DEFAULT 'stable'"
         ];
 
         foreach ($legacySettingsColumns as $legacyColumn => $alterSql) {
@@ -36,9 +34,7 @@ class LegacySettingsCompatibility
 
         $selectList = $match[1];
         $legacySettingsMap = [
-            'update_channel' => "'stable' AS `update_channel`",
-            'use_seo_urls' => "1 AS `use_seo_urls`",
-            'keywords' => "'' AS `keywords`",
+            'update_channel' => "'stable' AS `update_channel`"
         ];
 
         foreach ($legacySettingsMap as $legacyColumn => $replacement) {

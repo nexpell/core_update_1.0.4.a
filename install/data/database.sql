@@ -277,9 +277,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `seckey` VARCHAR(255) NOT NULL DEFAULT 'PLACEHOLDER_SECKEY',
   `closed` TINYINT(1) NOT NULL DEFAULT 0,
   `default_language` VARCHAR(5) NOT NULL DEFAULT 'de',
-  `keywords` TEXT NOT NULL,
-  `startpage` VARCHAR(255) NOT NULL,
-  `use_seo_urls` tinyint(1) DEFAULT 0
+  `startpage` VARCHAR(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 

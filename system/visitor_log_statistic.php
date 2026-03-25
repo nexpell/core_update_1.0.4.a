@@ -434,16 +434,17 @@ function track_daily_ip() {
  */
 function update_daily_counter() {
     global $_database, $_SESSION;
-    $ip = getVisitorClientIp();
-    $user_id = $_SESSION['userID'] ?? null;
+    $client_ip = getVisitorClientIp();
+    $user_id = $_SESSION['userID'] ?? $_SESSION['user_id'] ?? 0;
     $time = time();
     $date = date('Y-m-d');
     $ten_minutes_ago = date('Y-m-d H:i:s', $time - VISITOR_ONLINE_WINDOW_SECONDS);
-    $ip_hash = hash('sha256', $ip);
+    $tracking_ip = anonymize_ip($client_ip);
+    $ip_hash = hash('sha256', $tracking_ip . '_' . (int)$user_id);
 
     if (isBot($_SERVER['HTTP_USER_AGENT'] ?? '')) return;
 
-    if ($user_id) {
+    if (!empty($user_id)) {
         $stmt_check_hit = $_database->prepare("SELECT id FROM visitor_daily_counter_hits WHERE date = ? AND user_id = ?");
         $stmt_check_hit->bind_param('si', $date, $user_id);
     } else {
@@ -472,7 +473,7 @@ function update_daily_counter() {
         $update_today->bind_param('siiii', $date, $online_count, $online_count, $online_count, $online_count);
         $update_today->execute();
 
-        if ($user_id) {
+        if (!empty($user_id)) {
             $stmt_insert_hit = $_database->prepare("INSERT INTO visitor_daily_counter_hits (date, user_id) VALUES (?, ?)");
             $stmt_insert_hit->bind_param('si', $date, $user_id);
         } else {
@@ -585,9 +586,9 @@ function log_visitor_statistics() {
 if (shouldTrackVisitorRequest()) {
     live_visitor_track();
     track_daily_ip();
+    log_visitor_statistics();
     update_daily_counter();
     archive_yesterday_stats();
     clean_old_statistics();
-    log_visitor_statistics();
 }
 ?>

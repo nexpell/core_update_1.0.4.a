@@ -2,6 +2,8 @@
 
 namespace nexpell;
 
+use nexpell\Email;
+
 class LoginSecurity 
 {
 
@@ -37,9 +39,9 @@ class LoginSecurity
         return openssl_decrypt($ciphertext, 'aes-256-cbc', $key, 0, $iv);
     }
 
-    /*public static function createPasswordHash(string $password_hash, string $email, string $pepper): string {
+    public static function createPasswordHash(string $password_hash, string $email, string $pepper): string {
         return password_hash($password_hash . $email . $pepper, PASSWORD_DEFAULT);
-    }*/
+    }
 
     public static function verifyPassword(string $password_hash, string $email, string $pepper, string $hash): bool {
         return password_verify($password_hash . $email . $pepper, $hash);
@@ -57,51 +59,10 @@ class LoginSecurity
 
         return $password_hash;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public static function normalizeEmail(string $email): string
-{
-    return strtolower(trim($email));
-}
-
-
-
-
-public static function createPasswordHash(string $password, string $email, string $pepper): string
-{
-    $email = self::normalizeEmail($email);
-    return password_hash($password . $email . $pepper, PASSWORD_DEFAULT);
-}
-
-
-
-public static function verifyPassword(string $password, string $email, string $pepper, string $hash): bool
-{
-    $email = self::normalizeEmail($email);
-    return password_verify($password . $email . $pepper, $hash);
-}
-
-
-
-
     
 
     public static function verifyLogin($email, $password_hash, $ip, $is_active , $banned): array
 {
-    //$email = trim((string)$email);
-    $email = self::normalizeEmail((string)$email);
     // Zuerst prüfen, ob IP gesperrt ist
     $isIpBanned = self::isIpBanned($ip); // IP-Überprüfung
     if ($isIpBanned) {
@@ -148,15 +109,7 @@ public static function verifyPassword(string $password, string $email, string $p
         }
 
         // Passwort prüfen
-        //$storedEmail = (string)($user['email'] ?? $email);
-        //$storedEmail = strtolower(trim((string)($user['email'] ?? $email)));
-        //$storedEmail = strtolower(trim((string)$user['email']));
-        //if (password_verify($password_hash . $storedEmail . $pepper_plain, $user['password_hash'])) {
-        //if (self::verifyPassword($password_hash, $storedEmail, $pepper_plain, $user['password_hash'])) {
-
-        $storedEmail = self::normalizeEmail((string)$user['email']);
-
-        if (self::verifyPassword($password_hash, $storedEmail, $pepper_plain, $user['password_hash'])) {   
+        if (password_verify($password_hash . $email . $pepper_plain, $user['password_hash'])) {
             // ✅ PATCH: userID mit zurückgeben
             return [
                 'success'   => true,
@@ -487,5 +440,408 @@ public static function verifyPassword(string $password, string $email, string $p
         }
         return $_SESSION['csrf_token'];
     }
+
+    // ==== BEGIN: 2FA + Remember + Mailer (alles in LoginSecurity) ====
+
+/** 2FA-Konfig */
+private const TWOFA_CODE_LEN    = 6;
+public const TWOFA_TTL_MIN      = 10;
+private const TWOFA_RESEND_COOL = 30; // Sekunden
+private const TWOFA_MAX_FAILS   = 5;
+private const TWOFA_LOCK_MIN    = 15;
+
+/** Remember-Device-Konfig */
+public const RDV_COOKIE = 'rdv';
+private const RDV_SAMESITE = 'Lax';
+
+public static function cookieName(): string {
+    return self::RDV_COOKIE;
+}
+
+/** PHPMailer einbinden + konfigurieren */
+private static function makeMailer(): \PHPMailer\PHPMailer\PHPMailer
+{
+    // Klassen laden (v6-Struktur)
+    if (!class_exists(\PHPMailer\PHPMailer\PHPMailer::class)) {
+        require_once __DIR__ . '/../../components/PHPMailer/src/PHPMailer.php';
+        require_once __DIR__ . '/../../components/PHPMailer/src/SMTP.php';
+        require_once __DIR__ . '/../../components/PHPMailer/src/Exception.php';
+    }
+
+    $m = new \PHPMailer\PHPMailer\PHPMailer(true);
+
+    // === DEV-DEBUG: ausführliches SMTP-Log ins PHP-Errorlog ===
+    if (getenv('SMTP_DEBUG') === '1') {
+        $m->SMTPDebug  = 2;
+        $m->Debugoutput = static function($s){ error_log('[SMTP] '.$s); };
+    }
+
+    // === ENV zwingend prüfen (klare Fehlermeldung statt Silent-Fail) ===
+    $env = static function(string $k, bool $required = true, $default = null) {
+        $v = getenv($k);
+        if ($v === false || $v === '') {
+            if ($required) {
+                throw new \RuntimeException("Env '$k' fehlt/leer");
+            }
+            return $default;
+        }
+        return $v;
+    };
+
+    $host = (string)$env('SMTP_HOST');
+    $port = (int)($env('SMTP_PORT', false, 587));
+    $user = (string)$env('SMTP_USER');
+    $pass = (string)$env('SMTP_PASS');
+    $from = (string)$env('SMTP_FROM_EMAIL', false, $user);
+    $name = (string)$env('SMTP_FROM_NAME', false, 'nexpell');
+
+    $m->isSMTP();
+    $m->Host       = $host;
+    $m->Port       = $port;
+    $m->SMTPAuth   = true;
+    $m->Username   = $user;
+    $m->Password   = $pass;
+    $m->CharSet    = 'UTF-8';
+
+    // === Encryption passend zum Port wählen ===
+    if ($port === 465) {
+        $m->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS; // Implicit TLS
+    } else {
+        $m->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS; // STARTTLS (z.B. 587)
+    }
+
+    // DEV (Self-Signed) – nur lokal verwenden!
+    if (getenv('SMTP_ALLOW_SELF_SIGNED') === '1') {
+        $m->SMTPOptions = ['ssl' => [
+            'verify_peer'       => false,
+            'verify_peer_name'  => false,
+            'allow_self_signed' => true,
+        ]];
+    }
+
+    // Viele Provider verlangen: From == Auth-User
+    if (!$from) {
+        throw new \RuntimeException("Absenderadresse leer. Setze SMTP_FROM_EMAIL oder SMTP_USER.");
+    }
+    $m->setFrom($from, $name);
+
+    return $m;
+}
+
+/** App-Secret (für Remember-HMAC) */
+private static function appSecret(): string {
+    // 1) Umgebung – klappt in CLI/Worker, wenn korrekt gesetzt
+    $s = getenv('APP_SECRET');
+    if (!$s) {
+        // 2) Webserver-Varianten (php-fpm clears env häufig)
+        $s = $_SERVER['APP_SECRET'] ?? ($_ENV['APP_SECRET'] ?? '');
+    }
+    if (!$s && defined('APP_SECRET_CONST')) {
+        // 3) Fester Fallback aus Config (falls du das nutzt)
+        $s = APP_SECRET_CONST;
+    }
+    if (!$s) {
+        // 4) Letzter Fallback: stabiler, projektspezifischer Fixwert
+        // (besser ist natürlich: APP_SECRET in Server-Config fix setzen!)
+        $s = hash('sha256', __DIR__ . '|' . (php_ini_loaded_file() ?: 'no-ini'));
+    }
+    return $s;
+}
+
+// Zentral: HTTPS/Proxy-sichere Erkennung
+private static function isHttps(): bool {
+    return (
+        (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https')
+        || (($_SERVER['HTTP_X_FORWARDED_SSL'] ?? '') === 'on')
+    );
+}
+
+/**
+ * Normalisiert den Salt:
+ * - Wenn Hex im DB-Feld: in Raw-Bytes umwandeln
+ * - Wenn Raw im DB-Feld: künftig als Hex persistieren
+ * - Wenn leer: neu generieren und als Hex persistieren
+ * Gibt IMMER Raw-Bytes zurück.
+ */
+private static function normalizeSalt(\mysqli $db, int $userId, ?string $stored): string {
+    $stored = (string)($stored ?? '');
+    if ($stored !== '' && ctype_xdigit($stored) && (strlen($stored) % 2 === 0)) {
+        $raw = hex2bin($stored);
+        if ($raw !== false && $raw !== '') return $raw;
+    }
+    if ($stored !== '') {
+        // Legacy/raw -> künftig Hex speichern
+        $raw = $stored;
+    } else {
+        // neu erzeugen
+        $raw = random_bytes(32);
+    }
+    $hex = bin2hex($raw);
+    $up  = $db->prepare("UPDATE users SET remember_device_salt=? WHERE userID=?");
+    $up->bind_param("si", $hex, $userId);
+    $up->execute();
+    $up->close();
+    return $raw;
+}
+
+/** ===== E-Mail 2FA ===== */
+
+private static function gen2faCode(int $len = self::TWOFA_CODE_LEN): string {
+    $n = random_int(0, (10 ** $len) - 1);
+    return str_pad((string)$n, $len, '0', STR_PAD_LEFT);
+}
+
+public static function startEmail2faForUser(\mysqli $db, int $userId, string $email, ?string $subjectOverride = null, ?string $htmlOverride = null): void
+{
+    // Resend-Cooldown prüfen
+    $stmt = $db->prepare("SELECT twofa_email_last_sent_at FROM users WHERE userID=?");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $row = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
+
+    if (!empty($row['twofa_email_last_sent_at'])) {
+        $last = new \DateTimeImmutable($row['twofa_email_last_sent_at']);
+        if ((time() - $last->getTimestamp()) < self::TWOFA_RESEND_COOL) {
+            throw new \RuntimeException('Bitte warte kurz, bevor du einen neuen Code anforderst.');
+        }
+    }
+
+    // Code generieren und speichern
+    $code   = self::gen2faCode();
+    $hash   = password_hash($code, PASSWORD_DEFAULT);
+    $expiry = (new \DateTimeImmutable('now +' . self::TWOFA_TTL_MIN . ' minutes'))->format('Y-m-d H:i:s');
+
+    $stmt = $db->prepare("
+        UPDATE users SET
+          twofa_email_code_hash = ?,
+          twofa_email_code_expires_at = ?,
+          twofa_email_last_sent_at = NOW()
+        WHERE userID = ?
+    ");
+    $stmt->bind_param("ssi", $hash, $expiry, $userId);
+    $stmt->execute();
+    $stmt->close();
+
+    // Einstellungen (nur was wir brauchen)
+    $hp_title = 'nexpell';
+    $admin_email = 'info@' . ($_SERVER['HTTP_HOST'] ?? 'example.com');
+    if ($res = $db->query("SELECT hptitle, adminemail FROM `settings` LIMIT 1")) {
+        if ($s = $res->fetch_assoc()) {
+            $hp_title    = $s['hptitle']    ?: $hp_title;
+            $admin_email = $s['adminemail'] ?: $admin_email;
+        }
+        $res->free();
+    }
+
+    // --- Mailinhalt: ausschließlich Overrides nutzen ---
+    if ($subjectOverride === null || $htmlOverride === null) {
+    $subject = 'Your login code';
+    $html    = '<p>Code: <strong>' . htmlspecialchars($code, ENT_QUOTES, 'UTF-8') . '</strong></p>';
+    } else {
+        $subject    = $subjectOverride;
+        $codePretty = htmlspecialchars(chunk_split($code, 3, ' '), ENT_QUOTES, 'UTF-8');
+        $html       = str_replace('{CODE}', $codePretty, $htmlOverride);
+    }
+
+    // --- Versand ---
+    $ok = false;
+    try {
+        $sendResult = Email::sendEmail($admin_email, $hp_title, $email, $subject, $html);
+
+        if (is_bool($sendResult)) {
+            $ok = $sendResult;
+        } elseif (is_array($sendResult)) {
+            $status = $sendResult['result'] ?? ($sendResult['status'] ?? null);
+            $ok = ($status === 'success' || $status === 'ok' || $status === true);
+        }
+
+        error_log('[2FA] sendEmail() return: ' . var_export($sendResult, true));
+    } catch (\Throwable $e) {
+        error_log('[2FA] sendEmail() Exception: ' . $e->getMessage());
+        $ok = false;
+    }
+
+    if (!$ok) {
+        error_log('[2FA] WARN: Mailversand unbestätigt / fehlgeschlagen (aber Flow geht weiter).');
+    }
+}
+
+public static function verifyEmail2fa(\mysqli $db, int $userId, string $inputCode): bool {
+    $stmt = $db->prepare("
+        SELECT twofa_email_code_hash, twofa_email_code_expires_at,
+               twofa_failed_attempts, twofa_locked_until
+        FROM users WHERE userID=?
+    ");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $u = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
+    if (!$u) return false;
+
+    // Lock prüfen
+    if (!empty($u['twofa_locked_until']) &&
+        new \DateTimeImmutable($u['twofa_locked_until']) > new \DateTimeImmutable('now')) {
+        return false;
+    }
+
+    // Ablauf prüfen
+    if (empty($u['twofa_email_code_expires_at']) ||
+        new \DateTimeImmutable($u['twofa_email_code_expires_at']) < new \DateTimeImmutable('now')) {
+        return false;
+    }
+
+    $clean = preg_replace('/\s+/', '', $inputCode ?? '');
+    $ok = !empty($u['twofa_email_code_hash']) && password_verify($clean, $u['twofa_email_code_hash']);
+
+    if ($ok) {
+        $stmt = $db->prepare("
+            UPDATE users SET
+              twofa_email_code_hash=NULL,
+              twofa_email_code_expires_at=NULL,
+              twofa_failed_attempts=0,
+              twofa_locked_until=NULL
+            WHERE userID=?
+        ");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
+    // Fehlversuch zählen / sperren
+    $fails = (int)$u['twofa_failed_attempts'] + 1;
+    $lock  = null;
+    if ($fails >= self::TWOFA_MAX_FAILS) {
+        $lockAt = (new \DateTimeImmutable('now +' . self::TWOFA_LOCK_MIN . ' minutes'))->format('Y-m-d H:i:s');
+        $lock   = $lockAt;
+        $fails  = 0;
+    }
+    $stmt = $db->prepare("UPDATE users SET twofa_failed_attempts=?, twofa_locked_until=? WHERE userID=?");
+    $stmt->bind_param("isi", $fails, $lock, $userId);
+    $stmt->execute();
+    $stmt->close();
+
+    return false;
+}
+
+/** ===== Remember this device ===== */
+
+public static function issueRememberDeviceCookie(\mysqli $db, int $userId, string $ttl = '+30 days'): void {
+    // Salt laden & normalisieren (Raw-Bytes garantiert)
+    $stmt = $db->prepare("SELECT remember_device_salt FROM users WHERE userID=?");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $row = $res ? $res->fetch_assoc() : null;
+    $stmt->close();
+
+    $rawSalt = self::normalizeSalt($db, $userId, $row['remember_device_salt'] ?? null);
+
+    // Ablaufzeitpunkt (Integer-Timestamp)
+    $expObj = new \DateTimeImmutable($ttl);
+    $exp    = (int)$expObj->format('U');
+
+    // Payload & Signatur
+    $payload = json_encode(['uid' => $userId, 'exp' => $exp], JSON_UNESCAPED_SLASHES);
+    $sig     = hash_hmac('sha256', $payload, self::appSecret() . $rawSalt, true);
+
+    // Cookie-Wert: base64(payload) + '.' + base64(sig)
+    $cookie = base64_encode($payload) . '.' . base64_encode($sig);
+
+    // Secure-Flag sauber erkennen (HTTPS/Proxy)
+    $secure = self::isHttps();
+
+    // WICHTIG: vor Output!
+    setcookie(self::RDV_COOKIE, $cookie, [
+        'expires'  => $exp,
+        'path'     => '/',
+        'secure'   => $secure,
+        'httponly' => true,
+        'samesite' => self::RDV_SAMESITE,
+    ]);
+}
+
+public static function checkRememberDeviceCookie(?string $salt, int $userId): bool {
+    // Cookie & Salt vorhanden?
+    if (empty($_COOKIE[self::RDV_COOKIE]) || $salt === null) return false;
+    $salt = trim((string)$salt);
+    if ($salt === '') return false;
+
+    // Salt vorbereiten (HEX → raw), sonst raw übernehmen
+    $rawSalt = (ctype_xdigit($salt) && (strlen($salt) % 2 === 0)) ? hex2bin($salt) : $salt;
+    if ($rawSalt === false || $rawSalt === '') return false;
+
+    // Cookie-Teile holen
+    $parts = explode('.', $_COOKIE[self::RDV_COOKIE], 2);
+    if (count($parts) !== 2) return false;
+    [$b64payload, $b64sig] = $parts;
+
+    // Base64 strikt decodieren
+    $payload = base64_decode($b64payload, true);
+    $sig     = base64_decode($b64sig, true);
+    if ($payload === false || $sig === false) return false;
+
+    // Signatur prüfen (Timing-sicher)
+    $calc = hash_hmac('sha256', $payload, self::appSecret() . $rawSalt, true);
+    if (!hash_equals($calc, $sig)) return false;
+
+    // Payload prüfen
+    $data = json_decode($payload, true);
+    if (!is_array($data)) return false;
+
+    // userId & Ablauf prüfen
+    if ((int)($data['uid'] ?? 0) !== (int)$userId) return false;
+    $exp = (int)($data['exp'] ?? 0);
+    if ($exp <= 0 || time() >= $exp) return false;
+
+    return true;
+}
+
+// Auto-Cleanup von abgelaufenen Remember-Einträgen
+public static function pruneRememberDeviceIfExpired(?string $cookieValue): void
+{
+    if (empty($cookieValue)) return;
+
+    // Cookie zerlegen
+    $parts = explode('.', $cookieValue, 2);
+    if (count($parts) !== 2) return;
+
+    $payload = base64_decode($parts[0], true);
+    if ($payload === false) return;
+
+    $data = json_decode($payload, true);
+    if (!is_array($data)) return;
+
+    $exp = (int)($data['exp'] ?? 0);
+    if ($exp > 0 && time() >= $exp) {
+        // Abgelaufen → sofort clientseitig entfernen
+        $secure = (
+            (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+            || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https')
+            || (($_SERVER['HTTP_X_FORWARDED_SSL'] ?? '') === 'on')
+        );
+
+        setcookie(self::RDV_COOKIE, '', [
+            'expires'  => time() - 3600,
+            'path'     => '/',
+            'secure'   => $secure,
+            'httponly' => true,
+            'samesite' => self::RDV_SAMESITE,
+        ]);
+    }
+}
+
+public static function rotateRememberSalt(\mysqli $db, int $userId): void {
+    // neuen RAW-Salt erzeugen und als HEX speichern
+    $hexSalt = bin2hex(random_bytes(32));
+    $stmt = $db->prepare("UPDATE users SET remember_device_salt=? WHERE userID=?");
+    $stmt->bind_param("si", $hexSalt, $userId);
+    $stmt->execute();
+    $stmt->close();
+}
+
+// ==== END: 2FA + Remember + Mailer ====
 
 }

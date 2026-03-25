@@ -18,12 +18,11 @@ VALUES (1, 'Administrator', '{adminmail}', 1);
 
 INSERT INTO `settings` (
   `settingID`, `hptitle`, `hpurl`, `clanname`, `clantag`, `adminname`, `adminemail`, `since`,
-  `webkey`, `seckey`, `closed`, `default_language`, `keywords`, `startpage`, `use_seo_urls`
+  `webkey`, `seckey`, `closed`, `default_language`, `startpage`
   ) VALUES (
   1, 'nexpell', '{adminweburl}', 'Mein Clan / Verein', '[RM]', '{adminuser}', '{adminmail}', 2025,
   'PLACEHOLDER_WEBKEY', 'PLACEHOLDER_SECKEY', 0, 'de', 
-  'nexpell, CMS, Community-Management, Esport CMS, Webdesign, Clan-Design, Templates, Plugins, Addons, Mods, Anpassungen, Modifikationen, Tutorials, Downloads, Plugin-Entwicklung, Design-Anpassungen, Website-Builder, Digitales Projektmanagement',
-  'startpage', 0
+  'startpage'
 );
 
 INSERT IGNORE INTO `user_username` (`userID`, `username`) 
