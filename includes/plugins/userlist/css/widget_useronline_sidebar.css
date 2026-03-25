@@ -1,0 +1,51 @@
+.avatar_small {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--bs-border-radius);
+    object-fit: cover;
+}
+
+.nx-userlist-card,
+.nx-userlist-card > .card-body,
+.nx-userlist-card .list-group,
+.nx-userlist-card .nx-userlist-item,
+.nx-userlist-card .nx-userlist-item > *,
+.nx-userlist-card .nx-userlist-item small {
+    background: var(--nx-theme-surface-2, var(--bs-body-bg)) !important;
+    color: var(--nx-theme-text, inherit) !important;
+    border-color: var(--nx-theme-card-border, var(--bs-border-color)) !important;
+}
+
+.nx-userlist-card > .card-body {
+    padding: .5rem !important;
+}
+
+.nx-userlist-card .list-group {
+    margin: 0 !important;
+}
+
+.nx-userlist-card .nx-userlist-item {
+    --bs-list-group-bg: var(--nx-theme-surface-2, var(--bs-body-bg));
+    --bs-list-group-color: var(--nx-theme-text, inherit);
+    --bs-list-group-border-color: var(--nx-theme-card-border, var(--bs-border-color));
+    background-color: var(--nx-theme-surface-2, var(--bs-body-bg)) !important;
+    box-shadow: none !important;
+    padding: .6rem !important;
+    gap: .4rem;
+    align-items: center !important;
+}
+
+.nx-userlist-card .nx-userlist-item .flex-grow-1 {
+    min-width: 0;
+}
+
+.nx-userlist-card .nx-userlist-item .flex-grow-1 a {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nx-userlist-card .nx-userlist-item small {
+    margin-top: .35rem !important;
+}

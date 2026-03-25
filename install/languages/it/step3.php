@@ -1,0 +1,23 @@
+<?php
+return [
+    'step_title' => 'Passaggio 3: Controllo del sistema e connessione al database',
+    'section_system_check' => 'Controllo del sistema',
+    'section_db_setup' => 'Configura la connessione al database',
+    'field_host' => 'Host:',
+    'field_username' => 'Nome utente:',
+    'field_password' => 'Password:',
+    'field_dbname' => 'Nome del database:',
+    'button_continue' => 'Continua al passaggio 4',
+    'msg_fix_errors' => '❌ Si prega di risolvere i problemi sopra indicati per continuare.',
+    'msg_error_db_connect' => '❌ Errore di connessione al database: ',
+    'msg_error_config_write' => '❌ Errore durante la creazione del file config.inc.php.',
+    'msg_success_config_create' => '✅ config.inc.php è stato creato con successo!',
+    'msg_php_version_ok' => '✅ La versione di PHP è corretta! (Attuale: ',
+    'msg_php_version_low' => '❌ La versione di PHP è troppo bassa! (Attuale: ',
+    'msg_mariadb_ok' => '✅ Versione MariaDB rilevata! (',
+    'msg_mysql_version_ok' => '✅ La versione di MySQL è corretta! (',
+    'msg_mysql_version_low' => '❌ La versione di MySQL è troppo bassa! (Attuale: ',
+    'msg_config_invalid' => '⚠️ Il file config.inc.php esiste ma contiene dati di connessione non validi.',
+    'msg_css_not_writable' => '❌ Il file stylesheet.css non è scrivibile.',
+    'msg_css_writable_ok' => '✅ Il file stylesheet.css è scrivibile.',
+];

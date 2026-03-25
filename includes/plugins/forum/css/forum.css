@@ -1,0 +1,74 @@
+/* In deine CSS-Datei oder im <style> Bereich */
+.highlight-post {
+  outline: 3px solid var(--bs-success);
+  background-color: var(--bs-success-bg-subtle);
+  animation: highlight-fade 1.5s ease-in-out;
+}
+
+@keyframes highlight-fade {
+  0% { background-color: var(--bs-success-bg-subtle); }
+  100% { background-color: transparent; }
+}
+
+html {
+  scroll-padding-top: 120px;
+}
+
+.nx-quote {
+    --bs-border-color: var(--bs-primary);
+    --bs-border-width: 4px;
+
+    border-left: var(--bs-border-width) solid var(--bs-border-color);
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+
+    background-color: var(--bs-tertiary-bg);
+    border-radius: .5rem;
+}
+
+.forum-like-btn {
+    transition: all .15s ease;
+    user-select: none;
+}
+
+.forum-like-btn .bi {
+    transition: transform .15s ease;
+}
+
+.forum-like-btn.liked .bi {
+    transform: scale(1.15);
+}
+
+.forum-like-btn[data-busy="1"] {
+    pointer-events: none;
+    opacity: .6;
+}
+
+.forum-signature {
+    margin-top: 1rem;
+    padding-top: .75rem;
+    border-top: 1px solid #ddd;
+    font-size: .9em;
+    color: #6c757d;
+}
+
+.nx-quote {
+    border-left: 4px solid var(--bs-primary);
+    background: var(--bs-tertiary-bg);
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0 1rem;
+    border-radius: 0.25rem;
+    font-size: 10px;
+}
+
+.nx-quote-header {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--bs-primary);
+    font-size: 0.9rem;
+}
+
+.nx-quote-body {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}

@@ -1,0 +1,59 @@
+.userlist-avatar,
+.avatar_small,
+.team-member .member-img img {
+    border-radius: var(--bs-border-radius);
+    object-fit: cover;
+}
+
+.nx-userlist-card,
+.nx-userlist-card > .card-body,
+.nx-userlist-card .team-member {
+    background: var(--nx-theme-surface-2, var(--bs-body-bg)) !important;
+    color: var(--nx-theme-text, inherit) !important;
+    border-color: var(--nx-theme-card-border, var(--bs-border-color)) !important;
+}
+
+.nx-userlist-card .card-body,
+.nx-userlist-card .nx-userlist-item,
+.nx-userlist-card .nx-userlist-item > * {
+    background: var(--nx-theme-surface-2, var(--bs-body-bg)) !important;
+    color: var(--nx-theme-text, inherit) !important;
+}
+
+.nx-userlist-card .list-group,
+.nx-userlist-card .list-group-item,
+.nx-userlist-card .table,
+.nx-userlist-card .table-responsive,
+.nx-userlist-card .table > :not(caption) > * > *,
+.nx-userlist-card .row,
+.nx-userlist-card .row > [class*="col-"],
+.nx-userlist-card .team-member .member-info,
+.nx-userlist-card .team-member .member-img,
+.nx-userlist-card .team-member .social {
+    background: var(--nx-theme-surface-2, var(--bs-body-bg)) !important;
+    color: var(--nx-theme-text, inherit) !important;
+    border-color: var(--nx-theme-card-border, var(--bs-border-color)) !important;
+}
+
+.nx-userlist-card .list-group-item,
+.nx-userlist-card .table > :not(caption) > * > *,
+.nx-userlist-card .team-member .member-info {
+    box-shadow: none !important;
+}
+
+.nx-userlist-card .list-group-item {
+    --bs-list-group-bg: var(--nx-theme-surface-2, var(--bs-body-bg));
+    --bs-list-group-color: var(--nx-theme-text, inherit);
+    --bs-list-group-border-color: var(--nx-theme-card-border, var(--bs-border-color));
+    background-color: var(--nx-theme-surface-2, var(--bs-body-bg)) !important;
+    color: var(--nx-theme-text, inherit) !important;
+}
+
+.nx-userlist-card .table {
+    --bs-table-bg: var(--nx-theme-surface-2, var(--bs-body-bg));
+    --bs-table-striped-bg: var(--nx-theme-surface-2, var(--bs-body-bg));
+    --bs-table-active-bg: var(--nx-theme-surface-2, var(--bs-body-bg));
+    --bs-table-hover-bg: var(--nx-theme-surface-2, var(--bs-body-bg));
+    --bs-table-color: var(--nx-theme-text, inherit);
+    --bs-table-border-color: var(--nx-theme-card-border, var(--bs-border-color));
+}

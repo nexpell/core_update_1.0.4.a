@@ -1,0 +1,56 @@
+[2025-09-22 16:57:48] Zugriff verweigert: Modul='ac_site_lock', UserID=1, Rolle='Keine Rolle', IP=94.31.112.96
+[2025-09-22 16:58:13] Zugriff verweigert: Modul='ac_site_lock', UserID=1, Rolle='Keine Rolle', IP=94.31.112.96
+[2025-09-27 14:45:10] Zugriff verweigert: Modul='news', UserID=1, Rolle='Keine Rolle', IP=94.31.112.96
+[2025-10-05 19:10:49] Zugriff verweigert: Modul='ac_plugin_installer', UserID=18, Rolle='Keine Rolle', IP=178.200.8.132
+[2025-10-05 19:11:21] Zugriff verweigert: Modul='ac_log_viewer', UserID=18, Rolle='Keine Rolle', IP=178.200.8.132
+[2025-10-05 19:11:29] Zugriff verweigert: Modul='ac_settings', UserID=18, Rolle='Keine Rolle', IP=178.200.8.132
+[2025-10-05 19:11:48] Zugriff verweigert: Modul='ac_update_core', UserID=18, Rolle='Keine Rolle', IP=178.200.8.132
+[2025-10-11 12:58:56] Zugriff verweigert: Modul='ac_plugin_manager', UserID=18, Rolle='Keine Rolle', IP=178.200.8.132
+[2025-10-19 14:57:23] Zugriff verweigert: Modul='ac_user_roles', UserID=2, Rolle='Keine Rolle', IP=84.163.150.131
+[2025-10-19 14:57:27] Zugriff verweigert: Modul='ac_log_viewer', UserID=2, Rolle='Keine Rolle', IP=84.163.150.131
+[2025-10-19 14:57:29] Zugriff verweigert: Modul='ac_security_overview', UserID=2, Rolle='Keine Rolle', IP=84.163.150.131
+[2025-10-19 14:57:32] Zugriff verweigert: Modul='ac_database', UserID=2, Rolle='Keine Rolle', IP=84.163.150.131
+[2025-10-19 14:57:34] Zugriff verweigert: Modul='ac_site_lock', UserID=2, Rolle='Keine Rolle', IP=84.163.150.131
+[2025-11-01 15:05:49] Zugriff verweigert: Modul='ac_user_roles', UserID=2, Rolle='Keine Rolle', IP=84.163.150.131
+[2025-11-09 20:21:48] Zugriff verweigert: Modul='ac_statistic', UserID=12, Rollen='Keine Rolle', IP=94.31.115.196
+[2025-11-09 20:21:48] Zugriff verweigert: Modul='ac_statistic', UserID=12, Rollen='Keine Rolle', IP=94.31.115.196
+[2025-11-09 20:21:51] Zugriff verweigert: Modul='ac_overview', UserID=12, Rollen='Keine Rolle', IP=94.31.115.196
+[2025-11-09 20:21:58] Zugriff verweigert: Modul='ac_user_roles', UserID=12, Rollen='Keine Rolle', IP=94.31.115.196
+[2025-11-09 21:26:04] Zugriff verweigert: Modul='ac_user_roles', UserID=12, Rollen='Keine Rolle', IP=94.31.115.196
+[2025-11-09 21:32:29] Zugriff verweigert: Modul='ac_overview', UserID=12, Rollen='Keine Rolle', IP=94.31.115.196
+[2025-11-09 21:32:29] Zugriff verweigert: Modul='ac_overview', UserID=12, Rollen='Keine Rolle', IP=94.31.115.196
+[2025-11-09 21:32:30] Zugriff verweigert: Modul='ac_seo_meta', UserID=12, Rollen='Keine Rolle', IP=94.31.115.196
+[2025-11-09 21:32:33] Zugriff verweigert: Modul='ac_settings', UserID=12, Rollen='Keine Rolle', IP=94.31.115.196
+[2025-11-09 21:32:33] Zugriff verweigert: Modul='ac_settings', UserID=12, Rollen='Keine Rolle', IP=94.31.115.196
+[2025-11-09 21:32:35] Zugriff verweigert: Modul='ac_dashboard_navigation', UserID=12, Rollen='Keine Rolle', IP=94.31.115.196
+[2025-11-09 21:32:45] Zugriff verweigert: Modul='ac_email', UserID=12, Rollen='Keine Rolle', IP=94.31.115.196
+[2025-11-09 21:32:45] Zugriff verweigert: Modul='ac_email', UserID=12, Rollen='Keine Rolle', IP=94.31.115.196
+[2025-11-09 21:34:17] Zugriff verweigert: Modul='ac_email', UserID=12, Rollen='Keine Rolle', IP=94.31.115.196
+[2025-11-17 12:16:55] Zugriff verweigert: Modul='ac_user_roles', UserID=28, Rollen='Keine Rolle', IP=185.62.89.231
+[2025-11-17 12:17:20] Zugriff verweigert: Modul='ac_user_roles', UserID=28, Rollen='Keine Rolle', IP=185.62.89.231
+[2025-11-17 12:17:37] Zugriff verweigert: Modul='ac_user_roles', UserID=28, Rollen='Keine Rolle', IP=185.62.89.231
+[2025-11-17 12:18:11] Zugriff verweigert: Modul='ac_site_lock', UserID=28, Rollen='Keine Rolle', IP=185.62.89.231
+[2025-11-17 12:18:19] Zugriff verweigert: Modul='ac_plugin_manager', UserID=28, Rollen='Keine Rolle', IP=185.62.89.231
+[2025-11-22 12:58:00] Zugriff verweigert: Modul='ac_download_stats', UserID=1, Rollen='Keine Rolle', IP=94.31.75.123
+[2025-11-22 14:24:21] Zugriff verweigert: Modul='ac_user_roles', UserID=12, Rollen='Keine Rolle', IP=94.31.75.123
+[2025-12-27 15:08:15] Zugriff verweigert: Modul='news', UserID=28, Rollen='Keine Rolle', IP=185.62.89.224
+[2026-01-23 23:19:52] Zugriff verweigert: Modul='ac_settings', UserID=36, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-01-23 23:30:44] Zugriff verweigert: Modul='ac_settings', UserID=36, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-01-23 23:32:04] Zugriff verweigert: Modul='ac_overview', UserID=36, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-01-23 23:32:07] Zugriff verweigert: Modul='ac_overview', UserID=36, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-01-23 23:32:48] Zugriff verweigert: Modul='ac_overview', UserID=36, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-01-23 23:36:48] Zugriff verweigert: Modul='ac_overview', UserID=36, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-01-23 23:36:49] Zugriff verweigert: Modul='ac_overview', UserID=36, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-01-23 23:42:29] Zugriff verweigert: Modul='ac_overview', UserID=36, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-01-23 23:42:32] Zugriff verweigert: Modul='ac_overview', UserID=36, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-01-23 23:56:26] Zugriff verweigert: Modul='ac_overview', UserID=36, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-01-23 23:56:30] Zugriff verweigert: Modul='ac_overview', UserID=36, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-01-23 23:58:43] Zugriff verweigert: Modul='ac_overview', UserID=36, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-01-23 23:58:44] Zugriff verweigert: Modul='ac_overview', UserID=36, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-01-25 16:09:57] Zugriff verweigert: Modul='ac_site_lock', UserID=2, Rollen='Keine Rolle', IP=84.163.151.63
+[2026-02-04 21:24:30] Zugriff verweigert: Modul='ac_imprint', UserID=nicht angemeldet, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-02-04 21:25:16] Zugriff verweigert: Modul='ac_privacy_policy', UserID=nicht angemeldet, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-02-04 21:25:17] Zugriff verweigert: Modul='ac_privacy_policy', UserID=nicht angemeldet, Rollen='Keine Rolle', IP=94.31.75.87
+[2026-02-07 13:13:43] Zugriff verweigert: Modul='ac_seo_meta', UserID=36, Rollen='Registrierter Benutzer, Beta-Tester', IP=94.31.75.87
+[2026-02-07 13:14:24] Zugriff verweigert: Modul='ac_seo_meta', UserID=36, Rollen='Registrierter Benutzer, Beta-Tester', IP=94.31.75.87
+[2026-02-07 13:15:14] Zugriff verweigert: Modul='ac_seo_meta', UserID=36, Rollen='Registrierter Benutzer, Beta-Tester', IP=94.31.75.87

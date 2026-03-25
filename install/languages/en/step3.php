@@ -1,0 +1,23 @@
+<?php
+return [
+    'step_title' => 'Step 3: System Check & Database Connection',
+    'section_system_check' => 'System Check',
+    'section_db_setup' => 'Set up Database Connection',
+    'field_host' => 'Host:',
+    'field_username' => 'Username:',
+    'field_password' => 'Password:',
+    'field_dbname' => 'Database Name:',
+    'button_continue' => 'Continue to Step 4',
+    'msg_fix_errors' => '❌ Please fix the above issues to continue.',
+    'msg_error_db_connect' => '❌ Database connection error: ',
+    'msg_error_config_write' => '❌ Error creating the config.inc.php file.',
+    'msg_success_config_create' => '✅ config.inc.php was successfully created!',
+    'msg_php_version_ok' => '✅ PHP version is correct! (Current: ',
+    'msg_php_version_low' => '❌ PHP version too low! (Current: ',
+    'msg_mariadb_ok' => '✅ MariaDB version detected! (',
+    'msg_mysql_version_ok' => '✅ MySQL version is correct! (',
+    'msg_mysql_version_low' => '❌ MySQL version too low! (Current: ',
+    'msg_config_invalid' => '⚠️ config.inc.php exists but contains invalid connection data.',
+    'msg_css_not_writable' => '❌ The stylesheet.css file is not writable.',
+    'msg_css_writable_ok' => '✅ The stylesheet.css file is writable.',
+];

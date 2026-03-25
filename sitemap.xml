@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://test.nexpell.de/de/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://test.nexpell.de/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://test.nexpell.de/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://test.nexpell.de/it/"/>
+    <lastmod>2026-01-28</lastmod>
+  </url>
+  <url>
+    <loc>https://test.nexpell.de/de/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://test.nexpell.de/en/about"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://test.nexpell.de/de/about"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://test.nexpell.de/it/about"/>
+    <lastmod>2026-01-18</lastmod>
+  </url>
+  <url>
+    <loc>https://test.nexpell.de/de/articles</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://test.nexpell.de/en/articles"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://test.nexpell.de/de/articles"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://test.nexpell.de/it/articles"/>
+    <lastmod>2026-01-26</lastmod>
+  </url>
+  <url>
+    <loc>https://test.nexpell.de/de/forum</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://test.nexpell.de/en/forum"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://test.nexpell.de/de/forum"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://test.nexpell.de/it/forum"/>
+    <lastmod>2026-01-18</lastmod>
+  </url>
+  <url>
+    <loc>https://test.nexpell.de/de/news</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://test.nexpell.de/en/news"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://test.nexpell.de/de/news"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://test.nexpell.de/it/news"/>
+    <lastmod>2026-01-25</lastmod>
+  </url>
+  <url>
+    <loc>https://test.nexpell.de/de/news/erster-test</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://test.nexpell.de/en/news/erster-test"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://test.nexpell.de/de/news/erster-test"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://test.nexpell.de/it/news/erster-test"/>
+    <lastmod>2026-01-25</lastmod>
+  </url>
+  <url>
+    <loc>https://test.nexpell.de/de/partners</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://test.nexpell.de/en/partners"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://test.nexpell.de/de/partners"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://test.nexpell.de/it/partners"/>
+    <lastmod>2026-01-18</lastmod>
+  </url>
+  <url>
+    <loc>https://test.nexpell.de/de/static</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://test.nexpell.de/en/static"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://test.nexpell.de/de/static"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://test.nexpell.de/it/static"/>
+    <lastmod>2026-01-22</lastmod>
+  </url>
+  <url>
+    <loc>https://test.nexpell.de/de/teamspeak</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://test.nexpell.de/en/teamspeak"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://test.nexpell.de/de/teamspeak"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://test.nexpell.de/it/teamspeak"/>
+    <lastmod>2026-01-18</lastmod>
+  </url>
+  <url>
+    <loc>https://test.nexpell.de/de/todo</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://test.nexpell.de/en/todo"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://test.nexpell.de/de/todo"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://test.nexpell.de/it/todo"/>
+    <lastmod>2026-01-18</lastmod>
+  </url>
+</urlset>

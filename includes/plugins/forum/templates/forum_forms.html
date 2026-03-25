@@ -1,0 +1,104 @@
+<!-- forum_forms_reply -->
+<form method="post" action="{form_action}" class="card mt-4" onsubmit="var ta=this.querySelector('textarea[name=&quot;content&quot;]');var src=this.querySelector('.nx-editor-source');var ed=this.querySelector('.nx-editor-content');if(ta){ta.value=(src&&src.style.display!=='none')?src.value:(ed?ed.innerHTML:ta.value);}">
+    <input type="hidden" name="threadID" value="{threadID}">
+
+    <div class="card-header">
+        <h4>Antwort schreiben</h4>
+    </div>
+
+    <div class="card-body">
+
+        <!-- Quote nur anzeigen, wenn vorhanden -->
+        {quote_text}
+
+        <textarea id="editor_reply" name="content" class="form-control" data-editor="nx_editor" rows="6"></textarea>
+
+        <button class="btn btn-success mt-4" type="submit"><i class="bi bi-plus-circle"></i> Antworten</button>
+    </div>
+</form>
+<!-- END -->
+
+
+
+<!-- forum_forms_quote -->
+<form method="post" action="{form_action}" class="card mt-4" onsubmit="var ta=this.querySelector('textarea[name=&quot;content&quot;]');var src=this.querySelector('.nx-editor-source');var ed=this.querySelector('.nx-editor-content');if(ta){ta.value=(src&&src.style.display!=='none')?src.value:(ed?ed.innerHTML:ta.value);}">
+    <input type="hidden" name="threadID" value="{threadID}">
+
+    <div class="card-header">
+        <h4>Antwort mit Zitat</h4>
+    </div>
+
+    <div class="card-body">
+
+        <textarea id="editor_quote" name="content" class="form-control" data-editor="nx_editor" rows="8">
+{quote_text}
+
+        </textarea>
+
+        <button class="btn btn-primary mt-3" type="submit">
+            <i class="bi bi-chat-quote"></i> Antwort absenden
+        </button>
+
+    </div>
+</form>
+<!-- END -->
+
+
+
+
+
+
+
+<!-- forum_forms_new_thread -->
+<form method="post"
+      action="index.php?site=forum&action=new_thread&catID={catID}"
+      class="card mt-4"
+      onsubmit="var ta=this.querySelector('textarea[name=&quot;content&quot;]');var src=this.querySelector('.nx-editor-source');var ed=this.querySelector('.nx-editor-content');if(ta){ta.value=(src&&src.style.display!=='none')?src.value:(ed?ed.innerHTML:ta.value);}">
+
+    <input type="hidden" name="catID" value="{catID}">
+
+    <div class="card-header">
+        <h4>Neues Thema erstellen</h4>
+    </div>
+
+    <div class="card-body">
+
+        <label class="form-label">Titel</label>
+        <input type="text" name="title" class="form-control mb-3" required>
+
+        <label class="form-label">Beitrag</label>
+        <textarea id="editor_newthread"
+                  name="content"
+                  class="form-control"
+                  data-editor="nx_editor"
+                  rows="7"></textarea>
+
+        <button class="btn btn-primary mt-3" type="submit">
+            <i class="bi bi-plus-circle"></i> Thema erstellen
+        </button>
+
+    </div>
+</form>
+<!-- END -->
+
+
+
+
+<!-- forum_forms_edit_post -->
+<form method="post" action="{form_action}" class="card mt-4" onsubmit="var ta=this.querySelector('textarea[name=&quot;content&quot;]');var src=this.querySelector('.nx-editor-source');var ed=this.querySelector('.nx-editor-content');if(ta){ta.value=(src&&src.style.display!=='none')?src.value:(ed?ed.innerHTML:ta.value);}">
+
+    <div class="card-header">
+        <h4>Beitrag bearbeiten</h4>
+    </div>
+
+    <div class="card-body">
+
+        <textarea id="editor_edit" name="content" class="form-control" data-editor="nx_editor" rows="6">{content}</textarea>
+
+        <button class="btn btn-warning mt-3" type="submit">
+            <i class="bi bi-pencil"></i> Aenderungen speichern
+        </button>
+
+    </div>
+</form>
+<!-- END -->

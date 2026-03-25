@@ -1,0 +1,40 @@
+body {
+    background: #c2c2c2;
+}
+
+.install-logo {
+    max-width: 250px;
+    margin-bottom: 20px;
+}
+
+.card {
+    border-radius: 0rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.btn.btn-primary {
+    color: #fff !important;
+    background-color: #fe821d !important;
+    border-color: #c45901 !important;
+    border-radius: 0 !important;
+}
+
+.btn.btn-primary:hover {
+    background-color: #c45901 !important;
+    border-color: #fe821d !important;
+}
+
+.btn.btn-primary:focus,
+.btn.btn-primary.focus {
+    background-color: #fe821d !important;
+    border-color: #c45901 !important;
+    box-shadow: 0 0 0 0.25rem rgba(254,130,29, 0.5) !important;
+}
+
+.btn.btn-primary:active,
+.btn.btn-primary.active,
+.show > .btn.btn-primary.dropdown-toggle {
+    background-color: #c45901 !important;
+    border-color: #fe821d !important;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+}

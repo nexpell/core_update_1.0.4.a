@@ -1,0 +1,197 @@
+.shoutbox-shell {
+    --shoutbox-card-bg: rgba(var(--bs-body-bg-rgb), 0.82);
+    --shoutbox-border: rgba(var(--bs-emphasis-color-rgb), 0.1);
+    --shoutbox-muted: var(--bs-secondary-color);
+    --shoutbox-feed-bg: rgba(var(--bs-tertiary-bg-rgb), 0.88);
+    --shoutbox-item-bg: rgba(var(--bs-body-bg-rgb), 0.9);
+    --shoutbox-input-bg: rgba(var(--bs-body-bg-rgb), 0.94);
+}
+.head-boxes + .shoutbox-shell {
+    margin-top: 0;
+}
+.shoutbox-card {
+    border: 1px solid var(--shoutbox-border);
+    background: var(--shoutbox-card-bg);
+    /*box-shadow: 0 22px 45px rgba(var(--bs-emphasis-color-rgb), 0.08);*/
+    overflow: hidden;
+    backdrop-filter: blur(16px);
+}
+.shoutbox-card .card-body {
+    padding: 1.25rem;
+}
+.shoutbox-headline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.shoutbox-title-wrap h5 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+.shoutbox-title-wrap p {
+    margin: 0.2rem 0 0;
+    color: var(--shoutbox-muted);
+    font-size: 0.92rem;
+}
+.shoutbox-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(var(--bs-primary-rgb), 0.12);
+    color: var(--bs-primary);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+.shoutbox-status-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: currentColor;
+    /*box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.16);*/
+}
+.shoutbox-feed {
+    background: var(--shoutbox-feed-bg);
+    border: 1px solid var(--shoutbox-border);
+    border-radius: 1rem;
+    padding: 0.9rem;
+    min-height: 20rem;
+    max-height: 28rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.shoutbox-message {
+    display: grid;
+    grid-template-columns: 2.75rem 1fr;
+    gap: 0.85rem;
+    align-items: start;
+    padding: 0.85rem;
+    border: 1px solid var(--shoutbox-border);
+    border-radius: 1rem;
+    background: var(--shoutbox-item-bg);
+    /*box-shadow: 0 8px 18px rgba(var(--bs-emphasis-color-rgb), 0.04);*/
+}
+.shoutbox-avatar {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--bs-border-radius);
+    display: block;
+    flex-shrink: 0;
+}
+.shoutbox-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.3rem;
+}
+.shoutbox-user {
+    font-weight: 700;
+    color: var(--bs-body-color);
+}
+.shoutbox-time {
+    color: var(--shoutbox-muted);
+    font-size: 0.82rem;
+}
+.shoutbox-text {
+    margin: 0;
+    color: var(--bs-body-color);
+    line-height: 1.55;
+    word-break: break-word;
+}
+.shoutbox-empty {
+    min-height: 14rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--shoutbox-muted);
+    gap: 0.5rem;
+}
+.shoutbox-empty strong {
+    color: var(--bs-body-color);
+    font-size: 1rem;
+}
+.shoutbox-composer {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1rem;
+    border: 1px solid var(--shoutbox-border);
+    border-radius: 1rem;
+    background: var(--shoutbox-input-bg);
+}
+.shoutbox-composer-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.shoutbox-user-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(var(--bs-primary-rgb), 0.1);
+    font-weight: 600;
+}
+.shoutbox-user-chip .shoutbox-avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--bs-border-radius);
+}
+.shoutbox-limit {
+    color: var(--shoutbox-muted);
+    font-size: 0.82rem;
+}
+.shoutbox-form-row {
+    display: grid;
+    grid-template-columns: minmax(10rem, 12rem) 1fr auto;
+    gap: 0.75rem;
+}
+.shoutbox-form-row .form-control {
+    min-height: 3rem;
+    border-radius: var(--bs-border-radius);
+}
+.shoutbox-form-row .btn {
+    min-width: 8rem;
+    border-radius: var(--bs-border-radius);
+    font-weight: 600;
+}
+.shoutbox-alert {
+    margin-top: 1rem;
+    border-radius: 1rem;
+}
+.shoutbox-captcha {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--shoutbox-border);
+    border-radius: 1rem;
+    background: var(--shoutbox-input-bg);
+}
+@media (max-width: 767.98px) {
+    .shoutbox-card .card-body {
+        padding: 1rem;
+    }
+    .shoutbox-headline,
+    .shoutbox-composer-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .shoutbox-form-row {
+        grid-template-columns: 1fr;
+    }
+    .shoutbox-form-row .btn {
+        width: 100%;
+    }
+}
+

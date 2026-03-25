@@ -1,0 +1,29 @@
+{
+  "name": "Default",
+  "slug": "default",
+  "description": "Standard-Nexpell-Theme mit Bootstrap-Basis und klassischer CMS-Integration.",
+  "preview": "images/default_logo.png",
+  "template_dir": "templates",
+  "layout": {
+    "file": "index.php"
+  },
+  "assets": {
+    "css": [
+      "/components/bootstrap/css/bootstrap-icons.min.css",
+      "css/stylesheet.css"
+    ],
+    "js": [
+      "/components/bootstrap/js/bootstrap.bundle.min.js",
+      "js/page.js"
+    ]
+  },
+  "favicons": {
+    "ico": "images/favicon.ico",
+    "png32": "images/favicon-32.png",
+    "png192": "images/favicon-192.png",
+    "apple180": "images/favicon-180.png"
+  },
+  "settings": {
+    "supports_bootswatch_variant": true
+  }
+}

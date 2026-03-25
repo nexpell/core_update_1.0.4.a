@@ -1,0 +1,31 @@
+<!-- forum_boards_boards -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{forum_url}">Forum</a></li>
+    </ol>
+</nav>
+<h2 class="mb-4">Forum Übersicht</h2>
+
+{foreach boards as board}
+
+<div class="card mb-4 shadow-sm" style="border-radius: 12px;">
+    <div class="card-body">
+
+        <h3 class="card-title mb-1 d-flex align-items-center">
+            <span class="fw-bold">{board.board_title}</span>
+            {if board.board_locked_badge}
+                <span class="ms-2">{board.board_locked_badge}</span>
+            {endif}
+        </h3>
+
+        <p class="text-muted mb-3">{board.board_description}</p>
+
+        <!-- Kategorien (bereits gerendert in PHP) -->
+        {board.categories_html}
+
+    </div>
+</div>
+
+{/foreach}
+
+<!-- END -->

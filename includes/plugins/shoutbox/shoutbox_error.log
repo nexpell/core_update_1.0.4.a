@@ -1,0 +1,127 @@
+[16-Mar-2026 19:31:26 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function safe_query() in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php:229
+Stack trace:
+#0 /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php(32): require_once()
+#1 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php on line 229
+[16-Mar-2026 19:31:36 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function safe_query() in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php:229
+Stack trace:
+#0 /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php(32): require_once()
+#1 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php on line 229
+[16-Mar-2026 19:31:39 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function safe_query() in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php:229
+Stack trace:
+#0 /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php(32): require_once()
+#1 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php on line 229
+[16-Mar-2026 19:32:08 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function safe_query() in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php:229
+Stack trace:
+#0 /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php(32): require_once()
+#1 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php on line 229
+[16-Mar-2026 19:32:16 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function safe_query() in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php:229
+Stack trace:
+#0 /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php(32): require_once()
+#1 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php on line 229
+[16-Mar-2026 19:33:37 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function safe_query() in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php:229
+Stack trace:
+#0 /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php(41): require_once()
+#1 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php on line 229
+[16-Mar-2026 19:33:43 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function safe_query() in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php:229
+Stack trace:
+#0 /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php(41): require_once()
+#1 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php on line 229
+[16-Mar-2026 19:33:48 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function safe_query() in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php:229
+Stack trace:
+#0 /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php(41): require_once()
+#1 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php on line 229
+[16-Mar-2026 19:33:49 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function safe_query() in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php:229
+Stack trace:
+#0 /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php(41): require_once()
+#1 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php on line 229
+[16-Mar-2026 19:33:50 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function safe_query() in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php:229
+Stack trace:
+#0 /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php(41): require_once()
+#1 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php on line 229
+[16-Mar-2026 19:33:56 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function safe_query() in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php:229
+Stack trace:
+#0 /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php(41): require_once()
+#1 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/system/functions.php on line 229
+[16-Mar-2026 19:35:13 Europe/Berlin] PHP Warning:  Undefined variable $functionsPath in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:35:13 Europe/Berlin] PHP Warning:  require_once(/www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox): Failed to open stream: No such file or directory in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:35:13 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '' (include_path='.:/usr/share/php:..:/www/htdocs/w00f9e9f/test-nexpell.de/system/components') in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php:35
+Stack trace:
+#0 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:35:16 Europe/Berlin] PHP Warning:  Undefined variable $functionsPath in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:35:16 Europe/Berlin] PHP Warning:  require_once(/www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox): Failed to open stream: No such file or directory in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:35:16 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '' (include_path='.:/usr/share/php:..:/www/htdocs/w00f9e9f/test-nexpell.de/system/components') in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php:35
+Stack trace:
+#0 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:35:18 Europe/Berlin] PHP Warning:  Undefined variable $functionsPath in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:35:18 Europe/Berlin] PHP Warning:  require_once(/www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox): Failed to open stream: No such file or directory in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:35:18 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '' (include_path='.:/usr/share/php:..:/www/htdocs/w00f9e9f/test-nexpell.de/system/components') in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php:35
+Stack trace:
+#0 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:35:31 Europe/Berlin] PHP Warning:  Undefined variable $functionsPath in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:35:31 Europe/Berlin] PHP Warning:  require_once(/www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox): Failed to open stream: No such file or directory in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:35:31 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '' (include_path='.:/usr/share/php:..:/www/htdocs/w00f9e9f/test-nexpell.de/system/components') in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php:35
+Stack trace:
+#0 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:35:33 Europe/Berlin] PHP Warning:  Undefined variable $functionsPath in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:35:33 Europe/Berlin] PHP Warning:  require_once(/www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox): Failed to open stream: No such file or directory in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:35:33 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '' (include_path='.:/usr/share/php:..:/www/htdocs/w00f9e9f/test-nexpell.de/system/components') in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php:35
+Stack trace:
+#0 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:39:55 Europe/Berlin] PHP Warning:  Undefined variable $functionsPath in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:39:55 Europe/Berlin] PHP Warning:  require_once(/www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox): Failed to open stream: No such file or directory in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:39:55 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '' (include_path='.:/usr/share/php:..:/www/htdocs/w00f9e9f/test-nexpell.de/system/components') in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php:35
+Stack trace:
+#0 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:39:57 Europe/Berlin] PHP Warning:  Undefined variable $functionsPath in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:39:57 Europe/Berlin] PHP Warning:  require_once(/www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox): Failed to open stream: No such file or directory in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:39:57 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '' (include_path='.:/usr/share/php:..:/www/htdocs/w00f9e9f/test-nexpell.de/system/components') in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php:35
+Stack trace:
+#0 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:39:58 Europe/Berlin] PHP Warning:  Undefined variable $functionsPath in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:39:58 Europe/Berlin] PHP Warning:  require_once(/www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox): Failed to open stream: No such file or directory in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:39:58 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '' (include_path='.:/usr/share/php:..:/www/htdocs/w00f9e9f/test-nexpell.de/system/components') in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php:35
+Stack trace:
+#0 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:40:03 Europe/Berlin] PHP Warning:  Undefined variable $functionsPath in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:40:03 Europe/Berlin] PHP Warning:  require_once(/www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox): Failed to open stream: No such file or directory in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:40:03 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '' (include_path='.:/usr/share/php:..:/www/htdocs/w00f9e9f/test-nexpell.de/system/components') in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php:35
+Stack trace:
+#0 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:40:33 Europe/Berlin] PHP Warning:  Undefined variable $functionsPath in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:40:33 Europe/Berlin] PHP Warning:  require_once(/www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox): Failed to open stream: No such file or directory in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:40:33 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '' (include_path='.:/usr/share/php:..:/www/htdocs/w00f9e9f/test-nexpell.de/system/components') in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php:35
+Stack trace:
+#0 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:40:34 Europe/Berlin] PHP Warning:  Undefined variable $functionsPath in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:40:34 Europe/Berlin] PHP Warning:  require_once(/www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox): Failed to open stream: No such file or directory in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:40:34 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '' (include_path='.:/usr/share/php:..:/www/htdocs/w00f9e9f/test-nexpell.de/system/components') in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php:35
+Stack trace:
+#0 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:40:40 Europe/Berlin] PHP Warning:  Undefined variable $functionsPath in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:40:40 Europe/Berlin] PHP Warning:  require_once(/www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox): Failed to open stream: No such file or directory in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35
+[16-Mar-2026 19:40:40 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '' (include_path='.:/usr/share/php:..:/www/htdocs/w00f9e9f/test-nexpell.de/system/components') in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php:35
+Stack trace:
+#0 {main}
+  thrown in /www/htdocs/w00f9e9f/test-nexpell.de/includes/plugins/shoutbox/shoutbox_ajax.php on line 35

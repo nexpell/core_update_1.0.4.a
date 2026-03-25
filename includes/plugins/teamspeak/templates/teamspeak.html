@@ -1,0 +1,116 @@
+<!-- teamspeak_head -->
+<div class="head-boxes {class}">
+    <span class="head-boxes-head">{title}</span>
+    <h2 class="head-h2">
+        <span class="head-boxes-title">{title}</span>
+    </h2>
+    <p class="head-boxes-foot">{subtitle}</p>
+</div>
+<!-- END -->
+<!-- teamspeak_main -->
+
+<div class="card">
+    <div class="card-header">
+        <i class="bi bi-headset"></i> Teamspeak
+    </div>
+
+    <div class="card-body">
+
+        <div class="row g-3">
+
+            {servers}
+
+        </div>
+
+    </div>
+</div>
+
+<!-- END -->
+
+<!-- teamspeak_server_item -->
+<div class="col-12">
+    <div class="card">
+
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+                <strong>{server_name}</strong>
+                <span class="text-muted small ms-2">(Live)</span>
+            </div>
+
+            <div class="text-muted small">
+                User: {server_used} / {server_max}
+            </div>
+        </div>
+
+        <!-- BODY -->
+        <div class="card-body">
+            <!-- ❗ NUR DAS wird per AJAX ersetzt -->
+               <div id="ts-live-{serverID}"
+     class="ts-tree"
+     data-cache="{cache_time}"
+     data-mode="content">
+                    {tree_html}
+                </div>
+            
+        </div>
+
+    </div>    
+</div>
+<!-- END -->
+
+<!-- teamspeak_server_widget_item -->
+<div class="col-12">
+    <div class="card">
+
+        <div class="card-header">
+            <div>
+                <small>{server_name}</small>
+            </div>
+
+            <div class="text-muted small">
+                User: {server_used} / {server_max}
+            </div>
+        </div>
+
+        <!-- BODY -->
+        <div class="card-body p-1">
+            <!-- ❗ NUR DAS wird per AJAX ersetzt -->
+               <div id="ts-live-{serverID}"
+     class="ts-tree"
+     data-cache="{cache_time}"
+     data-mode="widget">
+                    {tree_html}
+                </div>
+            
+        </div>
+
+
+    </div>    
+</div>
+<!-- END -->
+
+<!-- teamspeak_widget -->
+{foreach servers as server}
+    <div class="card glass-card mb-2">
+        <div class="card-body text-center py-3">
+
+            <div class="fw-semibold mb-1">
+                {server.title}
+            </div>
+
+            {if server.online}
+                <span class="badge bg-success">
+                    <i class="bi bi-broadcast"></i>
+                TeamSpeak Online ({server.used}/{server.max})
+                </span>
+            {else}
+                <span class="badge bg-warning">
+                    <i class="bi bi-broadcast-off"></i>
+                Server offline
+                </span>
+            {endif}
+
+        </div>
+    </div>
+{/foreach}
+<!-- END -->

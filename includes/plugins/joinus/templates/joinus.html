@@ -1,0 +1,237 @@
+<!-- joinus_head -->
+<div class="head-boxes {class}">
+    <span class="head-boxes-head">{title}</span>
+    <h2 class="head-h2">
+        <span class="head-boxes-title">{title}</span>
+    </h2>
+    <p class="head-boxes-foot">{subtitle}</p>
+</div>
+<!-- END -->
+<!-- joinus_success -->
+<div class="joinus-shell">
+    <div class="card joinus-card">
+        <div class="card-body">
+            <div class="joinus-headline">
+                <div class="joinus-title-wrap">
+                    <h1>{title}</h1>
+                    <p>{success_hint}</p>
+                </div>
+                <div class="joinus-status joinus-status-success">
+                    <span class="joinus-status-dot"></span>
+                    {success_badge}
+                </div>
+            </div>
+
+            <div class="joinus-success-panel">
+                <div class="joinus-success-icon">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <h2>{success_text}</h2>
+                <p>{success_hint}</p>
+
+                <div class="joinus-success-actions">
+                    <a href="/" class="btn btn-outline-secondary">{back_home}</a>
+                    {if $contact_link}
+                    <a href="{contact_url}" class="btn btn-primary">{contact_label}</a>
+                    {endif}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END -->
+
+<!-- joinus_form -->
+<div class="joinus-shell">
+    <div class="card joinus-card">
+        <div class="card-body">
+            <div class="joinus-headline">
+                <div class="joinus-title-wrap">
+                    <h1>{title}</h1>
+                    <p>{intro}</p>
+                </div>
+                <div class="joinus-status">
+                    <span class="joinus-status-dot"></span>
+                    {form_badge}
+                </div>
+            </div>
+
+            <div class="joinus-grid">
+                <aside class="joinus-sidebar">
+                    <div class="joinus-panel">
+                        <span class="joinus-eyebrow">{sidebar_eyebrow}</span>
+                        <h2>{sidebar_title}</h2>
+                        <p>{sidebar_text}</p>
+                    </div>
+
+                    <div class="joinus-panel joinus-panel-muted">
+                        <div class="joinus-info-item">
+                            <strong>{sidebar_step_1_title}</strong>
+                            <span>{sidebar_step_1_text}</span>
+                        </div>
+                        <div class="joinus-info-item">
+                            <strong>{sidebar_step_2_title}</strong>
+                            <span>{sidebar_step_2_text}</span>
+                        </div>
+                        <div class="joinus-info-item">
+                            <strong>{sidebar_step_3_title}</strong>
+                            <span>{sidebar_step_3_text}</span>
+                        </div>
+                    </div>
+                </aside>
+
+                <div class="joinus-main">
+                    {if error}
+                    <div class="alert alert-danger joinus-alert" role="alert">
+                        {error}
+                    </div>
+                    {endif}
+
+                    <form method="post" novalidate class="joinus-form">
+                        <input type="hidden" name="csrf_token" value="{csrf_token}">
+                        <div style="position:absolute; left:-9999px; height:0; overflow:hidden;">
+                            <label for="joinus-company">Company</label>
+                            <input type="text" name="company" id="joinus-company" autocomplete="off">
+                        </div>
+
+                        <div class="joinus-form-grid">
+                            <div class="joinus-field">
+                                <label class="form-label">{label_name}</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value="{value_name}"
+                                    class="form-control"
+                                    required>
+                            </div>
+
+                            <div class="joinus-field">
+                                <label class="form-label">{label_email}</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value="{value_email}"
+                                    class="form-control"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="joinus-field">
+                            <div class="joinus-form-grid">
+                                <div class="joinus-field">
+                                    <label class="form-label">{label_type}</label>
+                                    <select name="type" class="form-select" id="joinus-type">
+                                        <option value="" disabled {type_placeholder_selected}>{placeholder_type}</option>
+                                        {foreach types as type}
+                                            <option value="{type.type_key}" {type.selected}>
+                                                {type.label}
+                                            </option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+
+                                <div class="joinus-field">
+                                    <label class="form-label">{label_role}</label>
+                                    <select name="role" class="form-select" id="joinus-role" required>
+                                        <option value="" disabled {role_placeholder_selected}>{placeholder_role}</option>
+                                        {foreach roles as role}
+                                            <option value="{role.roleID}" {role.selected}>
+                                                {role.role_name}
+                                            </option>
+                                        {/foreach}
+                                        <option value="-1" {other_role_selected}>{label_other}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        {if has_squads}
+                        <div class="joinus-field {squad_wrapper_class}" id="squad-wrapper">
+                            <label class="form-label">{label_squad}</label>
+                            <select name="squad_id" class="form-select" id="joinus-squad">
+                                <option value="" {squad_placeholder_selected}>{placeholder_squad}</option>
+                                {foreach squads as squad}
+                                    <option value="{squad.id}" {squad.selected}>
+                                        {squad.name}
+                                    </option>
+                                {/foreach}
+                            </select>
+                            <div class="form-text">{squad_help}</div>
+                        </div>
+                        {endif}
+
+                        <div class="joinus-field {role_other_class}" id="joinus-role-other">
+                            <label class="form-label">{label_role_custom}</label>
+                            <input
+                                type="text"
+                                name="role_custom"
+                                class="form-control"
+                                value="{value_role_custom}">
+                        </div>
+
+                        <div class="joinus-field">
+                            <label class="form-label">{label_message}</label>
+                            <textarea
+                                name="message"
+                                rows="6"
+                                class="form-control joinus-textarea"
+                                required>{value_message}</textarea>
+                        </div>
+
+                        <div class="joinus-form-footer">
+                            <div class="joinus-recaptcha">
+                                {recaptcha}
+                            </div>
+
+                            <div class="joinus-submit-row">
+                                <div class="joinus-submit-hint">{submit_hint}</div>
+                                <button type="submit" class="btn btn-primary joinus-submit">
+                                    {submit}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const roleSelect = document.getElementById('joinus-role');
+    const otherBox = document.getElementById('joinus-role-other');
+    const typeSelect = document.getElementById('joinus-type');
+    const squadWrapper = document.getElementById('squad-wrapper');
+    const squadSelect = document.getElementById('joinus-squad');
+
+    function toggleRoleOther() {
+        if (!roleSelect || !otherBox) {
+            return;
+        }
+        otherBox.classList.toggle('d-none', roleSelect.value !== '-1');
+    }
+
+    function toggleSquad() {
+        if (!typeSelect || !squadWrapper) {
+            return;
+        }
+
+        const showSquad = typeSelect.value === 'squad';
+        squadWrapper.classList.toggle('d-none', !showSquad);
+
+        if (!showSquad && squadSelect) {
+            squadSelect.value = '';
+        }
+    }
+
+    roleSelect?.addEventListener('change', toggleRoleOther);
+    typeSelect?.addEventListener('change', toggleSquad);
+
+    toggleRoleOther();
+    toggleSquad();
+});
+</script>
+
+<!-- END -->

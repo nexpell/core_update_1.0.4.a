@@ -1,0 +1,56 @@
+<?php
+
+$language_array = array(
+
+   // Frontend
+   'action_copy_ip'              => 'Copy IP',
+   'action_join_fivem'           => 'Start FiveM',
+   'action_join_server'          => 'Join server',
+   'action_join_steam'           => 'Connect via Steam',
+   'action_join_teamspeak'       => 'Open TeamSpeak',
+   'alert_no_servers'            => 'No servers found.',
+   'alert_server_disconnected'   => 'Server not reachable.',
+   'alert_server_not_found'      => 'Server not found.',
+   'btn_all_servers'             => 'Show all servers',
+   'btn_back'                    => 'Back',
+   'btn_copy'                    => 'Copy',
+   'btn_details'                 => 'Show details',
+   'info_cant_join'              => 'Not available',
+   'info_copy_error'             => 'Error while copying: %s',
+   'info_copy_ip_success'        => 'IP copied: %s',
+   'info_join'                   => 'Join',
+   'info_no_active_servers'      => 'No active servers',
+   'info_no_bannner'             => 'No GameTracker banner available.',
+   'info_no_playerinfos'         => 'No player information available or blocked by the server.',
+   'label_admin'                 => 'Admin',
+   'label_clients'               => 'Private clients',
+   'label_email'                 => 'Email',
+   'label_gametype'              => 'Game type',
+   'label_location'              => 'Location',
+   'label_mod'                   => 'Mod',
+   'label_protocol'              => 'Protocol',
+   'label_punkbuster'            => 'PunkBuster',
+   'label_transport'             => 'Transport',
+   'label_website'               => 'Website',
+   'mode_active'                 => 'Enabled',
+   'mode_deactivated'            => 'Disabled',
+   'title_gameserver'            => 'Game server',
+   'title_players'               => 'Players on the server',
+
+   // Backend
+   'alert_server'                => 'Server offline or not reachable.',
+   'label_game'                  => 'Game',
+   'label_ip'                    => 'IP',
+   'label_map'                   => 'Map',
+   'label_mod'                   => 'Mode',
+   'label_players'               => 'Players',
+   'label_port'                  => 'Port',
+   'label_query'                 => 'Query port (optional)',
+   'label_sort'                  => 'Sort',
+   'label_version'               => 'Version',
+   'select_choose'               => '-- select --',
+   'server_preview'              => 'Server preview',
+   'title_server'                => 'Server',
+     
+);
+?>

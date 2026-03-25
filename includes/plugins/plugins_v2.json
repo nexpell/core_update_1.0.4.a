@@ -1,0 +1,1110 @@
+{
+    "plugins": [
+        {
+            "name": "Blog",
+            "modulname": "blog",
+            "description": "[[lang:de]]Blog Plugin für nexpell[[lang:en]]Blog plugin for nexpell[[lang:it]]Plugin Blog per nexpell",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.2"
+            },
+            "author": "nexpell Team",
+            "visible_for": "HIDDEN",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "blog.png",
+            "download": "blog-1.0.0.zip"
+        },
+        {
+            "name": "Blog",
+            "modulname": "blog",
+            "description": "[[lang:de]]Blog Plugin für nexpell[[lang:en]]Blog plugin for nexpell[[lang:it]]Plugin Blog per nexpell",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3"
+            },
+            "author": "nexpell Team",
+            "visible_for": "HIDDEN",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "blog.png",
+            "download": "blog-1.0.1.zip"
+        },
+        {
+            "name": "Partners",
+            "modulname": "partners",
+            "description": "[[lang:de]]Unsere Partnerseite bietet die Möglichkeit, eure Partner mit nützlichen Inhalten und praktischen Tools zu verlinken.[[lang:en]]Our partners page offers the opportunity to link your partners with useful content and practical tools.[[lang:it]]La nostra pagina partner offre la possibilità di collegare i vostri partner con contenuti utili e strumenti pratici.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "partners.png",
+            "download": "partners.zip"
+        },
+        {
+            "name": "Partners",
+            "modulname": "partners",
+            "description": "[[lang:de]]Unsere Partnerseite bietet die Möglichkeit, eure Partner mit nützlichen Inhalten und praktischen Tools zu verlinken.[[lang:en]]Our partners page offers the opportunity to link your partners with useful content and practical tools.[[lang:it]]La nostra pagina partner offre la possibilità di collegare i vostri partner con contenuti utili e strumenti pratici.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "partners.png",
+            "download": "partners_1.0.3.zip"
+        },
+        {
+            "name": "Pricing",
+            "modulname": "pricing",
+            "description": "[[lang:de]]Pricing Plugin für nexpell[[lang:en]]Pricing plugin for nexpell[[lang:it]]Plugin Prezzi per nexpell",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "pricing.png",
+            "download": "pricing.zip"
+        },
+        {
+            "name": "Pricing",
+            "modulname": "pricing",
+            "description": "[[lang:de]]Pricing Plugin für nexpell[[lang:en]]Pricing plugin for nexpell[[lang:it]]Plugin Prezzi per nexpell",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "pricing.png",
+            "download": "pricing_1.0.3.zip"
+        },
+        {
+            "name": "Sponsors",
+            "modulname": "sponsors",
+            "description": "[[lang:de]]Das Sponsors Plugin verwaltet alle Sponsoren, Partner und Förderer der Community und stellt deren Informationen und Logos übersichtlich dar.[[lang:en]]The Sponsors Plugin manages all sponsors, partners, and supporters of the community and displays their information and logos in a clear way.[[lang:it]]Il plugin Sponsors gestisce tutti gli sponsor, partner e sostenitori della community e visualizza le loro informazioni e loghi in modo chiaro.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "sponsors.png",
+            "download": "sponsors.zip"
+        },
+        {
+            "name": "Sponsors",
+            "modulname": "sponsors",
+            "description": "[[lang:de]]Das Sponsors Plugin verwaltet alle Sponsoren, Partner und Förderer der Community und stellt deren Informationen und Logos übersichtlich dar.[[lang:en]]The Sponsors Plugin manages all sponsors, partners, and supporters of the community and displays their information and logos in a clear way.[[lang:it]]Il plugin Sponsors gestisce tutti gli sponsor, partner e sostenitori della community e visualizza le loro informazioni e loghi in modo chiaro.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "sponsors.png",
+            "download": "sponsors_1.0.3.zip"
+        },
+        {
+            "name": "SEO",
+            "modulname": "seo",
+            "description": "[[lang:de]]Erstelle und verwalte suchmaschinenoptimierte Inhalte mehrsprachig für deine Website.[[lang:en]]Create and manage multilingual search engine optimized content for your website.[[lang:it]]Crea e gestisci contenuti ottimizzati per i motori di ricerca multilingue per il tuo sito web.",
+            "version": "1.0.0",
+            "requires_core": "1.0.2",
+            "author": "nexpell-team",
+            "visible_for": "DISABLED",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "seo.png",
+            "download": "DISABLED"
+        },
+        {
+            "name": "Shoutbox",
+            "modulname": "shoutbox",
+            "description": "[[lang:de]]Füge deiner Website eine einfache Shoutbox hinzu, um kurze Nachrichten mit deinen Besuchern auszutauschen.[[lang:gb]]Add a simple shoutbox to your website to exchange short messages with your visitors.[[lang:it]]Aggiungi una semplice shoutbox al tuo sito per scambiare brevi messaggi con i visitatori.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "shoutbox.png",
+            "download": "shoutbox.zip"
+        },
+        {
+            "name": "Shoutbox",
+            "modulname": "shoutbox",
+            "description": "[[lang:de]]Füge deiner Website eine einfache Shoutbox hinzu, um kurze Nachrichten mit deinen Besuchern auszutauschen.[[lang:gb]]Add a simple shoutbox to your website to exchange short messages with your visitors.[[lang:it]]Aggiungi una semplice shoutbox al tuo sito per scambiare brevi messaggi con i visitatori.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "shoutbox.png",
+            "download": "shoutbox_1.0.3.zip"
+        },
+        {
+            "name": "Search",
+            "modulname": "search",
+            "description": "[[lang:de]]Mit diesem Plugin könnt ihr eure Suche auf der Website anzeigen lassen.[[lang:en]]With this plugin you can display the search on your website.[[lang:it]]Con questo plugin potete mostrare la funzione di ricerca sul vostro sito web.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "search.png",
+            "download": "search.zip"
+        },
+        {
+            "name": "Search",
+            "modulname": "search",
+            "description": "[[lang:de]]Mit diesem Plugin könnt ihr eure Suche auf der Website anzeigen lassen.[[lang:en]]With this plugin you can display the search on your website.[[lang:it]]Con questo plugin potete mostrare la funzione di ricerca sul vostro sito web.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "search.png",
+            "download": "search_1.0.3.zip"
+        },
+        {
+            "name": "Twitch",
+            "modulname": "twitch",
+            "description": "[[lang:de]]Zeigt deinen Twitch-Livestream direkt auf deiner Website mit integriertem Chat.[[lang:gb]]Display your Twitch livestream directly on your website with integrated chat.[[lang:it]]Mostra il tuo livestream Twitch direttamente sul tuo sito web con chat integrata.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "twitch.png",
+            "download": "twitch.zip"
+        },
+        {
+            "name": "Twitch",
+            "modulname": "twitch",
+            "description": "[[lang:de]]Zeigt deinen Twitch-Livestream direkt auf deiner Website mit integriertem Chat.[[lang:gb]]Display your Twitch livestream directly on your website with integrated chat.[[lang:it]]Mostra il tuo livestream Twitch direttamente sul tuo sito web con chat integrata.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "twitch.png",
+            "download": "twitch_1.0.3.zip"
+        },
+        {
+            "name": "Who is online",
+            "modulname": "whoisonline",
+            "description": "[[lang:de]]Aus Datenschutzgründen wird die Anzeige der Online-Benutzer nur noch im Adminbereich dargestellt. Es erfolgt keine Anzeige mehr im öffentlichen Frontend.[[lang:en]]Due to data protection reasons, the display of online users is only shown in the admin area. It is no longer displayed in the public frontend.[[lang:it]]Per motivi di protezione dei dati, la visualizzazione degli utenti online viene mostrata solo nell'area di amministrazione. Non viene più visualizzata nel frontend pubblico.",
+            "version": "1.0.0",
+            "requires_core": "1.0.2",
+            "author": "nexpell-team",
+            "visible_for": "HIDDEN",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "whoisonline.png",
+            "download": "DISABLED"
+        },
+        {
+            "name": "Entwicklungshistorie",
+            "modulname": "resume",
+            "description": "[[lang:de]]Entwicklungshistorie von nexpell[[lang:en]]Development history of nexpell[[lang:it]]Cronologia di sviluppo di nexpell",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "resume.png",
+            "download": "resume.zip",
+            "visible_for": "CUSTOM",
+            "visible_emails": [
+                "info@nexpell.de"
+            ]
+        },
+        {
+            "name": "Articles",
+            "modulname": "articles",
+            "description": "[[lang:de]]Das Artikel-Plugin bietet dir ein leistungsstarkes Werkzeug zur Verwaltung redaktioneller Inhalte auf deiner Website. Artikel lassen sich übersichtlich anlegen, bearbeiten und kategorisieren, sodass Inhalte klar strukturiert und für Besucher leicht auffindbar sind.<br data-end=\\\"675\\\" data-start=\\\"672\\\" />\nNeben der klassischen Artikelverwaltung unterstützt das Plugin Kommentare und Bewertungen, um Interaktionen mit deinen Lesern zu fördern. Dadurch eignet sich das Artikel-Plugin ideal für News-Bereiche, Blogs, Magazine oder projektbezogene Informationsseiten. Die Inhalte können flexibel an das Design und die Struktur deiner Nexpell-Website angepasst werden.[[lang:en]]The Article plugin provides a powerful solution for managing editorial content on your website. Articles can be created, edited, and organized into categories, making it easy for visitors to navigate and find relevant information.<br data-end=\\\"1459\\\" data-start=\\\"1456\\\" />\nIn addition to standard article management, the plugin supports comments and ratings to encourage reader interaction and engagement. This makes the Article plugin an excellent choice for news sections, blogs, online magazines, or project-focused information pages. Content can be flexibly adapted to the design and structure of your Nexpell website.[[lang:it]]Il plugin Articoli offre uno strumento potente per la gestione dei contenuti editoriali sul tuo sito web. Gli articoli possono essere creati, modificati e organizzati in categorie, permettendo ai visitatori di trovare facilmente le informazioni desiderate.<br data-end=\\\"2283\\\" data-start=\\\"2280\\\" />\nOltre alla gestione classica degli articoli, il plugin supporta commenti e valutazioni per favorire l’interazione e il coinvolgimento dei lettori. È quindi ideale per sezioni news, blog, magazine online o pagine informative dedicate a progetti specifici. I contenuti possono essere adattati in modo flessibile al design e alla struttura del tuo sito Nexpell.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "articles.png",
+            "download": "articles.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Articles",
+            "modulname": "articles",
+            "description": "[[lang:de]]Das Artikel-Plugin bietet dir ein leistungsstarkes Werkzeug zur Verwaltung redaktioneller Inhalte auf deiner Website. Artikel lassen sich übersichtlich anlegen, bearbeiten und kategorisieren, sodass Inhalte klar strukturiert und für Besucher leicht auffindbar sind.<br data-end=\\\"675\\\" data-start=\\\"672\\\" />\nNeben der klassischen Artikelverwaltung unterstützt das Plugin Kommentare und Bewertungen, um Interaktionen mit deinen Lesern zu fördern. Dadurch eignet sich das Artikel-Plugin ideal für News-Bereiche, Blogs, Magazine oder projektbezogene Informationsseiten. Die Inhalte können flexibel an das Design und die Struktur deiner Nexpell-Website angepasst werden.[[lang:en]]The Article plugin provides a powerful solution for managing editorial content on your website. Articles can be created, edited, and organized into categories, making it easy for visitors to navigate and find relevant information.<br data-end=\\\"1459\\\" data-start=\\\"1456\\\" />\nIn addition to standard article management, the plugin supports comments and ratings to encourage reader interaction and engagement. This makes the Article plugin an excellent choice for news sections, blogs, online magazines, or project-focused information pages. Content can be flexibly adapted to the design and structure of your Nexpell website.[[lang:it]]Il plugin Articoli offre uno strumento potente per la gestione dei contenuti editoriali sul tuo sito web. Gli articoli possono essere creati, modificati e organizzati in categorie, permettendo ai visitatori di trovare facilmente le informazioni desiderate.<br data-end=\\\"2283\\\" data-start=\\\"2280\\\" />\nOltre alla gestione classica degli articoli, il plugin supporta commenti e valutazioni per favorire l’interazione e il coinvolgimento dei lettori. È quindi ideale per sezioni news, blog, magazine online o pagine informative dedicate a progetti specifici. I contenuti possono essere adattati in modo flessibile al design e alla struttura del tuo sito Nexpell.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "articles.png",
+            "download": "articles_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Carousel",
+            "modulname": "carousel",
+            "description": "[[lang:de]]Dieses Plugin erweitert Nexpell um moderne und flexible Darstellungsmöglichkeiten wie <strong data-end=\\\"355\\\" data-start=\\\"343\\\">Carousel</strong>, <strong data-end=\\\"367\\\" data-start=\\\"357\\\">Agency</strong>, <strong data-end=\\\"381\\\" data-start=\\\"369\\\">Parallax</strong> und <strong data-end=\\\"396\\\" data-start=\\\"386\\\">Sticky</strong>. Inhalte können als dynamische Slider präsentiert werden, um Highlights, Bilder oder Texte wirkungsvoll in Szene zu setzen.<br data-end=\\\"523\\\" data-start=\\\"520\\\" />\nMit der Agency-Funktion lässt sich ein großflächiges Hero-Bild oberhalb der Navigation anzeigen, wobei die Navigation zunächst transparent ist und sich beim Scrollen automatisch anpasst. Parallax-Effekte sorgen zusätzlich für eine ansprechende Tiefenwirkung beim Scrollen, während die Sticky-Funktion wichtige Elemente dauerhaft sichtbar hält. Ideal für moderne Startseiten, Landingpages und visuell orientierte Websites.[[lang:en]]This plugin extends Nexpell with modern and flexible display features such as <strong data-end=\\\"1058\\\" data-start=\\\"1046\\\">Carousel</strong>, <strong data-end=\\\"1070\\\" data-start=\\\"1060\\\">Agency</strong>, <strong data-end=\\\"1084\\\" data-start=\\\"1072\\\">Parallax</strong>, and <strong data-end=\\\"1100\\\" data-start=\\\"1090\\\">Sticky</strong>. Content can be presented in dynamic sliders to showcase highlights, images, or text in an engaging way.<br data-end=\\\"1208\\\" data-start=\\\"1205\\\" />\nThe Agency feature adds a large hero image above the navigation, with the navigation initially transparent and automatically adapting while scrolling. Parallax effects enhance the visual depth of the page, and the sticky feature keeps important elements visible at all times. Perfect for modern homepages, landing pages, and visually focused websites.[[lang:it]]Questo plugin estende Nexpell con funzionalità di visualizzazione moderne e flessibili come <strong data-end=\\\"1688\\\" data-start=\\\"1676\\\">Carousel</strong>, <strong data-end=\\\"1700\\\" data-start=\\\"1690\\\">Agency</strong>, <strong data-end=\\\"1714\\\" data-start=\\\"1702\\\">Parallax</strong> e <strong data-end=\\\"1727\\\" data-start=\\\"1717\\\">Sticky</strong>. I contenuti possono essere presentati tramite slider dinamici per valorizzare immagini, testi o contenuti in evidenza.<br data-end=\\\"1850\\\" data-start=\\\"1847\\\" />\nLa funzione Agency consente di visualizzare un’immagine hero sopra la navigazione, che inizialmente è trasparente e si adatta automaticamente durante lo scorrimento. Gli effetti parallax aggiungono profondità visiva alla pagina, mentre la funzione sticky mantiene sempre visibili gli elementi più importanti. Ideale per homepage moderne, landing page e siti web con un forte impatto visivo.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "carousel.png",
+            "download": "carousel.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Carousel",
+            "modulname": "carousel",
+            "description": "[[lang:de]]Dieses Plugin erweitert Nexpell um moderne und flexible Darstellungsmöglichkeiten wie <strong data-end=\\\"355\\\" data-start=\\\"343\\\">Carousel</strong>, <strong data-end=\\\"367\\\" data-start=\\\"357\\\">Agency</strong>, <strong data-end=\\\"381\\\" data-start=\\\"369\\\">Parallax</strong> und <strong data-end=\\\"396\\\" data-start=\\\"386\\\">Sticky</strong>. Inhalte können als dynamische Slider präsentiert werden, um Highlights, Bilder oder Texte wirkungsvoll in Szene zu setzen.<br data-end=\\\"523\\\" data-start=\\\"520\\\" />\nMit der Agency-Funktion lässt sich ein großflächiges Hero-Bild oberhalb der Navigation anzeigen, wobei die Navigation zunächst transparent ist und sich beim Scrollen automatisch anpasst. Parallax-Effekte sorgen zusätzlich für eine ansprechende Tiefenwirkung beim Scrollen, während die Sticky-Funktion wichtige Elemente dauerhaft sichtbar hält. Ideal für moderne Startseiten, Landingpages und visuell orientierte Websites.[[lang:en]]This plugin extends Nexpell with modern and flexible display features such as <strong data-end=\\\"1058\\\" data-start=\\\"1046\\\">Carousel</strong>, <strong data-end=\\\"1070\\\" data-start=\\\"1060\\\">Agency</strong>, <strong data-end=\\\"1084\\\" data-start=\\\"1072\\\">Parallax</strong>, and <strong data-end=\\\"1100\\\" data-start=\\\"1090\\\">Sticky</strong>. Content can be presented in dynamic sliders to showcase highlights, images, or text in an engaging way.<br data-end=\\\"1208\\\" data-start=\\\"1205\\\" />\nThe Agency feature adds a large hero image above the navigation, with the navigation initially transparent and automatically adapting while scrolling. Parallax effects enhance the visual depth of the page, and the sticky feature keeps important elements visible at all times. Perfect for modern homepages, landing pages, and visually focused websites.[[lang:it]]Questo plugin estende Nexpell con funzionalità di visualizzazione moderne e flessibili come <strong data-end=\\\"1688\\\" data-start=\\\"1676\\\">Carousel</strong>, <strong data-end=\\\"1700\\\" data-start=\\\"1690\\\">Agency</strong>, <strong data-end=\\\"1714\\\" data-start=\\\"1702\\\">Parallax</strong> e <strong data-end=\\\"1727\\\" data-start=\\\"1717\\\">Sticky</strong>. I contenuti possono essere presentati tramite slider dinamici per valorizzare immagini, testi o contenuti in evidenza.<br data-end=\\\"1850\\\" data-start=\\\"1847\\\" />\nLa funzione Agency consente di visualizzare un’immagine hero sopra la navigazione, che inizialmente è trasparente e si adatta automaticamente durante lo scorrimento. Gli effetti parallax aggiungono profondità visiva alla pagina, mentre la funzione sticky mantiene sempre visibili gli elementi più importanti. Ideale per homepage moderne, landing page e siti web con un forte impatto visivo.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "carousel.png",
+            "download": "carousel_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Counter",
+            "modulname": "counter",
+            "description": "[[lang:de]]Der Live-Besucher-Counter bietet eine übersichtliche Statistik über die Aktivitäten auf deiner Website in Echtzeit. Du erhältst detaillierte Informationen zu aktuellen Besuchern, Seitenaufrufen und Nutzerzahlen.<br data-end=\\\"515\\\" data-start=\\\"512\\\" />\nNeben den Besuchszahlen für heute, gestern, den aktuellen Monat und die Gesamtbesuche zeigt der Counter auch an, wie viele Besucher aktuell online sind und welcher Höchstwert gleichzeitig aktiver Nutzer erreicht wurde.<br data-end=\\\"736\\\" data-start=\\\"733\\\" />\nZusätzlich liefert die User-Statistik einen Überblick über registrierte Nutzer sowie das Alter der jüngsten und ältesten Nutzer. Eine Monatsstatistik mit täglichen Besuchszahlen und prozentualer Auswertung rundet die Übersicht ab und ermöglicht es, Besuchertrends und Aktivitätsschwerpunkte schnell zu erkennen.[[lang:en]]The live visitor counter provides a clear overview of your website’s activity in real time. It displays detailed statistics about current visitors, page views, and user numbers.<br data-end=\\\"1269\\\" data-start=\\\"1266\\\" />\nIn addition to visit counts for today, yesterday, the current month, and total visits, the counter shows how many visitors are currently online and the maximum number of users who were online at the same time.<br data-end=\\\"1481\\\" data-start=\\\"1478\\\" />\nThe user statistics offer insights into registered users as well as the youngest and oldest user. A monthly statistic with daily visit numbers and percentage values completes the overview and helps identify visitor trends and peak activity periods.[[lang:it]]Il contatore visitatori in tempo reale offre una panoramica chiara dell’attività del tuo sito web. Mostra statistiche dettagliate sui visitatori attuali, sulle visite e sul numero di utenti.<br data-end=\\\"1965\\\" data-start=\\\"1962\\\" />\nOltre alle visite di oggi, di ieri, del mese corrente e al totale complessivo, il contatore indica quanti utenti sono online in questo momento e il numero massimo di utenti contemporaneamente online.<br data-end=\\\"2167\\\" data-start=\\\"2164\\\" />\nLe statistiche utenti forniscono informazioni sugli utenti registrati e sull’età dell’utente più giovane e più anziano. Una statistica mensile con il numero di visite giornaliere e le percentuali completa la panoramica e consente di individuare facilmente tendenze e periodi di maggiore attività.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "counter.png",
+            "download": "counter.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Counter",
+            "modulname": "counter",
+            "description": "[[lang:de]]Der Live-Besucher-Counter bietet eine übersichtliche Statistik über die Aktivitäten auf deiner Website in Echtzeit. Du erhältst detaillierte Informationen zu aktuellen Besuchern, Seitenaufrufen und Nutzerzahlen.<br data-end=\\\"515\\\" data-start=\\\"512\\\" />\nNeben den Besuchszahlen für heute, gestern, den aktuellen Monat und die Gesamtbesuche zeigt der Counter auch an, wie viele Besucher aktuell online sind und welcher Höchstwert gleichzeitig aktiver Nutzer erreicht wurde.<br data-end=\\\"736\\\" data-start=\\\"733\\\" />\nZusätzlich liefert die User-Statistik einen Überblick über registrierte Nutzer sowie das Alter der jüngsten und ältesten Nutzer. Eine Monatsstatistik mit täglichen Besuchszahlen und prozentualer Auswertung rundet die Übersicht ab und ermöglicht es, Besuchertrends und Aktivitätsschwerpunkte schnell zu erkennen.[[lang:en]]The live visitor counter provides a clear overview of your website’s activity in real time. It displays detailed statistics about current visitors, page views, and user numbers.<br data-end=\\\"1269\\\" data-start=\\\"1266\\\" />\nIn addition to visit counts for today, yesterday, the current month, and total visits, the counter shows how many visitors are currently online and the maximum number of users who were online at the same time.<br data-end=\\\"1481\\\" data-start=\\\"1478\\\" />\nThe user statistics offer insights into registered users as well as the youngest and oldest user. A monthly statistic with daily visit numbers and percentage values completes the overview and helps identify visitor trends and peak activity periods.[[lang:it]]Il contatore visitatori in tempo reale offre una panoramica chiara dell’attività del tuo sito web. Mostra statistiche dettagliate sui visitatori attuali, sulle visite e sul numero di utenti.<br data-end=\\\"1965\\\" data-start=\\\"1962\\\" />\nOltre alle visite di oggi, di ieri, del mese corrente e al totale complessivo, il contatore indica quanti utenti sono online in questo momento e il numero massimo di utenti contemporaneamente online.<br data-end=\\\"2167\\\" data-start=\\\"2164\\\" />\nLe statistiche utenti forniscono informazioni sugli utenti registrati e sull’età dell’utente più giovane e più anziano. Una statistica mensile con il numero di visite giornaliere e le percentuali completa la panoramica e consente di individuare facilmente tendenze e periodi di maggiore attività.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "counter.png",
+            "download": "counter_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Discord",
+            "modulname": "discord",
+            "description": "[[lang:de]]Dieses Plugin zeigt die aktuell <strong data-end=\\\"416\\\" data-start=\\\"382\\\">online befindlichen Mitglieder</strong> deines Discord-Servers direkt auf deiner Nexpell-Website an. Besucher erhalten so einen schnellen Überblick darüber, wie aktiv die Community gerade ist.<br data-end=\\\"572\\\" data-start=\\\"569\\\" />\nEin integrierter <strong data-end=\\\"607\\\" data-start=\\\"589\\\">Connect-Button</strong> ermöglicht es Nutzern, mit einem Klick deinem Discord-Server beizutreten. Das Plugin eignet sich ideal für Community-Websites, Support-Seiten oder Projekte, die ihre Discord-Community sichtbar und leicht erreichbar machen möchten.[[lang:en]]This plugin displays the <strong data-end=\\\"933\\\" data-start=\\\"905\\\">currently online members</strong> of your Discord server directly on your Nexpell website. Visitors can quickly see how active the community is at the moment.<br data-end=\\\"1061\\\" data-start=\\\"1058\\\" />\nAn integrated <strong data-end=\\\"1093\\\" data-start=\\\"1075\\\">connect button</strong> allows users to join your Discord server with a single click. The plugin is ideal for community websites, support pages, or projects that want to make their Discord community visible and easily accessible.[[lang:it]]Questo plugin mostra i <strong data-end=\\\"1394\\\" data-start=\\\"1365\\\">membri attualmente online</strong> del tuo server Discord direttamente sul tuo sito Nexpell. I visitatori possono vedere rapidamente quanto è attiva la community in quel momento.<br data-end=\\\"1541\\\" data-start=\\\"1538\\\" />\nUn <strong data-end=\\\"1571\\\" data-start=\\\"1544\\\">pulsante di connessione</strong> integrato consente agli utenti di unirsi al server Discord con un solo clic. Il plugin è ideale per siti community, pagine di supporto o progetti che desiderano rendere visibile e facilmente accessibile la propria community Discord.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "discord.png",
+            "download": "discord.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Discord",
+            "modulname": "discord",
+            "description": "[[lang:de]]Dieses Plugin zeigt die aktuell <strong data-end=\\\"416\\\" data-start=\\\"382\\\">online befindlichen Mitglieder</strong> deines Discord-Servers direkt auf deiner Nexpell-Website an. Besucher erhalten so einen schnellen Überblick darüber, wie aktiv die Community gerade ist.<br data-end=\\\"572\\\" data-start=\\\"569\\\" />\nEin integrierter <strong data-end=\\\"607\\\" data-start=\\\"589\\\">Connect-Button</strong> ermöglicht es Nutzern, mit einem Klick deinem Discord-Server beizutreten. Das Plugin eignet sich ideal für Community-Websites, Support-Seiten oder Projekte, die ihre Discord-Community sichtbar und leicht erreichbar machen möchten.[[lang:en]]This plugin displays the <strong data-end=\\\"933\\\" data-start=\\\"905\\\">currently online members</strong> of your Discord server directly on your Nexpell website. Visitors can quickly see how active the community is at the moment.<br data-end=\\\"1061\\\" data-start=\\\"1058\\\" />\nAn integrated <strong data-end=\\\"1093\\\" data-start=\\\"1075\\\">connect button</strong> allows users to join your Discord server with a single click. The plugin is ideal for community websites, support pages, or projects that want to make their Discord community visible and easily accessible.[[lang:it]]Questo plugin mostra i <strong data-end=\\\"1394\\\" data-start=\\\"1365\\\">membri attualmente online</strong> del tuo server Discord direttamente sul tuo sito Nexpell. I visitatori possono vedere rapidamente quanto è attiva la community in quel momento.<br data-end=\\\"1541\\\" data-start=\\\"1538\\\" />\nUn <strong data-end=\\\"1571\\\" data-start=\\\"1544\\\">pulsante di connessione</strong> integrato consente agli utenti di unirsi al server Discord con un solo clic. Il plugin è ideale per siti community, pagine di supporto o progetti che desiderano rendere visibile e facilmente accessibile la propria community Discord.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "discord.png",
+            "download": "discord_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Downloads",
+            "modulname": "downloads",
+            "description": "[[lang:de]]Mit dem Download-Plugin kannst du deiner Nexpell-Website einen übersichtlichen Downloadbereich hinzufügen, in dem Dateien, Programme oder andere Ressourcen zentral bereitgestellt werden. Inhalte lassen sich strukturiert organisieren und Besuchern leicht zugänglich machen.<br data-end=\\\"558\\\" data-start=\\\"555\\\" />\nDownloads können Kategorien zugeordnet werden, sodass Nutzer schnell die gewünschten Inhalte finden. Zusätzlich wird für jede Datei ein <strong data-end=\\\"718\\\" data-start=\\\"694\\\">letztes Update-Datum</strong> angezeigt, um transparent darzustellen, wie aktuell ein Download ist. Das Plugin eignet sich ideal für Projekte, Tools, Software-Downloads oder Medieninhalte und unterstützt eine klare, benutzerfreundliche Präsentation.[[lang:en]]The Download plugin allows you to add a clear and structured download section to your Nexpell website, where files, programs, or other resources can be offered. Content can be organized centrally and made easily accessible for visitors.<br data-end=\\\"1219\\\" data-start=\\\"1216\\\" />\nDownloads can be assigned to categories, making it easy for users to find the content they are looking for. In addition, each file displays a <strong data-end=\\\"1381\\\" data-start=\\\"1361\\\">last update date</strong>, providing transparency about how current a download is. This plugin is ideal for projects, tools, software downloads, or media resources and ensures a user-friendly presentation.[[lang:it]]Il plugin Download consente di aggiungere al tuo sito Nexpell un’area download chiara e ben organizzata, in cui è possibile offrire file, programmi o altre risorse. I contenuti possono essere gestiti centralmente e resi facilmente accessibili ai visitatori.<br data-end=\\\"1864\\\" data-start=\\\"1861\\\" />\nI download possono essere assegnati a categorie, facilitando la ricerca dei contenuti desiderati. Inoltre, per ogni file viene mostrata la <strong data-end=\\\"2037\\\" data-start=\\\"2003\\\">data dell’ultimo aggiornamento</strong>, così da indicare quanto è recente il download. Il plugin è ideale per progetti, strumenti, software o contenuti multimediali e garantisce una presentazione semplice e intuitiva.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "downloads.png",
+            "download": "downloads.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Downloads",
+            "modulname": "downloads",
+            "description": "[[lang:de]]Mit dem Download-Plugin kannst du deiner Nexpell-Website einen übersichtlichen Downloadbereich hinzufügen, in dem Dateien, Programme oder andere Ressourcen zentral bereitgestellt werden. Inhalte lassen sich strukturiert organisieren und Besuchern leicht zugänglich machen.<br data-end=\\\"558\\\" data-start=\\\"555\\\" />\nDownloads können Kategorien zugeordnet werden, sodass Nutzer schnell die gewünschten Inhalte finden. Zusätzlich wird für jede Datei ein <strong data-end=\\\"718\\\" data-start=\\\"694\\\">letztes Update-Datum</strong> angezeigt, um transparent darzustellen, wie aktuell ein Download ist. Das Plugin eignet sich ideal für Projekte, Tools, Software-Downloads oder Medieninhalte und unterstützt eine klare, benutzerfreundliche Präsentation.[[lang:en]]The Download plugin allows you to add a clear and structured download section to your Nexpell website, where files, programs, or other resources can be offered. Content can be organized centrally and made easily accessible for visitors.<br data-end=\\\"1219\\\" data-start=\\\"1216\\\" />\nDownloads can be assigned to categories, making it easy for users to find the content they are looking for. In addition, each file displays a <strong data-end=\\\"1381\\\" data-start=\\\"1361\\\">last update date</strong>, providing transparency about how current a download is. This plugin is ideal for projects, tools, software downloads, or media resources and ensures a user-friendly presentation.[[lang:it]]Il plugin Download consente di aggiungere al tuo sito Nexpell un’area download chiara e ben organizzata, in cui è possibile offrire file, programmi o altre risorse. I contenuti possono essere gestiti centralmente e resi facilmente accessibili ai visitatori.<br data-end=\\\"1864\\\" data-start=\\\"1861\\\" />\nI download possono essere assegnati a categorie, facilitando la ricerca dei contenuti desiderati. Inoltre, per ogni file viene mostrata la <strong data-end=\\\"2037\\\" data-start=\\\"2003\\\">data dell’ultimo aggiornamento</strong>, così da indicare quanto è recente il download. Il plugin è ideale per progetti, strumenti, software o contenuti multimediali e garantisce una presentazione semplice e intuitiva.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "downloads.png",
+            "download": "downloads_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Gallery",
+            "modulname": "gallery",
+            "description": "[[lang:de]]Mit dem Gallery-Plugin kannst du Bilder ansprechend und flexibel auf deiner Nexpell-Website präsentieren. Die Galerie unterstützt <strong data-end=\\\"607\\\" data-start=\\\"575\\\">unterschiedlich große Bilder</strong>, die automatisch in einem modernen Grid-Layout angeordnet werden.<br data-end=\\\"676\\\" data-start=\\\"673\\\" />\nBilder lassen sich <strong data-end=\\\"718\\\" data-start=\\\"695\\\">Kategorien zuweisen</strong> und können über <strong data-end=\\\"753\\\" data-start=\\\"735\\\">Filter-Buttons</strong> gezielt sortiert und angezeigt werden. So finden Besucher schnell die gewünschten Inhalte.<br data-end=\\\"847\\\" data-start=\\\"844\\\" />\nDurch Anklicken eines Bildes wird dieses in einer <strong data-end=\\\"925\\\" data-start=\\\"897\\\">Ansicht in Originalgröße</strong> geöffnet, ideal für detaillierte Fotos, Medieninhalte oder Präsentationen. Das Gallery-Plugin eignet sich perfekt für Portfolios, Mediengalerien, Projekte oder Produktdarstellungen.[[lang:en]]The Gallery plugin allows you to present images in a flexible and visually appealing way on your Nexpell website. It supports <strong data-end=\\\"1300\\\" data-start=\\\"1275\\\">different image sizes</strong>, which are automatically arranged in a modern grid layout.<br data-end=\\\"1362\\\" data-start=\\\"1359\\\" />\nImages can be assigned to <strong data-end=\\\"1402\\\" data-start=\\\"1388\\\">categories</strong> and filtered using <strong data-end=\\\"1433\\\" data-start=\\\"1422\\\">buttons</strong>, enabling visitors to easily sort and browse the gallery.<br data-end=\\\"1494\\\" data-start=\\\"1491\\\" />\nBy clicking on an image, it opens in its <strong data-end=\\\"1552\\\" data-start=\\\"1535\\\">original size</strong>, making it ideal for detailed photos, media content, or visual showcases. The Gallery plugin is perfect for portfolios, media galleries, projects, or product presentations.[[lang:it]]Il plugin Gallery consente di presentare immagini in modo flessibile e visivamente accattivante sul tuo sito Nexpell. Supporta <strong data-end=\\\"1929\\\" data-start=\\\"1895\\\">immagini di dimensioni diverse</strong>, disposte automaticamente in un layout a griglia moderno.<br data-end=\\\"1990\\\" data-start=\\\"1987\\\" />\nLe immagini possono essere assegnate a <strong data-end=\\\"2042\\\" data-start=\\\"2029\\\">categorie</strong> e filtrate tramite <strong data-end=\\\"2074\\\" data-start=\\\"2062\\\">pulsanti</strong>, permettendo ai visitatori di ordinare e visualizzare facilmente i contenuti.<br data-end=\\\"2155\\\" data-start=\\\"2152\\\" />\nFacendo clic su un’immagine, questa viene aperta nella sua <strong data-end=\\\"2238\\\" data-start=\\\"2214\\\">dimensione originale</strong>, ideale per foto dettagliate, contenuti multimediali o presentazioni visive. Il plugin Gallery è perfetto per portfolio, gallerie multimediali, progetti o presentazioni di prodotti.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "gallery.png",
+            "download": "gallery.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Gallery",
+            "modulname": "gallery",
+            "description": "[[lang:de]]Mit dem Gallery-Plugin kannst du Bilder ansprechend und flexibel auf deiner Nexpell-Website präsentieren. Die Galerie unterstützt <strong data-end=\\\"607\\\" data-start=\\\"575\\\">unterschiedlich große Bilder</strong>, die automatisch in einem modernen Grid-Layout angeordnet werden.<br data-end=\\\"676\\\" data-start=\\\"673\\\" />\nBilder lassen sich <strong data-end=\\\"718\\\" data-start=\\\"695\\\">Kategorien zuweisen</strong> und können über <strong data-end=\\\"753\\\" data-start=\\\"735\\\">Filter-Buttons</strong> gezielt sortiert und angezeigt werden. So finden Besucher schnell die gewünschten Inhalte.<br data-end=\\\"847\\\" data-start=\\\"844\\\" />\nDurch Anklicken eines Bildes wird dieses in einer <strong data-end=\\\"925\\\" data-start=\\\"897\\\">Ansicht in Originalgröße</strong> geöffnet, ideal für detaillierte Fotos, Medieninhalte oder Präsentationen. Das Gallery-Plugin eignet sich perfekt für Portfolios, Mediengalerien, Projekte oder Produktdarstellungen.[[lang:en]]The Gallery plugin allows you to present images in a flexible and visually appealing way on your Nexpell website. It supports <strong data-end=\\\"1300\\\" data-start=\\\"1275\\\">different image sizes</strong>, which are automatically arranged in a modern grid layout.<br data-end=\\\"1362\\\" data-start=\\\"1359\\\" />\nImages can be assigned to <strong data-end=\\\"1402\\\" data-start=\\\"1388\\\">categories</strong> and filtered using <strong data-end=\\\"1433\\\" data-start=\\\"1422\\\">buttons</strong>, enabling visitors to easily sort and browse the gallery.<br data-end=\\\"1494\\\" data-start=\\\"1491\\\" />\nBy clicking on an image, it opens in its <strong data-end=\\\"1552\\\" data-start=\\\"1535\\\">original size</strong>, making it ideal for detailed photos, media content, or visual showcases. The Gallery plugin is perfect for portfolios, media galleries, projects, or product presentations.[[lang:it]]Il plugin Gallery consente di presentare immagini in modo flessibile e visivamente accattivante sul tuo sito Nexpell. Supporta <strong data-end=\\\"1929\\\" data-start=\\\"1895\\\">immagini di dimensioni diverse</strong>, disposte automaticamente in un layout a griglia moderno.<br data-end=\\\"1990\\\" data-start=\\\"1987\\\" />\nLe immagini possono essere assegnate a <strong data-end=\\\"2042\\\" data-start=\\\"2029\\\">categorie</strong> e filtrate tramite <strong data-end=\\\"2074\\\" data-start=\\\"2062\\\">pulsanti</strong>, permettendo ai visitatori di ordinare e visualizzare facilmente i contenuti.<br data-end=\\\"2155\\\" data-start=\\\"2152\\\" />\nFacendo clic su un’immagine, questa viene aperta nella sua <strong data-end=\\\"2238\\\" data-start=\\\"2214\\\">dimensione originale</strong>, ideale per foto dettagliate, contenuti multimediali o presentazioni visive. Il plugin Gallery è perfetto per portfolio, gallerie multimediali, progetti o presentazioni di prodotti.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "gallery.png",
+            "download": "gallery_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "GameTracker",
+            "modulname": "gametracker",
+            "description": "[[lang:de]]Mit dem Server-Plugin kannst du Gameserver übersichtlich auf deiner Nexpell-Website darstellen. In der <strong data-end=\\\"411\\\" data-start=\\\"390\\\">Übersichtsansicht</strong> werden alle verfügbaren Server kompakt angezeigt, inklusive Spiel, aktueller Map, Spieleranzahl und Status. Besucher erhalten so schnell einen Überblick über aktive Server.<br data-end=\\\"587\\\" data-start=\\\"584\\\" />\nÜber die <strong data-end=\\\"613\\\" data-start=\\\"596\\\">Detailansicht</strong> lassen sich umfangreiche Informationen zu einem Server abrufen. Dazu gehören technische Daten wie IP und Port, Version, Modus, Standort sowie eine aktuelle <strong data-end=\\\"805\\\" data-start=\\\"770\\\">Spielerliste mit Ping und Frags</strong>. Zusätzlich können Server direkt kopiert oder betreten werden. Das Plugin eignet sich ideal für Clans, Communities oder Gaming-Projekte, die ihre Server transparent und aktuell präsentieren möchten.[[lang:en]]The Server plugin allows you to display game servers clearly on your Nexpell website. The <strong data-end=\\\"1153\\\" data-start=\\\"1136\\\">overview view</strong> shows all available servers in a compact list, including game, current map, player count, and server status, giving visitors a quick overview of active servers.<br data-end=\\\"1317\\\" data-start=\\\"1314\\\" />\nThe <strong data-end=\\\"1338\\\" data-start=\\\"1321\\\">detailed view</strong> provides extensive information about a selected server, such as IP and port, version, game mode, location, and a live <strong data-end=\\\"1492\\\" data-start=\\\"1457\\\">player list with ping and frags</strong>. Servers can be copied or joined directly. This plugin is ideal for clans, communities, or gaming projects that want to present their servers in a transparent and up-to-date way.[[lang:it]]Il plugin Server consente di visualizzare i server di gioco in modo chiaro sul tuo sito Nexpell. Nella <strong data-end=\\\"1837\\\" data-start=\\\"1817\\\">vista panoramica</strong> vengono mostrati tutti i server disponibili con informazioni essenziali come gioco, mappa attuale, numero di giocatori e stato del server.<br data-end=\\\"1979\\\" data-start=\\\"1976\\\" />\nLa <strong data-end=\\\"2003\\\" data-start=\\\"1982\\\">vista dettagliata</strong> fornisce informazioni complete su un singolo server, inclusi IP e porta, versione, modalità di gioco, posizione e una <strong data-end=\\\"2177\\\" data-start=\\\"2122\\\">lista dei giocatori in tempo reale con ping e frags</strong>. È inoltre possibile copiare o collegarsi direttamente al server. Il plugin è ideale per clan, community o progetti gaming che desiderano presentare i propri server in modo chiaro e aggiornato.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "gametracker.png",
+            "download": "gametracker.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "GameTracker",
+            "modulname": "gametracker",
+            "description": "[[lang:de]]Mit dem Server-Plugin kannst du Gameserver übersichtlich auf deiner Nexpell-Website darstellen. In der <strong data-end=\\\"411\\\" data-start=\\\"390\\\">Übersichtsansicht</strong> werden alle verfügbaren Server kompakt angezeigt, inklusive Spiel, aktueller Map, Spieleranzahl und Status. Besucher erhalten so schnell einen Überblick über aktive Server.<br data-end=\\\"587\\\" data-start=\\\"584\\\" />\nÜber die <strong data-end=\\\"613\\\" data-start=\\\"596\\\">Detailansicht</strong> lassen sich umfangreiche Informationen zu einem Server abrufen. Dazu gehören technische Daten wie IP und Port, Version, Modus, Standort sowie eine aktuelle <strong data-end=\\\"805\\\" data-start=\\\"770\\\">Spielerliste mit Ping und Frags</strong>. Zusätzlich können Server direkt kopiert oder betreten werden. Das Plugin eignet sich ideal für Clans, Communities oder Gaming-Projekte, die ihre Server transparent und aktuell präsentieren möchten.[[lang:en]]The Server plugin allows you to display game servers clearly on your Nexpell website. The <strong data-end=\\\"1153\\\" data-start=\\\"1136\\\">overview view</strong> shows all available servers in a compact list, including game, current map, player count, and server status, giving visitors a quick overview of active servers.<br data-end=\\\"1317\\\" data-start=\\\"1314\\\" />\nThe <strong data-end=\\\"1338\\\" data-start=\\\"1321\\\">detailed view</strong> provides extensive information about a selected server, such as IP and port, version, game mode, location, and a live <strong data-end=\\\"1492\\\" data-start=\\\"1457\\\">player list with ping and frags</strong>. Servers can be copied or joined directly. This plugin is ideal for clans, communities, or gaming projects that want to present their servers in a transparent and up-to-date way.[[lang:it]]Il plugin Server consente di visualizzare i server di gioco in modo chiaro sul tuo sito Nexpell. Nella <strong data-end=\\\"1837\\\" data-start=\\\"1817\\\">vista panoramica</strong> vengono mostrati tutti i server disponibili con informazioni essenziali come gioco, mappa attuale, numero di giocatori e stato del server.<br data-end=\\\"1979\\\" data-start=\\\"1976\\\" />\nLa <strong data-end=\\\"2003\\\" data-start=\\\"1982\\\">vista dettagliata</strong> fornisce informazioni complete su un singolo server, inclusi IP e porta, versione, modalità di gioco, posizione e una <strong data-end=\\\"2177\\\" data-start=\\\"2122\\\">lista dei giocatori in tempo reale con ping e frags</strong>. È inoltre possibile copiare o collegarsi direttamente al server. Il plugin è ideale per clan, community o progetti gaming che desiderano presentare i propri server in modo chiaro e aggiornato.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "gametracker.png",
+            "download": "gametracker_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Lastlogin",
+            "modulname": "lastlogin",
+            "description": "[[lang:de]]Die Funktion <strong data-end=\\\"315\\\" data-start=\\\"293\\\">„Letzte Anmeldung“</strong> zeigt eine detaillierte Übersicht über den Login- und Aktivitätsstatus aller registrierten Benutzer. Angezeigt werden unter anderem der <strong data-end=\\\"478\\\" data-start=\\\"452\\\">letzte Login-Zeitpunkt</strong>, die <strong data-end=\\\"531\\\" data-start=\\\"484\\\">vergangenen Tage seit der letzten Anmeldung</strong>, der <strong data-end=\\\"552\\\" data-start=\\\"537\\\">Aktivstatus</strong>, die <strong data-end=\\\"576\\\" data-start=\\\"558\\\">E-Mail-Adresse</strong> sowie das <strong data-end=\\\"610\\\" data-start=\\\"587\\\">Registrierungsdatum</strong>.<br data-end=\\\"614\\\" data-start=\\\"611\\\" />\nDiese Informationen dienen ausschließlich der <strong data-end=\\\"678\\\" data-start=\\\"660\\\">Administration</strong> und sind <strong data-end=\\\"719\\\" data-start=\\\"688\\\">nur im Admincenter sichtbar</strong>. Sie unterstützen Administratoren dabei, Nutzeraktivität zu überwachen, inaktive Accounts zu erkennen und die Benutzerverwaltung effizient und sicher zu steuern.[[lang:en]]The <strong data-end=\\\"941\\\" data-start=\\\"927\\\">Last Login</strong> feature provides administrators with a detailed overview of user login and activity status. It displays information such as the <strong data-end=\\\"1098\\\" data-start=\\\"1070\\\">last login date and time</strong>, <strong data-end=\\\"1125\\\" data-start=\\\"1100\\\">days since last login</strong>, <strong data-end=\\\"1146\\\" data-start=\\\"1127\\\">activity status</strong>, <strong data-end=\\\"1165\\\" data-start=\\\"1148\\\">email address</strong>, and <strong data-end=\\\"1192\\\" data-start=\\\"1171\\\">registration date</strong>.<br data-end=\\\"1196\\\" data-start=\\\"1193\\\" />\nThis data is intended <strong data-end=\\\"1249\\\" data-start=\\\"1218\\\">for administrative use only</strong> and is <strong data-end=\\\"1304\\\" data-start=\\\"1257\\\">visible exclusively within the admin center</strong>. It helps administrators monitor user activity, identify inactive accounts, and manage users efficiently and securely.[[lang:it]]La funzione <strong data-end=\\\"1496\\\" data-start=\\\"1478\\\">Ultimo accesso</strong> offre agli amministratori una panoramica dettagliata dello stato di accesso e attività degli utenti registrati. Vengono mostrati dati come la <strong data-end=\\\"1675\\\" data-start=\\\"1639\\\">data e l’ora dell’ultimo accesso</strong>, i <strong data-end=\\\"1717\\\" data-start=\\\"1679\\\">giorni trascorsi dall’ultimo login</strong>, lo <strong data-end=\\\"1743\\\" data-start=\\\"1722\\\">stato di attività</strong>, l’<strong data-end=\\\"1766\\\" data-start=\\\"1747\\\">indirizzo email</strong> e la <strong data-end=\\\"1797\\\" data-start=\\\"1772\\\">data di registrazione</strong>.<br data-end=\\\"1801\\\" data-start=\\\"1798\\\" />\nQueste informazioni sono destinate <strong data-end=\\\"1874\\\" data-start=\\\"1836\\\">esclusivamente all’amministrazione</strong> e sono <strong data-end=\\\"1931\\\" data-start=\\\"1882\\\">visibili solo nel pannello di amministrazione</strong>. La funzione aiuta a monitorare l’attività degli utenti, individuare account inattivi e gestire la piattaforma in modo sicuro ed efficiente.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "lastlogin.png",
+            "download": "lastlogin.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Lastlogin",
+            "modulname": "lastlogin",
+            "description": "[[lang:de]]Die Funktion <strong data-end=\\\"315\\\" data-start=\\\"293\\\">„Letzte Anmeldung“</strong> zeigt eine detaillierte Übersicht über den Login- und Aktivitätsstatus aller registrierten Benutzer. Angezeigt werden unter anderem der <strong data-end=\\\"478\\\" data-start=\\\"452\\\">letzte Login-Zeitpunkt</strong>, die <strong data-end=\\\"531\\\" data-start=\\\"484\\\">vergangenen Tage seit der letzten Anmeldung</strong>, der <strong data-end=\\\"552\\\" data-start=\\\"537\\\">Aktivstatus</strong>, die <strong data-end=\\\"576\\\" data-start=\\\"558\\\">E-Mail-Adresse</strong> sowie das <strong data-end=\\\"610\\\" data-start=\\\"587\\\">Registrierungsdatum</strong>.<br data-end=\\\"614\\\" data-start=\\\"611\\\" />\nDiese Informationen dienen ausschließlich der <strong data-end=\\\"678\\\" data-start=\\\"660\\\">Administration</strong> und sind <strong data-end=\\\"719\\\" data-start=\\\"688\\\">nur im Admincenter sichtbar</strong>. Sie unterstützen Administratoren dabei, Nutzeraktivität zu überwachen, inaktive Accounts zu erkennen und die Benutzerverwaltung effizient und sicher zu steuern.[[lang:en]]The <strong data-end=\\\"941\\\" data-start=\\\"927\\\">Last Login</strong> feature provides administrators with a detailed overview of user login and activity status. It displays information such as the <strong data-end=\\\"1098\\\" data-start=\\\"1070\\\">last login date and time</strong>, <strong data-end=\\\"1125\\\" data-start=\\\"1100\\\">days since last login</strong>, <strong data-end=\\\"1146\\\" data-start=\\\"1127\\\">activity status</strong>, <strong data-end=\\\"1165\\\" data-start=\\\"1148\\\">email address</strong>, and <strong data-end=\\\"1192\\\" data-start=\\\"1171\\\">registration date</strong>.<br data-end=\\\"1196\\\" data-start=\\\"1193\\\" />\nThis data is intended <strong data-end=\\\"1249\\\" data-start=\\\"1218\\\">for administrative use only</strong> and is <strong data-end=\\\"1304\\\" data-start=\\\"1257\\\">visible exclusively within the admin center</strong>. It helps administrators monitor user activity, identify inactive accounts, and manage users efficiently and securely.[[lang:it]]La funzione <strong data-end=\\\"1496\\\" data-start=\\\"1478\\\">Ultimo accesso</strong> offre agli amministratori una panoramica dettagliata dello stato di accesso e attività degli utenti registrati. Vengono mostrati dati come la <strong data-end=\\\"1675\\\" data-start=\\\"1639\\\">data e l’ora dell’ultimo accesso</strong>, i <strong data-end=\\\"1717\\\" data-start=\\\"1679\\\">giorni trascorsi dall’ultimo login</strong>, lo <strong data-end=\\\"1743\\\" data-start=\\\"1722\\\">stato di attività</strong>, l’<strong data-end=\\\"1766\\\" data-start=\\\"1747\\\">indirizzo email</strong> e la <strong data-end=\\\"1797\\\" data-start=\\\"1772\\\">data di registrazione</strong>.<br data-end=\\\"1801\\\" data-start=\\\"1798\\\" />\nQueste informazioni sono destinate <strong data-end=\\\"1874\\\" data-start=\\\"1836\\\">esclusivamente all’amministrazione</strong> e sono <strong data-end=\\\"1931\\\" data-start=\\\"1882\\\">visibili solo nel pannello di amministrazione</strong>. La funzione aiuta a monitorare l’attività degli utenti, individuare account inattivi e gestire la piattaforma in modo sicuro ed efficiente.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "lastlogin.png",
+            "download": "lastlogin_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Link-/Empfehlungsliste",
+            "modulname": "links",
+            "description": "[[lang:de]]Mit dem Links-Plugin kannst du eine übersichtliche und moderne Linkliste auf deiner Nexpell-Website bereitstellen. Einträge lassen sich <strong data-end=\\\"428\\\" data-start=\\\"405\\\">Kategorien zuordnen</strong> und über <strong data-end=\\\"456\\\" data-start=\\\"438\\\">Filter-Buttons</strong> gezielt sortieren, sodass Besucher schnell passende Inhalte finden.<br data-end=\\\"527\\\" data-start=\\\"524\\\" />\nIm <strong data-end=\\\"545\\\" data-start=\\\"530\\\">Admincenter</strong> steht eine komfortable Verwaltung zur Verfügung, inklusive eines <strong data-end=\\\"641\\\" data-start=\\\"611\\\">automatischen Klickzählers</strong>, der die Aufrufe pro Link erfasst und auswertet. Zusätzlich wird beim Anlegen eines Links automatisch das <strong data-end=\\\"775\\\" data-start=\\\"748\\\">OG-Image (Vorschaubild)</strong> der verlinkten Website geladen und gespeichert.<br data-end=\\\"826\\\" data-start=\\\"823\\\" />\nFalls kein OG-Image vorhanden ist oder ein individuelles Bild gewünscht wird, kann alternativ <strong data-end=\\\"952\\\" data-start=\\\"920\\\">manuell ein Bild hochgeladen</strong> werden. Das Links-Plugin eignet sich ideal für Linklisten, Partnerseiten, Ressourcen-Sammlungen oder Empfehlungsbereiche.[[lang:en]]The Links plugin allows you to create a clear and modern link list on your Nexpell website. Links can be assigned to <strong data-end=\\\"1247\\\" data-start=\\\"1233\\\">categories</strong> and filtered via <strong data-end=\\\"1276\\\" data-start=\\\"1265\\\">buttons</strong>, making it easy for visitors to browse and find relevant content.<br data-end=\\\"1345\\\" data-start=\\\"1342\\\" />\nIn the <strong data-end=\\\"1368\\\" data-start=\\\"1352\\\">admin center</strong>, links can be managed conveniently, including an <strong data-end=\\\"1445\\\" data-start=\\\"1418\\\">automatic click counter</strong> that tracks and displays link usage. When adding a link, the plugin automatically retrieves and stores the website’s <strong data-end=\\\"1591\\\" data-start=\\\"1563\\\">OG image (preview image)</strong>.<br data-end=\\\"1595\\\" data-start=\\\"1592\\\" />\nIf no OG image is available or a custom image is preferred, an image can also be <strong data-end=\\\"1697\\\" data-start=\\\"1676\\\">uploaded manually</strong>. The Links plugin is ideal for link collections, partner pages, resource lists, or recommendation sections.[[lang:it]]Il plugin Links consente di creare una lista di collegamenti moderna e ben organizzata sul tuo sito Nexpell. I link possono essere assegnati a <strong data-end=\\\"2004\\\" data-start=\\\"1991\\\">categorie</strong> e filtrati tramite <strong data-end=\\\"2036\\\" data-start=\\\"2024\\\">pulsanti</strong>, permettendo ai visitatori di trovare facilmente i contenuti desiderati.<br data-end=\\\"2112\\\" data-start=\\\"2109\\\" />\nNel <strong data-end=\\\"2147\\\" data-start=\\\"2116\\\">pannello di amministrazione</strong> è disponibile una gestione completa, inclusa un <strong data-end=\\\"2229\\\" data-start=\\\"2196\\\">contatore automatico dei clic</strong> per monitorare l’utilizzo dei link. Durante l’inserimento di un collegamento, il plugin recupera automaticamente l’<strong data-end=\\\"2372\\\" data-start=\\\"2345\\\">immagine OG (anteprima)</strong> del sito collegato e la salva.<br data-end=\\\"2406\\\" data-start=\\\"2403\\\" />\nSe non è presente un’OG-image o se si desidera un’immagine personalizzata, è possibile <strong data-end=\\\"2529\\\" data-start=\\\"2493\\\">caricare manualmente un’immagine</strong>. Il plugin Links è ideale per raccolte di link, pagine partner, risorse utili o sezioni di consigli.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "links.png",
+            "download": "links.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Link-/Empfehlungsliste",
+            "modulname": "links",
+            "description": "[[lang:de]]Mit dem Links-Plugin kannst du eine übersichtliche und moderne Linkliste auf deiner Nexpell-Website bereitstellen. Einträge lassen sich <strong data-end=\\\"428\\\" data-start=\\\"405\\\">Kategorien zuordnen</strong> und über <strong data-end=\\\"456\\\" data-start=\\\"438\\\">Filter-Buttons</strong> gezielt sortieren, sodass Besucher schnell passende Inhalte finden.<br data-end=\\\"527\\\" data-start=\\\"524\\\" />\nIm <strong data-end=\\\"545\\\" data-start=\\\"530\\\">Admincenter</strong> steht eine komfortable Verwaltung zur Verfügung, inklusive eines <strong data-end=\\\"641\\\" data-start=\\\"611\\\">automatischen Klickzählers</strong>, der die Aufrufe pro Link erfasst und auswertet. Zusätzlich wird beim Anlegen eines Links automatisch das <strong data-end=\\\"775\\\" data-start=\\\"748\\\">OG-Image (Vorschaubild)</strong> der verlinkten Website geladen und gespeichert.<br data-end=\\\"826\\\" data-start=\\\"823\\\" />\nFalls kein OG-Image vorhanden ist oder ein individuelles Bild gewünscht wird, kann alternativ <strong data-end=\\\"952\\\" data-start=\\\"920\\\">manuell ein Bild hochgeladen</strong> werden. Das Links-Plugin eignet sich ideal für Linklisten, Partnerseiten, Ressourcen-Sammlungen oder Empfehlungsbereiche.[[lang:en]]The Links plugin allows you to create a clear and modern link list on your Nexpell website. Links can be assigned to <strong data-end=\\\"1247\\\" data-start=\\\"1233\\\">categories</strong> and filtered via <strong data-end=\\\"1276\\\" data-start=\\\"1265\\\">buttons</strong>, making it easy for visitors to browse and find relevant content.<br data-end=\\\"1345\\\" data-start=\\\"1342\\\" />\nIn the <strong data-end=\\\"1368\\\" data-start=\\\"1352\\\">admin center</strong>, links can be managed conveniently, including an <strong data-end=\\\"1445\\\" data-start=\\\"1418\\\">automatic click counter</strong> that tracks and displays link usage. When adding a link, the plugin automatically retrieves and stores the website’s <strong data-end=\\\"1591\\\" data-start=\\\"1563\\\">OG image (preview image)</strong>.<br data-end=\\\"1595\\\" data-start=\\\"1592\\\" />\nIf no OG image is available or a custom image is preferred, an image can also be <strong data-end=\\\"1697\\\" data-start=\\\"1676\\\">uploaded manually</strong>. The Links plugin is ideal for link collections, partner pages, resource lists, or recommendation sections.[[lang:it]]Il plugin Links consente di creare una lista di collegamenti moderna e ben organizzata sul tuo sito Nexpell. I link possono essere assegnati a <strong data-end=\\\"2004\\\" data-start=\\\"1991\\\">categorie</strong> e filtrati tramite <strong data-end=\\\"2036\\\" data-start=\\\"2024\\\">pulsanti</strong>, permettendo ai visitatori di trovare facilmente i contenuti desiderati.<br data-end=\\\"2112\\\" data-start=\\\"2109\\\" />\nNel <strong data-end=\\\"2147\\\" data-start=\\\"2116\\\">pannello di amministrazione</strong> è disponibile una gestione completa, inclusa un <strong data-end=\\\"2229\\\" data-start=\\\"2196\\\">contatore automatico dei clic</strong> per monitorare l’utilizzo dei link. Durante l’inserimento di un collegamento, il plugin recupera automaticamente l’<strong data-end=\\\"2372\\\" data-start=\\\"2345\\\">immagine OG (anteprima)</strong> del sito collegato e la salva.<br data-end=\\\"2406\\\" data-start=\\\"2403\\\" />\nSe non è presente un’OG-image o se si desidera un’immagine personalizzata, è possibile <strong data-end=\\\"2529\\\" data-start=\\\"2493\\\">caricare manualmente un’immagine</strong>. Il plugin Links è ideale per raccolte di link, pagine partner, risorse utili o sezioni di consigli.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "links.png",
+            "download": "links_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Live Visitor",
+            "modulname": "live_visitor",
+            "description": "[[lang:de]]Das Live-Visitor-Modul bietet eine umfassende Übersicht über die aktuellen und vergangenen Besucher deiner Nexpell-Website. In der <strong data-end=\\\"435\\\" data-start=\\\"419\\\">Live-Ansicht</strong> werden aktuell aktive Besucher in Echtzeit angezeigt, inklusive Benutzername, aufgerufener Seite, Zeitpunkt und Herkunft. Zusätzlich lassen sich historische Besucher nachvollziehen, um vergangene Aktivitäten einzusehen.<br data-end=\\\"658\\\" data-start=\\\"655\\\" />\nIm <strong data-end=\\\"676\\\" data-start=\\\"661\\\">Admincenter</strong> steht eine erweiterte <strong data-end=\\\"720\\\" data-start=\\\"699\\\">Besucherstatistik</strong> zur Verfügung. Diese zeigt Kennzahlen wie Besucher heute, gestern, im aktuellen Monat und insgesamt sowie Online-Benutzer, durchschnittliche Aufrufe pro Tag und Seitenaufrufe. Grafiken und Auswertungen zu Seiten, Ländern, Geräten, Betriebssystemen, Browsern und Referrern ermöglichen eine detaillierte Analyse des Nutzerverhaltens. Das Modul ist ideal zur Überwachung von Aktivität, Reichweite und Nutzung deiner Website.[[lang:en]]The Live Visitor module provides a comprehensive overview of current and past visitors on your Nexpell website. The <strong data-end=\\\"1313\\\" data-start=\\\"1300\\\">live view</strong> displays active visitors in real time, including username, visited page, timestamp, and origin. Historical visitor data allows administrators to review previous activity.<br data-end=\\\"1487\\\" data-start=\\\"1484\\\" />\nWithin the <strong data-end=\\\"1514\\\" data-start=\\\"1498\\\">admin center</strong>, an advanced <strong data-end=\\\"1560\\\" data-start=\\\"1528\\\">visitor statistics dashboard</strong> is available. It includes metrics such as visitors today, yesterday, this month, and total visits, as well as online users, average visits per day, and page views. Charts and statistics for pages, countries, devices, operating systems, browsers, and referrers enable detailed analysis of user behavior. This module is ideal for monitoring activity, reach, and website usage.[[lang:it]]Il modulo Live Visitor offre una panoramica completa dei visitatori attuali e passati del tuo sito Nexpell. Nella <strong data-end=\\\"2106\\\" data-start=\\\"2092\\\">vista live</strong> vengono mostrati in tempo reale i visitatori attivi, inclusi nome utente, pagina visitata, orario e provenienza. I visitatori storici permettono di analizzare le attività passate.<br data-end=\\\"2289\\\" data-start=\\\"2286\\\" />\nNel <strong data-end=\\\"2324\\\" data-start=\\\"2293\\\">pannello di amministrazione</strong> è disponibile una <strong data-end=\\\"2376\\\" data-start=\\\"2343\\\">dashboard statistica avanzata</strong>, con dati su visitatori di oggi, di ieri, del mese corrente e totali, utenti online, visite medie giornaliere e visualizzazioni di pagina. Grafici e statistiche su pagine, paesi, dispositivi, sistemi operativi, browser e referrer consentono un’analisi dettagliata del comportamento degli utenti. Il modulo è ideale per monitorare attività, traffico e utilizzo del sito.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "live_visitor.png",
+            "download": "live_visitor.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Live Visitor",
+            "modulname": "live_visitor",
+            "description": "[[lang:de]]Das Live-Visitor-Modul bietet eine umfassende Übersicht über die aktuellen und vergangenen Besucher deiner Nexpell-Website. In der <strong data-end=\\\"435\\\" data-start=\\\"419\\\">Live-Ansicht</strong> werden aktuell aktive Besucher in Echtzeit angezeigt, inklusive Benutzername, aufgerufener Seite, Zeitpunkt und Herkunft. Zusätzlich lassen sich historische Besucher nachvollziehen, um vergangene Aktivitäten einzusehen.<br data-end=\\\"658\\\" data-start=\\\"655\\\" />\nIm <strong data-end=\\\"676\\\" data-start=\\\"661\\\">Admincenter</strong> steht eine erweiterte <strong data-end=\\\"720\\\" data-start=\\\"699\\\">Besucherstatistik</strong> zur Verfügung. Diese zeigt Kennzahlen wie Besucher heute, gestern, im aktuellen Monat und insgesamt sowie Online-Benutzer, durchschnittliche Aufrufe pro Tag und Seitenaufrufe. Grafiken und Auswertungen zu Seiten, Ländern, Geräten, Betriebssystemen, Browsern und Referrern ermöglichen eine detaillierte Analyse des Nutzerverhaltens. Das Modul ist ideal zur Überwachung von Aktivität, Reichweite und Nutzung deiner Website.[[lang:en]]The Live Visitor module provides a comprehensive overview of current and past visitors on your Nexpell website. The <strong data-end=\\\"1313\\\" data-start=\\\"1300\\\">live view</strong> displays active visitors in real time, including username, visited page, timestamp, and origin. Historical visitor data allows administrators to review previous activity.<br data-end=\\\"1487\\\" data-start=\\\"1484\\\" />\nWithin the <strong data-end=\\\"1514\\\" data-start=\\\"1498\\\">admin center</strong>, an advanced <strong data-end=\\\"1560\\\" data-start=\\\"1528\\\">visitor statistics dashboard</strong> is available. It includes metrics such as visitors today, yesterday, this month, and total visits, as well as online users, average visits per day, and page views. Charts and statistics for pages, countries, devices, operating systems, browsers, and referrers enable detailed analysis of user behavior. This module is ideal for monitoring activity, reach, and website usage.[[lang:it]]Il modulo Live Visitor offre una panoramica completa dei visitatori attuali e passati del tuo sito Nexpell. Nella <strong data-end=\\\"2106\\\" data-start=\\\"2092\\\">vista live</strong> vengono mostrati in tempo reale i visitatori attivi, inclusi nome utente, pagina visitata, orario e provenienza. I visitatori storici permettono di analizzare le attività passate.<br data-end=\\\"2289\\\" data-start=\\\"2286\\\" />\nNel <strong data-end=\\\"2324\\\" data-start=\\\"2293\\\">pannello di amministrazione</strong> è disponibile una <strong data-end=\\\"2376\\\" data-start=\\\"2343\\\">dashboard statistica avanzata</strong>, con dati su visitatori di oggi, di ieri, del mese corrente e totali, utenti online, visite medie giornaliere e visualizzazioni di pagina. Grafici e statistiche su pagine, paesi, dispositivi, sistemi operativi, browser e referrer consentono un’analisi dettagliata del comportamento degli utenti. Il modulo è ideale per monitorare attività, traffico e utilizzo del sito.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "live_visitor.png",
+            "download": "live_visitor_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Masterlist",
+            "modulname": "masterlist",
+            "description": "[[lang:de]]Die Masterliste ermöglicht eine umfassende Übersicht über öffentliche Gameserver verschiedener <strong data-end=\\\"430\\\" data-start=\\\"404\\\">Call of Duty-Versionen</strong>. Server lassen sich nach Spiel und Version filtern, zum Beispiel <strong data-end=\\\"505\\\" data-start=\\\"496\\\">COD 1</strong>, <strong data-end=\\\"517\\\" data-start=\\\"507\\\">COD UO</strong>, <strong data-end=\\\"528\\\" data-start=\\\"519\\\">COD 2</strong> oder <strong data-end=\\\"543\\\" data-start=\\\"534\\\">COD 4</strong>, wobei die gewünschte Version bequem über eine Auswahlbox gewählt werden kann.<br data-end=\\\"625\\\" data-start=\\\"622\\\" />\nIn der Listenansicht werden wichtige Informationen wie <strong data-end=\\\"694\\\" data-start=\\\"680\\\">Servername</strong>, <strong data-end=\\\"711\\\" data-start=\\\"696\\\">IP und Port</strong>, <strong data-end=\\\"729\\\" data-start=\\\"713\\\">aktuelle Map</strong>, <strong data-end=\\\"748\\\" data-start=\\\"731\\\">Spieleranzahl</strong> und <strong data-end=\\\"763\\\" data-start=\\\"753\\\">Status</strong> angezeigt. Jeder Eintrag kann zudem <strong data-end=\\\"815\\\" data-start=\\\"800\\\">aufgeklappt</strong> werden, um eine <strong data-end=\\\"849\\\" data-start=\\\"832\\\">Detailansicht</strong> mit weiteren Informationen anzuzeigen, darunter Map-Vorschau, Gametype sowie eine <strong data-end=\\\"972\\\" data-start=\\\"932\\\">Live-Spielerliste mit Score und Ping</strong>.<br data-end=\\\"976\\\" data-start=\\\"973\\\" />\nDie Masterliste eignet sich ideal für Clans, Communities und Gaming-Websites, die aktuelle Serverdaten übersichtlich darstellen und Spielern einen schnellen Überblick über aktive Server bieten möchten.[[lang:en]]The Masterlist provides a comprehensive overview of public game servers across different <strong data-end=\\\"1333\\\" data-start=\\\"1308\\\">Call of Duty versions</strong>. Servers can be filtered by game and version, such as <strong data-end=\\\"1397\\\" data-start=\\\"1388\\\">COD 1</strong>, <strong data-end=\\\"1409\\\" data-start=\\\"1399\\\">COD UO</strong>, <strong data-end=\\\"1420\\\" data-start=\\\"1411\\\">COD 2</strong>, or <strong data-end=\\\"1434\\\" data-start=\\\"1425\\\">COD 4</strong>, using a convenient version selector.<br data-end=\\\"1475\\\" data-start=\\\"1472\\\" />\nThe list view displays key information including <strong data-end=\\\"1539\\\" data-start=\\\"1524\\\">server name</strong>, <strong data-end=\\\"1556\\\" data-start=\\\"1541\\\">IP and port</strong>, <strong data-end=\\\"1573\\\" data-start=\\\"1558\\\">current map</strong>, <strong data-end=\\\"1591\\\" data-start=\\\"1575\\\">player count</strong>, and <strong data-end=\\\"1614\\\" data-start=\\\"1597\\\">server status</strong>. Each server entry can be <strong data-end=\\\"1653\\\" data-start=\\\"1641\\\">expanded</strong> to show a <strong data-end=\\\"1681\\\" data-start=\\\"1664\\\">detailed view</strong> with additional information such as a map preview, game type, and a <strong data-end=\\\"1790\\\" data-start=\\\"1750\\\">live player list with score and ping</strong>.<br data-end=\\\"1794\\\" data-start=\\\"1791\\\" />\nThe Masterlist is ideal for clans, communities, and gaming websites that want to present up-to-date server information and give players a quick overview of active servers.[[lang:it]]La Masterlist offre una panoramica completa dei server di gioco pubblici per diverse <strong data-end=\\\"2121\\\" data-start=\\\"2093\\\">versioni di Call of Duty</strong>. I server possono essere filtrati per gioco e versione, come <strong data-end=\\\"2192\\\" data-start=\\\"2183\\\">COD 1</strong>, <strong data-end=\\\"2204\\\" data-start=\\\"2194\\\">COD UO</strong>, <strong data-end=\\\"2215\\\" data-start=\\\"2206\\\">COD 2</strong> o <strong data-end=\\\"2227\\\" data-start=\\\"2218\\\">COD 4</strong>, tramite una comoda selezione della versione.<br data-end=\\\"2276\\\" data-start=\\\"2273\\\" />\nNella vista elenco vengono mostrati dati essenziali come <strong data-end=\\\"2352\\\" data-start=\\\"2333\\\">nome del server</strong>, <strong data-end=\\\"2368\\\" data-start=\\\"2354\\\">IP e porta</strong>, <strong data-end=\\\"2387\\\" data-start=\\\"2370\\\">mappa attuale</strong>, <strong data-end=\\\"2412\\\" data-start=\\\"2389\\\">numero di giocatori</strong> e <strong data-end=\\\"2435\\\" data-start=\\\"2415\\\">stato del server</strong>. Ogni server può essere <strong data-end=\\\"2471\\\" data-start=\\\"2460\\\">espanso</strong> per visualizzare una <strong data-end=\\\"2514\\\" data-start=\\\"2493\\\">vista dettagliata</strong> con ulteriori informazioni, tra cui l’anteprima della mappa, la modalità di gioco e una <strong data-end=\\\"2662\\\" data-start=\\\"2603\\\">lista dei giocatori in tempo reale con punteggio e ping</strong>.<br data-end=\\\"2666\\\" data-start=\\\"2663\\\" />\nLa Masterlist è ideale per clan, community e siti gaming che desiderano mostrare dati dei server sempre aggiornati e offrire ai giocatori una rapida panoramica dei server attivi.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "masterlist.png",
+            "download": "masterlist.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Masterlist",
+            "modulname": "masterlist",
+            "description": "[[lang:de]]Die Masterliste ermöglicht eine umfassende Übersicht über öffentliche Gameserver verschiedener <strong data-end=\\\"430\\\" data-start=\\\"404\\\">Call of Duty-Versionen</strong>. Server lassen sich nach Spiel und Version filtern, zum Beispiel <strong data-end=\\\"505\\\" data-start=\\\"496\\\">COD 1</strong>, <strong data-end=\\\"517\\\" data-start=\\\"507\\\">COD UO</strong>, <strong data-end=\\\"528\\\" data-start=\\\"519\\\">COD 2</strong> oder <strong data-end=\\\"543\\\" data-start=\\\"534\\\">COD 4</strong>, wobei die gewünschte Version bequem über eine Auswahlbox gewählt werden kann.<br data-end=\\\"625\\\" data-start=\\\"622\\\" />\nIn der Listenansicht werden wichtige Informationen wie <strong data-end=\\\"694\\\" data-start=\\\"680\\\">Servername</strong>, <strong data-end=\\\"711\\\" data-start=\\\"696\\\">IP und Port</strong>, <strong data-end=\\\"729\\\" data-start=\\\"713\\\">aktuelle Map</strong>, <strong data-end=\\\"748\\\" data-start=\\\"731\\\">Spieleranzahl</strong> und <strong data-end=\\\"763\\\" data-start=\\\"753\\\">Status</strong> angezeigt. Jeder Eintrag kann zudem <strong data-end=\\\"815\\\" data-start=\\\"800\\\">aufgeklappt</strong> werden, um eine <strong data-end=\\\"849\\\" data-start=\\\"832\\\">Detailansicht</strong> mit weiteren Informationen anzuzeigen, darunter Map-Vorschau, Gametype sowie eine <strong data-end=\\\"972\\\" data-start=\\\"932\\\">Live-Spielerliste mit Score und Ping</strong>.<br data-end=\\\"976\\\" data-start=\\\"973\\\" />\nDie Masterliste eignet sich ideal für Clans, Communities und Gaming-Websites, die aktuelle Serverdaten übersichtlich darstellen und Spielern einen schnellen Überblick über aktive Server bieten möchten.[[lang:en]]The Masterlist provides a comprehensive overview of public game servers across different <strong data-end=\\\"1333\\\" data-start=\\\"1308\\\">Call of Duty versions</strong>. Servers can be filtered by game and version, such as <strong data-end=\\\"1397\\\" data-start=\\\"1388\\\">COD 1</strong>, <strong data-end=\\\"1409\\\" data-start=\\\"1399\\\">COD UO</strong>, <strong data-end=\\\"1420\\\" data-start=\\\"1411\\\">COD 2</strong>, or <strong data-end=\\\"1434\\\" data-start=\\\"1425\\\">COD 4</strong>, using a convenient version selector.<br data-end=\\\"1475\\\" data-start=\\\"1472\\\" />\nThe list view displays key information including <strong data-end=\\\"1539\\\" data-start=\\\"1524\\\">server name</strong>, <strong data-end=\\\"1556\\\" data-start=\\\"1541\\\">IP and port</strong>, <strong data-end=\\\"1573\\\" data-start=\\\"1558\\\">current map</strong>, <strong data-end=\\\"1591\\\" data-start=\\\"1575\\\">player count</strong>, and <strong data-end=\\\"1614\\\" data-start=\\\"1597\\\">server status</strong>. Each server entry can be <strong data-end=\\\"1653\\\" data-start=\\\"1641\\\">expanded</strong> to show a <strong data-end=\\\"1681\\\" data-start=\\\"1664\\\">detailed view</strong> with additional information such as a map preview, game type, and a <strong data-end=\\\"1790\\\" data-start=\\\"1750\\\">live player list with score and ping</strong>.<br data-end=\\\"1794\\\" data-start=\\\"1791\\\" />\nThe Masterlist is ideal for clans, communities, and gaming websites that want to present up-to-date server information and give players a quick overview of active servers.[[lang:it]]La Masterlist offre una panoramica completa dei server di gioco pubblici per diverse <strong data-end=\\\"2121\\\" data-start=\\\"2093\\\">versioni di Call of Duty</strong>. I server possono essere filtrati per gioco e versione, come <strong data-end=\\\"2192\\\" data-start=\\\"2183\\\">COD 1</strong>, <strong data-end=\\\"2204\\\" data-start=\\\"2194\\\">COD UO</strong>, <strong data-end=\\\"2215\\\" data-start=\\\"2206\\\">COD 2</strong> o <strong data-end=\\\"2227\\\" data-start=\\\"2218\\\">COD 4</strong>, tramite una comoda selezione della versione.<br data-end=\\\"2276\\\" data-start=\\\"2273\\\" />\nNella vista elenco vengono mostrati dati essenziali come <strong data-end=\\\"2352\\\" data-start=\\\"2333\\\">nome del server</strong>, <strong data-end=\\\"2368\\\" data-start=\\\"2354\\\">IP e porta</strong>, <strong data-end=\\\"2387\\\" data-start=\\\"2370\\\">mappa attuale</strong>, <strong data-end=\\\"2412\\\" data-start=\\\"2389\\\">numero di giocatori</strong> e <strong data-end=\\\"2435\\\" data-start=\\\"2415\\\">stato del server</strong>. Ogni server può essere <strong data-end=\\\"2471\\\" data-start=\\\"2460\\\">espanso</strong> per visualizzare una <strong data-end=\\\"2514\\\" data-start=\\\"2493\\\">vista dettagliata</strong> con ulteriori informazioni, tra cui l’anteprima della mappa, la modalità di gioco e una <strong data-end=\\\"2662\\\" data-start=\\\"2603\\\">lista dei giocatori in tempo reale con punteggio e ping</strong>.<br data-end=\\\"2666\\\" data-start=\\\"2663\\\" />\nLa Masterlist è ideale per clan, community e siti gaming che desiderano mostrare dati dei server sempre aggiornati e offrire ai giocatori una rapida panoramica dei server attivi.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "masterlist.png",
+            "download": "masterlist_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Messenger",
+            "modulname": "messenger",
+            "description": "[[lang:de]]Der Messenger ermöglicht eine <strong data-end=\\\"351\\\" data-start=\\\"317\\\">direkte, private Kommunikation</strong> zwischen registrierten Nutzern innerhalb von Nexpell. Nachrichten können <strong data-end=\\\"459\\\" data-start=\\\"425\\\">live geschrieben und empfangen</strong> werden, ohne die Seite neu zu laden – ähnlich wie bei bekannten Messengern wie WhatsApp.<br data-end=\\\"551\\\" data-start=\\\"548\\\" />\nIn der Navigation wird eine <strong data-end=\\\"604\\\" data-start=\\\"579\\\">Live-Benachrichtigung</strong> angezeigt, die anzeigt, <strong data-end=\\\"665\\\" data-start=\\\"629\\\">wie viele ungelesene Nachrichten</strong> aktuell vorhanden sind. Neue Nachrichten werden sofort sichtbar und können direkt geöffnet werden.<br data-end=\\\"767\\\" data-start=\\\"764\\\" />\nDer Messenger eignet sich ideal für Community-Websites, Clans oder Teams, um schnellen Austausch, Absprachen und private Unterhaltungen direkt auf der Website zu ermöglichen.[[lang:en]]The Messenger provides <strong data-end=\\\"1038\\\" data-start=\\\"1006\\\">direct private communication</strong> between registered users within Nexpell. Messages can be <strong data-end=\\\"1133\\\" data-start=\\\"1096\\\">written and received in real time</strong> without reloading the page, similar to popular messengers like WhatsApp.<br data-end=\\\"1209\\\" data-start=\\\"1206\\\" />\nA <strong data-end=\\\"1242\\\" data-start=\\\"1211\\\">live notification indicator</strong> in the navigation shows <strong data-end=\\\"1295\\\" data-start=\\\"1267\\\">how many unread messages</strong> are currently waiting. New messages appear instantly and can be opened directly.<br data-end=\\\"1379\\\" data-start=\\\"1376\\\" />\nThe Messenger is ideal for community websites, clans, or teams that need fast and simple communication directly on the website.[[lang:it]]Il Messenger consente una <strong data-end=\\\"1608\\\" data-start=\\\"1575\\\">comunicazione privata diretta</strong> tra gli utenti registrati all’interno di Nexpell. I messaggi possono essere <strong data-end=\\\"1722\\\" data-start=\\\"1685\\\">scritti e ricevuti in tempo reale</strong>, senza ricaricare la pagina, in modo simile a messenger noti come WhatsApp.<br data-end=\\\"1801\\\" data-start=\\\"1798\\\" />\nNella barra di navigazione viene mostrata una <strong data-end=\\\"1864\\\" data-start=\\\"1847\\\">notifica live</strong> che indica <strong data-end=\\\"1905\\\" data-start=\\\"1876\\\">quanti messaggi non letti</strong> sono presenti. I nuovi messaggi diventano immediatamente visibili e possono essere aperti subito.<br data-end=\\\"2006\\\" data-start=\\\"2003\\\" />\nIl Messenger è ideale per siti community, clan o team che necessitano di una comunicazione rapida e semplice direttamente sul sito web.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "messenger.png",
+            "download": "messenger.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Messenger",
+            "modulname": "messenger",
+            "description": "[[lang:de]]Der Messenger ermöglicht eine <strong data-end=\\\"351\\\" data-start=\\\"317\\\">direkte, private Kommunikation</strong> zwischen registrierten Nutzern innerhalb von Nexpell. Nachrichten können <strong data-end=\\\"459\\\" data-start=\\\"425\\\">live geschrieben und empfangen</strong> werden, ohne die Seite neu zu laden – ähnlich wie bei bekannten Messengern wie WhatsApp.<br data-end=\\\"551\\\" data-start=\\\"548\\\" />\nIn der Navigation wird eine <strong data-end=\\\"604\\\" data-start=\\\"579\\\">Live-Benachrichtigung</strong> angezeigt, die anzeigt, <strong data-end=\\\"665\\\" data-start=\\\"629\\\">wie viele ungelesene Nachrichten</strong> aktuell vorhanden sind. Neue Nachrichten werden sofort sichtbar und können direkt geöffnet werden.<br data-end=\\\"767\\\" data-start=\\\"764\\\" />\nDer Messenger eignet sich ideal für Community-Websites, Clans oder Teams, um schnellen Austausch, Absprachen und private Unterhaltungen direkt auf der Website zu ermöglichen.[[lang:en]]The Messenger provides <strong data-end=\\\"1038\\\" data-start=\\\"1006\\\">direct private communication</strong> between registered users within Nexpell. Messages can be <strong data-end=\\\"1133\\\" data-start=\\\"1096\\\">written and received in real time</strong> without reloading the page, similar to popular messengers like WhatsApp.<br data-end=\\\"1209\\\" data-start=\\\"1206\\\" />\nA <strong data-end=\\\"1242\\\" data-start=\\\"1211\\\">live notification indicator</strong> in the navigation shows <strong data-end=\\\"1295\\\" data-start=\\\"1267\\\">how many unread messages</strong> are currently waiting. New messages appear instantly and can be opened directly.<br data-end=\\\"1379\\\" data-start=\\\"1376\\\" />\nThe Messenger is ideal for community websites, clans, or teams that need fast and simple communication directly on the website.[[lang:it]]Il Messenger consente una <strong data-end=\\\"1608\\\" data-start=\\\"1575\\\">comunicazione privata diretta</strong> tra gli utenti registrati all’interno di Nexpell. I messaggi possono essere <strong data-end=\\\"1722\\\" data-start=\\\"1685\\\">scritti e ricevuti in tempo reale</strong>, senza ricaricare la pagina, in modo simile a messenger noti come WhatsApp.<br data-end=\\\"1801\\\" data-start=\\\"1798\\\" />\nNella barra di navigazione viene mostrata una <strong data-end=\\\"1864\\\" data-start=\\\"1847\\\">notifica live</strong> che indica <strong data-end=\\\"1905\\\" data-start=\\\"1876\\\">quanti messaggi non letti</strong> sono presenti. I nuovi messaggi diventano immediatamente visibili e possono essere aperti subito.<br data-end=\\\"2006\\\" data-start=\\\"2003\\\" />\nIl Messenger è ideale per siti community, clan o team che necessitano di una comunicazione rapida e semplice direttamente sul sito web.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "messenger.png",
+            "download": "messenger_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "About",
+            "modulname": "about",
+            "description": "[[lang:de]]<p>Mit dem About-Plugin kannst du Besuchern einen klaren Überblick über Ziele, Werte und Hintergründe deiner Plattform geben. Inhalte lassen sich komfortabel über den Editor pflegen und flexibel an das Design deiner Website anpassen. Ideal für Community-Seiten, Projekte, Vereine oder Unternehmensauftritte.</p>\n[[lang:en]]With the About plugin, you can provide visitors with a structured overview of your platform’s goals, values, and background. Content can be easily managed via the editor and adapted to match your website’s design. Perfect for community websites, projects, organizations, or business pages.[[lang:it]]Con il plugin About puoi offrire ai visitatori una panoramica strutturata degli obiettivi, dei valori e della storia della tua piattaforma. I contenuti possono essere gestiti facilmente tramite l’editor e adattati al design del sito. Ideale per community, progetti, associazioni o siti aziendali.",
+            "version": "1.0.1",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "about.png",
+            "download": "about.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "About",
+            "modulname": "about",
+            "description": "[[lang:de]]<p>Mit dem About-Plugin kannst du Besuchern einen klaren Überblick über Ziele, Werte und Hintergründe deiner Plattform geben. Inhalte lassen sich komfortabel über den Editor pflegen und flexibel an das Design deiner Website anpassen. Ideal für Community-Seiten, Projekte, Vereine oder Unternehmensauftritte.</p>\n[[lang:en]]With the About plugin, you can provide visitors with a structured overview of your platform’s goals, values, and background. Content can be easily managed via the editor and adapted to match your website’s design. Perfect for community websites, projects, organizations, or business pages.[[lang:it]]Con il plugin About puoi offrire ai visitatori una panoramica strutturata degli obiettivi, dei valori e della storia della tua piattaforma. I contenuti possono essere gestiti facilmente tramite l’editor e adattati al design del sito. Ideale per community, progetti, associazioni o siti aziendali.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "about.png",
+            "download": "about_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Core Registry",
+            "modulname": "core_registry",
+            "description": "[[lang:de]]Verwaltung und Erstellung der zentralen Core-Registry für nexpell. Ermöglicht das Erstellen, Bearbeiten und Exportieren der plugins.json.[[lang:en]]Manage and create the central Core registry for nexpell. Allows creating, editing and exporting the plugins.json.[[lang:it]]Gestione e creazione del registro centrale dei Core per nexpell. Consente di creare, modificare ed esportare il file plugins.json.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.3",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "plugin_core.png",
+            "download": "core_registry.zip",
+            "visible_for": "CUSTOM",
+            "visible_emails": [
+                "support@2one-designs.de",
+                "info@nexpell.de"
+            ]
+        },
+        {
+            "name": "Forum",
+            "modulname": "forum",
+            "description": "[[lang:de]]Mit dem Forum-Plugin kannst du ein modernes Forum direkt in deine Nexpell-Website integrieren und Besuchern eine zentrale Plattform für Diskussionen und Austausch bieten. Die erste Version konzentriert sich auf die grundlegenden Funktionen, um schnell und unkompliziert eine funktionierende Community aufzubauen.<br />\nrnrnThemen und Beiträge lassen sich übersichtlich erstellen und lesen, sodass Nutzer sich aktiv beteiligen können. Das Forum eignet sich ideal für Community-Projekte, Support-Bereiche oder Diskussionen rund um deine Website und bildet eine solide Basis für zukünftige Erweiterungen.[[lang:en]]The Forum plugin allows you to integrate a modern forum directly into your Nexpell website, providing visitors with a central platform for discussions and exchange. The first version focuses on essential features to quickly set up a simple and functional community.<br />\nrnrnTopics and posts can be created and read easily, encouraging users to participate in conversations. This forum is ideal for community projects, support sections, or discussions related to your website and serves as a solid foundation for future enhancements.[[lang:it]]Il plugin Forum consente di integrare un forum moderno direttamente nel tuo sito Nexpell, offrendo ai visitatori una piattaforma centrale per discussioni e scambio di opinioni. La prima versione si concentra sulle funzionalità di base per creare rapidamente una community semplice e funzionante.<br />\nrnrnArgomenti e messaggi possono essere creati e letti facilmente, incoraggiando la partecipazione degli utenti. Il forum è ideale per progetti community, aree di supporto o discussioni legate al tuo sito web e rappresenta una solida base per future estensioni.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "forum.png",
+            "download": "forum-1.0.0.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Forum",
+            "modulname": "forum",
+            "description": "[[lang:de]]Mit dem Forum-Plugin kannst du ein modernes Forum direkt in deine Nexpell-Website integrieren und Besuchern eine zentrale Plattform für Diskussionen und Austausch bieten. Die erste Version konzentriert sich auf die grundlegenden Funktionen, um schnell und unkompliziert eine funktionierende Community aufzubauen.<br />\nrnrnThemen und Beiträge lassen sich übersichtlich erstellen und lesen, sodass Nutzer sich aktiv beteiligen können. Das Forum eignet sich ideal für Community-Projekte, Support-Bereiche oder Diskussionen rund um deine Website und bildet eine solide Basis für zukünftige Erweiterungen.[[lang:en]]The Forum plugin allows you to integrate a modern forum directly into your Nexpell website, providing visitors with a central platform for discussions and exchange. The first version focuses on essential features to quickly set up a simple and functional community.<br />\nrnrnTopics and posts can be created and read easily, encouraging users to participate in conversations. This forum is ideal for community projects, support sections, or discussions related to your website and serves as a solid foundation for future enhancements.[[lang:it]]Il plugin Forum consente di integrare un forum moderno direttamente nel tuo sito Nexpell, offrendo ai visitatori una piattaforma centrale per discussioni e scambio di opinioni. La prima versione si concentra sulle funzionalità di base per creare rapidamente una community semplice e funzionante.<br />\nrnrnArgomenti e messaggi possono essere creati e letti facilmente, incoraggiando la partecipazione degli utenti. Il forum è ideale per progetti community, aree di supporto o discussioni legate al tuo sito web e rappresenta una solida base per future estensioni.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "forum.png",
+            "download": "forum-1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "YouTube",
+            "modulname": "youtube",
+            "description": "[[lang:de]]Mit diesem Plugin kannst du YouTube-Videos und Playlists auf deiner Website einbetten und verwalten.[[lang:en]]With this plugin you can embed and manage YouTube videos and playlists on your website.[[lang:it]]Con questo plugin puoi incorporare e gestire video e playlist di YouTube sul tuo sito web.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "youtube.png",
+            "download": "youtube_1.0.0.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "YouTube",
+            "modulname": "youtube",
+            "description": "[[lang:de]]Mit diesem Plugin kannst du YouTube-Videos und Playlists auf deiner Website einbetten und verwalten.[[lang:en]]With this plugin you can embed and manage YouTube videos and playlists on your website.[[lang:it]]Con questo plugin puoi incorporare e gestire video e playlist di YouTube sul tuo sito web.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "youtube.png",
+            "download": "youtube_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "User List",
+            "modulname": "userlist",
+            "description": "[[lang:de]]User List Plugin für nexpell – enthält zusätzlich Counter- und WhoIsOnline-Funktionalität.[[lang:en]]User List plugin for nexpell – now also includes Counter and WhoIsOnline functionality.[[lang:it]]Plugin Lista Utenti per nexpell – include inoltre le funzionalità di Counter e WhoIsOnline.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.3",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "userlist.png",
+            "download": "userlist_1.0.0.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "User List",
+            "modulname": "userlist",
+            "description": "[[lang:de]]User List Plugin für nexpell – enthält zusätzlich Counter- und WhoIsOnline-Funktionalität.[[lang:en]]User List plugin for nexpell – now also includes Counter and WhoIsOnline functionality.[[lang:it]]Plugin Lista Utenti per nexpell – include inoltre le funzionalità di Counter e WhoIsOnline.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "userlist.png",
+            "download": "userlist_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "News",
+            "modulname": "news",
+            "description": "[[lang:de]]News Plugin für nexpell, Kommentarfunktion noch nicht aktiv und muss deaktiviert werden.[[lang:en]]News plugin for nexpell, comment function not yet active and must be deactivated.[[lang:it]]Plugin News per nexpell, la funzione di commento non è ancora attiva e deve essere disattivata.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.3",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "news.png",
+            "download": "news_1.0.0.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "News",
+            "modulname": "news",
+            "description": "[[lang:de]]News Plugin für nexpell, Kommentarfunktion noch nicht aktiv und muss deaktiviert werden.[[lang:en]]News plugin for nexpell, comment function not yet active and must be deactivated.[[lang:it]]Plugin News per nexpell, la funzione di commento non è ancora attiva e deve essere disattivata.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "news.png",
+            "download": "news_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Todo",
+            "modulname": "todo",
+            "description": "[[lang:de]]Füge deiner Website eine einfache Todo-Liste hinzu, um Aufgaben zu verwalten und zu organisieren.[[lang:en]]Add a simple to-do list to your website to manage and organize tasks.[[lang:it]]Aggiungi una semplice lista di cose da fare al tuo sito per gestire e organizzare le attività.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.3",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "todo.png",
+            "download": "todo_1.0.0.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Todo",
+            "modulname": "todo",
+            "description": "[[lang:de]]Füge deiner Website eine einfache Todo-Liste hinzu, um Aufgaben zu verwalten und zu organisieren.[[lang:en]]Add a simple to-do list to your website to manage and organize tasks.[[lang:it]]Aggiungi una semplice lista di cose da fare al tuo sito per gestire e organizzare le attività.",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "todo.png",
+            "download": "todo_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Forum",
+            "modulname": "forum",
+            "description": "[[lang:de]]Ab Core 1.0.3 bietet das Forum-Plugin für Nexpell eine erweiterte und deutlich leistungsfähigere Grundlage für Community-Diskussionen. Das Forum verfügt über eine feingranulare Rechtevergabe, mit der genau gesteuert werden kann, welche Rollen Inhalte sehen, lesen, erstellen oder moderieren dürfen. Ein besonderer Fokus liegt auf Sicherheit und Transparenz. Alle Zugriffe werden sauber geprüft, um unerlaubte Aktionen zu verhindern. Zusätzlich steht ein großes, zuschaltbares Debug-Fenster zur Verfügung, das übersichtlich anzeigt, welche Rolle welche Rechte besitzt und wie diese angewendet werden. Dies erleichtert Administration, Fehlersuche und Rechteverwaltung erheblich. Das Forum bildet damit eine stabile und sichere Basis für wachsende Communities.[[lang:en]]Starting with Core 1.0.3, the Forum plugin for Nexpell provides a significantly more powerful foundation for community discussions. The forum includes fine-grained permission management, allowing precise control over which roles can view, read, create, or moderate content.rn A strong focus is placed on security and transparency. All actions are carefully validated to prevent unauthorized access. In addition, a large, optional debug window is available, clearly showing which role has which permissions and how they are applied. This makes administration, troubleshooting, and permission management much easier. The forum therefore offers a stable and secure base for growing communities.[[lang:it]]A partire dal Core 1.0.3, il plugin Forum per Nexpell offre una base molto più potente per le discussioni della community. Il forum include una gestione dei permessi dettagliata, che consente di controllare con precisione quali ruoli possono visualizzare, leggere, creare o moderare i contenuti.rn Grande attenzione è dedicata alla sicurezza e alla trasparenza. Tutte le azioni vengono verificate per impedire accessi non autorizzati. Inoltre, è disponibile una finestra di debug ampia e attivabile, che mostra in modo chiaro quali permessi sono assegnati a ciascun ruolo e come vengono applicati. Questo rende molto più semplice l’amministrazione, la risoluzione dei problemi e la gestione dei permessi. Il forum rappresenta quindi una base stabile e sicura per community in crescita.",
+            "version": "1.0.1",
+            "core": {
+                "min": "1.0.3.1",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "forum.png",
+            "download": "forum_1.0.1.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "JoinUs",
+            "modulname": "joinus",
+            "description": "[[lang:de]]Das JoinUs-Plugin ermöglicht es Besuchern und Community-Mitgliedern, sich strukturiert für Team-, Squad- oder Partnerrollen zu bewerben. Administratoren können flexibel festlegen, welche Rollen, Squads und Bewerbungstypen zur Auswahl stehen. Jede Bewerbung wird zentral im Adminbereich verwaltet und kann dort geprüft, kommentiert, freigegeben oder abgelehnt werden. Statusänderungen lassen sich optional automatisch per E-Mail an den Bewerber kommunizieren. Das Plugin unterstützt individuelle Rollenangaben, eine saubere Trennung zwischen Systemrollen und JoinUs-Rollen sowie reCAPTCHA-Absicherung für Gäste. JoinUs bietet damit eine sichere, übersichtliche und erweiterbare Lösung für Community-Aufbau, Team-Recruiting und Partnerschaften.[[lang:en]]The JoinUs plugin allows visitors and community members to apply in a structured way for team, squad, or partner roles. Administrators can flexibly define which roles, squads, and application types are available. All applications are centrally managed in the admin panel, where they can be reviewed, commented on, accepted, or rejected. Status changes can optionally be communicated to applicants automatically via email. The plugin supports custom role entries, a clear separation between system roles and JoinUs roles, and reCAPTCHA protection for guests. JoinUs therefore provides a secure, well-organized, and extensible solution for community growth, team recruiting, and partnerships.[[lang:it]]Il plugin JoinUs consente ai visitatori e ai membri della community di candidarsi in modo strutturato per ruoli di team, squad o partnership. Gli amministratori possono definire in modo flessibile quali ruoli, squad e tipi di candidatura sono disponibili. Tutte le candidature vengono gestite centralmente nel pannello di amministrazione, dove possono essere esaminate, commentate, accettate o rifiutate. Le modifiche di stato possono essere comunicate automaticamente al candidato tramite e-mail. Il plugin supporta ruoli personalizzati, una chiara separazione tra ruoli di sistema e ruoli JoinUs e la protezione reCAPTCHA per gli ospiti. JoinUs offre quindi una soluzione sicura, chiara ed estendibile per la crescita della community, il recruiting dei team e le collaborazioni.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.3.1",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "joinus.png",
+            "download": "joinus.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "News",
+            "modulname": "news",
+            "description": "[[lang:de]]News Plugin für nexpell, Kommentarfunktion noch nicht aktiv und muss deaktiviert werden.[[lang:en]]News plugin for nexpell, comment function not yet active and must be deactivated.[[lang:it]]Plugin News per nexpell, la funzione di commento non è ancora attiva e deve essere disattivata.",
+            "version": "1.0.1",
+            "core": {
+                "min": "1.0.3.1",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "news.png",
+            "download": "news_1.0.1.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "TeamSpeak",
+            "modulname": "teamspeak",
+            "description": "[[lang:de]]Das TeamSpeak-Plugin für Nexpell ermöglicht die Anzeige eines oder mehrerer TeamSpeak-Server inklusive Channel-Struktur und aktiver Nutzer. Es stellt eine übersichtliche Darstellung der Serverinformationen bereit und zeigt in Echtzeit, welche Channels existieren und welche Nutzer online sind. Das Plugin ist auf Stabilität und Datenschutz ausgelegt. Es verarbeitet ausschließlich serverseitige Informationen und verzichtet vollständig auf clientbezogene Tracking-Daten. Optional können zusätzliche Informationen wie Server-Standort oder Statusanzeigen ergänzt werden. Durch integriertes Caching wird die Serverlast reduziert und eine zuverlässige Anzeige gewährleistet.[[lang:en]]The TeamSpeak plugin for Nexpell allows the display of one or more TeamSpeak servers including channel structure and active users. It provides a clear overview of server information and shows in real time which channels exist and which users are online. The plugin is designed with stability and data protection in mind. It processes only server-side information and completely avoids client-based tracking data. Optional information such as server location or status indicators can be added. Integrated caching reduces server load and ensures reliable performance.[[lang:it]]Il plugin TeamSpeak per Nexpell consente di visualizzare uno o più server TeamSpeak, inclusa la struttura dei canali e gli utenti attivi. Offre una panoramica chiara delle informazioni del server e mostra in tempo reale quali canali esistono e quali utenti sono online. Il plugin è progettato ponendo particolare attenzione alla stabilità e alla protezione dei dati. Elabora esclusivamente informazioni lato server ed evita completamente il tracciamento degli utenti. È possibile aggiungere informazioni opzionali come la posizione del server o indicatori di stato. Il caching integrato riduce il carico del server e garantisce un funzionamento affidabile.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.3.1",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "teamspeak.png",
+            "download": "teamspeak.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Todo",
+            "modulname": "todo",
+            "description": "[[lang:de]]Füge deiner Website eine einfache Todo-Liste hinzu, um Aufgaben zu verwalten und zu organisieren.[[lang:en]]Add a simple to-do list to your website to manage and organize tasks.[[lang:it]]Aggiungi una semplice lista di cose da fare al tuo sito per gestire e organizzare le attività.",
+            "version": "1.0.1",
+            "core": {
+                "min": "1.0.3.1",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "todo.png",
+            "download": "todo_1.0.1.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "User List",
+            "modulname": "userlist",
+            "description": "[[lang:de]]User List Plugin für nexpell – enthält zusätzlich Counter- und WhoIsOnline-Funktionalität.[[lang:en]]User List plugin for nexpell – now also includes Counter and WhoIsOnline functionality.[[lang:it]]Plugin Lista Utenti per nexpell – include inoltre le funzionalità di Counter e WhoIsOnline.",
+            "version": "1.0.1",
+            "core": {
+                "min": "1.0.3.1",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "userlist.png",
+            "download": "userlist_1.0.1.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "YouTube",
+            "modulname": "youtube",
+            "description": "[[lang:de]]Mit diesem Plugin kannst du YouTube-Videos und Playlists auf deiner Website einbetten und verwalten.[[lang:en]]With this plugin you can embed and manage YouTube videos and playlists on your website.[[lang:it]]Con questo plugin puoi incorporare e gestire video e playlist di YouTube sul tuo sito web.",
+            "version": "1.0.1",
+            "core": {
+                "min": "1.0.3.1",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "youtube.png",
+            "download": "youtube_1.0.1.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Plugin Registry",
+            "modulname": "plugin_registry",
+            "description": "[[lang:de]]Verwaltung und Erstellung der zentralen Plugin-Registry für nexpell. Ermöglicht das Erstellen, Bearbeiten und Exportieren der plugins.json.[[lang:en]]Manage and create the central plugin registry for nexpell. Allows creating, editing and exporting the plugins.json.[[lang:it]]Gestione e creazione del registro centrale dei plugin per nexpell. Consente di creare, modificare ed esportare il file plugins.json.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.3",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de",
+            "image": "plugin_registry.png",
+            "download": "plugin_registry.zip",
+            "visible_for": "CUSTOM",
+            "visible_emails": [
+                "info@nexpell.de",
+                "support@2one-designs.de"
+            ]
+        },
+        {
+            "name": "Achievements",
+            "modulname": "achievements",
+            "description": "[[lang:de]]Das Achievements-Plugin ermöglicht es dir, besondere Leistungen, Meilensteine oder Aktivitäten deiner Nutzer in Form von Errungenschaften darzustellen. Ob für Community-Interaktionen, Engagement-Belohnungen oder spielerische Motivation – Achievements schaffen Anreize und erhöhen die Beteiligung auf deiner Website.<br data-end=\"\\&quot;\\\\&quot;\\\\\\\\&quot;744\\\\\\\\&quot;\\\\&quot;\\&quot;\" data-start=\"\\&quot;\\\\&quot;\\\\\\\\&quot;741\\\\\\\\&quot;\\\\&quot;\\&quot;\"><br>\nErrungenschaften lassen sich flexibel anlegen, bearbeiten und verwalten und können individuell an das Design sowie die Struktur deiner Plattform angepasst werden. Ideal für Community-Seiten, Foren, Projekte oder Gamification-basierte Websites.[[lang:en]]With the Achievements plugin, you can showcase special accomplishments, milestones, or activities of your users in the form of achievements. Whether used for community interaction, engagement rewards, or gamification purposes, achievements help motivate users and increase participation on your website.<br data-end=\"\\&quot;\\\\&quot;\\\\\\\\&quot;1508\\\\\\\\&quot;\\\\&quot;\\&quot;\" data-start=\"\\&quot;\\\\&quot;\\\\\\\\&quot;1505\\\\\\\\&quot;\\\\&quot;\\&quot;\">\nAchievements can be easily created, edited, and managed, and can be adapted to match the design and structure of your platform. Perfect for community websites, forums, projects, or gamification-driven platforms.[[lang:it]]<p data-end=\"\\&quot;\\\\&quot;\\\\\\\\&quot;2457\\\\\\\\&quot;\\\\&quot;\\&quot;\" data-start=\"\\&quot;\\\\&quot;\\\\\\\\&quot;1931\\\\\\\\&quot;\\\\&quot;\\&quot;\">Con il plugin Achievements puoi mostrare risultati speciali, obiettivi o attività degli utenti sotto forma di conquiste. Che si tratti di interazioni nella community, ricompense per l’attività o elementi di gamification, le achievements aiutano a motivare gli utenti e ad aumentare il coinvolgimento sul sito.<br data-end=\"\\&quot;\\\\&quot;\\\\\\\\&quot;2261\\\\\\\\&quot;\\\\&quot;\\&quot;\" data-start=\"\\&quot;\\\\&quot;\\\\\\\\&quot;2258\\\\\\\\&quot;\\\\&quot;\\&quot;\">\nLe conquiste possono essere create, modificate e gestite facilmente e adattate al design e alla struttura della piattaforma. Ideale per community, forum, progetti o siti basati sulla gamification.</p>",
+            "version": "1.0.1",
+            "core": {
+                "min": "1.0.3.3",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "achievements.png",
+            "download": "achievements_1.0.1.zip",
+            "visible_for": "CUSTOM",
+            "visible_emails": [
+                "info@nexpell.de",
+                "support@2one-designs.de"
+            ]
+        },
+        {
+            "name": "Achievements",
+            "modulname": "achievements",
+            "description": "[[lang:de]]Das Achievements-Plugin ermöglicht es dir, besondere Leistungen, Meilensteine oder Aktivitäten deiner Nutzer in Form von Errungenschaften darzustellen. Ob für Community-Interaktionen, Engagement-Belohnungen oder spielerische Motivation – Achievements schaffen Anreize und erhöhen die Beteiligung auf deiner Website.<br data-end=\"\\&quot;\\\\&quot;\\\\\\\\&quot;744\\\\\\\\&quot;\\\\&quot;\\&quot;\" data-start=\"\\&quot;\\\\&quot;\\\\\\\\&quot;741\\\\\\\\&quot;\\\\&quot;\\&quot;\">\nErrungenschaften lassen sich flexibel anlegen, bearbeiten und verwalten und können individuell an das Design sowie die Struktur deiner Plattform angepasst werden. Ideal für Community-Seiten, Foren, Projekte oder Gamification-basierte Websites.[[lang:en]]With the Achievements plugin, you can showcase special accomplishments, milestones, or activities of your users in the form of achievements. Whether used for community interaction, engagement rewards, or gamification purposes, achievements help motivate users and increase participation on your website.<br data-end=\"\\&quot;\\\\&quot;\\\\\\\\&quot;1508\\\\\\\\&quot;\\\\&quot;\\&quot;\" data-start=\"\\&quot;\\\\&quot;\\\\\\\\&quot;1505\\\\\\\\&quot;\\\\&quot;\\&quot;\">\nAchievements can be easily created, edited, and managed, and can be adapted to match the design and structure of your platform. Perfect for community websites, forums, projects, or gamification-driven platforms.[[lang:it]]<p data-end=\"\\&quot;\\\\&quot;\\\\\\\\&quot;2457\\\\\\\\&quot;\\\\&quot;\\&quot;\" data-start=\"\\&quot;\\\\&quot;\\\\\\\\&quot;1931\\\\\\\\&quot;\\\\&quot;\\&quot;\">Con il plugin Achievements puoi mostrare risultati speciali, obiettivi o attività degli utenti sotto forma di conquiste. Che si tratti di interazioni nella community, ricompense per l’attività o elementi di gamification, le achievements aiutano a motivare gli utenti e ad aumentare il coinvolgimento sul sito.<br data-end=\"\\&quot;\\\\&quot;\\\\\\\\&quot;2261\\\\\\\\&quot;\\\\&quot;\\&quot;\" data-start=\"\\&quot;\\\\&quot;\\\\\\\\&quot;2258\\\\\\\\&quot;\\\\&quot;\\&quot;\">\nLe conquiste possono essere create, modificate e gestite facilmente e adattate al design e alla struttura della piattaforma. Ideale per community, forum, progetti o siti basati sulla gamification.</p>\n",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell-team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "achievements.png",
+            "download": "achievements.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Raidplaner",
+            "modulname": "raidplaner",
+            "description": "[[lang:de]]<p data-end=\"363\" data-start=\"211\">Der <strong data-end=\"229\" data-start=\"215\">Raidplaner</strong> ist ein Organisations-Plugin zur Planung und Koordination von gemeinsamen Events wie Raids, Dungeons oder anderen Gruppenaktivitäten.</p>\n\n<p data-end=\"651\" data-start=\"365\">Administratoren oder berechtigte Nutzer können geplante Raids anlegen, Termine festlegen und relevante Informationen wie Beschreibung, Uhrzeit oder Anforderungen hinterlegen. Mitglieder haben die Möglichkeit, sich für Raids an- oder abzumelden und ihren Status übersichtlich einzusehen.</p>\n\n<p data-end=\"840\" data-start=\"653\">Der Raidplaner erleichtert die Abstimmung innerhalb der Community, sorgt für klare Strukturen und reduziert den organisatorischen Aufwand – besonders bei regelmäßig stattfindenden Events.</p>\n\n<p data-end=\"870\" data-start=\"842\"><strong data-end=\"870\" data-start=\"842\">Funktionen im Überblick:</strong></p>\n\n<ul data-end=\"1106\" data-start=\"871\">\n\t<li data-end=\"918\" data-start=\"871\">\n\t<p data-end=\"918\" data-start=\"873\">Planung und Verwaltung von Raids und Events</p>\n\t</li>\n\t<li data-end=\"967\" data-start=\"919\">\n\t<p data-end=\"967\" data-start=\"921\">Übersichtliche Teilnehmer- und Statusanzeige</p>\n\t</li>\n\t<li data-end=\"1009\" data-start=\"968\">\n\t<p data-end=\"1009\" data-start=\"970\">Einfache An- und Abmeldung für Nutzer</p>\n\t</li>\n\t<li data-end=\"1055\" data-start=\"1010\">\n\t<p data-end=\"1055\" data-start=\"1012\">Klare Termin- und Informationsdarstellung</p>\n\t</li>\n\t<li data-end=\"1106\" data-start=\"1056\">\n\t<p data-end=\"1106\" data-start=\"1058\">Ideal für Gaming-Communities, Gilden und Clans</p>\n\t</li>\n</ul>\n\n<p data-end=\"1245\" data-start=\"1108\">Der Raidplaner fügt sich nahtlos in das System ein und unterstützt eine strukturierte, zuverlässige Eventplanung innerhalb der Community.</p>\n[[lang:en]]<p data-end=\"299\" data-start=\"152\">The <strong data-end=\"172\" data-start=\"156\">Raid Planner</strong> is an organization plugin for planning and coordinating group events such as raids, dungeons, or other cooperative activities.</p>\n\n<p data-end=\"545\" data-start=\"301\">Administrators or authorized users can create planned raids, define dates, and provide relevant information such as descriptions, times, or requirements. Members can sign up for or withdraw from raids and clearly see their participation status.</p>\n\n<p data-end=\"702\" data-start=\"547\">The Raid Planner simplifies coordination within the community, creates clear structures, and reduces organizational effort—especially for recurring events.</p>\n\n<p data-end=\"729\" data-start=\"704\"><strong data-end=\"729\" data-start=\"704\">Features at a glance:</strong></p>\n\n<ul data-end=\"962\" data-start=\"730\">\n\t<li data-end=\"777\" data-start=\"730\">\n\t<p data-end=\"777\" data-start=\"732\">Planning and management of raids and events</p>\n\t</li>\n\t<li data-end=\"819\" data-start=\"778\">\n\t<p data-end=\"819\" data-start=\"780\">Clear participant and status overview</p>\n\t</li>\n\t<li data-end=\"861\" data-start=\"820\">\n\t<p data-end=\"861\" data-start=\"822\">Easy sign-up and withdrawal for users</p>\n\t</li>\n\t<li data-end=\"910\" data-start=\"862\">\n\t<p data-end=\"910\" data-start=\"864\">Clear display of dates and event information</p>\n\t</li>\n\t<li data-end=\"962\" data-start=\"911\">\n\t<p data-end=\"962\" data-start=\"913\">Ideal for gaming communities, guilds, and clans</p>\n\t</li>\n</ul>\n\n<p data-end=\"1089\" data-start=\"964\">The Raid Planner integrates seamlessly into the system and supports structured, reliable event planning within the community.</p>\n[[lang:it]]<p data-end=\"1293\" data-start=\"1128\">Il <strong data-end=\"1153\" data-start=\"1131\">Pianificatore Raid</strong> è un plugin di organizzazione per la pianificazione e il coordinamento di eventi di gruppo come raid, dungeon o altre attività cooperative.</p>\n\n<p data-end=\"1571\" data-start=\"1295\">Gli amministratori o gli utenti autorizzati possono creare raid pianificati, definire le date e inserire informazioni rilevanti come descrizione, orario o requisiti. I membri possono iscriversi o annullare la partecipazione ai raid e visualizzare chiaramente il proprio stato.</p>\n\n<p data-end=\"1740\" data-start=\"1573\">Il Pianificatore Raid facilita il coordinamento all’interno della community, crea strutture chiare e riduce il lavoro organizzativo, soprattutto per eventi ricorrenti.</p>\n\n<p data-end=\"1766\" data-start=\"1742\"><strong data-end=\"1766\" data-start=\"1742\">Funzioni principali:</strong></p>\n\n<ul data-end=\"2033\" data-start=\"1767\">\n\t<li data-end=\"1814\" data-start=\"1767\">\n\t<p data-end=\"1814\" data-start=\"1769\">Pianificazione e gestione di raid ed eventi</p>\n\t</li>\n\t<li data-end=\"1867\" data-start=\"1815\">\n\t<p data-end=\"1867\" data-start=\"1817\">Panoramica chiara dei partecipanti e dello stato</p>\n\t</li>\n\t<li data-end=\"1922\" data-start=\"1868\">\n\t<p data-end=\"1922\" data-start=\"1870\">Iscrizione e cancellazione semplici per gli utenti</p>\n\t</li>\n\t<li data-end=\"1984\" data-start=\"1923\">\n\t<p data-end=\"1984\" data-start=\"1925\">Visualizzazione chiara di date e informazioni dell’evento</p>\n\t</li>\n\t<li data-end=\"2033\" data-start=\"1985\">\n\t<p data-end=\"2033\" data-start=\"1987\">Ideale per community di gaming, gilde e clan</p>\n\t</li>\n</ul>\n\n<p data-end=\"2190\" data-start=\"2035\">Il Pianificatore Raid si integra perfettamente nel sistema e supporta una pianificazione degli eventi strutturata e affidabile all’interno della community.</p>\n",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.3",
+                "max": "1.0.3.2"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "raidplaner.png",
+            "download": "raidplaner.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Raidplaner",
+            "modulname": "raidplaner",
+            "description": "[[lang:de]]<p data-end=\"363\" data-start=\"211\">Der <strong data-end=\"229\" data-start=\"215\">Raidplaner</strong> ist ein Organisations-Plugin zur Planung und Koordination von gemeinsamen Events wie Raids, Dungeons oder anderen Gruppenaktivitäten.</p>\n\n<p data-end=\"651\" data-start=\"365\">Administratoren oder berechtigte Nutzer können geplante Raids anlegen, Termine festlegen und relevante Informationen wie Beschreibung, Uhrzeit oder Anforderungen hinterlegen. Mitglieder haben die Möglichkeit, sich für Raids an- oder abzumelden und ihren Status übersichtlich einzusehen.</p>\n\n<p data-end=\"840\" data-start=\"653\">Der Raidplaner erleichtert die Abstimmung innerhalb der Community, sorgt für klare Strukturen und reduziert den organisatorischen Aufwand – besonders bei regelmäßig stattfindenden Events.</p>\n\n<p data-end=\"870\" data-start=\"842\"><strong data-end=\"870\" data-start=\"842\">Funktionen im Überblick:</strong></p>\n\n<ul data-end=\"1106\" data-start=\"871\">\n\t<li data-end=\"918\" data-start=\"871\">\n\t<p data-end=\"918\" data-start=\"873\">Planung und Verwaltung von Raids und Events</p>\n\t</li>\n\t<li data-end=\"967\" data-start=\"919\">\n\t<p data-end=\"967\" data-start=\"921\">Übersichtliche Teilnehmer- und Statusanzeige</p>\n\t</li>\n\t<li data-end=\"1009\" data-start=\"968\">\n\t<p data-end=\"1009\" data-start=\"970\">Einfache An- und Abmeldung für Nutzer</p>\n\t</li>\n\t<li data-end=\"1055\" data-start=\"1010\">\n\t<p data-end=\"1055\" data-start=\"1012\">Klare Termin- und Informationsdarstellung</p>\n\t</li>\n\t<li data-end=\"1106\" data-start=\"1056\">\n\t<p data-end=\"1106\" data-start=\"1058\">Ideal für Gaming-Communities, Gilden und Clans</p>\n\t</li>\n</ul>\n\n<p data-end=\"1245\" data-start=\"1108\">Der Raidplaner fügt sich nahtlos in das System ein und unterstützt eine strukturierte, zuverlässige Eventplanung innerhalb der Community.</p>\n[[lang:en]]<p data-end=\"299\" data-start=\"152\">The <strong data-end=\"172\" data-start=\"156\">Raid Planner</strong> is an organization plugin for planning and coordinating group events such as raids, dungeons, or other cooperative activities.</p>\n\n<p data-end=\"545\" data-start=\"301\">Administrators or authorized users can create planned raids, define dates, and provide relevant information such as descriptions, times, or requirements. Members can sign up for or withdraw from raids and clearly see their participation status.</p>\n\n<p data-end=\"702\" data-start=\"547\">The Raid Planner simplifies coordination within the community, creates clear structures, and reduces organizational effort—especially for recurring events.</p>\n\n<p data-end=\"729\" data-start=\"704\"><strong data-end=\"729\" data-start=\"704\">Features at a glance:</strong></p>\n\n<ul data-end=\"962\" data-start=\"730\">\n\t<li data-end=\"777\" data-start=\"730\">\n\t<p data-end=\"777\" data-start=\"732\">Planning and management of raids and events</p>\n\t</li>\n\t<li data-end=\"819\" data-start=\"778\">\n\t<p data-end=\"819\" data-start=\"780\">Clear participant and status overview</p>\n\t</li>\n\t<li data-end=\"861\" data-start=\"820\">\n\t<p data-end=\"861\" data-start=\"822\">Easy sign-up and withdrawal for users</p>\n\t</li>\n\t<li data-end=\"910\" data-start=\"862\">\n\t<p data-end=\"910\" data-start=\"864\">Clear display of dates and event information</p>\n\t</li>\n\t<li data-end=\"962\" data-start=\"911\">\n\t<p data-end=\"962\" data-start=\"913\">Ideal for gaming communities, guilds, and clans</p>\n\t</li>\n</ul>\n\n<p data-end=\"1089\" data-start=\"964\">The Raid Planner integrates seamlessly into the system and supports structured, reliable event planning within the community.</p>\n[[lang:it]]<p data-end=\"1293\" data-start=\"1128\">Il <strong data-end=\"1153\" data-start=\"1131\">Pianificatore Raid</strong> è un plugin di organizzazione per la pianificazione e il coordinamento di eventi di gruppo come raid, dungeon o altre attività cooperative.</p>\n\n<p data-end=\"1571\" data-start=\"1295\">Gli amministratori o gli utenti autorizzati possono creare raid pianificati, definire le date e inserire informazioni rilevanti come descrizione, orario o requisiti. I membri possono iscriversi o annullare la partecipazione ai raid e visualizzare chiaramente il proprio stato.</p>\n\n<p data-end=\"1740\" data-start=\"1573\">Il Pianificatore Raid facilita il coordinamento all’interno della community, crea strutture chiare e riduce il lavoro organizzativo, soprattutto per eventi ricorrenti.</p>\n\n<p data-end=\"1766\" data-start=\"1742\"><strong data-end=\"1766\" data-start=\"1742\">Funzioni principali:</strong></p>\n\n<ul data-end=\"2033\" data-start=\"1767\">\n\t<li data-end=\"1814\" data-start=\"1767\">\n\t<p data-end=\"1814\" data-start=\"1769\">Pianificazione e gestione di raid ed eventi</p>\n\t</li>\n\t<li data-end=\"1867\" data-start=\"1815\">\n\t<p data-end=\"1867\" data-start=\"1817\">Panoramica chiara dei partecipanti e dello stato</p>\n\t</li>\n\t<li data-end=\"1922\" data-start=\"1868\">\n\t<p data-end=\"1922\" data-start=\"1870\">Iscrizione e cancellazione semplici per gli utenti</p>\n\t</li>\n\t<li data-end=\"1984\" data-start=\"1923\">\n\t<p data-end=\"1984\" data-start=\"1925\">Visualizzazione chiara di date e informazioni dell’evento</p>\n\t</li>\n\t<li data-end=\"2033\" data-start=\"1985\">\n\t<p data-end=\"2033\" data-start=\"1987\">Ideale per community di gaming, gilde e clan</p>\n\t</li>\n</ul>\n\n<p data-end=\"2190\" data-start=\"2035\">Il Pianificatore Raid si integra perfettamente nel sistema e supporta una pianificazione degli eventi strutturata e affidabile all’interno della community.</p>\n",
+            "version": "1.0.3",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "raidplaner.png",
+            "download": "raidplaner_1.0.3.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Rules",
+            "modulname": "rules",
+            "description": "[[lang:de]]Das Rules Plugin verwaltet die wichtigen Regeln für Mitglieder, Server und den Verein, um ein faires und sicheres Miteinander zu gewährleisten.[[lang:en]]The Rules Plugin manages the important rules for members, servers, and the club to ensure fair and safe cooperation.[[lang:it]]Il plugin Regole gestisce le regole importanti per membri, server e associazione per garantire una convivenza equa e sicura.",
+            "version": "1.0.1",
+            "core": {
+                "min": "1.0.3.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "rules.png",
+            "download": "rules_1.0.1.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        },
+        {
+            "name": "Rules",
+            "modulname": "rules",
+            "description": "[[lang:de]]Das Rules Plugin verwaltet die wichtigen Regeln für Mitglieder, Server und den Verein, um ein faires und sicheres Miteinander zu gewährleisten.[[lang:en]]The Rules Plugin manages the important rules for members, servers, and the club to ensure fair and safe cooperation.[[lang:it]]Il plugin Regole gestisce le regole importanti per membri, server e associazione per garantire una convivenza equa e sicura.",
+            "version": "1.0.0",
+            "core": {
+                "min": "1.0.0",
+                "max": "1.0.3"
+            },
+            "author": "nexpell Team",
+            "url": "https://www.nexpell.de",
+            "lang": "de,gb,it",
+            "image": "rules.png",
+            "download": "rules.zip",
+            "visible_for": "ALL",
+            "visible_emails": []
+        }
+    ]
+}

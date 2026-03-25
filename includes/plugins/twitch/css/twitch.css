@@ -1,0 +1,390 @@
+.twitch-page {
+  --twitch-surface: rgba(255, 255, 255, 0.82);
+  --twitch-surface-muted: rgba(248, 249, 251, 0.92);
+  --twitch-text: #25303a;
+  --twitch-text-strong: #131a20;
+  --twitch-text-muted: #68727d;
+  --twitch-text-soft: #7a828c;
+  --twitch-avatar-ring: #fff;
+  color: var(--twitch-text);
+}
+
+.head-boxes + .twitch-page {
+  margin-top: 0;
+}
+
+[data-bs-theme="dark"] .twitch-page {
+  --twitch-surface: rgba(18, 23, 31, 0.9);
+  --twitch-surface-muted: rgba(23, 29, 39, 0.96);
+  --twitch-text: #e3ebf5;
+  --twitch-text-strong: #f8fbff;
+  --twitch-text-muted: #b8c4d0;
+  --twitch-text-soft: #93a1b2;
+  --twitch-avatar-ring: rgba(18, 23, 31, 0.95);
+}
+
+.twitch-streamers-shell {
+  padding: 1.5rem;
+  /*border: 1px solid var(--bs-border-color);
+  /*border-radius: var(--bs-border-radius);*/
+  background: var(--twitch-surface);
+  box-shadow: 0 10px 28px rgba(16, 24, 40, 0.08);
+}
+
+.twitch-streamers-hero {
+  padding: 2.8rem 1.5rem 2.6rem;
+  /*border-radius: 0.95rem;*/
+  background: linear-gradient(90deg, #9b52ff 0%, #5f16ca 100%);
+  color: #fff;
+  text-align: center;
+}
+
+.twitch-streamers-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.twitch-streamers-title i {
+  font-size: 2.25rem;
+}
+
+.twitch-streamers-title h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 800;
+}
+
+.twitch-streamers-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.98rem;
+}
+
+.twitch-streamers-stats strong {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.twitch-streamers-stats .is-live {
+  color: #ff2f2f;
+}
+
+.twitch-status-section {
+  margin-top: 1.8rem;
+}
+
+.twitch-status-section + .twitch-status-section {
+  margin-top: 2rem;
+}
+
+.twitch-status-head {
+  padding-bottom: 0.8rem;
+  border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+  margin-bottom: 1.5rem;
+}
+
+.twitch-status-head h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--twitch-text-strong);
+}
+
+.twitch-status-head span {
+  color: var(--twitch-text-muted);
+  font-weight: 500;
+}
+
+.twitch-streamer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.twitch-streamer-card {
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  overflow: hidden;
+  background: var(--twitch-surface-muted);
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(16, 24, 40, 0.05);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.twitch-streamer-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(16, 24, 40, 0.12);
+}
+
+.twitch-streamer-cover {
+  position: relative;
+  height: 218px;
+  background: #111;
+  filter: blur(1.5px);
+  background-repeat: no-repeat;
+}
+
+.twitch-streamer-cover-art {
+  width: 200%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 3.1rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.twitch-streamer-cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.14) 0%, rgba(0, 0, 0, 0.34) 100%);
+}
+
+.twitch-streamer-cover-art {
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.twitch-streamer-cover.is-offline {
+  background-position: center center;
+  background-size: cover;
+  background-color: #0f1218;
+}
+
+.twitch-streamer-cover.uses-profile-cover {
+  background-size: cover;
+  background-position: center center;
+  background-color: #0f1218;
+}
+
+.twitch-streamer-cover.is-live {
+  background-position: center top;
+}
+
+.twitch-streamer-card.variant-violet .twitch-streamer-cover:not(.has-cover-image) {
+  background: linear-gradient(135deg, #18122f 0%, #6d2df4 60%, #a261ff 100%);
+}
+
+.twitch-streamer-card.variant-blue .twitch-streamer-cover:not(.has-cover-image) {
+  background: linear-gradient(135deg, #07111f 0%, #13437d 60%, #35a1ff 100%);
+}
+
+.twitch-streamer-card.variant-red .twitch-streamer-cover:not(.has-cover-image) {
+  background: linear-gradient(135deg, #1d0909 0%, #7b1616 55%, #ff4848 100%);
+}
+
+.twitch-streamer-card.variant-orange .twitch-streamer-cover:not(.has-cover-image) {
+  background: linear-gradient(135deg, #241504 0%, #8d4c0f 55%, #ff962d 100%);
+}
+
+.twitch-streamer-card.variant-dark .twitch-streamer-cover:not(.has-cover-image) {
+  background: linear-gradient(135deg, #050505 0%, #222 45%, #555 100%);
+}
+
+.twitch-streamer-card.variant-indigo .twitch-streamer-cover:not(.has-cover-image) {
+  background: linear-gradient(135deg, #0e1026 0%, #28367d 55%, #8191ff 100%);
+}
+
+.twitch-streamer-body {
+  position: relative;
+  min-height: 118px;
+  padding: 1.15rem 1rem 1rem;
+  background: var(--twitch-surface-muted);
+}
+
+.twitch-streamer-avatar {
+  position: absolute;
+  left: 1rem;
+  top: -32px;
+  width: 64px;
+  height: 64px;
+  border: 4px solid var(--twitch-avatar-ring);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #131313;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.twitch-streamer-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.twitch-streamer-body strong {
+  display: block;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--twitch-text-strong);
+}
+
+.twitch-streamer-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.45rem;
+  color: var(--twitch-text-soft);
+  font-size: 0.96rem;
+  flex-wrap: wrap;
+}
+
+.twitch-streamer-status.is-live {
+  color: #d92b2b;
+}
+
+.twitch-streamer-status.is-neutral {
+  color: var(--twitch-text-soft);
+}
+
+.twitch-streamer-status span {
+  color: var(--twitch-text-soft);
+}
+
+.twitch-streamer-status.is-live span {
+  color: var(--twitch-text-soft);
+}
+
+.twitch-modal-open {
+  overflow: hidden;
+}
+
+.twitch-stream-modal[hidden] {
+  display: none;
+}
+
+.twitch-stream-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1055;
+}
+
+.twitch-stream-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 8, 18, 0.82);
+  backdrop-filter: blur(4px);
+}
+
+.twitch-stream-modal-dialog {
+  position: relative;
+  z-index: 1;
+  width: min(1400px, calc(100vw - 3rem));
+  margin: 4vh auto;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #111;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.48);
+}
+
+.twitch-stream-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+}
+
+.twitch-stream-modal-player-wrap {
+  background: #000;
+}
+
+.twitch-stream-modal-player {
+  width: 100%;
+  min-height: min(78vh, 820px);
+}
+
+.twitch-stream-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: #1a1d24;
+  color: #fff;
+}
+
+.twitch-stream-modal-copy strong {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.twitch-stream-modal-copy span {
+  display: block;
+  margin-top: 0.2rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.92rem;
+}
+
+.twitch-stream-modal-footer .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--bs-border-radius);
+}
+
+@media (max-width: 991.98px) {
+  .twitch-streamer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767.98px) {
+  .twitch-streamers-shell {
+    padding: 1rem;
+  }
+
+  .twitch-streamers-hero {
+    padding: 2rem 1rem;
+  }
+
+  .twitch-streamers-title {
+    flex-direction: column;
+  }
+
+  .twitch-streamer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .twitch-stream-modal-dialog {
+    width: calc(100vw - 1rem);
+    margin: 0.5rem auto;
+  }
+
+  .twitch-stream-modal-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

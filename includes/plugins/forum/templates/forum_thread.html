@@ -1,0 +1,67 @@
+<!-- forum_thread_thread -->
+
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{forum_url}">Forum</a></li>
+            <li class="breadcrumb-item"><a href="{category_url}">{category_title}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{thread_title}</li>
+        </ol>
+    </nav>
+
+    <h2>{thread_title}</h2>
+
+
+
+{if thread_is_pinned}
+    <div class="text-warning small mb-2">
+        <i class="bi bi-pin-fill"></i> Gepinnter Thread
+    </div>
+{endif}
+
+{if reply_status_message != ""}
+    <div class="alert alert-{reply_status_type} mt-2 d-flex align-items-center gap-2">
+
+        {if reply_status_type == "warning"}
+            <i class="bi bi-lock-fill"></i>
+        {endif}
+
+        {if reply_status_type == "info"}
+            <i class="bi bi-info-circle-fill"></i>
+        {endif}
+
+        {if reply_status_type == "danger"}
+            <i class="bi bi-shield-exclamation"></i>
+        {endif}
+
+        {if reply_status_type == "success"}
+            <i class="bi bi-check-circle-fill"></i>
+        {endif}
+
+        <span>{reply_status_message}</span>
+    </div>
+{endif}
+
+
+
+
+    <!-- Posts -->
+    {posts_html}
+
+    <!-- Pagination -->
+    <div class="text-center my-3">
+        {pagination}
+    </div>
+
+    <!-- Reply -->
+    <div id="replyform">
+        {if reply_form != ""}
+            {reply_form}
+        {endif}
+    </div>
+
+    
+
+
+<!-- END -->

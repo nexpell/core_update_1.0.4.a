@@ -1,0 +1,284 @@
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const hash = window.location.hash;
+    if (hash.startsWith("#post")) {
+        const target = document.querySelector(hash);
+        if (target) {
+            target.classList.add("highlight-post");
+
+            // optional wieder entfernen nach 4 Sekunden
+            setTimeout(() => {
+                target.classList.remove("highlight-post");
+            }, 4000);
+        }
+    }
+});
+
+
+const NX_CSRF = "<?= $_SESSION['csrf'] ?>";
+
+document.addEventListener('click', async function (e) {
+
+    const btn = e.target.closest('.forum-like-btn');
+    if (!btn) return;
+
+    if (btn.dataset.busy === '1') return;
+    btn.dataset.busy = '1';
+
+    const postID   = btn.dataset.post;
+    const liked    = btn.dataset.liked === '1';
+
+    const icon     = btn.querySelector('i');
+    const countEl  = btn.querySelector('.like-count');
+
+    /* externer Counter */
+    const globalCountEl = document.querySelector(
+        `.like-count[data-like-count="${postID}"]`
+    );
+
+    const oldCount = parseInt(countEl.textContent, 10);
+    const newLiked = !liked;
+    const newCount = Math.max(0, oldCount + (newLiked ? 1 : -1));
+
+    /* ---------- OPTIMISTIC UI ---------- */
+    btn.dataset.liked = newLiked ? '1' : '0';
+
+    countEl.textContent = newCount;
+    if (globalCountEl) {
+        globalCountEl.textContent = newCount;
+    }
+
+    btn.classList.toggle('btn-danger', newLiked);
+    btn.classList.toggle('btn-outline-danger', !newLiked);
+    btn.classList.toggle('liked', newLiked);
+
+    icon.classList.toggle('bi-hand-thumbs-up-fill', newLiked);
+    icon.classList.toggle('bi-hand-thumbs-up', !newLiked);
+
+    let res;
+
+    try {
+        const res  = await fetch('/includes/plugins/forum/system/ForumLikePostAjax.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `postID=${postID}&action=${newLiked ? 'like' : 'unlike'}&csrf=${NX_CSRF}`
+        });
+
+        const data = JSON.parse(await res.text());
+
+        // 🔥 POST EXISTIERT NICHT MEHR → SOFORT ABBRECHEN
+        if (data.deleted === true) {
+            console.info('Post existiert nicht mehr – Like ignoriert');
+            return;
+        }
+
+        // ✅ SERVER IST MASTER
+        if (data.success === true && typeof data.likes !== 'undefined') {
+
+            countEl.textContent = data.likes;
+            if (globalCountEl) {
+                globalCountEl.textContent = data.likes;
+            }
+
+            btn.dataset.liked = data.liked ? '1' : '0';
+            return;
+        }
+
+        // ❗ echte Fehler
+        if (data.success === false && data.error) {
+
+            if (data.error === 'Own post') {
+                alert('Du kannst deinen eigenen Beitrag nicht liken.');
+            } else {
+                console.warn('Like error:', data.error);
+            }
+        }
+
+    } catch (err) {
+
+        console.error('Like failed:', err);
+
+        // 🔁 ROLLBACK
+        btn.dataset.liked = liked ? '1' : '0';
+
+        countEl.textContent = oldCount;
+        if (globalCountEl) {
+            globalCountEl.textContent = oldCount;
+        }
+
+        btn.classList.toggle('btn-danger', liked);
+        btn.classList.toggle('btn-outline-danger', !liked);
+        btn.classList.toggle('liked', liked);
+
+        icon.classList.toggle('bi-hand-thumbs-up-fill', liked);
+        icon.classList.toggle('bi-hand-thumbs-up', !liked);
+    }
+
+
+    btn.dataset.busy = '0';
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const deleteModal = document.getElementById('confirmDeleteModal');
+
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+
+        // DAS ist der geklickte Delete-Button
+        const trigger = event.relatedTarget;
+
+        // DAS ist die korrekte URL dieses Buttons
+        const deleteUrl = trigger.getAttribute('data-delete-url');
+
+        // IM Modal setzen
+        const confirmBtn = deleteModal.querySelector('#confirmDeleteBtn');
+        confirmBtn.setAttribute('href', deleteUrl);
+    });
+
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  const dropArea  = document.getElementById('dropArea');
+  const fileInput = document.getElementById('uploadImage');
+  const form      = dropArea ? dropArea.closest('form') : null;
+  const textarea  = form
+    ? form.querySelector('textarea[data-editor="nx_editor"]')
+    : null;
+
+  if (!dropArea || !fileInput) {
+    return;
+  }
+
+  if (typeof window.NxEditor === 'undefined') {
+    console.warn('DropArea vorhanden, aber NxEditor fehlt');
+    return;
+  }
+
+  /* =====================================================
+     1️⃣ EDITOR SOFORT GREIFEN (Edit-Seite!)
+  ===================================================== */
+  function getNxInstance() {
+    if (!textarea || !window.NxEditor || !window.NxEditor.instances) {
+      return null;
+    }
+    return window.NxEditor.instances.get(textarea) || null;
+  }
+
+  function insertHtml(instance, html) {
+    instance.editor.focus();
+
+    if (document.queryCommandSupported && document.queryCommandSupported('insertHTML')) {
+      document.execCommand('insertHTML', false, html);
+    } else {
+      instance.editor.insertAdjacentHTML('beforeend', html);
+    }
+
+    if (textarea) {
+      textarea.value = instance.editor.innerHTML;
+    }
+  }
+
+  /* =====================================================
+     DRAG & DROP
+  ===================================================== */
+  dropArea.addEventListener('click', () => fileInput.click());
+
+  dropArea.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropArea.classList.add('bg-warning');
+  });
+
+  dropArea.addEventListener('dragleave', () => {
+    dropArea.classList.remove('bg-warning');
+  });
+
+  dropArea.addEventListener('drop', e => {
+    e.preventDefault();
+    dropArea.classList.remove('bg-warning');
+    if (e.dataTransfer.files.length > 0) {
+      uploadImage(e.dataTransfer.files[0]);
+    }
+  });
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files.length > 0) {
+      uploadImage(fileInput.files[0]);
+    }
+  });
+
+  /* =====================================================
+     UPLOAD + EINFÜGEN
+  ===================================================== */
+function uploadImage(file) {
+
+    const instance = getNxInstance();
+
+    if (!instance) {
+        alert('Editor noch nicht initialisiert - bitte kurz warten.');
+        return;
+    }
+
+    const isEdit = textarea && textarea.id === 'editor_edit';
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    fetch('/includes/plugins/forum/upload_image.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+
+        if (!data.success || !data.url) {
+            alert(data.message || 'Upload fehlgeschlagen');
+            return;
+        }
+
+        insertHtml(instance, `
+            <a href="${data.url}" target="_blank">
+                <img src="${data.url}" style="max-width:75%;height:auto;" alt="">
+            </a>&nbsp;
+        `);
+
+        // ✅ NUR bei Reply / New Thread
+        if (!isEdit) {
+            fetch('/includes/plugins/forum/ajax/register_uploaded_image.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    url: data.url,
+                    csrf: NX_CSRF
+                })
+            })
+            .then(r => r.json())
+            .then(res => {
+                if (!res.success) {
+                    console.warn('Upload-Registrierung fehlgeschlagen:', res);
+                }
+            })
+            .catch(err => {
+                console.error('Upload-Registrierung ERROR:', err);
+            });
+        }
+    });
+}
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+

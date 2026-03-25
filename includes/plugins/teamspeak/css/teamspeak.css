@@ -1,0 +1,147 @@
+/* =========================================================
+   👤 CLIENT-ZEILE
+========================================================= */
+.ts-client {
+    position: relative;
+    display: block;
+    margin: 2px 0;
+    padding: 6px 8px;
+    border-radius: 6px;
+    background-color: var(--bs-tertiary-bg);
+    transition: background-color .15s ease, box-shadow .15s ease;
+}
+
+/* LIGHT */
+[data-bs-theme="light"] .ts-client {
+    background-color: var(--bs-gray-100);
+}
+[data-bs-theme="light"] .ts-client:hover {
+    background-color: var(--bs-gray-200);
+}
+
+/* DARK */
+[data-bs-theme="dark"] .ts-client {
+    background-color: rgba(255,255,255,0.04);
+}
+[data-bs-theme="dark"] .ts-client:hover {
+    background-color: rgba(255,255,255,0.08);
+}
+
+/* =========================================================
+   ↔️ ROW (CHANNEL + CLIENT)
+========================================================= */
+.ts-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* LEFT (Name + Status) */
+.ts-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    font-size: 12px;
+}
+
+/* Text-Rendering sauber */
+.ts-left,
+.ts-left * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================================================
+   📁 CHANNEL (ALLGEMEIN)
+========================================================= */
+.ts-channel {
+    margin: 2px 0;
+}
+
+/* =========================================================
+   📁 FOLDER ICON (NUR VOICE-CHANNELS)
+========================================================= */
+.ts-folder-icon {
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+
+/* =========================================================
+   📄 TEXT / DEKO CHANNELS
+========================================================= */
+.ts-channel-text {
+    opacity: 0.9;
+}
+
+.ts-channel-text .ts-row {
+    justify-content: center;
+}
+
+.ts-channel-text .ts-folder-icon {
+    display: none !important;
+}
+
+.ts-channel-text .ts-folder-icon-wrap {
+    justify-content: center;
+}
+
+/* Text-Channel-Name */
+.ts-channel-text .ts-folder-name {
+    display: block;
+    text-align: center;
+    white-space: pre-line;
+    font-family: "Segoe UI", "DejaVu Sans", "Arial Unicode MS", monospace;
+    font-size: 12px;
+    letter-spacing: .4px;
+    line-height: 1.25;
+    opacity: 0.85;
+}
+
+/* =========================================================
+   👉 RIGHT (CLIENT-ICONS)
+========================================================= */
+.ts-client-icons {
+    min-width: 360px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   🪟 TOOLTIP
+========================================================= */
+.ts-tooltip {
+    position: fixed;
+    display: none;
+    pointer-events: auto;
+    background: rgba(20,20,20,.95);
+    color: #e0e6ec;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 1.4;
+    max-width: 260px;
+    z-index: 99999;
+    box-shadow: 0 10px 30px rgba(0,0,0,.65);
+}
+
+.ts-tooltip strong {
+    color: #fff;
+    font-size: 13px;
+}
+
+/* =========================================================
+   🌍 SERVER-FLAG
+========================================================= */
+.ts-server-flag {
+    width: auto;
+    height: 18px;
+    vertical-align: middle;
+    margin-left: 6px;
+    border-radius: 2px;
+    margin-bottom: 5px;
+}

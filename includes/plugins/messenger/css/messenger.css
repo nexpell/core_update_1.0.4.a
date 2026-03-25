@@ -1,0 +1,5 @@
+.user-active {
+    background-color: var(--bs-primary);
+    color: #fff;
+
+}

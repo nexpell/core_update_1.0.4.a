@@ -1,0 +1,335 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+use nexpell\LanguageService;
+use nexpell\SeoUrlHandler;
+
+global $_database, $languageService, $tpl;
+
+// Ensure plugin language file is loaded with current LanguageService API.
+if (isset($languageService) && method_exists($languageService, 'readModule')) {
+    $languageService->readModule('userlist');
+}
+
+// Head style
+$config = mysqli_fetch_array(safe_query("SELECT selected_style FROM settings_headstyle_config WHERE id=1"));
+$class = htmlspecialchars($config['selected_style']);
+
+// Header
+$data_array = [
+    'class' => $class,
+    'title' => $languageService->get('registered_users'),
+    'subtitle' => 'Userlist'
+];
+echo $tpl->loadTemplate("userlist", "head", $data_array, "plugin");
+
+
+// === SETTINGS LADEN ===
+$settings = mysqli_fetch_assoc(safe_query("SELECT * FROM plugins_userlist_settings WHERE id=1"));
+if (!$settings) {
+    safe_query("INSERT INTO plugins_userlist_settings 
+        (id, users_per_page, default_sort, default_order, default_role) 
+        VALUES (1, 10, 'username', 'ASC', '')");
+    $settings = [
+        'users_per_page'=>10,
+        'default_sort'=>'username',
+        'default_order'=>'ASC',
+        'default_role'=>''
+    ];
+}
+
+// === GET Parameter oder Fallback zu Settings ===
+$perPage    = isset($_GET['perPage']) ? max(1, intval($_GET['perPage'])) : intval($settings['users_per_page']);
+$page       = max(1, intval($_GET['page'] ?? 1));
+$search     = trim($_GET['search'] ?? '');
+$roleFilter = $_GET['role'] ?? $settings['default_role'];
+$sort       = $_GET['sort'] ?? $settings['default_sort'];
+$order      = strtoupper($_GET['order'] ?? $settings['default_order']);
+$offset     = ($page - 1) * $perPage;
+
+// === SETTINGS SPEICHERN (immer bei Aufruf) ===
+safe_query("
+    UPDATE plugins_userlist_settings 
+    SET users_per_page='".intval($perPage)."',
+        default_sort='".mysqli_real_escape_string($_database,$sort)."',
+        default_order='".mysqli_real_escape_string($_database,$order)."',
+        default_role='".mysqli_real_escape_string($_database,$roleFilter)."'
+    WHERE id=1
+");
+
+// Rollen Dropdown dynamisch
+$rolesResult = safe_query("SELECT role_name FROM user_roles ORDER BY role_name ASC");
+$roles = [];
+while($r = mysqli_fetch_assoc($rolesResult)) {
+    $roles[] = $r['role_name'];
+}
+
+// WHERE-Bedingungen
+$where = [];
+$params = [];
+
+if($search !== '') {
+    $where[] = "u.username LIKE ?";
+    $params[] = "%$search%";
+}
+if($roleFilter !== '') {
+    $where[] = "u.userID IN (
+        SELECT ura.userID 
+        FROM user_role_assignments ura
+        JOIN user_roles r ON ura.roleID = r.roleID
+        WHERE r.role_name = ?
+    )";
+    $params[] = $roleFilter;
+}
+
+$whereSQL = $where ? "WHERE ".implode(" AND ", $where) : "";
+
+// === Sortierung absichern ===
+$sortMap = [
+    'id'         => 'u.userID',
+    'username'   => 'u.username',
+    'registerdate' => 'u.registerdate',
+    'lastlogin'  => 'u.lastlogin',
+    'is_online'  => 'u.is_online',
+    'website'    => 'us.website'
+];
+
+if (!array_key_exists($sort, $sortMap)) {
+    $sort = 'id'; // Fallback
+}
+
+$dbSort = $sortMap[$sort];
+
+$order = strtoupper($order);
+if ($order !== 'ASC' && $order !== 'DESC') {
+    $order = 'DESC';
+}
+
+$sqlOrder = "$dbSort $order";
+
+// === Hauptquery ===
+$sql = "
+SELECT 
+    u.userID,
+    u.username,
+    u.registerdate,
+    u.lastlogin,
+    u.is_online,
+    GROUP_CONCAT(r.role_name ORDER BY r.role_name SEPARATOR ', ') AS roles,
+    us.website
+FROM users u
+LEFT JOIN user_role_assignments ura ON u.userID = ura.userID
+LEFT JOIN user_roles r ON ura.roleID = r.roleID
+LEFT JOIN user_socials us ON us.userID = u.userID
+$whereSQL
+GROUP BY u.userID
+ORDER BY $sqlOrder
+LIMIT ?, ?
+";
+
+$stmt = $_database->prepare($sql);
+if (!$stmt) {
+    echo '<div class="alert alert-danger">Userliste konnte nicht geladen werden.</div>';
+    return;
+}
+
+// Parameter binden
+$allParams = array_merge($params, [$offset, $perPage]);
+$bindTypes = str_repeat('s', count($params)) . 'ii';
+$bindRefs = [];
+foreach ($allParams as $key => $val) $bindRefs[$key] = &$allParams[$key];
+call_user_func_array([$stmt, 'bind_param'], array_merge([$bindTypes], $bindRefs));
+
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Daten in Array sammeln
+$rows = [];
+while($row = $result->fetch_assoc()) $rows[] = $row;
+
+// === Gesamtanzahl für Pagination ===
+$sqlCount = "
+SELECT COUNT(DISTINCT u.userID) as total
+FROM users u
+LEFT JOIN user_role_assignments ura ON u.userID = ura.userID
+LEFT JOIN user_roles r ON ura.roleID = r.roleID
+LEFT JOIN user_socials us ON us.userID = u.userID
+$whereSQL
+";
+$stmtCount = $_database->prepare($sqlCount);
+if ($params) {
+    $bindTypes = str_repeat('s', count($params));
+    $bindRefs  = [];
+    foreach ($params as $k => $v) $bindRefs[$k] = &$params[$k];
+    call_user_func_array([$stmtCount, 'bind_param'], array_merge([$bindTypes], $bindRefs));
+}
+$stmtCount->execute();
+$totalUsers = $stmtCount->get_result()->fetch_assoc()['total'];
+$totalPages = ceil($totalUsers / $perPage);
+
+// === Gesamtanzahl aller User ===
+$alle = safe_query("SELECT userID FROM users");
+$gesamt = mysqli_num_rows($alle);
+
+// === Gefilterte Anzahl ===
+$sqlCountFiltered = "
+SELECT COUNT(DISTINCT u.userID) as cnt
+FROM users u
+LEFT JOIN user_role_assignments ura ON u.userID = ura.userID
+LEFT JOIN user_roles r ON ura.roleID = r.roleID
+LEFT JOIN user_socials us ON us.userID = u.userID
+$whereSQL
+";
+$stmtCount = $_database->prepare($sqlCountFiltered);
+if ($params) {
+    $bindTypes = str_repeat('s', count($params));
+    $bindRefs  = [];
+    foreach ($params as $k => $v) $bindRefs[$k] = &$params[$k];
+    call_user_func_array([$stmtCount, 'bind_param'], array_merge([$bindTypes], $bindRefs));
+}
+$stmtCount->execute();
+$resCnt = $stmtCount->get_result();
+$gefiltert = ($row = $resCnt->fetch_assoc()) ? (int)$row['cnt'] : 0;
+?>
+
+<div class="card nx-userlist-card">
+  <div class="card-body">
+    <div class="container my-4">
+      <h2><?= $languageService->get('user_list') ?></h2>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <form method="get" class="userlist-filter d-flex gap-2 mb-0">
+                <input type="hidden" name="site" value="userlist">
+
+                <?php if($settings['enable_search']): ?>
+                    <input type="text" name="search" placeholder="<?= $languageService->get('search_placeholder') ?>" value="<?=htmlspecialchars($search)?>" class="form-control">
+                <?php endif; ?>
+
+                <?php if($settings['enable_role_filter']): ?>
+                    <select name="role" class="form-select">
+                        <option value=""><?= $languageService->get('all_roles') ?></option>
+                        <?php foreach($roles as $r): ?>
+                            <option value="<?=htmlspecialchars($r)?>" <?= $roleFilter==$r?'selected':'' ?>><?=htmlspecialchars($r)?></option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php endif; ?>
+
+                <select name="sort" class="form-select">
+                    <option value="username" <?= $sort=='username'?'selected':'' ?>><?= $languageService->get('username') ?></option>
+                    <option value="registerdate" <?= $sort=='registerdate'?'selected':'' ?>><?= $languageService->get('registered') ?></option>
+                    <option value="lastlogin" <?= $sort=='lastlogin'?'selected':'' ?>><?= $languageService->get('last_login') ?></option>
+                    <option value="is_online" <?= $sort=='is_online'?'selected':'' ?>><?= $languageService->get('online_status') ?></option>
+                    <option value="website" <?= $sort=='website'?'selected':'' ?>><?= $languageService->get('website') ?></option>
+                </select>
+
+                <select name="order" class="form-select">
+                    <option value="ASC" <?= $order=='ASC'?'selected':'' ?>><?= $languageService->get('ascending') ?></option>
+                    <option value="DESC" <?= $order=='DESC'?'selected':'' ?>><?= $languageService->get('descending') ?></option>
+                </select>
+
+                <button type="submit" class="btn btn-primary"><?= $languageService->get('filter') ?></button>
+            </form>
+
+
+
+            <!-- Badges rechts -->
+            <div class="d-flex gap-2">
+                <span class="badge bg-secondary">
+                    <?= $languageService->get('total') ?>: <?= $gesamt ?>
+                </span>
+                <span class="badge bg-primary">
+                    <?= $languageService->get('found') ?>: <?= $gefiltert ?>
+                </span>
+            </div>
+        </div>
+
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <?php if($settings['show_avatars']): ?><th><?= $languageService->get('avatar') ?></th><?php endif; ?>
+                    <th><?= $languageService->get('username') ?></th>
+                    <?php if($settings['show_roles']): ?><th><?= $languageService->get('role') ?></th><?php endif; ?>
+                    <?php if($settings['show_website']): ?><th><?= $languageService->get('homepage') ?></th><?php endif; ?>
+                    <?php if($settings['show_registerdate']): ?><th><?= $languageService->get('registered') ?></th><?php endif; ?>
+                    <?php if($settings['show_lastlogin']): ?><th><?= $languageService->get('last_login') ?></th><?php endif; ?>
+                    <?php if($settings['show_online_status']): ?><th><?= $languageService->get('status') ?></th><?php endif; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($rows as $row):
+                    $avatarFile = getavatar($row['userID']);
+                    $avatarSize = 32;
+                    $avatar = $avatarFile 
+                        ? '<img src="'.htmlspecialchars($avatarFile).'" width="'.$avatarSize.'" height="'.$avatarSize.'" class="userlist-avatar">' 
+                        : '<img src="default-avatar.png" width="'.$avatarSize.'" height="'.$avatarSize.'" class="userlist-avatar">';
+                    
+                    $status = $row['is_online'] 
+                        ? '<span style="color:green">' . $languageService->get('online') . '</span>' 
+                        : '<span style="color:red">' . $languageService->get('offline') . '</span>';
+
+                    $rolesText = $row['roles'] ? htmlspecialchars($row['roles']) : $languageService->get('user');
+                    $profileUrl = SeoUrlHandler::convertToSeoUrl('index.php?site=profile&id=' . intval($row['userID']));
+                    $usernameLink = '<a href="' . htmlspecialchars($profileUrl) . '">' . htmlspecialchars($row['username']) . '</a>';
+
+                    $websiteUrl = $row['website'] ?? '';
+                    $homepage = !empty($websiteUrl) 
+                        ? '<a href="'.(str_starts_with($websiteUrl,'http://')||str_starts_with($websiteUrl,'https://')?'':'http://').htmlspecialchars($websiteUrl).'" target="_blank" rel="nofollow">'.$languageService->get('homepage').'</a>' 
+                        : '<s>'.$languageService->get('homepage').'</s>';
+                ?>
+                <tr <?= $settings['highlight_online_users'] && $row['is_online'] ? 'style="font-weight:bold;"' : '' ?>>
+                    <?php if($settings['show_avatars']): ?><td><?= $avatar ?></td><?php endif; ?>
+                    <td><?= $usernameLink ?></td>
+                    <?php if($settings['show_roles']): ?><td><?= $rolesText ?></td><?php endif; ?>
+                    <?php if($settings['show_website']): ?><td><?= $homepage ?></td><?php endif; ?>
+                    <?php if($settings['show_registerdate']): ?><td><?= date("d.m.Y", strtotime($row['registerdate'])) ?></td><?php endif; ?>
+                    <?php if($settings['show_lastlogin']): ?><td><?= date("d.m.Y H:i", strtotime($row['lastlogin'])) ?></td><?php endif; ?>
+                    <?php if($settings['show_online_status']): ?><td><?= $status ?></td><?php endif; ?>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+
+    </div>
+  </div>
+</div>
+<?php
+/* ==========================
+   USERLIST PAGINATION
+========================== */
+
+$page       = (int)$page;
+$totalPages = (int)$totalPages;
+
+if ($totalPages > 1) {
+
+    $baseParams = ['site' => 'userlist'];
+    if (!empty($search)) {
+        $baseParams['search'] = $search;
+    }
+    if (!empty($roleFilter)) {
+        $baseParams['role'] = $roleFilter;
+    }
+    if (!empty($sort)) {
+        $baseParams['sort'] = $sort;
+    }
+    if (!empty($order)) {
+        $baseParams['order'] = $order;
+    }
+
+    $baseUrl = SeoUrlHandler::convertToSeoUrl('index.php?' . http_build_query($baseParams));
+    $baseUrl = rtrim($baseUrl, '/') . '/';
+
+    // Pagination aus der zentralen Klasse
+    echo $tpl->renderPagination(
+        $baseUrl,
+        $page,
+        $totalPages,
+        'page'
+    );
+}
+

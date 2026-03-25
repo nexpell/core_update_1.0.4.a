@@ -1,0 +1,287 @@
+.joinus-shell {
+    --joinus-card-bg: var(--nx-theme-surface-2, rgba(255, 255, 255, 0.82));
+    --joinus-border: var(--nx-theme-card-border, rgba(15, 23, 42, 0.12));
+    --joinus-muted: var(--nx-theme-muted, var(--bs-secondary-color));
+    --joinus-panel-bg: var(--nx-theme-surface, rgba(248, 249, 251, 0.88));
+    --joinus-item-bg: color-mix(in srgb, var(--nx-theme-surface-2, #ffffff), var(--nx-theme-page-bg, #11151b) 8%);
+    --joinus-input-bg: color-mix(in srgb, var(--nx-theme-surface, #ffffff), var(--nx-theme-page-bg, #11151b) 4%);
+    --joinus-text: var(--nx-theme-text, inherit);
+    --joinus-accent: var(--nx-theme-accent, var(--bs-primary));
+    --joinus-radius: var(--nx-theme-card-radius, 1rem);
+    --joinus-border-width: var(--nx-theme-card-border-width, 1px);
+    margin: 1.5rem auto 2.5rem;
+    width: 100%;
+    color: var(--joinus-text);
+}
+
+.head-boxes + .joinus-shell {
+    margin-top: 0;
+}
+
+.joinus-card {
+    border: var(--joinus-border-width) solid var(--joinus-border);
+    background: var(--joinus-card-bg);
+    overflow: hidden;
+    backdrop-filter: blur(16px);
+    border-radius: var(--joinus-radius);
+}
+
+.joinus-card .card-body {
+    padding: 1.25rem;
+}
+
+.joinus-headline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.joinus-title-wrap h1 {
+    margin: 0;
+    font-size: 1.55rem;
+    font-weight: 700;
+}
+
+.joinus-title-wrap p {
+    margin: 0.25rem 0 0;
+    color: var(--joinus-muted);
+    font-size: 0.96rem;
+    max-width: 54rem;
+}
+
+.joinus-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--joinus-accent) 14%, transparent);
+    color: var(--joinus-accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.joinus-status-success {
+    background: color-mix(in srgb, #198754 14%, transparent);
+    color: #198754;
+}
+
+.joinus-status-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.joinus-grid {
+    display: grid;
+    grid-template-columns: minmax(18rem, 22rem) minmax(0, 1fr);
+    gap: 1rem;
+}
+
+.joinus-sidebar,
+.joinus-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.joinus-panel,
+.joinus-form,
+.joinus-success-panel {
+    border: var(--joinus-border-width) solid var(--joinus-border);
+    border-radius: var(--joinus-radius);
+    background: var(--joinus-panel-bg);
+}
+
+.joinus-panel {
+    padding: 1rem;
+}
+
+.joinus-panel-muted {
+    background: var(--joinus-item-bg);
+}
+
+.joinus-eyebrow {
+    display: inline-block;
+    margin-bottom: 0.65rem;
+    color: var(--joinus-accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.joinus-panel h2 {
+    margin: 0 0 0.55rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.joinus-panel p {
+    margin: 0;
+    color: var(--joinus-muted);
+    line-height: 1.55;
+}
+
+.joinus-info-item + .joinus-info-item {
+    margin-top: 0.95rem;
+}
+
+.joinus-info-item strong {
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.joinus-info-item span {
+    color: var(--joinus-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+.joinus-alert {
+    margin-bottom: 0;
+    border-radius: 1rem;
+}
+
+.joinus-form {
+    padding: 1rem;
+    background: var(--joinus-input-bg);
+}
+
+.joinus-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+.joinus-form > .joinus-field + .joinus-field,
+.joinus-form > .joinus-form-grid + .joinus-field,
+.joinus-form > .joinus-field + .joinus-form-grid,
+.joinus-form > .joinus-form-grid + .joinus-form-grid,
+.joinus-form > .joinus-field + .joinus-form-footer,
+.joinus-form > .joinus-form-grid + .joinus-form-footer {
+    margin-top: 0.95rem;
+}
+
+.joinus-field .form-label {
+    font-weight: 600;
+    margin-bottom: 0.45rem;
+}
+
+.joinus-field .form-control,
+.joinus-field .form-select {
+    min-height: 3rem;
+    border-radius: calc(var(--joinus-radius) * 0.75);
+    background: var(--joinus-input-bg);
+    border-color: var(--joinus-border);
+    color: var(--joinus-text);
+}
+
+.joinus-textarea {
+    min-height: 10rem;
+    resize: vertical;
+}
+
+.joinus-form-footer {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--joinus-border);
+}
+
+.joinus-recaptcha:empty {
+    display: none;
+}
+
+.joinus-submit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.joinus-submit-hint {
+    color: var(--joinus-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    max-width: 38rem;
+}
+
+.joinus-submit {
+    min-width: 12rem;
+    min-height: 3rem;
+    border-radius: calc(var(--joinus-radius) * 0.75);
+    font-weight: 600;
+}
+
+.joinus-success-panel {
+    padding: 2rem 1.25rem;
+    text-align: center;
+    background: var(--joinus-input-bg);
+}
+
+.joinus-success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-bottom: 1rem;
+    border-radius: 1.25rem;
+    background: color-mix(in srgb, #198754 14%, transparent);
+    color: #198754;
+    font-size: 2rem;
+}
+
+.joinus-success-panel h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.joinus-success-panel p {
+    margin: 0;
+    color: var(--joinus-muted);
+}
+
+.joinus-success-actions {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 991.98px) {
+    .joinus-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .joinus-shell {
+        margin: 1.5rem auto;
+    }
+
+    .joinus-card .card-body {
+        padding: 1rem;
+    }
+
+    .joinus-headline,
+    .joinus-submit-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .joinus-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .joinus-submit {
+        width: 100%;
+    }
+}

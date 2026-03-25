@@ -1,0 +1,23 @@
+<?php
+return [
+    'step_title' => 'Schritt 3: Systemüberprüfung & Datenbankverbindung',
+    'section_system_check' => 'Systemüberprüfung',
+    'section_db_setup' => 'Datenbankverbindung einrichten',
+    'field_host' => 'Host:',
+    'field_username' => 'Benutzername:',
+    'field_password' => 'Passwort:',
+    'field_dbname' => 'Datenbankname:',
+    'button_continue' => 'Weiter zu Schritt 4',
+    'msg_fix_errors' => '❌ Bitte behebe die oben genannten Probleme, um fortzufahren.',
+    'msg_error_db_connect' => '❌ Fehler bei der Datenbankverbindung: ',
+    'msg_error_config_write' => '❌ Fehler beim Erstellen der config.inc.php Datei.',
+    'msg_success_config_create' => '✅ config.inc.php wurde erfolgreich erstellt!',
+    'msg_php_version_ok' => '✅ PHP-Version ist korrekt! (Aktuell: ',
+    'msg_php_version_low' => '❌ PHP-Version zu niedrig! (Aktuell: ',
+    'msg_mariadb_ok' => '✅ MariaDB-Version erkannt! (',
+    'msg_mysql_version_ok' => '✅ MySQL-Version ist korrekt! (',
+    'msg_mysql_version_low' => '❌ MySQL-Version zu niedrig! (Aktuell: ',
+    'msg_config_invalid' => '⚠️ config.inc.php ist vorhanden, aber enthält ungültige Verbindungsdaten.',
+    'msg_css_not_writable' => '❌ Die Datei stylesheet.css ist nicht schreibbar.',
+    'msg_css_writable_ok' => '✅ Die Datei stylesheet.css ist schreibbar.',
+];
