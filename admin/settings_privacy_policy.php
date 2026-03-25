@@ -150,7 +150,7 @@ $hash = $CAPCLASS->getHash();
                         <?php if (!empty($lastUpdate[$currentLang])): ?>
                             <i class="bi bi-clock-history me-1"></i>
                             <span id="last-update-text">
-                                <?= date('d.m.Y H:i', strtotime($lastUpdate[$iso])) ?>
+                                <?= date('d.m.Y H:i', strtotime((string)$lastUpdate[$currentLang])) ?>
                             </span>
                         <?php else: ?>
                             <span id="last-update-text">–</span>
@@ -191,4 +191,3 @@ $hash = $CAPCLASS->getHash();
 
 </div> 
 </form>
-

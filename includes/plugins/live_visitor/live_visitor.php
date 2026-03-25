@@ -100,17 +100,19 @@ SELECT vh.*, u.username, up.avatar
 FROM visitors_live_history vh
 INNER JOIN (
     SELECT
-        CONCAT('u:', userID) AS visitor_key,
+        userID,
         MAX(time) AS last_time
     FROM visitors_live_history
     WHERE time >= $history_window_ago
       AND userID IS NOT NULL
       AND userID > 0
-    GROUP BY visitor_key
+    GROUP BY userID
 ) latest
-    ON latest.last_time = vh.time
-   AND latest.visitor_key = CONCAT('u:', vh.userID)
-LEFT JOIN users u ON u.userID = vh.userID AND u.is_active = 1
+    ON latest.userID = vh.userID
+   AND latest.last_time = vh.time
+INNER JOIN users u
+    ON u.userID = vh.userID
+   AND u.is_active = 1
 LEFT JOIN user_profiles up ON up.userID = vh.userID
 WHERE vh.time >= $history_window_ago
   AND vh.userID IS NOT NULL
@@ -262,6 +264,10 @@ function render_visitors_card(mysqli_result $res, string $type = 'online') {
     echo '<ul class="list-group list-group-flush">';
 
     while ($row = mysqli_fetch_assoc($res)) {
+        if ($type === 'history' && empty($row['userID'])) {
+            continue;
+        }
+
         $username = $row['username'] ?? $languageService->get('visitor_guest');
 
         if (!empty($row['userID'])) {

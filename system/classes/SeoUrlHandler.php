@@ -226,6 +226,10 @@ public static function route(?string $uri = null): void
         $_GET['lang'] = strtolower($segments[0]);
         $_GET['site'] = $segments[1] ?? 'index';
 
+        if ($_GET['site'] === 'page') {
+            $_GET['site'] = 'static';
+        }
+
         $knownActions = [
             'show','watch','deletecomment','edit','new','list',
 
@@ -1104,7 +1108,9 @@ private static function shouldBypassCanonical(array $query, string $requestPath)
 
         // Startseite: kein "/index" im SEO-Pfad ausgeben
         $segments = [$lang];
-        if ($site !== 'index') {
+        if ($site === 'static') {
+            $segments[] = 'page';
+        } elseif ($site !== 'index') {
             $segments[] = $site;
         }
 

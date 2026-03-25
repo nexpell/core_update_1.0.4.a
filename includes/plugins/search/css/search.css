@@ -1,74 +1,169 @@
+ .nx-search-shell {
+  margin-bottom: 1.5rem;
+}
 
-  .nx-search-shell {
-    margin-bottom: 1.5rem;
-  }
+.nx-search-head {
+  display: block;
+}
 
-  .nx-search-form-card,
-  .nx-search-result-card,
-  .nx-search-meta-card {
-    border: 0;
-    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
-  }
+.nx-search-kicker {
+  color: #0b8fca;
+  font-size: 0.92rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
 
-  .nx-search-form-card {
-    background: linear-gradient(135deg, rgba(13, 148, 191, 0.08), rgba(255, 255, 255, 0.95));
-  }
+.nx-search-headline {
+  color: #262626;
+  font-size: clamp(2rem, 3vw, 2.55rem);
+  font-weight: 700;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
 
-  .nx-search-input {
-    min-height: 3.25rem;
-    border: 1px solid rgba(14, 116, 144, 0.16);
-    padding-inline: 1rem;
-    font-size: 1rem;
-  }
+.nx-search-form-card,
+.nx-search-meta-card,
+.nx-search-result-card,
+.nx-search-quick-card {
+  background: #fff;
+  border: 1px solid #d7dce1;
+  border-radius: 0;
+  box-shadow: none;
+}
 
-  .nx-search-button {
-    min-height: 3.25rem;
-    font-weight: 600;
-  }
+.nx-search-form-card {
+  padding: 0;
+  overflow: hidden;
+}
 
-  .nx-search-result-card {
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
-  }
+.nx-search-input {
+  min-height: 3.2rem;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 1rem;
+  font-size: 1rem;
+  color: #2f2f2f !important;
+  -webkit-text-fill-color: #2f2f2f !important;
+}
 
-  .nx-search-result-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 38px rgba(15, 23, 42, 0.12);
-  }
+.nx-search-input:focus {
+  box-shadow: none;
+}
 
-  .nx-search-type {
-    background: rgba(13, 148, 191, 0.12);
-    color: #0f766e;
-    padding: 0.45rem 0.8rem;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
+.nx-search-button {
+  min-height: 3.2rem;
+  border-radius: 0;
+  border: 0;
+  background: #118fbd;
+  font-weight: 400;
+}
 
-  .nx-search-link {
-    color: #0f172a;
-  }
+.nx-search-button:hover,
+.nx-search-button:focus {
+  background: #0c7ca4;
+}
 
-  .nx-search-link:hover {
-    color: #0c4a6e;
-  }
+.nx-search-meta-card {
+  border: 0;
+  background: transparent;
+}
 
-  .nx-search-snippet {
-    line-height: 1.65;
-  }
+.nx-search-meta-card .card-body {
+  padding: 0 !important;
+}
 
-  .nx-search-snippet mark,
-  .nx-search-link mark {
-    background: rgba(250, 204, 21, 0.35);
-    color: inherit;
-    padding: 0.05em 0.2em;
-  }
+.nx-search-result-card {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
 
-  .nx-search-pager {
-    margin-top: 1.5rem;
-  }
+.nx-search-result-body {
+  padding: 1.45rem 1rem 1rem;
+}
 
-  .nx-search-quick-card {
-    border: 0;
-    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+.nx-search-type {
+  display: inline-block;
+  background: #74c4df;
+  color: #23404d;
+  border-radius: 0;
+  padding: 0.38rem 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+
+.nx-search-result-title {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1.28;
+}
+
+.nx-search-link {
+  color: #1a9fe0 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  -webkit-text-fill-color: #1a9fe0 !important;
+}
+
+.nx-search-link:hover {
+  color: #0f89c4 !important;
+  -webkit-text-fill-color: #0f89c4 !important;
+}
+
+.nx-search-snippet {
+  color: #303030 !important;
+  line-height: 1.65;
+  font-size: 0.98rem;
+  visibility: visible !important;
+  opacity: 1 !important;
+  -webkit-text-fill-color: #303030 !important;
+}
+
+.nx-search-open {
+  border-radius: 0;
+  border-color: #118fbd;
+  color: #118fbd;
+  padding-inline: 0.95rem;
+}
+
+.nx-search-open:hover,
+.nx-search-open:focus {
+  background: #118fbd;
+  border-color: #118fbd;
+  color: #fff;
+}
+
+.nx-search-result-card .card-body,
+.nx-search-result-card h1,
+.nx-search-result-card h2,
+.nx-search-result-card h3,
+.nx-search-result-card h4,
+.nx-search-result-card p,
+.nx-search-result-card span,
+.nx-search-result-card a {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.nx-search-snippet mark,
+.nx-search-link mark {
+  background: #f6e3bf;
+  color: inherit;
+  padding: 0.02em 0.18em;
+}
+
+.nx-search-pager {
+  margin-top: 1.5rem;
+}
+
+.nx-search-quick-card {
+  padding: 1rem;
+}
+
+@media (max-width: 991.98px) {
+  .nx-search-result-title {
+    font-size: 1.55rem;
   }
+}

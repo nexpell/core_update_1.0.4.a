@@ -53,7 +53,7 @@ return function (array &$pages, array $CTX): void {
             }
 
             if ($slug !== '') {
-                $loc = rtrim($BASE, '/') . '/' . trim($lang, '/') . '/static/' . rawurlencode($slug) . '/' . $id;
+                $loc = rtrim($BASE, '/') . '/' . trim($lang, '/') . '/page/' . rawurlencode($slug) . '/' . $id;
             } else {
                 $loc = rtrim($BASE, '/') . \nexpell\SeoUrlHandler::convertToSeoUrl(
                     'index.php?' . http_build_query([

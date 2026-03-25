@@ -10,6 +10,10 @@ global $_database, $languageService;
 
 AccessControl::checkAdminAccess('pricing');
 
+if ($languageService instanceof LanguageService) {
+    $languageService->readPluginModule('pricing');
+}
+
 function pricing_admin_ensure_schema(mysqli $database): void
 {
     static $done = false;

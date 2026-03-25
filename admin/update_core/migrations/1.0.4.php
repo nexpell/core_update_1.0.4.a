@@ -33,6 +33,59 @@ return static function ($database = null): array {
         }
     }
 
+    $usersColumnsToAdd = [
+        'twofa_enabled' => "ALTER TABLE users ADD COLUMN twofa_enabled TINYINT(1) NOT NULL DEFAULT 0",
+        'twofa_method' => "ALTER TABLE users ADD COLUMN twofa_method ENUM('email','totp') NULL DEFAULT 'email'",
+        'twofa_email_code_hash' => "ALTER TABLE users ADD COLUMN twofa_email_code_hash VARCHAR(255) NULL",
+        'twofa_email_code_expires_at' => "ALTER TABLE users ADD COLUMN twofa_email_code_expires_at DATETIME NULL",
+        'twofa_email_last_sent_at' => "ALTER TABLE users ADD COLUMN twofa_email_last_sent_at DATETIME NULL",
+        'twofa_failed_attempts' => "ALTER TABLE users ADD COLUMN twofa_failed_attempts INT NOT NULL DEFAULT 0",
+        'twofa_locked_until' => "ALTER TABLE users ADD COLUMN twofa_locked_until DATETIME NULL",
+        'remember_device_salt' => "ALTER TABLE users ADD COLUMN remember_device_salt VARCHAR(64) DEFAULT NULL",
+    ];
+
+    foreach ($usersColumnsToAdd as $column => $sql) {
+        $check = $db->query("SHOW COLUMNS FROM users LIKE '" . $db->real_escape_string($column) . "'");
+        $hasColumn = $check && $check->num_rows > 0;
+        if ($check) {
+            $check->free();
+        }
+
+        if ($hasColumn) {
+            $notes[] = 'users.' . $column . ' already exists.';
+            continue;
+        }
+
+        if (!$db->query($sql)) {
+            throw new RuntimeException('Failed to add users.' . $column . ': ' . $db->error);
+        }
+
+        $notes[] = 'Added users.' . $column . '.';
+    }
+
+    $settingsColumnsToAdd = [
+        'twofa_force_all' => "ALTER TABLE settings ADD COLUMN twofa_force_all TINYINT(1) NOT NULL DEFAULT 1",
+    ];
+
+    foreach ($settingsColumnsToAdd as $column => $sql) {
+        $check = $db->query("SHOW COLUMNS FROM settings LIKE '" . $db->real_escape_string($column) . "'");
+        $hasColumn = $check && $check->num_rows > 0;
+        if ($check) {
+            $check->free();
+        }
+
+        if ($hasColumn) {
+            $notes[] = 'settings.' . $column . ' already exists.';
+            continue;
+        }
+
+        if (!$db->query($sql)) {
+            throw new RuntimeException('Failed to add settings.' . $column . ': ' . $db->error);
+        }
+
+        $notes[] = 'Added settings.' . $column . '.';
+    }
+
     $tableCheck = $db->query("SHOW TABLES LIKE 'plugins_rules_settings'");
     $hasRulesSettingsTable = $tableCheck && $tableCheck->num_rows > 0;
     if ($tableCheck) {

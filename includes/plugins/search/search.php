@@ -526,16 +526,20 @@ function scoreSearchResult(array $row, string $query, array $terms, string $lang
     $bodyLower = mb_strtolower($body);
     $queryLower = mb_strtolower($query);
     $score = 0;
+    $hasMatch = false;
 
     if ($queryLower !== '') {
         if ($titleLower === $queryLower) {
             $score += 220;
+            $hasMatch = true;
         } elseif (mb_stripos($titleLower, $queryLower) !== false) {
             $score += 130;
+            $hasMatch = true;
         }
 
         if (mb_stripos($bodyLower, $queryLower) !== false) {
             $score += 70;
+            $hasMatch = true;
         }
     }
 
@@ -553,6 +557,7 @@ function scoreSearchResult(array $row, string $query, array $terms, string $lang
 
         if ($titleWordMatches > 0 || $bodyWordMatches > 0 || $titlePrefixMatches > 0 || $bodyPrefixMatches > 0) {
             $matchedTerms++;
+            $hasMatch = true;
         }
 
         $score += min(4, $titleWordMatches) * 32;
@@ -563,8 +568,13 @@ function scoreSearchResult(array $row, string $query, array $terms, string $lang
         if ($titleWordMatches === 0 && $bodyWordMatches === 0) {
             if (levenshtein($termLower, mb_substr($titleLower, 0, min(mb_strlen($titleLower), mb_strlen($termLower) + 2))) <= 1) {
                 $score += 8;
+                $hasMatch = true;
             }
         }
+    }
+
+    if (!$hasMatch) {
+        return 0;
     }
 
     if (!empty($terms) && $matchedTerms === count($terms)) {
@@ -677,7 +687,7 @@ function resolveSearchResult(array $row, string $lang, LanguageService $language
             $staticID = (int) ($row['staticID'] ?? $id);
             $url = SeoUrlHandler::convertToSeoUrl('index.php?site=static&staticID=' . $staticID);
             $typeLabel = $languageService->get('type_page');
-            $content = collectRowText($row, array_keys($row), $lang);
+            $content = plainSearchText((string) ($row['body'] ?? ''), $lang);
             break;
     }
 
@@ -790,27 +800,48 @@ $seen = [];
 $staticTable = 'settings_static';
 $staticColumns = getTableColumns($staticTable);
 $staticIdCol = firstExistingColumn($staticColumns, ['staticID', 'id', 'pageID'], $currentLang);
-$staticTitleCols = findLanguageColumns($staticColumns, ['title', 'headline', 'name'], $currentLang);
-$staticBodyCols = findLanguageColumns($staticColumns, ['content', 'body', 'description', 'intro', 'text', 'summary'], $currentLang);
-$staticSearchCols = array_values(array_unique(array_merge($staticTitleCols, $staticBodyCols)));
 
-[$whereStatic, $typesStatic, $paramsStatic] = buildSearchConditions($staticSearchCols, $terms, $q);
+[$whereStaticBase, $typesStatic, $paramsStatic] = buildSearchConditions(['content'], $terms, $q);
 
-if ($staticIdCol !== null && !empty($staticSearchCols) && $whereStatic !== '') {
-    $staticSelectCols = array_values(array_unique(array_merge([$staticIdCol], $staticSearchCols)));
-    $staticTitleCol = firstExistingColumn($staticColumns, ['title', 'headline', 'name'], $currentLang);
-    $staticBodyCol = firstExistingColumn($staticColumns, ['content', 'body', 'description', 'intro', 'text', 'summary'], $currentLang);
+if ($staticIdCol !== null && $whereStaticBase !== '') {
+    $whereStaticTitle = str_replace('`content`', 'COALESCE(title_lang.content, title_fallback.content, \'\')', $whereStaticBase);
+    $whereStaticBody = str_replace('`content`', 'COALESCE(body_lang.content, body_fallback.content, \'\')', $whereStaticBase);
     $sqlPages = "
-        SELECT 'settings_static' AS type, `$staticIdCol` AS id, " . buildSelectColumns($staticSelectCols) . ",
-        " . ($staticTitleCol !== null ? "`$staticTitleCol` AS title" : "'' AS title") . ",
-        " . ($staticBodyCol !== null ? "`$staticBodyCol` AS body" : "'' AS body") . "
-        FROM `$staticTable`
-        WHERE ($whereStatic)
+        SELECT
+            'settings_static' AS type,
+            s.`$staticIdCol` AS id,
+            s.`$staticIdCol` AS staticID,
+            COALESCE(title_lang.content, title_fallback.content, '') AS title,
+            COALESCE(body_lang.content, body_fallback.content, '') AS body
+        FROM `$staticTable` s
+        LEFT JOIN settings_content_lang AS title_lang
+            ON title_lang.content_key = CONCAT('static_title_', s.`$staticIdCol`)
+           AND title_lang.language = ?
+        LEFT JOIN settings_content_lang AS title_fallback
+            ON title_fallback.content_key = CONCAT('static_title_', s.`$staticIdCol`)
+           AND title_fallback.language = 'de'
+        LEFT JOIN settings_content_lang AS body_lang
+            ON body_lang.content_key = CONCAT('static_', s.`$staticIdCol`)
+           AND body_lang.language = ?
+        LEFT JOIN settings_content_lang AS body_fallback
+            ON body_fallback.content_key = CONCAT('static_', s.`$staticIdCol`)
+           AND body_fallback.language = 'de'
+        WHERE (
+            $whereStaticTitle
+            OR $whereStaticBody
+        )
     ";
 
     $stmtPages = $_database->prepare($sqlPages);
     if ($stmtPages) {
-        $stmtPages->bind_param($typesStatic, ...$paramsStatic);
+        $bindTypes = 'ss' . $typesStatic . $typesStatic;
+        $bindParams = array_merge(
+            [$currentLang, $currentLang],
+            $paramsStatic,
+            $paramsStatic
+        );
+
+        $stmtPages->bind_param($bindTypes, ...$bindParams);
         $stmtPages->execute();
         $resPages = $stmtPages->get_result();
 

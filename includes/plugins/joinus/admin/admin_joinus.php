@@ -644,6 +644,8 @@ $res = $_database->query("
 while ($row = $res->fetch_assoc()) {
     $applications[] = $row;
 }
+
+$joinusNotice = $joinusNotice ?? '';
 ?>
 
 <a href="admincenter.php?site=admin_joinus&action=setting" class="btn btn-secondary mb-4 mt-2">
