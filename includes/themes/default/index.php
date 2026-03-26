@@ -25,6 +25,25 @@ if ($isBuilder) {
 // Seite bestimmen
 $pageSlug = $_GET['site'] ?? 'index';
 $widgetsByPosition = nxb_build_widgets_html($pageSlug);
+$globalWidgetsByPosition = $widgetsByPosition;
+$modulePath = BASE_PATH . '/includes/modules/' . $pageSlug . '.php';
+$isModulePage = ($pageSlug !== 'index' && is_file($modulePath));
+if ($pageSlug !== 'index') {
+    $indexWidgetsByPosition = nxb_build_widgets_html('index');
+    if ($isModulePage) {
+        $globalWidgetsByPosition['navbar'] = $indexWidgetsByPosition['navbar'] ?? [];
+        $globalWidgetsByPosition['footer'] = $indexWidgetsByPosition['footer'] ?? [];
+    } else {
+        if (empty($globalWidgetsByPosition['navbar']) && !empty($indexWidgetsByPosition['navbar'])) {
+            $globalWidgetsByPosition['navbar'] = $indexWidgetsByPosition['navbar'];
+        }
+        if (empty($globalWidgetsByPosition['footer']) && !empty($indexWidgetsByPosition['footer'])) {
+            $globalWidgetsByPosition['footer'] = $indexWidgetsByPosition['footer'];
+        }
+    }
+}
+$widgetsByPosition = $globalWidgetsByPosition;
+$GLOBALS['nxb_widgets_by_position'] = $widgetsByPosition;
 
 // Nur für Startseite: konfiguriertes Startseiten-Modul ausblenden (Layout nur über Content-Zone)
 $isStartpageView = false;
@@ -57,47 +76,6 @@ require_once 'header.php';
 </script>
 <!-- === Zonen-Restriktions-Logik / Builder-Flag ENDE === -->
 <?php endif; ?>
-
-<?php /*if (!empty($_SESSION['userID'])): ?>
-<div class="card mt-3 border-warning">
-    <div class="card-header bg-warning text-dark fw-bold">
-        🔐 Deine Login- & Rollenrechte
-    </div>
-    <div class="card-body small">
-        <ul class="mb-0">
-            <li><strong>UserID:</strong> <?= (int)$_SESSION['userID'] ?></li>
-            <li><strong>Username:</strong> <?= htmlspecialchars($_SESSION['username'] ?? '') ?></li>
-            <li><strong>roleID (höchste):</strong> <?= $_SESSION['roleID'] ?? '–' ?></li>
-            <li><strong>userrole (Text):</strong> <?= $_SESSION['userrole'] ?? '–' ?></li>
-
-            <hr class="my-2">
-
-            <li><strong>Alle Rollen (IDs):</strong>
-                <?= !empty($_SESSION['roles']) ? implode(', ', $_SESSION['roles']) : 'keine' ?>
-            </li>
-
-            <li><strong>Alle Rollen (Namen):</strong>
-                <?= !empty($_SESSION['role_names']) ? implode(', ', $_SESSION['role_names']) : 'keine' ?>
-            </li>
-
-            <hr class="my-2">
-
-            <?php
-            $flags = [
-                'is_admin','is_coadmin','is_leader','is_coleader','is_squadleader',
-                'is_warorg','is_moderator','is_editor','is_member','is_trial',
-                'is_guest','is_registered','is_honor','is_streamer',
-                'is_designer','is_technician'
-            ];
-            foreach ($flags as $flag):
-                if (!empty($_SESSION[$flag])):
-            ?>
-                <li class="text-success">✅ <?= $flag ?></li>
-            <?php endif; endforeach; ?>
-        </ul>
-    </div>
-</div>
-<?php endif;*/ ?>
 
 
   <!-- Eine Zone: nur Content (Blöcke hier ablegen, Reihenfolge frei); ohne umschließenden Container, damit Container-Fluid volle Breite nutzen kann -->
@@ -141,10 +119,20 @@ require_once 'header.php';
   background: transparent;
   border: none;
 }
+body.builder-active [data-nx-zone="navbar"] .builder-placeholder,
+body.builder-active [data-nx-zone="footer"] .builder-placeholder {
+  min-height: 3.25rem;
+  padding: .75rem 1rem;
+  font-size: 0.8rem;
+}
 body.builder-active .nx-live-zone:not(:has(.nx-live-item)) .builder-placeholder {
   min-height: 8rem;
   /*border: 1px solid rgba(226,232,240,.9);*/
   background: rgba(255,255,255,.6);
+}
+body.builder-active [data-nx-zone="navbar"]:not(:has(.nx-live-item)) .builder-placeholder,
+body.builder-active [data-nx-zone="footer"]:not(:has(.nx-live-item)) .builder-placeholder {
+  min-height: 3.25rem;
 }
 /* Zonen-Bezeichnungen (data-nx-zone) ausgeblendet – stören im Builder, werden intern nur für Speichern/Laden genutzt */
 body.builder-active .nx-zone::before {

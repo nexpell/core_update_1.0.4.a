@@ -9,19 +9,23 @@ use nexpell\LanguageService;
 use nexpell\SeoUrlHandler;
 
 global $languageService;
+require_once __DIR__ . '/builder_widget_helper.php';
 
 $lang = $languageService->detectLanguage();
 $languageService->readPluginModule('news');
-
+$newsBuilderSettings = news_widget_builder_settings('widget_news_magazine', isset($settings) && is_array($settings) ? $settings : []);
+$limit = (int)$newsBuilderSettings['limit'];
+$orderSql = news_widget_builder_order_sql((string)$newsBuilderSettings['order']);
+$whereSql = news_widget_builder_where_sql($GLOBALS['_database'], $newsBuilderSettings);
 
 $query = "
     SELECT a.id, a.title, a.updated_at, a.banner_image,
            a.content, c.name AS category_name, c.image AS category_image
     FROM plugins_news a
     LEFT JOIN plugins_news_categories c ON a.category_id = c.id
-    WHERE a.is_active = 1
-    ORDER BY IFNULL(a.sort_order, 9999) ASC, a.updated_at DESC
-    LIMIT 4
+    {$whereSql}
+    {$orderSql}
+    LIMIT " . intval($limit) . "
 ";
 
 
@@ -35,7 +39,7 @@ while ($row = mysqli_fetch_assoc($res)) {
 
 if (count($news) > 0):
 ?>
-<h1>News Magazine</h1>
+<?= news_widget_builder_heading_html($newsBuilderSettings, 'News Magazine', 'h5', 'mb-3') ?>
 <div class="news-magazine-widget d-flex flex-wrap gap-3">
     <!-- Featured News -->
     <?php
@@ -54,10 +58,21 @@ if (count($news) > 0):
                      class="featured-img">
 
                 <div class="featured-text">
-                    <small><?= date('d.m.Y', strtotime($featured['updated_at'])) ?> | <?= htmlspecialchars($featured['category_name']) ?></small>
+                    <small>
+                      <?php
+                        $featuredMeta = [];
+                        if (!empty($newsBuilderSettings['show_date'])) {
+                            $featuredMeta[] = date('d.m.Y', strtotime($featured['updated_at']));
+                        }
+                        if (!empty($newsBuilderSettings['show_category'])) {
+                            $featuredMeta[] = htmlspecialchars($featured['category_name']);
+                        }
+                        echo implode(' | ', $featuredMeta);
+                      ?>
+                    </small>
                     <h3><?= htmlspecialchars($featured['title']) ?></h3>
 
-                    <?php $plain_content = strip_tags($featured['content']); ?>
+                    <?php $plain_content = news_widget_builder_excerpt((string)$featured['content'], (int)$newsBuilderSettings['featured_excerpt_chars']); ?>
                     <p><?= $plain_content ?></p>
                 </div>
             </div>
@@ -76,7 +91,18 @@ if (count($news) > 0):
                 <a href="<?= $news_link ?>">
                     <img src="<?= $img ?>" alt="<?= htmlspecialchars($n['title']) ?>">
                     <div class="small-news-text">
-                        <small class="text-muted"><?= date('d.m.Y', strtotime($n['updated_at'])) ?> | <?= htmlspecialchars($n['category_name']) ?></small>
+                        <small class="text-muted">
+                          <?php
+                            $itemMeta = [];
+                            if (!empty($newsBuilderSettings['show_date'])) {
+                                $itemMeta[] = date('d.m.Y', strtotime($n['updated_at']));
+                            }
+                            if (!empty($newsBuilderSettings['show_category'])) {
+                                $itemMeta[] = htmlspecialchars($n['category_name']);
+                            }
+                            echo implode(' | ', $itemMeta);
+                          ?>
+                        </small>
                         <h6><?= htmlspecialchars($n['title']) ?></h6>
                     </div>
                 </a>

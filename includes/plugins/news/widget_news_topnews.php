@@ -7,18 +7,22 @@ use nexpell\LanguageService;
 use nexpell\SeoUrlHandler;
 
 global $languageService,$_database;
+require_once __DIR__ . '/builder_widget_helper.php';
 
 $lang = $languageService->detectLanguage();
 $languageService->readPluginModule('news');
-
+$newsBuilderSettings = news_widget_builder_settings('widget_news_topnews', isset($settings) && is_array($settings) ? $settings : []);
+$limit = (int)$newsBuilderSettings['limit'];
+$orderSql = news_widget_builder_order_sql((string)$newsBuilderSettings['order']);
+$whereSql = news_widget_builder_where_sql($_database, $newsBuilderSettings);
 
 $topNewsResult = $_database->query("
     SELECT a.id, a.title, a.updated_at, a.sort_order, c.name as category_name, c.image as category_image
     FROM plugins_news a
     LEFT JOIN plugins_news_categories c ON a.category_id = c.id
-    WHERE a.is_active = 1
-    ORDER BY a.updated_at DESC
-    LIMIT 5
+    {$whereSql}
+    {$orderSql}
+    LIMIT " . intval($limit) . "
 ");
 
 // Hilfsfunktion: Text kürzen
@@ -34,7 +38,7 @@ if (!function_exists('shortenText')) {
 if ($topNewsResult && $topNewsResult->num_rows > 0) {
 
     echo '<div class="top-news-widget">';
-    echo '<h5 class="mb-3">Top News</h5>';
+    echo news_widget_builder_heading_html($newsBuilderSettings, 'Top News', 'h5', 'mb-3');
     echo '<div class="list-group">';
 
     while ($news = $topNewsResult->fetch_assoc()) {
@@ -55,8 +59,11 @@ if ($topNewsResult && $topNewsResult->num_rows > 0) {
         echo '<img src="' . $image . '" alt="' . $category_name . '" class="me-3 rounded" style="width:160px; height:auto; object-fit:cover;">';
         echo '<div class="flex-grow-1">';
         echo '<div class="d-flex justify-content-between align-items-start">';
-        echo '<div><strong>' . $title . '</strong><br><small class="text-muted">' . $day . ' ' . $languageService->get(strtolower($month)) . ' ' . $year . '</small></div>';
-        echo '<span class="badge bg-primary">' . $category_name . '</span>';
+        $metaText = !empty($newsBuilderSettings['show_date']) ? $day . ' ' . $languageService->get(strtolower($month)) . ' ' . $year : '';
+        echo '<div><strong>' . $title . '</strong><br><small class="text-muted">' . htmlspecialchars($metaText, ENT_QUOTES, 'UTF-8') . '</small></div>';
+        if (!empty($newsBuilderSettings['show_category'])) {
+            echo '<span class="badge bg-primary">' . $category_name . '</span>';
+        }
         echo '</div></div></a>';
     }
 

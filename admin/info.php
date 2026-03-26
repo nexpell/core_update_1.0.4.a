@@ -1272,12 +1272,7 @@ $stmt->close();
 $installedPlugins = $installedPlugins ?: 0;
 
 // 3. Anzahl installierter Themes
-$stmt = $_database->prepare("SELECT COUNT(*) FROM settings_themes_installed");
-$stmt->execute();
-$stmt->bind_result($installedThemes);
-$stmt->fetch();
-$stmt->close();
-$installedThemes = $installedThemes ?: 0;
+$installedThemes = 1;
 
 // 4. Gesamtbesucher und Seitenaufrufe (Totals) + 7-Tage Werte inkl. Trend
 $stats['plugin_installed'] = (int)$installedPlugins;
@@ -1299,7 +1294,7 @@ if (nx_table_exists($_database, 'visitor_statistics')) {
 }
 
 // Aktives Theme (Name)
-$theme_active_name = '—';
+$theme_active_name = 'Default';
 if (nx_table_exists($_database, 'settings_themes')) {
     $stmt = $_database->prepare("SELECT themename, name, modulname, pfad FROM settings_themes WHERE active = 1 LIMIT 1");
     if ($stmt) {

@@ -12,9 +12,9 @@
   --nx-surface-3: #ffffff;  /* menus / popovers */
 
   /* Body */
-  --nx-body-bg: var(--nx-surface-0);
-  --nx-body-fg: rgba(0,0,0,.88);
-  --nx-body-fg-muted: rgba(0,0,0,.60);
+  --nx-body-bg: var(--bs-body-bg, var(--nx-surface-0));
+  --nx-body-fg: var(--bs-body-color, rgba(0,0,0,.88));
+  --nx-body-fg-muted: color-mix(in srgb, var(--nx-body-fg) 68%, transparent);
 
   /* Borders / dividers */
   --nx-border-subtle: rgba(0,0,0,.10);
@@ -31,38 +31,32 @@
   --nx-state-press: rgba(0,0,0,.10);
   --nx-state-selected: rgba(0,0,0,.08);
 
-  /* Bootstrap Original Vars */
-  --bs-body-bg: var(--nx-body-bg);
-  --bs-body-color: rgba(0,0,0,.88);
-
   /* Komponenenten */
   --nx-card-bg: var(--nx-surface-1);
   --nx-popover-bg: var(--nx-surface-3);
 }
 
-/* LIGHT */
 #mainNavbar{
-  /* Navbar */
-  --nx-body-bg: #ffffff;
-  --nx-body-fg: #212529;
-  --nx-nav-muted: rgba(0,0,0,.60);
-  --nx-nav-border: rgba(0,0,0,.08);
-  --nx-nav-hover-bg: rgba(0,0,0,.03);
-  --nx-nav-active-bg: rgba(0,0,0,.08);
+  --nx-nav-bg: var(--bs-body-bg, #ffffff);
+  --nx-nav-fg: var(--bs-body-color, #212529);
+  --nx-nav-muted: rgba(var(--bs-body-color-rgb, 33,37,41), .66);
+  --nx-nav-border: rgba(var(--bs-body-color-rgb, 33,37,41), .12);
+  --nx-nav-hover-bg: rgba(var(--bs-body-color-rgb, 33,37,41), .06);
+  --nx-nav-active-bg: rgba(var(--bs-primary-rgb, 13,110,253), .12);
 
-  /* Dropdown */
-  --nx-dd-bg: #ffffff;
-  --nx-dd-fg: rgba(0,0,0,.78);
-  --nx-dd-border: rgba(0,0,0,.08);
-  --nx-dd-hover-bg: rgba(0,0,0,.06);
-  --nx-dd-hover-fg: rgba(0,0,0,.90);
-  --nx-dd-active-bg: rgba(0,0,0,.10);
-  --nx-dd-active-fg: rgba(0,0,0,.95);
+  --nx-dd-bg: var(--bs-body-bg, #ffffff);
+  --nx-dd-fg: var(--bs-body-color, #212529);
+  --nx-dd-border: rgba(var(--bs-body-color-rgb, 33,37,41), .12);
+  --nx-dd-hover-bg: rgba(var(--bs-body-color-rgb, 33,37,41), .06);
+  --nx-dd-hover-fg: var(--bs-body-color, #212529);
+  --nx-dd-active-bg: rgba(var(--bs-primary-rgb, 13,110,253), .14);
+  --nx-dd-active-fg: var(--bs-body-color, #212529);
 
-  --nx-dd-glass-bg: rgba(255,255,255,.72);
+  --nx-dd-shadow: var(--nx-shadow-md);
+  --nx-dd-glass-bg: color-mix(in srgb, var(--bs-body-bg, #ffffff) 84%, transparent);
 
-  --nx-toggle-fg: rgba(0,0,0,.70);
-  --nx-toggle-hover: rgba(0,0,0,.92);
+  --nx-toggle-fg: rgba(var(--bs-body-color-rgb, 33,37,41), .72);
+  --nx-toggle-hover: var(--bs-body-color, #212529);
 }
 
 /* DARK */
@@ -113,9 +107,9 @@
   --nx-surface-3: #21252c;  /* menus / popovers */
 
   /* Body */
-  --nx-body-bg: var(--nx-surface-0);
-  --nx-body-fg: rgba(255,255,255,.92);
-  --nx-body-fg-muted: rgba(255,255,255,.66);
+  --nx-body-bg: var(--bs-body-bg, var(--nx-surface-0));
+  --nx-body-fg: var(--bs-body-color, rgba(255,255,255,.92));
+  --nx-body-fg-muted: color-mix(in srgb, var(--nx-body-fg) 72%, transparent);
 
   /* Borders / dividers */
   --nx-border-subtle: rgba(255,255,255,.08);
@@ -173,6 +167,35 @@
   /* Theme toggle */
   --nx-toggle-fg: rgba(255,255,255,.75);
   --nx-toggle-hover: rgba(0,0,0,.25);
+}
+
+/* Builder-/Bootstrap-Farbquelle erzwingen */
+#mainNavbar,
+#mainNavbar[data-bs-theme="light"],
+#mainNavbar[data-bs-theme="dark"] {
+  --nx-nav-bg: var(--bs-body-bg, #ffffff);
+  --nx-nav-fg: var(--bs-body-color, #212529);
+  --nx-nav-muted: rgba(var(--bs-body-color-rgb, 33,37,41), .66);
+  --nx-nav-border: rgba(var(--bs-body-color-rgb, 33,37,41), .12);
+  --nx-nav-hover-bg: rgba(var(--bs-body-color-rgb, 33,37,41), .06);
+  --nx-nav-active-bg: rgba(var(--bs-primary-rgb, 13,110,253), .12);
+
+  --nx-dd-bg: var(--bs-body-bg, #ffffff);
+  --nx-dd-fg: var(--bs-body-color, #212529);
+  --nx-dd-border: rgba(var(--bs-body-color-rgb, 33,37,41), .12);
+  --nx-dd-hover-bg: rgba(var(--bs-body-color-rgb, 33,37,41), .06);
+  --nx-dd-hover-fg: var(--bs-body-color, #212529);
+  --nx-dd-active-bg: rgba(var(--bs-primary-rgb, 13,110,253), .14);
+  --nx-dd-active-fg: var(--bs-body-color, #212529);
+  --nx-dd-glass-bg: color-mix(in srgb, var(--bs-body-bg, #ffffff) 84%, transparent);
+
+  --nx-toggle-fg: rgba(var(--bs-body-color-rgb, 33,37,41), .72);
+  --nx-toggle-hover: var(--bs-body-color, #212529);
+
+  background-color: var(--nx-nav-bg);
+  background-image: none;
+  --bs-navbar-bg: var(--nx-nav-bg);
+  --bs-navbar-color: var(--nx-nav-fg);
 }
 
 /* ============================================
@@ -519,8 +542,8 @@
 
 /* GLOBAL (site-level) */
 body{
-  background: var(--nx-body-bg) !important;
-  color: var(--nx-body-fg) !important;
+  background: var(--bs-body-bg, var(--nx-body-bg)) !important;
+  color: var(--bs-body-color, var(--nx-body-fg)) !important;
 }
 .card{
   background: var(--nx-card-bg, var(--nx-body-bg)) !important;
@@ -530,12 +553,3 @@ body{
   color: var(--bs-body-color) !important;
 }
 
-/* Theme toggle button in navbar */
-#themeToggle{
-  transition: opacity .25s ease;
-  color: var(--nx-toggle-fg) !important;
-}
-#themeToggle:hover{
-  opacity: .75;
-  color: var(--nx-toggle-hover) !important;
-}

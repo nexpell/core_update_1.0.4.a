@@ -8,6 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once BASE_PATH . '/system/core/init.php';
 require_once BASE_PATH . '/system/core/theme_builder_helper.php';
 require_once BASE_PATH . '/system/core/builder_live.php';
+require_once BASE_PATH . '/system/core/theme_options.php';
 
 global $hp_title, $hp_description, $theme_web_path, $theme_favicons;
 
@@ -34,12 +35,30 @@ $themeRuntime = $themeManager instanceof \nexpell\ThemeManager
     ? nx_theme_builder_runtime_settings($themeManager, $importedThemeSlug)
     : nx_theme_builder_generator_defaults(['name' => $siteTitle], $siteTitle);
 $runtimeColors = is_array($themeRuntime['colors'] ?? null) ? $themeRuntime['colors'] : [];
+$themeBg = function_exists('nx_get_theme_option') ? nx_get_theme_option('bg_color', '') : '';
+$themeText = function_exists('nx_get_theme_option') ? nx_get_theme_option('text_color', '') : '';
+$themePrimary = function_exists('nx_get_theme_option') ? nx_get_theme_option('primary', '') : '';
+$themeSecondary = function_exists('nx_get_theme_option') ? nx_get_theme_option('secondary', '') : '';
+$themeLink = function_exists('nx_get_theme_option') ? nx_get_theme_option('link_color', '') : '';
+$themeHover = function_exists('nx_get_theme_option') ? nx_get_theme_option('link_hover_color', '') : '';
+if ($themeBg !== '') {
+    $runtimeColors['page_bg'] = $themeBg;
+}
+if ($themeText !== '') {
+    $runtimeColors['text'] = $themeText;
+}
+if ($themePrimary !== '') {
+    $runtimeColors['accent'] = $themePrimary;
+}
+if ($themeSecondary !== '') {
+    $runtimeColors['surface'] = $themeSecondary;
+}
 $cardBackground = (string)($themeRuntime['card_background'] ?? ($runtimeColors['surface'] ?? '#ffffff'));
 $cardBorderWidth = (string)($themeRuntime['card_border_width'] ?? '1');
 $cardBorderColor = (string)($themeRuntime['card_border_color'] ?? '#d7dee8');
 $navBackground = (string)($themeRuntime['nav_background'] ?? '#ffffff');
-$navLink = (string)($themeRuntime['nav_link'] ?? ($runtimeColors['text'] ?? '#d9d9d9'));
-$navHover = (string)($themeRuntime['nav_hover'] ?? ($runtimeColors['accent'] ?? '#ff4d4f'));
+$navLink = (string)($themeLink !== '' ? $themeLink : ($themeRuntime['nav_link'] ?? ($runtimeColors['text'] ?? '#d9d9d9')));
+$navHover = (string)($themeHover !== '' ? $themeHover : ($themeRuntime['nav_hover'] ?? ($runtimeColors['accent'] ?? '#ff4d4f')));
 $navDropdownBackground = (string)($themeRuntime['nav_dropdown_background'] ?? ($runtimeColors['surface'] ?? '#1c1c1c'));
 
 $widgetsByPosition = function_exists('nxb_prepare_builder') ? nxb_prepare_builder($pageSlug) : [];
@@ -90,16 +109,21 @@ if ($isEasyFolio) {
   <?= $components_css ?? '' ?>
   <?= $plugin_css ?? '' ?>
   <?= $theme_css ?? '' ?>
+  <?php
+  if (function_exists('nx_render_theme_options_css')) {
+      echo nx_render_theme_options_css();
+  }
+  ?>
 
   <style>
     :root {
-      --background-color: <?= htmlspecialchars((string)($runtimeColors['page_bg'] ?? ($isEasyFolio ? '#ffffff' : '#141414')), ENT_QUOTES, 'UTF-8') ?>;
-      --default-color: <?= htmlspecialchars((string)($runtimeColors['text'] ?? ($isEasyFolio ? '#111827' : '#d9d9d9')), ENT_QUOTES, 'UTF-8') ?>;
-      --heading-color: <?= htmlspecialchars((string)($runtimeColors['text'] ?? ($isEasyFolio ? '#111827' : '#ededed')), ENT_QUOTES, 'UTF-8') ?>;
-      --accent-color: <?= htmlspecialchars((string)($runtimeColors['accent'] ?? '#ff4d4f'), ENT_QUOTES, 'UTF-8') ?>;
+      --background-color: var(--bs-body-bg, <?= htmlspecialchars((string)($runtimeColors['page_bg'] ?? ($isEasyFolio ? '#ffffff' : '#141414')), ENT_QUOTES, 'UTF-8') ?>);
+      --default-color: var(--bs-body-color, <?= htmlspecialchars((string)($runtimeColors['text'] ?? ($isEasyFolio ? '#111827' : '#d9d9d9')), ENT_QUOTES, 'UTF-8') ?>);
+      --heading-color: var(--bs-body-color, <?= htmlspecialchars((string)($runtimeColors['text'] ?? ($isEasyFolio ? '#111827' : '#ededed')), ENT_QUOTES, 'UTF-8') ?>);
+      --accent-color: var(--bs-primary, <?= htmlspecialchars((string)($runtimeColors['accent'] ?? '#ff4d4f'), ENT_QUOTES, 'UTF-8') ?>);
       --surface-color: <?= htmlspecialchars((string)($runtimeColors['surface'] ?? ($isEasyFolio ? '#ffffff' : '#1c1c1c')), ENT_QUOTES, 'UTF-8') ?>;
-      --nav-color: <?= htmlspecialchars($navLink, ENT_QUOTES, 'UTF-8') ?>;
-      --nav-hover-color: <?= htmlspecialchars($navHover, ENT_QUOTES, 'UTF-8') ?>;
+      --nav-color: var(--bs-link-color, <?= htmlspecialchars($navLink, ENT_QUOTES, 'UTF-8') ?>);
+      --nav-hover-color: var(--bs-link-hover-color, <?= htmlspecialchars($navHover, ENT_QUOTES, 'UTF-8') ?>);
       --nav-dropdown-background-color: <?= htmlspecialchars($navDropdownBackground, ENT_QUOTES, 'UTF-8') ?>;
       --nx-theme-bg: var(--background-color);
       --nx-theme-surface: var(--surface-color);
@@ -126,7 +150,7 @@ if ($isEasyFolio) {
 
     #mainNavbar {
       transition: background-color .25s ease, border-color .25s ease, box-shadow .25s ease;
-      background: <?= htmlspecialchars($navBackground, ENT_QUOTES, 'UTF-8') ?> !important;
+      background: var(--bs-body-bg, <?= htmlspecialchars($navBackground, ENT_QUOTES, 'UTF-8') ?>) !important;
       backdrop-filter: blur(10px);
       box-shadow: none !important;
     }

@@ -32,8 +32,8 @@ if (empty($_SESSION['csrf_token'])) {
 
 // Konfig
 const NXB_ZONE_SELECTORS = ['.nx-live-zone', '.nx-zone'];
-// Eine Zone: nur Content (alle Legacy-Positionen werden in content angezeigt)
-const NXB_POSITIONS      = ['content'];
+// Builder-Zonen
+const NXB_POSITIONS      = ['navbar', 'content', 'footer'];
 const NXB_LEGACY_MERGE   = ['top', 'undertop', 'left', 'maintop', 'mainbottom', 'right', 'bottom', 'content'];
 
 function nxb_is_builder(): bool { return isset($_GET['builder']) && $_GET['builder'] === '1'; }
@@ -44,7 +44,31 @@ function nxb_db_fetch_palette(): array {
   global $_database;
 
   $out = [];
-
+  $activePlugins = [];
+  $humanizeLabel = static function (string $value): string {
+    $value = trim($value);
+    if ($value === '') {
+      return 'Widgets';
+    }
+    $value = str_replace(['_', '-'], ' ', $value);
+    $value = preg_replace('/\s+/', ' ', $value) ?? $value;
+    return mb_convert_case($value, MB_CASE_TITLE, 'UTF-8');
+  };
+  if ($resActive = $_database->query("
+    SELECT sp.modulname
+    FROM settings_plugins sp
+    INNER JOIN settings_plugins_installed spi
+      ON spi.modulname = sp.modulname
+    WHERE sp.activate = 1
+  ")) {
+    while ($rowActive = $resActive->fetch_assoc()) {
+      $slug = trim((string)($rowActive['modulname'] ?? ''));
+      if ($slug !== '') {
+        $activePlugins[strtolower($slug)] = true;
+      }
+    }
+    $resActive->close();
+  }
   // 1) Core-Widgets (immer verfügbar, mit Kategorie)
   if (function_exists('nxb_core_widgets_list')) {
     foreach (nxb_core_widgets_list() as $core) {
@@ -58,13 +82,21 @@ function nxb_db_fetch_palette(): array {
     }
   }
 
-  // 2) Plugin-/DB-Widgets (eigene Kategorie)
-  if ($res = $_database->query("SELECT widget_key, COALESCE(NULLIF(title,''), widget_key) AS title, allowed_zones FROM settings_widgets ORDER BY title ASC")) {
+  // 2) Plugin-/DB-Widgets gesammelt unter "Widgets"
+  if ($res = $_database->query("SELECT widget_key, COALESCE(NULLIF(title,''), widget_key) AS title, allowed_zones, plugin, modulname FROM settings_widgets ORDER BY plugin ASC, modulname ASC, title ASC")) {
     while ($row = $res->fetch_assoc()) {
+      $pluginGroup = trim((string)($row['plugin'] ?? ''));
+      $moduleGroup = trim((string)($row['modulname'] ?? ''));
+      $pluginSlug = strtolower($pluginGroup !== '' ? $pluginGroup : $moduleGroup);
+      if ($pluginSlug !== '' && empty($activePlugins[$pluginSlug])) {
+        continue;
+      }
+      $pluginLabel = $pluginGroup !== '' ? $humanizeLabel($pluginGroup) : $humanizeLabel($moduleGroup);
       $out[] = [
         'widget_key'    => (string)$row['widget_key'],
         'title'         => (string)$row['title'],
         'category'      => 'Widgets',
+        'plugin_group'  => $pluginLabel,
         'allowed_zones' => (string)($row['allowed_zones'] ?? ''),
         'is_core'       => false,
       ];
@@ -77,6 +109,20 @@ function nxb_db_fetch_palette(): array {
 function nxb_db_fetch_widgets(string $page): array {
   global $_database;
   $out = [];
+  $hasWidgetAnywhere = static function (array $rows, array $widgetKeys): bool {
+    foreach ($rows as $items) {
+      if (!is_array($items)) {
+        continue;
+      }
+      foreach ($items as $item) {
+        $widgetKey = (string)($item['widget_key'] ?? '');
+        if (in_array($widgetKey, $widgetKeys, true)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
   $sql = "SELECT position, widget_key, instance_id, settings, title, modulname
           FROM settings_widgets_positions
           WHERE page = ?
@@ -98,6 +144,73 @@ function nxb_db_fetch_widgets(string $page): array {
     ];
   }
   $st->close();
+
+  $modulePath = BASE_PATH . '/includes/modules/' . $page . '.php';
+  $isModulePage = ($page !== 'index' && is_file($modulePath));
+  if ($isModulePage) {
+    $indexOut = [];
+    $indexSql = "SELECT position, widget_key, instance_id, settings, title, modulname
+                 FROM settings_widgets_positions
+                 WHERE page = 'index'
+                 ORDER BY position ASC, sort_order ASC, id ASC";
+    if ($res = $_database->query($indexSql)) {
+      while ($row = $res->fetch_assoc()) {
+        $cfg = [];
+        if (!empty($row['settings'])) {
+          $tmp = json_decode((string)$row['settings'], true);
+          if (is_array($tmp)) {
+            $cfg = $tmp;
+          }
+        }
+        $pos = (string)($row['position'] ?? '');
+        if ($pos === '') {
+          continue;
+        }
+        $indexOut[$pos][] = [
+          'position'    => $pos,
+          'widget_key'  => (string)($row['widget_key'] ?? ''),
+          'instance_id' => (string)($row['instance_id'] ?? ''),
+          'settings'    => $cfg,
+          'title'       => (string)(($row['title'] ?? '') ?: ($row['widget_key'] ?? '')),
+          'modulname'   => (string)($row['modulname'] ?? ''),
+        ];
+      }
+      $res->close();
+    }
+    $pageHasAnyNavbar = $hasWidgetAnywhere($out, ['core_nav_demo']);
+    $pageHasAnyFooter = $hasWidgetAnywhere($out, ['core_footer_simple', 'core_footer_3col', 'core_footer_2col', 'core_footer_centered']);
+
+    $indexNavbar = $indexOut['navbar'] ?? [];
+    $indexFooter = $indexOut['footer'] ?? [];
+
+    if (empty($indexNavbar)) {
+      foreach (NXB_LEGACY_MERGE as $legacyPos) {
+        foreach (($indexOut[$legacyPos] ?? []) as $legacyWidget) {
+          if (($legacyWidget['widget_key'] ?? '') === 'core_nav_demo') {
+            $indexNavbar[] = $legacyWidget;
+          }
+        }
+      }
+    }
+    if (empty($indexFooter)) {
+      foreach (NXB_LEGACY_MERGE as $legacyPos) {
+        foreach (($indexOut[$legacyPos] ?? []) as $legacyWidget) {
+          $widgetKey = (string)($legacyWidget['widget_key'] ?? '');
+          if (in_array($widgetKey, ['core_footer_simple', 'core_footer_3col', 'core_footer_2col', 'core_footer_centered'], true)) {
+            $indexFooter[] = $legacyWidget;
+          }
+        }
+      }
+    }
+
+    if (!$pageHasAnyNavbar && !empty($indexNavbar)) {
+      $out['navbar'] = $indexNavbar;
+    }
+    if (!$pageHasAnyFooter && !empty($indexFooter)) {
+      $out['footer'] = $indexFooter;
+    }
+  }
+
   return $out;
 }
 
@@ -123,6 +236,10 @@ $__NX_ALLOWED_ZONES_MAP = nxb_db_fetch_allowed_zones_map();
 
 // Serverseitiges Rendering (initial) über PluginManager
 function nxb_render_widget_content(string $widget_key, string $instance_id, array $settings, string $title): string {
+  if (!nxb_is_builder() && function_exists('nxb_render_frontend_widget_html')) {
+    return nxb_render_frontend_widget_html($widget_key, $instance_id, $settings, $title);
+  }
+
   // Core-Widgets direkt im Core rendern
   if (function_exists('nxb_render_core_widget_html') && strpos($widget_key, 'core_') === 0) {
     // Sektionen/Container brauchen stabile ID für Zonen-Namen (sec_<id>_c1), damit Speichern/Laden passt
@@ -238,6 +355,8 @@ function nxb_inject_live_overlay_with_palette(string $page): void {
   }
   $debugMode = !empty($_GET['debug']);
   if ($hasWidgets && !$debugMode) {
+    nxb_debug('Builder wird trotz vorhandener Widgets geladen');
+  /*
     $hrefNoBuilder = (string)(isset($_SERVER['REQUEST_URI']) ? preg_replace('#[?&]builder=1&?|([?&])builder=1#', '$1', $_SERVER['REQUEST_URI']) : '/');
     $hrefNoBuilder = trim($hrefNoBuilder, '&?');
     if ($hrefNoBuilder === '') $hrefNoBuilder = '/';
@@ -249,6 +368,7 @@ function nxb_inject_live_overlay_with_palette(string $page): void {
     echo '</div>';
     echo '<div style="height:3.5rem;"></div>';
     return;
+    */
   }
   if ($hasWidgets && $debugMode) {
     nxb_debug('DEBUG-Modus: Builder-Script wird geladen trotz Widgets');
@@ -291,6 +411,16 @@ function nxb_inject_live_overlay_with_palette(string $page): void {
     .nx-live-content{ cursor:grab; min-height:1.5rem; padding:0; outline:none; }
     /* WICHTIG: Kein overflow:hidden, damit Schatten/Overlays von Widgets (z. B. Navigation) im Builder sichtbar bleiben */
     body.builder-active .nx-live-content{ overflow:visible; max-width:100%; }
+    body.builder-active .nx-live-content,
+    body.builder-active .nx-live-content .text-body,
+    body.builder-active .nx-live-content .text-body-secondary{
+      color: var(--bs-body-color, #212529) !important;
+    }
+    body.builder-active .nx-live-content .text-muted,
+    body.builder-active .nx-live-content .nx-inline-placeholder{
+      color: var(--bs-body-color, #212529) !important;
+      opacity: .68;
+    }
     /* Bilder im Builder: Breite begrenzen, aber ansonsten wie im Frontend rendern */
     body.builder-active .nx-live-content img{ max-width:100%; height:auto; display:block; }
     /* Globale Navbar-Schatten im Builder deaktivieren – werden pro Widget gesteuert (z. B. core_nav_demo) */
@@ -303,14 +433,48 @@ function nxb_inject_live_overlay_with_palette(string $page): void {
     .nx-live-controls{ position:absolute; top:.5rem; right:.5rem; display:flex; gap:.25rem; z-index:2147480000; pointer-events:auto; opacity:0; transition:opacity .12s }
     .nx-live-item:hover .nx-live-controls{ opacity:1 }
     .nx-drop-hint{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; opacity:.4; font-size:.9rem; color:#6c757d; text-transform:uppercase; letter-spacing:.04em; padding:.5rem .75rem; box-sizing:border-box; min-width:0; overflow:hidden; text-align:center; white-space:normal; overflow-wrap:break-word; word-break:break-word; }
-    .nx-live-toolbar{ position:fixed; top:0; left:0; right:0; background:#fff; z-index:2147480001; border-bottom:1px solid #e9ecef; padding:.5rem 1rem; display:flex; gap:.75rem; align-items:center }
-    body.builder-active{ background:#f1f3f5; }
+    .nx-live-toolbar{ position:fixed; top:0; left:0; right:0; background:#fff; z-index:2147480001; border-bottom:1px solid #e9ecef; padding:.5rem 1rem; display:flex; gap:.75rem; align-items:center; color:#111827; }
+    .nx-live-toolbar,
+    .nx-live-toolbar *{
+      color:inherit;
+    }
+    .nx-live-toolbar .text-muted,
+    .nx-live-toolbar .small{
+      color:#6b7280 !important;
+    }
+    .nx-live-toolbar code{
+      color:#111827 !important;
+      background:#f3f4f6;
+      border:1px solid #e5e7eb;
+      padding:.15rem .35rem;
+      border-radius:.35rem;
+    }
+    .nx-live-toolbar .btn-outline-secondary{
+      color:#374151 !important;
+      border-color:#cbd5e1 !important;
+      background:#ffffff !important;
+    }
+    .nx-live-toolbar .btn-outline-secondary:hover,
+    .nx-live-toolbar .btn-outline-secondary:focus{
+      color:#111827 !important;
+      border-color:#94a3b8 !important;
+      background:#f8fafc !important;
+    }
+    .nx-live-toolbar .badge.text-bg-light,
+    .nx-live-toolbar .badge.bg-light{
+      color:#111827 !important;
+      background:#f3f4f6 !important;
+      border:1px solid #e5e7eb;
+    }
+    body.builder-active{ background:var(--bs-body-bg, #f1f3f5) !important; }
     /* Live-Builder: volle Breite, kein Container dazwischen (aber spezielle Demo-Container nicht aufziehen) */
     body.builder-active main,
     body.builder-active main .container:not(.nx-keep-container){ max-width:none !important; width:100% !important; box-sizing:border-box; }
     body.builder-active main .container:not(.nx-keep-container){ padding-left:0; padding-right:0; }
     body.builder-active [data-nx-zone="content"]{ overflow-x:hidden; max-width:100%; box-sizing:border-box; }
     body.builder-active [data-nx-zone="content"] .nx-live-item{ max-width:100%; box-sizing:border-box; margin-top:0; margin-bottom:0; }
+    body.builder-active [data-nx-zone="content"] > .nx-live-item[data-nx-item-width],
+    body.builder-active .nx-live-zone > .nx-live-item[data-nx-item-width]{ width:100%; }
     body.builder-active section.nx-section{ max-width:100%; box-sizing:border-box; }
     body.builder-active section.nx-section .container,
     body.builder-active section.nx-section .container-fluid{ width:100% !important; max-width:100% !important; box-sizing:border-box; padding-left:calc(var(--bs-gutter-x, 1.5rem) / 2); padding-right:calc(var(--bs-gutter-x, 1.5rem) / 2); }
@@ -344,8 +508,42 @@ function nxb_inject_live_overlay_with_palette(string $page): void {
       overflow:hidden; background:#f8f9fa; border-right:1px solid #dee2e6;
       z-index:2147480002; display:flex; flex-direction:column;
       transition: transform .18s ease, opacity .18s ease;
+      color:#111827;
     }
     #nx-pal-head{ padding:.75rem 1rem; background:linear-gradient(90deg,#f1f3f5,#e9ecef); border-bottom:1px solid #dee2e6; flex-shrink:0; display:flex; align-items:center; gap:.5rem; justify-content:space-between; }
+    #nx-palette strong,
+    #nx-palette .small:not(.text-muted),
+    #nx-palette .fw-semibold{
+      color:#111827 !important;
+    }
+    #nx-palette .text-muted{
+      color:#6b7280 !important;
+    }
+    #nx-palette .input-group-text{
+      color:#4b5563 !important;
+      background:#ffffff !important;
+      border-color:#cbd5e1 !important;
+    }
+    #nx-palette .form-control,
+    #nx-palette .form-select,
+    #nx-palette input[type="search"]{
+      background:#ffffff !important;
+      color:#111827 !important;
+      border-color:#cbd5e1 !important;
+    }
+    #nx-palette .form-control::placeholder,
+    #nx-palette input::placeholder{
+      color:#9ca3af !important;
+      opacity:1;
+    }
+    #nx-palette .form-control:focus,
+    #nx-palette .form-select:focus,
+    #nx-palette input:focus{
+      color:#111827 !important;
+      background:#ffffff !important;
+      border-color:#60a5fa !important;
+      box-shadow:0 0 0 .2rem rgba(96,165,250,.18) !important;
+    }
     #nx-pal-body{ padding:0; overflow-y:auto; flex:1; min-height:0; }
     .nx-pal-categories{ display:flex; flex-direction:column; }
     .nx-pal-category{ background:#fff; }
@@ -358,10 +556,17 @@ function nxb_inject_live_overlay_with_palette(string $page): void {
     .nx-pal-category-head[aria-expanded="false"] .nx-pal-caret{ transform:rotate(-90deg); }
     .nx-pal-caret{ transition:transform .2s ease; flex-shrink:0; }
     .nx-pal-list{ list-style:none; padding:.5rem .5rem .75rem; margin:0; display:flex; flex-direction:column; gap:.35rem; }
-    .nx-pal-item{ position:relative; padding:.5rem .6rem .5rem 1.6rem; background:#f8f9fa; border:1px solid #dee2e6; border-radius:.4rem; user-select:none; cursor:grab; display:flex; align-items:center; justify-content:space-between; gap:.5rem; font-size:.8125rem; transition:box-shadow .12s ease,border-color .12s ease,transform .08s ease; }
+    .nx-pal-item{ position:relative; padding:.5rem .6rem .5rem 1.6rem; background:#f8f9fa; border:1px solid #dee2e6; border-radius:.4rem; user-select:none; cursor:grab; display:flex; align-items:center; justify-content:space-between; gap:.5rem; font-size:.8125rem; transition:box-shadow .12s ease,border-color .12s ease,transform .08s ease; color:#111827; }
     .nx-pal-item:hover{ border-color:#0d6efd; box-shadow:0 2px 8px rgba(13,110,253,.15); transform:translateY(-1px); }
     .nx-pal-item-variant{ font-size:.75rem; background:#fdfdfd; border-style:dashed; }
     .nx-pal-item-variant .nx-pal-handle{ top:12px; }
+    .nx-pal-plugin{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.55rem .75rem; background:#f8fafc; border:1px solid #dee2e6; border-radius:.4rem; cursor:pointer; color:#111827; font-size:.8125rem; transition:box-shadow .12s ease,border-color .12s ease,transform .08s ease; }
+    .nx-pal-plugin:hover,
+    .nx-pal-plugin.active{ border-color:#0d6efd; box-shadow:0 2px 8px rgba(13,110,253,.15); transform:translateY(-1px); }
+    .nx-pal-item .text-muted,
+    .nx-pal-item small{
+      color:#6b7280 !important;
+    }
     .nx-pal-preview{ border-radius:.35rem; padding:.35rem .45rem; background:linear-gradient(135deg,#f8fafc,#e2e8f0); border:1px solid rgba(148,163,184,.7); overflow:hidden; }
     .nx-pal-preview-header-text{ }
     .nx-pal-preview-header-text::before{ content:""; display:block; width:26px; height:3px; border-radius:999px; background:#0d6efd; margin-bottom:4px; }
@@ -423,6 +628,14 @@ function nxb_inject_live_overlay_with_palette(string $page): void {
     .nx-pal-preview-nav-simple span:nth-child(3),
     .nx-pal-preview-nav-dropdown span:nth-child(3),
     .nx-pal-preview-nav-centered span:nth-child(3){ height:3px; width:60%; background:#9ca3af; }
+    .nx-pal-preview-generic{
+      background:linear-gradient(135deg,#f8fafc,#e2e8f0);
+      border:1px solid rgba(148,163,184,.65);
+    }
+    .nx-pal-preview-generic span{ display:block; border-radius:3px; margin-bottom:3px; }
+    .nx-pal-preview-generic span:nth-child(1){ height:7px; width:76%; background:#0f172a; }
+    .nx-pal-preview-generic span:nth-child(2){ height:5px; width:52%; background:#64748b; }
+    .nx-pal-preview-generic span:nth-child(3){ height:4px; width:34%; background:#cbd5e1; }
     .nx-pal-handle{ position:absolute; left:.5rem; top:50%; transform:translateY(-50%); opacity:.6; cursor:grab; font-size:.7rem; }
     /* Basis-Design Button – wie eine helle Karte */
     .nx-pal-global{
@@ -630,6 +843,7 @@ function nxb_inject_live_overlay_with_palette(string $page): void {
       opacity:0;
       pointer-events:none;
       transition:transform .18s ease, opacity .18s ease;
+      color:#111827;
     }
     #nx-examples-panel.nx-examples-visible{
       transform:translateX(0);
@@ -639,12 +853,23 @@ function nxb_inject_live_overlay_with_palette(string $page): void {
     #nx-examples-panel .nx-examples-head{
       padding:.75rem 1rem; border-bottom:1px solid #dee2e6;
       display:flex; align-items:center; justify-content:space-between; gap:.5rem;
+      color:#111827;
+      background:#ffffff;
     }
     #nx-examples-panel .nx-examples-body{
       padding:.5rem 1rem .75rem; overflow-y:auto; flex:1; min-height:0;
       background:#f8fafc;
     }
     #nx-examples-empty{ color:#6c757d; font-size:.8125rem; }
+    #nx-examples-panel .text-muted,
+    #nx-examples-panel .small{
+      color:#6b7280 !important;
+    }
+    #nx-examples-panel .fw-semibold,
+    #nx-examples-title,
+    #nx-examples-panel .nx-example-title{
+      color:#111827 !important;
+    }
     .nx-example-item{
       position:relative;
       display:flex; gap:.5rem;
@@ -662,13 +887,29 @@ function nxb_inject_live_overlay_with_palette(string $page): void {
       background:#f9fafb;
       transform:translateY(-1px);
     }
+    .nx-example-group{
+      display:flex; gap:.5rem;
+      padding:.7rem .8rem;
+      margin-bottom:.4rem;
+      border-radius:.5rem;
+      background:#ffffff;
+      border:1px solid #dbe3ee;
+      cursor:pointer;
+      transition:border-color .12s ease, box-shadow .12s ease, transform .08s ease, background .12s ease;
+    }
+    .nx-example-group:hover{
+      border-color:#0d6efd;
+      box-shadow:0 2px 10px rgba(15,23,42,.12);
+      background:#f9fafb;
+      transform:translateY(-1px);
+    }
     .nx-example-handle{
       position:absolute; left:.45rem; top:50%; transform:translateY(-50%);
       font-size:.7rem; opacity:.6; cursor:grab;
     }
     .nx-example-inner{ flex:1; min-width:0; }
     .nx-example-title{ white-space:nowrap; text-overflow:ellipsis; overflow:hidden; }
-    .nx-example-desc{ font-size:.75rem; }
+    .nx-example-desc{ font-size:.75rem; color:#6b7280 !important; line-height:1.4; }
 
     /* Demo-Navigationen (für core_html-Templates) */
     .nx-demo-nav{
@@ -787,32 +1028,86 @@ function nxb_inject_live_overlay_with_palette(string $page): void {
       position:fixed; top:0; right:0; width:280px; height:100vh;
       background:#fff; border-left:1px solid #dee2e6; z-index:2147480001;
       display:flex; flex-direction:column; box-shadow:-4px 0 12px rgba(0,0,0,.06);
+      color:#111827;
     }
     #nx-settings-sidebar .nx-settings-header{ padding:.75rem 1rem; border-bottom:1px solid #dee2e6; flex-shrink:0; }
     #nx-settings-sidebar .nx-settings-body{ flex:1; overflow-y:auto; padding:1rem; }
     #nx-settings-sidebar .nx-settings-placeholder{ color:#6c757d; font-size:.875rem; padding:1rem; }
+    #nx-settings-sidebar label,
+    #nx-settings-sidebar .form-label,
+    #nx-settings-sidebar .form-text,
+    #nx-settings-sidebar .small,
+    #nx-settings-sidebar .text-muted,
+    #nx-settings-sidebar .form-check-label{
+      color:#374151 !important;
+    }
+    #nx-settings-sidebar .form-control,
+    #nx-settings-sidebar .form-select,
+    #nx-settings-sidebar textarea,
+    #nx-settings-sidebar input[type="text"],
+    #nx-settings-sidebar input[type="search"],
+    #nx-settings-sidebar input[type="number"]{
+      background:#ffffff !important;
+      color:#111827 !important;
+      border-color:#cbd5e1 !important;
+    }
+    #nx-settings-sidebar .form-control::placeholder,
+    #nx-settings-sidebar textarea::placeholder,
+    #nx-settings-sidebar input::placeholder{
+      color:#9ca3af !important;
+      opacity:1;
+    }
+    #nx-settings-sidebar .form-control:focus,
+    #nx-settings-sidebar .form-select:focus,
+    #nx-settings-sidebar textarea:focus,
+    #nx-settings-sidebar input:focus{
+      color:#111827 !important;
+      background:#ffffff !important;
+      border-color:#60a5fa !important;
+      box-shadow:0 0 0 .2rem rgba(96,165,250,.18) !important;
+    }
+    #nx-settings-sidebar option{
+      color:#111827;
+      background:#ffffff;
+    }
+    #nx-settings-sidebar .accordion-item{
+      border:1px solid #dbe3ee;
+      border-radius:.65rem;
+      overflow:hidden;
+      margin-bottom:.5rem;
+      background:#ffffff;
+    }
+    #nx-settings-sidebar .accordion-button{
+      color:#111827 !important;
+      background:#f8fafc !important;
+      font-weight:600;
+      box-shadow:none !important;
+    }
+    #nx-settings-sidebar .accordion-button:not(.collapsed){
+      color:#111827 !important;
+      background:#eef2ff !important;
+    }
+    #nx-settings-sidebar .accordion-body{
+      color:#374151;
+      background:#ffffff;
+    }
     #nx-settings-footer{ position:sticky; bottom:0; padding-top:.5rem; margin-top:auto; background:linear-gradient(to top, #fff 70%, rgba(255,255,255,.85)); }
     #nx-settings-footer .btn{ white-space:nowrap; }
 
     /* Feste Bausteine (Navbar, Footer): Kennzeichnung im Builder, keine Drop-Zone */
     body.builder-active .nx-fixed-block{
       position:relative; margin:0;
-      border:1px dashed rgba(0,0,0,.12); border-radius:.35rem;
+      border:none; border-radius:0;
       padding:0; background:transparent;
     }
+    body.builder-active .nx-fixed-block:not(:has(.nx-live-zone)){
+      display:none !important;
+    }
     body.builder-active .nx-fixed-block::before{
-      content:attr(data-nx-fixed-label);
-      position:absolute; top:2px; left:6px;
-      font-size:10px; font-weight:600;
-      color:#6c757d; text-transform:uppercase; letter-spacing:.05em;
-      background:rgba(255,255,255,.95);
-      padding:2px 6px; border-radius:3px;
-      z-index:1; pointer-events:none;
+      display:none;
     }
     body.builder-active .nx-fixed-block::after{
-      content:attr(data-nx-fixed-hint);
-      display:block; font-size:11px; color:#6c757d; margin-top:4px; padding:4px 8px;
-      background:rgba(0,0,0,.03); border-radius:4px;
+      display:none;
     }
 
     /* === Zonen-Restriktions-Logik START (optische Marker) ============== */
@@ -856,18 +1151,87 @@ function nxb_inject_live_overlay_with_palette(string $page): void {
     return $base . (empty($qs) ? '' : ('?' . http_build_query($qs)));
 }
 
-$liveUrl = ($page === 'index')
-    ? '/'.rawurlencode($lang).'/'
-    : '/'.rawurlencode($lang).'/'.rawurlencode($page).'/';
+function nxb_builder_available_pages(string $currentPage): array {
+  global $_database;
+  $pages = [];
 
-$href = url_with_params($liveUrl, ['builder' => '1']);
+  $addPage = static function (string $slug) use (&$pages): void {
+    $slug = trim($slug);
+    if ($slug === '') return;
+    if (!isset($pages[$slug])) {
+      $pages[$slug] = ['slug' => $slug];
+    }
+  };
+
+  $addPage('index');
+  $addPage($currentPage);
+
+  if ($_database instanceof mysqli) {
+    if ($res = $_database->query("SELECT DISTINCT page FROM settings_widgets_positions WHERE page <> '' ORDER BY page ASC")) {
+      while ($row = $res->fetch_assoc()) {
+        $addPage((string)($row['page'] ?? ''));
+      }
+      $res->free();
+    }
+
+    if ($res = $_database->query("SELECT modulname, url FROM navigation_website_sub ORDER BY modulname ASC")) {
+      while ($row = $res->fetch_assoc()) {
+        $slug = trim((string)($row['modulname'] ?? ''));
+        $url  = trim((string)($row['url'] ?? ''));
+        if ($slug !== '' && strtolower($slug) !== 'static') {
+          $addPage($slug);
+          continue;
+        }
+        if ($url !== '') {
+          $query = (string)parse_url($url, PHP_URL_QUERY);
+          if ($query !== '') {
+            $parts = [];
+            parse_str($query, $parts);
+            $site = trim((string)($parts['site'] ?? ''));
+            if ($site !== '') {
+              $addPage($site);
+            }
+          }
+        }
+      }
+      $res->free();
+    }
+  }
+
+  ksort($pages, SORT_NATURAL | SORT_FLAG_CASE);
+  return array_values($pages);
+}
+
+function nxb_builder_page_url(string $lang, string $page): string {
+  $params = [
+    'site' => ($page !== '' ? $page : 'index'),
+    'lang' => $lang,
+    'builder' => '1',
+  ];
+  if (!empty($_GET['debug']) && (string)$_GET['debug'] === '1') {
+    $params['debug'] = '1';
+  }
+  return '/index.php?' . http_build_query($params);
+}
+
+$liveUrl = nxb_builder_page_url($lang, $page);
+
+$href = $liveUrl;
+$availablePages = nxb_builder_available_pages($page);
 
   echo '<div class="nx-live-toolbar container-fluid">
     <div class="d-flex align-items-center gap-3 flex-wrap">
       <div class="d-flex align-items-center gap-2">
         <span class="badge rounded-pill text-bg-primary px-3 py-2">Live-Builder</span>
         <span class="text-muted small">Seite:</span>
-        <code class="small">'.nxb_h($page).'</code>
+        <select id="nx-page-switch" class="form-select form-select-sm" style="width:auto;min-width:180px;">';
+  foreach ($availablePages as $pageOption) {
+    $slug = (string)($pageOption['slug'] ?? '');
+    if ($slug === '') continue;
+    $pageHref = nxb_builder_page_url($lang, $slug);
+    echo '<option value="' . nxb_h($pageHref) . '"' . ($slug === $page ? ' selected' : '') . '>' . nxb_h($slug) . '</option>';
+  }
+  echo '</select>
       </div>
       <span class="text-muted small" style="font-size:0.8rem;">Navbar &amp; Footer: feste Blöcke → im <strong>Admincenter</strong> bearbeiten (nicht hier).</span>
       <div class="d-flex align-items-center gap-2 ms-auto">
@@ -934,24 +1298,55 @@ $href = url_with_params($liveUrl, ['builder' => '1']);
     $collapsed = $first ? ' show' : '';
     $first = false;
     echo '<div class="nx-pal-category border-bottom">
-        <button type="button" class="nx-pal-category-head w-100 text-start d-flex align-items-center gap-2 py-2 px-3 border-0 bg-transparent" data-bs-toggle="collapse" data-bs-target="#' . nxb_h($catId) . '" aria-expanded="' . ($collapsed ? 'true' : 'false') . '" aria-controls="' . nxb_h($catId) . '">
+        <button type="button" class="nx-pal-category-head w-100 text-start d-flex align-items-center gap-2 py-2 px-3 border-0 bg-transparent" data-nx-cat="' . nxb_h($cat) . '" aria-expanded="false" aria-controls="' . nxb_h($catId) . '">
           <i class="bi bi-chevron-down nx-pal-caret small"></i>
           <span class="fw-semibold small">' . nxb_h($cat) . '</span>
           <span class="badge rounded-pill text-bg-light text-dark ms-auto">' . count($items) . '</span>
         </button>
-        <div id="' . nxb_h($catId) . '" class="collapse' . $collapsed . ' nx-pal-category-content" data-bs-parent="#nx-pal-categories">
+        <div id="' . nxb_h($catId) . '" class="nx-pal-category-content d-none" hidden aria-hidden="true">
           <ul class="nx-pal-list list-unstyled mb-0 px-2 pb-2">';
-    foreach ($items as $w) {
-      $isCore = !empty($w['is_core']);
-      echo '<li class="nx-pal-item"
-                data-pal-key="' . nxb_h($w['widget_key']) . '"
-                data-pal-title="' . nxb_h($w['title']) . '"
-                data-allowed="' . nxb_h($w['allowed_zones'] ?? '') . '">
-              <span class="nx-pal-handle">⋮⋮</span> ' . nxb_h($w['title']);
-      if ($isCore) {
-        echo ' <span class="badge rounded-pill text-bg-primary ms-1 small">Core</span>';
+    if ($cat === 'Widgets') {
+      $plugins = [];
+      foreach ($items as $w) {
+        $plugin = trim((string)($w['plugin_group'] ?? 'Widgets'));
+        if ($plugin === '') {
+          $plugin = 'Widgets';
+        }
+        if (!isset($plugins[$plugin])) {
+          $plugins[$plugin] = 0;
+        }
+        $plugins[$plugin]++;
       }
-      echo '</li>';
+      ksort($plugins, SORT_NATURAL | SORT_FLAG_CASE);
+      foreach ($plugins as $plugin => $pluginCount) {
+        echo '<li class="nx-pal-plugin" data-plugin-group="' . nxb_h($plugin) . '">
+                <span class="fw-medium">' . nxb_h($plugin) . '</span>
+                <span class="badge rounded-pill text-bg-light text-dark">' . (int)$pluginCount . '</span>
+              </li>';
+      }
+      foreach ($items as $w) {
+        echo '<li class="nx-pal-item d-none"
+                  data-pal-key="' . nxb_h($w['widget_key']) . '"
+                  data-pal-title="' . nxb_h($w['title']) . '"
+                  data-plugin-group="' . nxb_h((string)($w['plugin_group'] ?? '')) . '"
+                  data-allowed="' . nxb_h($w['allowed_zones'] ?? '') . '">
+                <span class="nx-pal-handle">⋮⋮</span> ' . nxb_h($w['title']) . '
+              </li>';
+      }
+    } else {
+      foreach ($items as $w) {
+        $isCore = !empty($w['is_core']);
+        echo '<li class="nx-pal-item"
+                  data-pal-key="' . nxb_h($w['widget_key']) . '"
+                  data-pal-title="' . nxb_h($w['title']) . '"
+                  data-plugin-group="' . nxb_h((string)($w['plugin_group'] ?? '')) . '"
+                  data-allowed="' . nxb_h($w['allowed_zones'] ?? '') . '">
+                <span class="nx-pal-handle">⋮⋮</span> ' . nxb_h($w['title']);
+        if ($isCore) {
+          echo ' <span class="badge rounded-pill text-bg-primary ms-1 small">Core</span>';
+        }
+        echo '</li>';
+      }
     }
     echo '</ul>
         </div>
@@ -1017,6 +1412,16 @@ $href = url_with_params($liveUrl, ['builder' => '1']);
       ZONE_SELECTORS: '.$ZONE_SELECTORS.',
       THEME_OPTIONS: '.$THEME_OPTIONS.'
     };
+    document.addEventListener("DOMContentLoaded", function () {
+      var pageSwitch = document.getElementById("nx-page-switch");
+      if (pageSwitch) {
+        pageSwitch.addEventListener("change", function () {
+          if (pageSwitch.value) {
+            window.location.href = pageSwitch.value;
+          }
+        });
+      }
+    });
   </script>';
 
   // Debug-Panel (PHP + JS) nur im Debug-Modus (debug=1) ausgeben

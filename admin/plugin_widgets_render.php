@@ -75,24 +75,6 @@ if ($builder) {
     }
 }
 
-// === Action: Plugin-Navigation als JSON (für Builder: Menü seeden bei menuSource "plugin") ===
-if (isset($in['action']) && (string)$in['action'] === 'get_plugin_nav_menu') {
-    require_once BASE_PATH . '/system/core/init_widget.php';
-    $langFromRequest = isset($in['lang']) ? strtolower(trim((string)$in['lang'])) : ($_SESSION['language'] ?? 'de');
-    global $languageService;
-    if ($languageService instanceof \nexpell\LanguageService && $langFromRequest !== '') {
-        $languageService->setLanguage($langFromRequest);
-        $_SESSION['language'] = $langFromRequest;
-    }
-    $GLOBALS['languageService'] = $languageService;
-    if (!function_exists('nxb_get_plugin_navigation_menu')) {
-        require_once BASE_PATH . '/system/core/builder_widgets_core.php';
-    }
-    header('Content-Type: application/json; charset=utf-8');
-    echo json_encode(['ok' => true, 'menu' => nxb_get_plugin_navigation_menu()], JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
 /* === Zonen-Restriktions-Logik START (nicht-invasiv) =================== */
 /* Optionales Feld "position" aus dem Request lesen. Wenn vorhanden,
    und allowed_zones gesetzt sind, prüfen wir die Erlaubnis. */

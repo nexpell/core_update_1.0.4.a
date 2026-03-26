@@ -914,9 +914,6 @@ elseif ($action == "add" || $action == "edit" || $action == "new") {
     $CAPCLASS->createTransaction();
     $hash = $CAPCLASS->getHash();
     
-    $themeergebnis = safe_query("SELECT * FROM settings_themes WHERE active = '1'");
-    $db_theme = mysqli_fetch_array($themeergebnis);
-
     /* ===============================
         JAVASCRIPT VALIDIERUNG
     =============================== */
@@ -1528,9 +1525,6 @@ echo '<div class="card shadow-sm border-0 mb-4 mt-4">
                        placeholder="' . $languageService->get('search') . '">
             </div>
         </div>';
-                    $thergebnis = safe_query("SELECT * FROM settings_themes WHERE active = '1'");
-                    $db = mysqli_fetch_array($thergebnis);
-
                     $CAPCLASS = new \nexpell\Captcha;
                     $CAPCLASS->createTransaction();
                     $hash = $CAPCLASS->getHash();

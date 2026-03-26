@@ -7,6 +7,43 @@
 
 if (!function_exists('nx_get_theme_options')) {
 
+    function nx_theme_opt_parse_hex_rgb(string $value): ?array
+    {
+        $value = trim($value);
+        if (preg_match('/^#([0-9a-fA-F]{6})$/', $value, $m)) {
+            return [
+                hexdec(substr($m[1], 0, 2)),
+                hexdec(substr($m[1], 2, 2)),
+                hexdec(substr($m[1], 4, 2)),
+            ];
+        }
+        if (preg_match('/^#([0-9a-fA-F]{3})$/', $value, $m)) {
+            return [
+                hexdec(str_repeat($m[1][0], 2)),
+                hexdec(str_repeat($m[1][1], 2)),
+                hexdec(str_repeat($m[1][2], 2)),
+            ];
+        }
+        return null;
+    }
+
+    function nx_theme_opt_auto_surface_color(string $background): string
+    {
+        $rgb = nx_theme_opt_parse_hex_rgb($background);
+        if (!$rgb) {
+            return '#ffffff';
+        }
+        [$r, $g, $b] = $rgb;
+        $luminance = ((0.2126 * $r) + (0.7152 * $g) + (0.0722 * $b)) / 255;
+        if ($luminance < 0.45) {
+            return 'rgba(255,255,255,0.08)';
+        }
+        if ($luminance < 0.7) {
+            return 'rgba(255,255,255,0.78)';
+        }
+        return 'rgba(255,255,255,0.96)';
+    }
+
     function nx_get_theme_options(): array
     {
         global $_database;
@@ -122,6 +159,18 @@ if (!function_exists('nx_get_theme_options')) {
         if ($get('theme_font_size') !== '') {
             $vars[] = '  --bs-body-font-size: ' . nx_theme_opt_sanitize_css_value($get('theme_font_size'), 'size') . ';';
         }
+        $surface = '';
+        if ($get('theme_surface_bg') !== '') {
+            $surface = nx_theme_opt_sanitize_css_value($get('theme_surface_bg'), 'color');
+        } elseif ($get('theme_bg_color') !== '') {
+            $surface = nx_theme_opt_auto_surface_color(nx_theme_opt_sanitize_css_value($get('theme_bg_color'), 'color'));
+        }
+        if ($surface !== '') {
+            $vars[] = '  --nx-surface-bg: ' . $surface . ';';
+            $vars[] = '  --bs-card-bg: ' . $surface . ';';
+            $vars[] = '  --bs-secondary-bg: ' . $surface . ';';
+            $vars[] = '  --bs-tertiary-bg: ' . $surface . ';';
+        }
         $css .= implode("\n", $vars) . "\n}\n";
         $bg  = $get('theme_bg_color') !== '' ? nx_theme_opt_sanitize_css_value($get('theme_bg_color'), 'color') : '';
         $txt = $get('theme_text_color') !== '' ? nx_theme_opt_sanitize_css_value($get('theme_text_color'), 'color') : '';
@@ -134,11 +183,23 @@ if (!function_exists('nx_get_theme_options')) {
                 $css .= "color: {$txt} !important; ";
             }
             $css .= "}\n";
+            $css .= "main.flex-fill, .sticky-footer-wrapper > main.flex-fill > .container, .sticky-footer-wrapper [data-nx-zone=\"content\"] { ";
+            if ($bg !== '') {
+                $css .= "background-color: {$bg} !important; ";
+            }
+            if ($txt !== '') {
+                $css .= "color: {$txt} !important; ";
+            }
+            $css .= "}\n";
+        }
+        if ($surface !== '') {
+            $css .= ".card,.accordion-item,.list-group-item,.dropdown-menu,.modal-content,.offcanvas,.nx-surface{ background-color: {$surface} !important; }\n";
+            $css .= ".card,.accordion-item,.list-group-item,.modal-content,.offcanvas{ border-color: rgba(0,0,0,.08) !important; }\n";
         }
         /* Live-Builder: Hintergrundfarbe nur in der Content-Zone (zwischen Header und Footer), nicht auf html/body */
         if ($bg !== '') {
             $css .= "body.builder-active html, body.builder-active, body.builder-active body, body.builder-active .sticky-footer-wrapper { background-color: #fff !important; }\n";
-            $css .= "body.builder-active main.flex-fill { background-color: {$bg} !important; border: 1px solid #c5c5c5; }\n";
+            $css .= "body.builder-active main.flex-fill, body.builder-active main.flex-fill > .container, body.builder-active [data-nx-zone=\"content\"], body.builder-active .index-page, body.builder-active .nx-imported-content { background-color: {$bg} !important; border: 1px solid #c5c5c5; }\n";
         }
         $css .= "html body a { color: var(--bs-link-color, inherit); text-decoration: var(--bs-link-decoration, none) !important; }\n";
         $css .= "html body a:hover, html body a:focus { color: var(--bs-link-hover-color, var(--bs-primary)); text-decoration: var(--bs-link-hover-decoration, var(--bs-link-decoration, none)) !important; }\n";

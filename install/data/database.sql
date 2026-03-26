@@ -162,18 +162,16 @@ VALUES
 (4, 'ac_security_overview', '[[lang:de]]Admin Security[[lang:en]]Admin Security[[lang:it]]Sicurezza Admin', 'admincenter.php?site=security_overview', 1),
 (4, 'ac_log_viewer', '[[lang:de]]Zugriffsprotokoll[[lang:en]]Access Log Viewer[[lang:it]]Visualizzatore Log di Accesso', 'admincenter.php?site=log_viewer', 1),
 (6, 'ac_webside_navigation', '[[lang:de]]Webseiten Navigation[[lang:en]]Website Navigation[[lang:it]]Menu Navigazione Web', 'admincenter.php?site=webside_navigation', 1),
-(6, 'ac_theme_installer', '[[lang:de]]Themes Installer[[lang:en]]Themes Installer[[lang:it]]Installazione Themes', 'admincenter.php?site=theme_installer', 2),
-(6, 'ac_theme', '[[lang:de]]Themes[[lang:en]]Themes[[lang:it]]Temi', 'admincenter.php?site=theme', 3),
-(6, 'ac_stylesheet', '[[lang:de]]Stylesheet bearbeiten[[lang:en]]Edit stylesheet[[lang:it]]Modifica stylesheet', 'admincenter.php?site=edit_stylesheet', 4),
-(6, 'ac_headstyle', '[[lang:de]]Kopfzeilen-Stil[[lang:en]]Head Style[[lang:it]]Stile intestazione', 'admincenter.php?site=headstyle', 5),
-(6, 'ac_startpage', '[[lang:de]]Startseite[[lang:en]]Start Page[[lang:it]]Pagina Principale', 'admincenter.php?site=settings_startpage', 6),
-(6, 'ac_static', '[[lang:de]]Statische Seiten[[lang:en]]Static Pages[[lang:it]]Pagine Statiche', 'admincenter.php?site=settings_static', 7),
-(6, 'ac_imprint', '[[lang:de]]Impressum[[lang:en]]Imprint[[lang:it]]Impronta Editoriale', 'admincenter.php?site=settings_imprint', 8),
-(6, 'ac_privacy_policy', '[[lang:de]]Datenschutz-Bestimmungen[[lang:en]]Privacy Policy[[lang:it]]Informativa sulla Privacy', 'admincenter.php?site=settings_privacy_policy', 9),
+(6, 'ac_stylesheet', '[[lang:de]]Stylesheet bearbeiten[[lang:en]]Edit stylesheet[[lang:it]]Modifica stylesheet', 'admincenter.php?site=edit_stylesheet', 2),
+(6, 'ac_headstyle', '[[lang:de]]Kopfzeilen-Stil[[lang:en]]Head Style[[lang:it]]Stile intestazione', 'admincenter.php?site=headstyle', 3),
+(6, 'ac_startpage', '[[lang:de]]Startseite[[lang:en]]Start Page[[lang:it]]Pagina Principale', 'admincenter.php?site=settings_startpage', 4),
+(6, 'ac_static', '[[lang:de]]Statische Seiten[[lang:en]]Static Pages[[lang:it]]Pagine Statiche', 'admincenter.php?site=settings_static', 5),
+(6, 'ac_imprint', '[[lang:de]]Impressum[[lang:en]]Imprint[[lang:it]]Impronta Editoriale', 'admincenter.php?site=settings_imprint', 6),
+(6, 'ac_privacy_policy', '[[lang:de]]Datenschutz-Bestimmungen[[lang:en]]Privacy Policy[[lang:it]]Informativa sulla Privacy', 'admincenter.php?site=settings_privacy_policy', 7),
 (7, 'ac_plugin_manager', '[[lang:de]]Plugin Manager[[lang:en]]PluginManager[[lang:it]]Gestore di Plugin', 'admincenter.php?site=plugin_manager', 1),
 (7, 'ac_plugin_widgets_setting', '[[lang:de]]Widgets verwalten[[lang:en]]Manage widgets[[lang:it]]Gestire i widget', 'admincenter.php?site=plugin_widgets_setting', 2),
-(7, 'ac_plugin_installer', '[[lang:de]]Plugin Installer[[lang:en]]Plugin Installer[[lang:it]]Installazione Plugin', 'admincenter.php?site=plugin_installer', 3),
-(8, 'footer_easy', '[[lang:de]]Footer Easy[[lang:en]]Footer Easy[[lang:it]]Piè di pagina Easy', 'admincenter.php?site=admin_footer_easy', 1);
+(7, 'ac_plugin_installer', '[[lang:de]]Plugin Installer[[lang:en]]Plugin Installer[[lang:it]]Installazione Plugin', 'admincenter.php?site=plugin_installer', 3);
+
 
 
 
@@ -379,8 +377,8 @@ VALUES (1, 'Startpage', 'startpage', '[[lang:de]]Kein Plugin. Bestandteil vom Sy
 (9, 'Contact', 'contact', '[[lang:de]]Kein Plugin. Bestandteil vom System!!![[lang:en]]No plugin. Part of the system!!![[lang:it]]Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'contact', '', '', '', 0, 0, 1, 0, 'deactivated'),
 (10, 'Register', 'register', '[[lang:de]]Kein Plugin. Bestandteil vom System!!![[lang:en]]No plugin. Part of the system!!![[lang:it]]Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'register', '', '', '', 0, 0, 1, 0, 'deactivated'),
 (11, 'Edit Profile', 'edit_profile', '[[lang:de]]Kein Plugin. Bestandteil vom System!!![[lang:en]]No plugin. Part of the system!!![[lang:it]]Nessun plug-in. Parte del sistema!!!', '', 1, '', '', 'edit_profile,edit_profile_save', '', '', '', 0, 1, 1, 0, 'deactivated'),
-(12, 'Navigation', 'navigation', '[[lang:de]]Mit diesem Plugin könnt ihr euch die Navigation anzeigen lassen.[[lang:en]]With this plugin you can display navigation.[[lang:it]]Con questo plugin puoi visualizzare la Barra di navigazione predefinita.', '', 1, 'T-Seven', 'https://www.nexpell.de', '', '', '0.3', 'includes/plugins/navigation/', 1, 1, 0, 0, 'deactivated'),
-(13, 'Footer Easy', 'footer_easy', '[[lang:de]]Mit diesem Plugin könnt ihr einen neuen Footer Easy anzeigen lassen.[[lang:en]]With this plugin you can have a new Footer Easy displayed.[[lang:it]]Con questo plugin puoi visualizzare un nuovo piè di pagina.', 'admin_footer_easy', 1, 'T-Seven', 'https://www.nexpell.de', '', '', '0.1', 'includes/plugins/footer_easy/', 1, 1, 0, 0, 'deactivated');
+(12, 'Navigation', 'navigation_removed', '[[lang:de]]Legacy entfernt[[lang:en]]Legacy removed[[lang:it]]Legacy rimosso', '', 0, '', '', '', '', '', '', 0, 0, 0, 0, 'deactivated'),
+(13, 'Footer Easy', 'footer_easy_removed', '[[lang:de]]Legacy entfernt[[lang:en]]Legacy removed[[lang:it]]Legacy rimosso', '', 0, '', '', '', '', '', '', 0, 0, 0, 0, 'deactivated');
 
 
 
@@ -546,6 +544,7 @@ CREATE TABLE IF NOT EXISTS `settings_static` (
 
 
 
+/* Legacy theme tables removed
 CREATE TABLE IF NOT EXISTS `settings_themes` (
   `themeID` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
@@ -570,7 +569,7 @@ INSERT INTO `settings_themes`
 (`themeID`, `name`, `modulname`, `pfad`, `version`, `active`, `themename`, `navbar_class`, `navbar_theme`,
  `express_active`, `logo_pic`, `reg_pic`, `headlines`, `sort`)
 VALUES
-(1, 'Default', 'default', 'default', '0.3', 1, 'lux', 'bg-light', 'light', 0, 'default_logo.png', 'default_login_bg.jpg', 'headlines_03.css', 1);
+(1, 'Default', 'default', 'default', '0.3', 1, 'default', 'bg-light', 'light', 0, 'default_logo.png', 'default_login_bg.jpg', 'headlines_03.css', 1);
 
 
 
@@ -589,15 +588,7 @@ CREATE TABLE IF NOT EXISTS `settings_themes_installed` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-INSERT IGNORE INTO `settings_themes_installed`
-(`themeID`, `name`, `modulname`, `version`, `author`, `url`, `folder`, `description`, `installed_date`)
-VALUES
-(1, 'Lux', 'lux', '5.3.3', 'Bootswatch', 'https://bootswatch.com/lux/', 'lux',
- '[[lang:de]]Ein luxuriöses Theme mit klaren Linien.[[lang:en]]A luxurious theme with clean lines.[[lang:it]]Un tema lussuoso con linee pulite.',
- '2025-06-19 12:20:03');
-
-
-
+*/
 
 CREATE TABLE `settings_widgets` (
   `widget_key`    varchar(128) NOT NULL,
@@ -772,7 +763,6 @@ VALUES
 (1, 'link', 'ac_email'),
 (1, 'link', 'ac_contact'),
 (1, 'link', 'ac_database'),
-(1, 'link', 'ac_theme'),
 (1, 'link', 'ac_startpage'),
 (1, 'link', 'ac_static'),
 (1, 'link', 'ac_imprint'),
@@ -791,9 +781,6 @@ VALUES
 (1, 'link', 'ac_site_lock'),
 (1, 'link', 'ac_statistic'),
 (1, 'link', 'ac_stylesheet'),
-(1, 'link', 'ac_theme_installer'),
-(1, 'link', 'ac_theme_preview'),
-(1, 'link', 'ac_theme_save'),
 (1, 'link', 'ac_update_core'),
 (1, 'link', 'ac_user_roles'),
 (1, 'link', 'ac_webside_navigation'),

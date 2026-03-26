@@ -408,6 +408,76 @@ return static function ($database = null): array {
         $notes[] = 'navigation_dashboard_links table not present; skipped settings_legal dashboard migration.';
     }
 
+    if ($tableExists('navigation_dashboard_links')) {
+        $legacyThemeModules = ['ac_theme', 'ac_theme_installer'];
+        $legacyThemeModuleSql = "'" . implode("','", array_map([$db, 'real_escape_string'], $legacyThemeModules)) . "'";
+
+        $legacyThemeLinkIds = [];
+        $legacyThemeLinkResult = $db->query("
+            SELECT linkID
+            FROM navigation_dashboard_links
+            WHERE modulname IN ({$legacyThemeModuleSql})
+        ");
+        if ($legacyThemeLinkResult) {
+            while ($legacyThemeLinkRow = $legacyThemeLinkResult->fetch_assoc()) {
+                $legacyThemeLinkIds[] = (int)($legacyThemeLinkRow['linkID'] ?? 0);
+            }
+            $legacyThemeLinkResult->free();
+        }
+
+        if (!$db->query("
+            DELETE FROM navigation_dashboard_links
+            WHERE modulname IN ({$legacyThemeModuleSql})
+        ")) {
+            throw new RuntimeException('Failed to delete legacy theme dashboard links: ' . $db->error);
+        }
+        $notes[] = 'Removed legacy dashboard links for theme/theme_installer.';
+
+        if (!empty($legacyThemeLinkIds) && $tableExists('navigation_dashboard_lang')) {
+            $contentKeys = [];
+            foreach ($legacyThemeLinkIds as $legacyThemeLinkId) {
+                if ($legacyThemeLinkId > 0) {
+                    $contentKeys[] = "'" . $db->real_escape_string('nav_link_' . $legacyThemeLinkId) . "'";
+                }
+            }
+            if (!empty($contentKeys)) {
+                if (!$db->query("
+                    DELETE FROM navigation_dashboard_lang
+                    WHERE content_key IN (" . implode(',', $contentKeys) . ")
+                ")) {
+                    throw new RuntimeException('Failed to delete legacy theme dashboard language entries: ' . $db->error);
+                }
+            }
+        }
+    } else {
+        $notes[] = 'navigation_dashboard_links table not present; skipped legacy theme dashboard cleanup.';
+    }
+
+    if ($tableExists('user_role_admin_navi_rights')) {
+        $legacyThemeRights = ['ac_theme', 'ac_theme_installer', 'ac_theme_preview', 'ac_theme_save'];
+        $legacyThemeRightsSql = "'" . implode("','", array_map([$db, 'real_escape_string'], $legacyThemeRights)) . "'";
+        if (!$db->query("
+            DELETE FROM user_role_admin_navi_rights
+            WHERE modulname IN ({$legacyThemeRightsSql})
+        ")) {
+            throw new RuntimeException('Failed to delete legacy theme admin rights: ' . $db->error);
+        }
+        $notes[] = 'Removed legacy admin rights for theme/theme_installer/theme_preview/theme_save.';
+    } else {
+        $notes[] = 'user_role_admin_navi_rights table not present; skipped legacy theme rights cleanup.';
+    }
+
+    foreach (['settings_theme_options', 'settings_themes_installed', 'settings_themes'] as $legacyThemeTable) {
+        if ($tableExists($legacyThemeTable)) {
+            if (!$db->query("DROP TABLE `{$legacyThemeTable}`")) {
+                throw new RuntimeException('Failed to drop legacy theme table ' . $legacyThemeTable . ': ' . $db->error);
+            }
+            $notes[] = 'Dropped legacy theme table ' . $legacyThemeTable . '.';
+        } else {
+            $notes[] = $legacyThemeTable . ' already removed.';
+        }
+    }
+
     return [
         'success' => true,
         'notes' => $notes,

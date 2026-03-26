@@ -22,8 +22,5 @@
     "png32": "images/favicon-32.png",
     "png192": "images/favicon-192.png",
     "apple180": "images/favicon-180.png"
-  },
-  "settings": {
-    "supports_bootswatch_variant": true
   }
 }

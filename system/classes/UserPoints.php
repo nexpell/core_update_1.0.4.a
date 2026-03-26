@@ -117,9 +117,24 @@ class UserPoints
         return $res && $res->num_rows > 0;
     }
 
+    private static function columnExists(string $table, string $column): bool
+    {
+        global $_database;
+        $tableEsc = $_database->real_escape_string($table);
+        $columnEsc = $_database->real_escape_string($column);
+        $res = $_database->query(
+            "SHOW COLUMNS FROM `{$tableEsc}` LIKE '{$columnEsc}'"
+        );
+        return $res && $res->num_rows > 0;
+    }
+
     private static function getUserCount(string $table, string $col, int $userID): int
     {
         global $_database;
+
+        if (!self::tableExists($table) || !self::columnExists($table, $col)) {
+            return 0;
+        }
 
         if ($table === 'plugins_partners') {
             $stmt = $_database->prepare(

@@ -190,8 +190,7 @@ $jsonLdGraphs[] = [
 
 <!DOCTYPE html>
 <html lang="<?= htmlspecialchars($activeLang, ENT_QUOTES) ?>"
-      data-bs-theme="<?= $htmlTheme ?>"
-      data-theme-db="<?= $dbTheme ?>">
+      data-bs-theme="<?= $htmlTheme ?>">
 
 <head>
 
@@ -269,8 +268,6 @@ $jsonLdGraphs[] = [
 <!-- CSS -->
 <!-- ===================== -->
 <base href="/">
-<link rel="stylesheet"
-      href="/includes/themes/<?= htmlspecialchars($theme_name, ENT_QUOTES) ?>/css/dist/<?= htmlspecialchars($currentTheme, ENT_QUOTES) ?>/bootstrap.min.css">
 
 <?= $components_css ?? '' ?>
 <?= $plugin_css ?? '' ?>
@@ -288,7 +285,18 @@ if (defined('BASE_PATH') && file_exists(BASE_PATH . '/system/core/theme_options.
 
 <body class="<?= isset($_GET['builder']) && $_GET['builder']==='1' ? 'builder-active' : '' ?>">
 <div class="d-flex flex-column sticky-footer-wrapper">
-    <?php if (!empty($_GET['builder']) && $_GET['builder']==='1'): ?><div class="nx-fixed-block" data-nx-fixed-label="Navbar" data-nx-fixed-hint="Fester Block – im Admincenter bearbeiten (nicht im Live-Builder)."><?php endif; ?>
-    <?php /* <?= $pluginManager->getNavigationModule(); ?> */ ?>
-    <?php if (!empty($_GET['builder']) && $_GET['builder']==='1'): ?></div><?php endif; ?>
+    <?php
+    $nxbHeaderWidgets = $GLOBALS['nxb_widgets_by_position']['navbar'] ?? [];
+    $nxbIsBuilder = !empty($_GET['builder']) && $_GET['builder'] === '1';
+    if ($nxbIsBuilder || !empty($nxbHeaderWidgets)): ?>
+      <div class="nx-fixed-block">
+        <div class="nx-live-zone nx-zone" data-nx-zone="navbar" style="margin:0;padding:0;border:none;">
+          <?php if (!empty($nxbHeaderWidgets)): ?>
+            <?php foreach ($nxbHeaderWidgets as $w) echo $w; ?>
+          <?php elseif ($nxbIsBuilder): ?>
+            <div class="builder-placeholder">Navigation hier ablegen</div>
+          <?php endif; ?>
+        </div>
+      </div>
+    <?php endif; ?>
     <?= get_lock_modul(); ?>

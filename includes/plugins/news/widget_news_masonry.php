@@ -8,6 +8,7 @@ use nexpell\LanguageService;
 use nexpell\SeoUrlHandler;
 
 global $languageService;
+require_once __DIR__ . '/builder_widget_helper.php';
 
 $lang = $languageService->detectLanguage();
 $languageService->readPluginModule('news');
@@ -15,11 +16,14 @@ $languageService->readPluginModule('news');
 // Minimaler Masonry-Widget-Renderer für Nexpell
 
 // Konfiguration (kann später aus Plugin-Einstellungen kommen)
-$limit = 12;               // Anzahl gezeigter Artikel
-$columns_desktop = 3;      // Spalten auf Desktop
-$columns_tablet  = 2;      // Spalten auf Tablet
-$columns_mobile  = 1;      // Spalten auf Mobile
-$excerpt_chars   = 180;    // Länge Vorschau-Text
+$newsBuilderSettings = news_widget_builder_settings('widget_news_masonry', isset($settings) && is_array($settings) ? $settings : []);
+$limit = (int)$newsBuilderSettings['limit'];
+$columns_desktop = (int)$newsBuilderSettings['columns_desktop'];
+$columns_tablet  = (int)$newsBuilderSettings['columns_tablet'];
+$columns_mobile  = (int)$newsBuilderSettings['columns_mobile'];
+$excerpt_chars   = (int)$newsBuilderSettings['excerpt_chars'];
+$orderSql = news_widget_builder_order_sql((string)$newsBuilderSettings['order']);
+$whereSql = news_widget_builder_where_sql($GLOBALS['_database'], $newsBuilderSettings);
 
 // Lade CSS/JS (wenn dein System loadWidgetHeadAssets unterstützt, passe Namen an)
 echo '<link rel="stylesheet" href="/includes/plugins/news/css/news_masonry.css">' . PHP_EOL;
@@ -30,8 +34,8 @@ $query = "
     SELECT a.id, a.title, a.content, a.updated_at, a.category_id, c.name AS category_name, c.image AS category_image
     FROM plugins_news a
     LEFT JOIN plugins_news_categories c ON a.category_id = c.id
-    WHERE a.is_active = 1
-    ORDER BY a.updated_at DESC
+    {$whereSql}
+    {$orderSql}
     LIMIT " . intval($limit);
 
 $res = safe_query($query);
@@ -42,7 +46,8 @@ if (!$res || mysqli_num_rows($res) === 0) {
 }
 
 // Wrapper mit data-Attributen für responsive Spalten
-echo '<h1>News Masonry</h1><div class="masonry-wrapper"'
+echo news_widget_builder_heading_html($newsBuilderSettings, 'News Masonry', 'h5', 'mb-3');
+echo '<div class="masonry-wrapper"'
    . ' data-columns-desktop="' . (int)$columns_desktop . '"'
    . ' data-columns-tablet="' . (int)$columns_tablet . '"'
    . ' data-columns-mobile="' . (int)$columns_mobile . '">';
@@ -53,7 +58,7 @@ while ($row = mysqli_fetch_assoc($res)) {
     $id = (int)$row['id'];
     $title = htmlspecialchars($row['title']);
     $plain = strip_tags($row['content']);
-    $excerpt = mb_strlen($plain) > $excerpt_chars ? mb_substr($plain, 0, $excerpt_chars) . '...' : $plain;
+    $excerpt = news_widget_builder_excerpt($plain, $excerpt_chars);
 
     $cat_image = $row['category_image'] ?? '';
     $image = $cat_image
@@ -63,6 +68,7 @@ while ($row = mysqli_fetch_assoc($res)) {
     // SEO-Link zur News
     $url = SeoUrlHandler::buildPluginUrl('plugins_news', $id, $lang);
     $category = htmlspecialchars($row['category_name'] ?? 'Kategorie');
+    $dateText = date('d.m.Y', strtotime((string)$row['updated_at']));
 
     $maxTitleLength = 50;
     $shortTitle = mb_strlen($title) > $maxTitleLength 
@@ -77,7 +83,12 @@ while ($row = mysqli_fetch_assoc($res)) {
     echo '    <h4 class="masonry-title"><a href="' . htmlspecialchars($url) . '">' . $shortTitle . '</a></h4>';
     echo '    <p class="masonry-excerpt">' . htmlspecialchars($excerpt) . '</p>';
     echo '    <div class="masonry-meta">';
-    echo '      <span class="masonry-cat">' . $category . '</span>';
+    if (!empty($newsBuilderSettings['show_date'])) {
+        echo '      <span class="masonry-date">' . htmlspecialchars($dateText, ENT_QUOTES, 'UTF-8') . '</span>';
+    }
+    if (!empty($newsBuilderSettings['show_category'])) {
+        echo '      <span class="masonry-cat">' . $category . '</span>';
+    }
     echo '      <a class="masonry-readmore" href="' . htmlspecialchars($url) . '">' . $languageService->get('read_more') . '</a>';
     echo '    </div>';
     echo '  </div>';

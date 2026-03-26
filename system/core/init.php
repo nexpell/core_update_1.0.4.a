@@ -174,11 +174,16 @@ foreach ($allPositions as $position) {
     foreach ($rows as $w) {
         $key   = $w['widget_key'];
         $title = $w['title'] ?: $key;
-        if (strpos($key, 'core_') === 0 && function_exists('nxb_render_core_widget_html')) {
-            $output = nxb_render_core_widget_html($key, $w['settings'], $title);
-        } else {
-            $output = $pluginManager->renderWidget($key);
-        }
+        $output = function_exists('nxb_render_frontend_widget_html')
+            ? nxb_render_frontend_widget_html($key, (string)($w['instance_id'] ?? ''), (array)($w['settings'] ?? []), $title)
+            : ((strpos($key, 'core_') === 0 && function_exists('nxb_render_core_widget_html'))
+                ? nxb_render_core_widget_html($key, $w['settings'], $title)
+                : $pluginManager->renderWidget($key, [
+                    'instanceId' => (string)($w['instance_id'] ?? ''),
+                    'settings' => (array)($w['settings'] ?? []),
+                    'title' => $title,
+                    'ctx' => ['builder' => false, 'widget_key' => $key, 'instance_id' => (string)($w['instance_id'] ?? ''), 'title' => $title],
+                ]));
         if (!empty(trim((string)$output))) {
             $widgetsByPosition[$position][] = $output;
         }
@@ -186,14 +191,10 @@ foreach ($allPositions as $position) {
 }
 
 // ==========================================================
-// Aktives Website-Theme ermitteln (default, lux etc.)
+// Aktives Website-Theme ermitteln (builder-driven)
 // ==========================================================
-$currentTheme = 'lux';
+$currentTheme = 'default';
 $theme_name = 'default';
-$result = safe_query("SELECT * FROM settings_themes WHERE modulname='default'");
-if ($row = mysqli_fetch_assoc($result)) {
-    $currentTheme = $row['themename'] ?: 'lux';
-}
 
 // ==========================================================
 // SEO-Metadaten der aktuellen Seite laden

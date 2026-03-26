@@ -1,4 +1,4 @@
-// Nexpell Live-Builder JS (ausgelagerte Version aus builder_live.php)
+﻿// Nexpell Live-Builder JS (ausgelagerte Version aus builder_live.php)
 // Achtung: BASE_URL, CSRF, PAGE, ZONE_SELECTORS und widgetRestrictions
 // werden serverseitig als globale Variablen bereitgestellt.
 
@@ -26,7 +26,7 @@
     btnToggle = null;
   const PAL_VISIBLE_KEY = "nxPalVisible";
 
-  // Bootstrap-Icon-Auswahl (für Core-Widgets wie Feature-Grid)
+  // Bootstrap-Icon-Auswahl (fÃ¼r Core-Widgets wie Feature-Grid)
   const ICON_LIST = [
     "bi-star",
     "bi-star-fill",
@@ -69,16 +69,16 @@
   let inlineEditingActive = false;
   const ALIGN_KEYS = ["core_heading", "core_text", "core_image", "core_button", "core_header", "core_quote", "core_hero", "core_hero_split", "core_alert", "core_badge", "core_section_full", "core_section_two_col", "core_section_three_col", "core_row", "core_col", "core_table", "core_faq", "core_testimonials", "core_timeline", "core_slider", "core_pricing", "core_collapse", "core_list_group", "core_link", "core_footer_simple", "core_footer_3col", "core_footer_centered"];
 
-  // Visuelle Vorlagen / Presets direkt in der Palette (für wichtige Content-Widgets)
+  // Visuelle Vorlagen / Presets direkt in der Palette (fÃ¼r wichtige Content-Widgets)
   const PRESETS = {
     core_header: [
       {
         id: "header-clean-left",
         title: "Clean Section-Header links",
-        description: "Schlichte Abschnittsüberschrift mit schmalem Untertitel.",
+        description: "Schlichte AbschnittsÃ¼berschrift mit schmalem Untertitel.",
         settings: {
-          title: "Was wir für dich tun",
-          subtitle: "Ein klarer Einstieg in den nächsten Abschnitt.",
+          title: "Was wir fÃ¼r dich tun",
+          subtitle: "Ein klarer Einstieg in den nÃ¤chsten Abschnitt.",
           align: "start",
           level: 2,
           display: "",
@@ -100,10 +100,10 @@
       },
       {
         id: "header-overlay-center",
-        title: "Overlay-Header über Bild",
+        title: "Overlay-Header Ã¼ber Bild",
         description: "Zentrierter Text auf dunklem Bild-Overlay.",
         settings: {
-          title: "Starte dein nächstes Kapitel",
+          title: "Starte dein nÃ¤chstes Kapitel",
           subtitle: "Digitale Auftritte, die im Kopf bleiben.",
           align: "center",
           level: 1,
@@ -122,12 +122,12 @@
     core_hero: [
       {
         id: "hero-dark-gradient",
-        title: "Agentur Hero – Hell, zentriert",
+        title: "Agentur Hero â€“ Hell, zentriert",
         description: "Hero mit Bildhintergrund, zentriertem Text und zwei Call-to-Actions.",
         settings: {
           title: "Weniger Technik, mehr Ergebnisse.",
           subtitle: "Branding, Websites & Kampagnen",
-          text: "Wir entwickeln digitale Auftritte, die messbar performen – von der ersten Idee bis zum Launch.",
+          text: "Wir entwickeln digitale Auftritte, die messbar performen â€“ von der ersten Idee bis zum Launch.",
           bg: "bg-dark",
           padding: "py-6",
           mode: "light",
@@ -142,8 +142,8 @@
       },
       {
         id: "hero-light-centered",
-        title: "Agentur Hero – Hell, linksbündig",
-        description: "Hero mit Bildhintergrund, linksbündigem Content-Block und einem CTA.",
+        title: "Agentur Hero â€“ Hell, linksbÃ¼ndig",
+        description: "Hero mit Bildhintergrund, linksbÃ¼ndigem Content-Block und einem CTA.",
         settings: {
           title: "Enter Your Headline Here",
           subtitle: "SUBHEADLINE",
@@ -164,12 +164,12 @@
     core_hero_split: [
       {
         id: "hero-split-agency",
-        title: "Agentur Hero – Split",
+        title: "Agentur Hero â€“ Split",
         description: "Zweiteiliges Layout mit Text links und Bild rechts.",
         settings: {
           title: "Enter Your Headline Here",
           subtitle: "SUBHEADLINE",
-          text: "Kurz erklärt, welchen Wert eure Agentur liefert – ohne Fachchinesisch.",
+          text: "Kurz erklÃ¤rt, welchen Wert eure Agentur liefert â€“ ohne Fachchinesisch.",
           bg: "",
           padding: "py-0",
           mode: "dark",
@@ -188,19 +188,19 @@
         description: "Klassisches Referenzen-Layout mit Karten & Namen.",
         settings: {
           title: "Was unsere Kunden sagen",
-          subtitle: "Ausgewählte Stimmen aus Projekten der letzten Monate.",
+          subtitle: "AusgewÃ¤hlte Stimmen aus Projekten der letzten Monate.",
           columns: 3,
           align: "start",
-          item1_quote: "„In zwei Wochen von der Idee zur fertigen Landingpage.“",
+          item1_quote: "â€žIn zwei Wochen von der Idee zur fertigen Landingpage.â€œ",
           item1_name: "Lena Hoffmann",
           item1_role: "Marketing Lead",
           item1_company: "Studio Nord",
-          item2_quote: "„Der Builder spart uns jede Woche mehrere Stunden Arbeit.“",
+          item2_quote: "â€žDer Builder spart uns jede Woche mehrere Stunden Arbeit.â€œ",
           item2_name: "Tobias Klein",
-          item2_role: "Geschäftsführer",
+          item2_role: "GeschÃ¤ftsfÃ¼hrer",
           item2_company: "Klein Consulting",
-          item3_quote: "„Endlich kann das Team Inhalte selbst pflegen – ohne Agentur.“",
-          item3_name: "Sarah Müller",
+          item3_quote: "â€žEndlich kann das Team Inhalte selbst pflegen â€“ ohne Agentur.â€œ",
+          item3_name: "Sarah MÃ¼ller",
           item3_role: "Produktmanagerin",
           item3_company: "",
         },
@@ -208,14 +208,14 @@
       },
       {
         id: "testimonials-1-highlight",
-        title: "Großes Highlight-Zitat",
+        title: "GroÃŸes Highlight-Zitat",
         description: "Eine starke Referenz im Fokus.",
         settings: {
           title: "Erfolgsgeschichte",
           subtitle: "",
           columns: 1,
           align: "center",
-          item1_quote: "„Wir konnten innerhalb kürzester Zeit eine professionelle Präsenz aufbauen – ohne eigenes Entwicklerteam.“",
+          item1_quote: "â€žWir konnten innerhalb kÃ¼rzester Zeit eine professionelle PrÃ¤senz aufbauen â€“ ohne eigenes Entwicklerteam.â€œ",
           item1_name: "Dr. Jana Reuter",
           item1_role: "CEO",
           item1_company: "Reuter Health",
@@ -226,35 +226,35 @@
     core_faq: [
       {
         id: "faq-compact-3",
-        title: "Kompakte FAQ (3 Einträge)",
+        title: "Kompakte FAQ (3 EintrÃ¤ge)",
         description: "Kurze Antworten, ideal am Seitenende.",
         settings: {
-          title: "Häufige Fragen",
+          title: "HÃ¤ufige Fragen",
           subtitle: "",
           align: "start",
           item1_title: "Brauche ich Programmierkenntnisse?",
-          item1_content: "Nein. Inhalte werden direkt im Layout bearbeitet – per Doppelklick auf Texte, Bilder, Buttons.",
-          item2_title: "Kann ich später das Design ändern?",
-          item2_content: "Ja. Du kannst Abschnitte austauschen, Reihenfolgen ändern und Farben in deinem Theme anpassen.",
-          item3_title: "Wie veröffentliche ich Änderungen?",
-          item3_content: "Über den Speichern-Button im Builder – ohne Deployments oder zusätzliche Tools.",
+          item1_content: "Nein. Inhalte werden direkt im Layout bearbeitet â€“ per Doppelklick auf Texte, Bilder, Buttons.",
+          item2_title: "Kann ich spÃ¤ter das Design Ã¤ndern?",
+          item2_content: "Ja. Du kannst Abschnitte austauschen, Reihenfolgen Ã¤ndern und Farben in deinem Theme anpassen.",
+          item3_title: "Wie verÃ¶ffentliche ich Ã„nderungen?",
+          item3_content: "Ãœber den Speichern-Button im Builder â€“ ohne Deployments oder zusÃ¤tzliche Tools.",
         },
         previewType: "faq-compact",
       },
       {
         id: "faq-section-with-intro",
         title: "FAQ mit Intro-Text",
-        description: "Einführungstext plus mehrere Fragen – ideal für Support-Seiten.",
+        description: "EinfÃ¼hrungstext plus mehrere Fragen â€“ ideal fÃ¼r Support-Seiten.",
         settings: {
           title: "Noch Fragen offen?",
-          subtitle: "Hier findest du Antworten auf häufige Themen rund um Setup, Inhalte und Wartung.",
+          subtitle: "Hier findest du Antworten auf hÃ¤ufige Themen rund um Setup, Inhalte und Wartung.",
           align: "start",
           item1_title: "Wie lange dauert der Start?",
           item1_content: "In der Regel kannst du innerhalb eines Tages die ersten Seiten live schalten.",
           item2_title: "Kann ich mehrere Sprachen nutzen?",
-          item2_content: "Ja, der Builder ist für mehrsprachige Seiten vorbereitet.",
+          item2_content: "Ja, der Builder ist fÃ¼r mehrsprachige Seiten vorbereitet.",
           item3_title: "Gibt es eine Backup-Funktion?",
-          item3_content: "Ja. Änderungen werden im System gespeichert und können bei Bedarf wiederhergestellt werden.",
+          item3_content: "Ja. Ã„nderungen werden im System gespeichert und kÃ¶nnen bei Bedarf wiederhergestellt werden.",
         },
         previewType: "faq-intro",
       },
@@ -262,7 +262,8 @@
   };
 
   // Template-Modus: Kategorien links, Vorlagen rechts in der Examples-Sidebar
-  const TEMPLATE_MODE = true;
+  const TEMPLATE_MODE =
+    !!(window.NXB_BUILDER_VARS && window.NXB_BUILDER_VARS.TEMPLATE_MODE);
   const TEMPLATES = {
     starter_landing: {
       name: "Starter Landing",
@@ -276,9 +277,9 @@
         header: [
           {
             id: "header_overlay_nav_hero",
-            title: "Header – Transparent Overlay (Scroll-Fill) + Hero",
+            title: "Header â€“ Transparent Overlay (Scroll-Fill) + Hero",
             description:
-              "Navigation liegt transparent über dem ersten Hero und füllt sich nach dem Scrollen.",
+              "Navigation liegt transparent Ã¼ber dem ersten Hero und fÃ¼llt sich nach dem Scrollen.",
             widget: "core_nav_demo",
             // Bundle: wird im Drop-Handler zu mehreren Widgets expandiert
             bundle: [
@@ -286,24 +287,23 @@
                 widget: "core_nav_demo",
                 title: "Navigation",
                 settings: {
+                  navVariant: "agency",
                   layout: "simple",
                   title: "Nexpell",
                   image: "",
                   // Overlay-Start (transparent), Text hell auf Hero
                   overlayMode: true,
                   overlayTextMode: "light",
-                  // Scroll-Fill: ab X px in "gefüllt" wechseln
+                  // Scroll-Fill: ab X px in "gefÃ¼llt" wechseln
                   scrollFill: true,
                   scrollFillOffset: 80,
-                  // gefülltes Schema
+                  // gefÃ¼lltes Schema
                   scheme: "light",
                   filledShadow: "shadow-sm",
                   container: "fixed",
                   paddingY: "26px",
                   paddingX: "16",
                   hoverEffect: "none",
-                  menuSource: "plugin",
-                  menu: [],
                   login_label: "Login",
                   login_url: "",
                   cta_label: "Jetzt starten",
@@ -321,7 +321,7 @@
         hero: [
           {
             id: "hero_agency_dark",
-            title: "Agentur Hero – Hell, zentriert",
+            title: "Agentur Hero â€“ Hell, zentriert",
             description: "Hero mit Bildhintergrund, zentriertem Text und zwei Call-to-Actions.",
             widget: "core_hero",
             settings: PRESETS.core_hero[0].settings,
@@ -329,15 +329,15 @@
           },
           {
             id: "hero_agency_light_center",
-            title: "Agentur Hero – Hell, linksbündig",
-            description: "Hero mit Bildhintergrund, linksbündigem Content-Block und einem CTA.",
+            title: "Agentur Hero â€“ Hell, linksbÃ¼ndig",
+            description: "Hero mit Bildhintergrund, linksbÃ¼ndigem Content-Block und einem CTA.",
             widget: "core_hero",
             settings: PRESETS.core_hero[1].settings,
             previewType: "hero-light",
           },
           {
             id: "hero_agency_split",
-            title: "Agentur Hero – Split",
+            title: "Agentur Hero â€“ Split",
             description: "Zweiteiliges Layout mit Text links und Bild rechts.",
             widget: "core_hero_split",
             settings: PRESETS.core_hero_split[0].settings,
@@ -361,8 +361,58 @@
               paddingX: "16",
               // Standard: kein Hover-Effekt
               hoverEffect: "none",
-              menuSource: "plugin",
-              menu: [],
+              login_label: "Login",
+              login_url: "",
+              cta_label: "Jetzt starten",
+            },
+            previewType: "nav-simple",
+          },
+          {
+            id: "nav_sticky",
+            title: "Sticky Navigation",
+            description: "Bleibt oben sichtbar und nutzt die eingestellte Navbar-Farbe dauerhaft.",
+            widget: "core_nav_demo",
+            settings: {
+              navVariant: "sticky",
+              layout: "simple",
+              title: "Nexpell",
+              image: "",
+              scheme: "light",
+              shadow: "shadow-sm",
+              container: "fixed",
+              paddingY: "18px",
+              paddingX: "16",
+              hoverEffect: "none",
+              login_label: "Login",
+              login_url: "",
+              cta_label: "Jetzt starten",
+            },
+            previewType: "nav-simple",
+          },
+          {
+            id: "nav_agency_scrollfill",
+            title: "Agency Navigation",
+            description: "Startet transparent Ã¼ber dem Hero und wird beim Scrollen farbig.",
+            widget: "core_nav_demo",
+            settings: {
+              navVariant: "agency",
+              layout: "simple",
+              title: "Nexpell",
+              image: "",
+              scheme: "light",
+              shadow: "",
+              container: "fixed",
+              paddingY: "22px",
+              paddingX: "16",
+              hoverEffect: "none",
+              overlayMode: true,
+              overlayTextMode: "light",
+              scrollFill: true,
+              scrollFillOffset: 80,
+              filledShadow: "shadow-sm",
+              navTextColor: "#ffffff",
+              navFillBgColor: "var(--bs-body-bg)",
+              navFillTextColor: "var(--bs-body-color)",
               login_label: "Login",
               login_url: "",
               cta_label: "Jetzt starten",
@@ -371,10 +421,10 @@
           },
         ],
         footer: [
-          // Minimaler Link-Footer (ähnlich Geeks Footer #5)
+          // Minimaler Link-Footer (Ã¤hnlich Geeks Footer #5)
           {
             id: "footer_minimal_links",
-            title: "Footer – minimal, Links zentriert",
+            title: "Footer â€“ minimal, Links zentriert",
             description: "Schlanker Footer mit wenigen Links und Copyright.",
             widget: "core_footer_simple",
             settings: {
@@ -382,7 +432,7 @@
               year: new Date().getFullYear().toString(),
               container: "container",
               visibility: "",
-              nav1: "Über uns",
+              nav1: "Ãœber uns",
               nav2: "Blog",
               nav3: "Feedback senden",
               nav4: "Nutzungsbedingungen",
@@ -395,7 +445,7 @@
           // Drei-Spalten-Footer (About + About-Links + Help-Links, hell)
           {
             id: "footer_light_3col",
-            title: "Footer – Über uns & Hilfe",
+            title: "Footer â€“ Ãœber uns & Hilfe",
             description: "Heller 3-Spalten-Footer mit Beschreibung und zwei Link-Spalten.",
             widget: "core_footer_3col",
             settings: {
@@ -404,7 +454,7 @@
               brand: "Nexpell",
               about:
                 "Nexpell ist ein modularer Website-Builder mit modernen Bootstrap-5-Komponenten.",
-              about_title: "Über uns",
+              about_title: "Ãœber uns",
               about1: "Nutzungsbedingungen",
               about2: "Datenschutz",
               about3: "Support",
@@ -417,19 +467,19 @@
             },
             previewType: "section-three-col",
           },
-          // Großer Plattform-Footer mit vier Link-Spalten im Nexpell-Stil
+          // GroÃŸer Plattform-Footer mit vier Link-Spalten im Nexpell-Stil
           {
             id: "footer_platform_columns_light",
-            title: "Footer – Plattform / Ressourcen / Unternehmen / Support",
+            title: "Footer â€“ Plattform / Ressourcen / Unternehmen / Support",
             description:
-              "Großer, heller Footer mit Nexpell-Brand, Beschreibung, Social-Icons und vier Link-Spalten.",
+              "GroÃŸer, heller Footer mit Nexpell-Brand, Beschreibung, Social-Icons und vier Link-Spalten.",
             widget: "core_footer_2col",
             settings: {
               container: "container",
               visibility: "",
               brand: "Nexpell",
               about:
-                "Nexpell ist ein modularer Website-Builder mit klaren Workflows für Teams, Agenturen und SaaS-Produkte.",
+                "Nexpell ist ein modularer Website-Builder mit klaren Workflows fÃ¼r Teams, Agenturen und SaaS-Produkte.",
               year: new Date().getFullYear().toString(),
               platform_title: "Plattform",
               platform1: "Vorlagen durchsuchen",
@@ -443,9 +493,9 @@
               resources4: "Blog",
               resources5: "Community",
               company_title: "Unternehmen",
-              company1: "Über Nexpell",
+              company1: "Ãœber Nexpell",
               company2: "Partnerprogramm",
-              company3: "Datenschutzerklärung",
+              company3: "DatenschutzerklÃ¤rung",
               company4: "Team",
               support_title: "Support",
               support1: "FAQ",
@@ -453,7 +503,7 @@
               support3: "Systemstatus",
               support4: "Community beitreten",
               copyright_text: "Nexpell. Alle Rechte vorbehalten.",
-              policy_privacy: "Datenschutzerklärung",
+              policy_privacy: "DatenschutzerklÃ¤rung",
               policy_cookies: "Cookie-Hinweis",
               policy_terms: "Nutzungsbedingungen",
             },
@@ -462,7 +512,7 @@
           // Link-Footer mit Social-Icons im Nexpell-Stil
           {
             id: "footer_social_links",
-            title: "Footer – Links & Social",
+            title: "Footer â€“ Links & Social",
             description:
               "Zentrierter Footer mit Link-Navigation, Social-Icons und Copyright-Hinweis.",
             widget: "core_footer_simple",
@@ -471,7 +521,7 @@
               year: new Date().getFullYear().toString(),
               container: "container",
               visibility: "",
-              nav1: "Über uns",
+              nav1: "Ãœber uns",
               nav2: "Blog",
               nav3: "Feedback senden",
               nav4: "Nutzungsbedingungen",
@@ -484,7 +534,7 @@
           // Zentrierter Footer im Nexpell-Stil
           {
             id: "footer_centered_hero",
-            title: "Footer – zentriert, Beschreibung",
+            title: "Footer â€“ zentriert, Beschreibung",
             description:
               "Zentrierter Footer mit Nexpell-Brand, Beschreibung und Link-Navigation.",
             widget: "core_footer_centered",
@@ -495,7 +545,7 @@
               description:
                 "Nexpell ist ein modularer Website-Builder mit modernen Bootstrap-5-Komponenten und einem intuitiven Live-Builder.",
               year: new Date().getFullYear().toString(),
-              nav1: "Über Nexpell",
+              nav1: "Ãœber Nexpell",
               nav2: "Karriere",
               nav3: "Kontakt",
               nav4: "Preise",
@@ -503,10 +553,10 @@
               nav6: "Partnerprogramm",
               nav7: "Hilfe",
               nav8: "Investoren",
-              policy_privacy: "Datenschutzerklärung",
+              policy_privacy: "DatenschutzerklÃ¤rung",
               policy_cookies: "Cookie-Hinweis",
               policy_terms: "Nutzungsbedingungen",
-              copyright_text: "© " +
+              copyright_text: "Â© " +
                 new Date().getFullYear().toString() +
                 " Nexpell. Alle Rechte vorbehalten.",
             },
@@ -527,7 +577,7 @@
 
   function getZones() {
     nxDebug("getZones START");
-    const root = document.querySelector("main") || document.body;
+    const root = document.body || document.documentElement;
     const candidates = root.querySelectorAll("[data-nx-zone]");
     nxDebug("getZones querySelectorAll found " + candidates.length + " [data-nx-zone]");
     const out = [];
@@ -539,8 +589,8 @@
     return out;
   }
 
-  const DROP_HINT_TEXT = "Hier Blöcke ablegen – Reihenfolge frei wählbar";
-  // Merkt sich die zuletzt wirklich unter dem Mauszeiger liegende Zone (für präzisere Drops, z. B. Col in Row)
+  const DROP_HINT_TEXT = "Hier BlÃ¶cke ablegen â€“ Reihenfolge frei wÃ¤hlbar";
+  // Merkt sich die zuletzt wirklich unter dem Mauszeiger liegende Zone (fÃ¼r prÃ¤zisere Drops, z. B. Col in Row)
   let lastHoverZone = null;
 
   function ensureDropHints() {
@@ -631,7 +681,7 @@
   }
 
   function pushUndoSnapshot(body) {
-    // Wenn wir „in der Mitte“ der History sind (nach Undo), alle neueren States abschneiden
+    // Wenn wir â€žin der Mitteâ€œ der History sind (nach Undo), alle neueren States abschneiden
     if (undoIndex < undoStack.length - 1) {
       undoStack = undoStack.slice(0, undoIndex + 1);
     }
@@ -659,6 +709,22 @@
       return /^\d+(\.\d+)?(rem|em|px|%)$/.test(v) ? v : "";
     };
     var sanitizeDecoration = function(v) { return String(v).replace(/[^a-z-]/g, ""); };
+    var parseHexRgb = function(v) {
+      v = String(v || "").trim();
+      var m6 = /^#([0-9a-fA-F]{6})$/.exec(v);
+      if (m6) return { r: parseInt(m6[1].slice(0, 2), 16), g: parseInt(m6[1].slice(2, 4), 16), b: parseInt(m6[1].slice(4, 6), 16) };
+      var m3 = /^#([0-9a-fA-F]{3})$/.exec(v);
+      if (m3) return { r: parseInt(m3[1][0] + m3[1][0], 16), g: parseInt(m3[1][1] + m3[1][1], 16), b: parseInt(m3[1][2] + m3[1][2], 16) };
+      return null;
+    };
+    var autoSurfaceColor = function(background) {
+      var rgb = parseHexRgb(background);
+      if (!rgb) return "#ffffff";
+      var luminance = ((0.2126 * rgb.r) + (0.7152 * rgb.g) + (0.0722 * rgb.b)) / 255;
+      if (luminance < 0.45) return "rgba(255,255,255,0.08)";
+      if (luminance < 0.7) return "rgba(255,255,255,0.78)";
+      return "rgba(255,255,255,0.96)";
+    };
     var hexToRgb = function(hex) {
       var m = /^#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/.exec(hex);
       return m ? parseInt(m[1], 16) + ", " + parseInt(m[2], 16) + ", " + parseInt(m[3], 16) : "13, 110, 253";
@@ -703,6 +769,15 @@
     if (linkHoverDec) vars.push("  --bs-link-hover-decoration: " + sanitizeDecoration(linkHoverDec) + ";");
     var fs = get("theme_font_size");
     if (fs) { var fss = sanitizeSize(fs); if (fss) vars.push("  --bs-body-font-size: " + fss + ";"); }
+    var surfaceVal = get("theme_surface_bg");
+    var surface = surfaceVal ? sanitizeColor(surfaceVal) : "";
+    if (!surface && bg) surface = autoSurfaceColor(bg);
+    if (surface) {
+      vars.push("  --nx-surface-bg: " + surface + ";");
+      vars.push("  --bs-card-bg: " + surface + ";");
+      vars.push("  --bs-secondary-bg: " + surface + ";");
+      vars.push("  --bs-tertiary-bg: " + surface + ";");
+    }
     var css = "/* Basis-Design (Live-Builder) */\n:root {\n" + vars.join("\n") + "\n}\n";
     if (bg || txt) {
       css += "html, html body, body, .sticky-footer-wrapper { ";
@@ -712,13 +787,20 @@
     }
     if (bg) {
       css += "body.builder-active html, body.builder-active, body.builder-active body, body.builder-active .sticky-footer-wrapper { background-color: #fff !important; }\n";
-      css += "body.builder-active main.flex-fill { background-color: " + bg + " !important; border: 1px solid #c5c5c5; }\n";
+      css += "body.builder-active main.flex-fill, body.builder-active main.flex-fill > .container, body.builder-active [data-nx-zone=\"content\"], body.builder-active .index-page, body.builder-active .nx-imported-content { background-color: " + bg + " !important; border: 1px solid #c5c5c5; }\n";
+    }
+    if (surface) {
+      css += ".card,.accordion-item,.list-group-item,.dropdown-menu,.modal-content,.offcanvas,.nx-surface { background-color: " + surface + " !important; }\n";
+      css += ".card,.accordion-item,.list-group-item,.modal-content,.offcanvas { border-color: rgba(0,0,0,.08) !important; }\n";
     }
     css += "html body a { color: var(--bs-link-color, inherit); text-decoration: var(--bs-link-decoration, none) !important; }\n";
     css += "html body a:hover, html body a:focus { color: var(--bs-link-hover-color, var(--bs-primary)); text-decoration: var(--bs-link-hover-decoration, var(--bs-link-decoration, none)) !important; }\n";
     var styleEl = document.getElementById("nx-theme-options");
     if (styleEl) {
       styleEl.textContent = css;
+      if (styleEl.parentNode) {
+        styleEl.parentNode.appendChild(styleEl);
+      }
     } else {
       styleEl = document.createElement("style");
       styleEl.id = "nx-theme-options";
@@ -749,10 +831,13 @@
       });
       const j = await r.json().catch(() => null);
       if (!j || !j.ok) {
-        console.warn("❌ Save failed", j);
+        console.warn("âŒ Save failed", j);
       } else {
-        console.log("✅ Saved");
+        console.log("âœ… Saved");
         lastSaveTimestamp = Date.now();
+        if (window.NXB_BUILDER_VARS && window._nxCurrentThemeOptions && typeof window._nxCurrentThemeOptions === "object") {
+          window.NXB_BUILDER_VARS.THEME_OPTIONS = Object.assign({}, window._nxCurrentThemeOptions);
+        }
         pushUndoSnapshot(body);
         updateSaveStatus();
         if (window._nxCurrentThemeOptions && typeof window._nxCurrentThemeOptions === "object") {
@@ -808,7 +893,7 @@
         allowed = window.widgetRestrictions[widgetElOrKey];
     }
     if (!allowed || allowed.length === 0) return true;
-    // Option B: content-Zone akzeptiert Widgets, die für content oder eine Legacy-Mittel-Zone erlaubt sind
+    // Option B: content-Zone akzeptiert Widgets, die fÃ¼r content oder eine Legacy-Mittel-Zone erlaubt sind
     if (zoneName === "content") {
       const legacyContent = ["undertop", "left", "maintop", "mainbottom", "right", "content"];
       return legacyContent.some((z) => allowed.includes(z));
@@ -850,7 +935,7 @@
     examplesHideTimer = setTimeout(() => {
       if (!examplesPanel) return;
       examplesPanel.classList.remove("nx-examples-visible");
-      // Aktiven Kategorien-State zurücksetzen, wenn keine Vorlagen-Sidebar mehr sichtbar ist
+      // Aktiven Kategorien-State zurÃ¼cksetzen, wenn keine Vorlagen-Sidebar mehr sichtbar ist
       const palPanel = document.getElementById("nx-palette");
       if (palPanel) {
         palPanel
@@ -876,7 +961,7 @@
       sort: false,
       animation: 150,
       ghostClass: "ghost",
-      // Native HTML5-Drag für natürliches Verhalten des Ghosts
+      // Native HTML5-Drag fÃ¼r natÃ¼rliches Verhalten des Ghosts
       fallbackOnBody: false,
       forceFallback: false,
       onStart() {
@@ -885,7 +970,7 @@
       },
       onMove(evt) {
         if (!evt.to) return true;
-        // Vorlagen dürfen grundsätzlich überall hin gezogen werden – keine Blockierung
+        // Vorlagen dÃ¼rfen grundsÃ¤tzlich Ã¼berall hin gezogen werden â€“ keine Blockierung
         nxMark(evt.to, true);
         return true;
       },
@@ -902,6 +987,39 @@
       })
     );
     examplesSortableBound = true;
+  }
+
+  function applyItemLayout(item) {
+    if (!item) return;
+    let settings = {};
+    try {
+      settings = JSON.parse(item.getAttribute("data-nx-settings") || "{}") || {};
+    } catch (e) {
+      settings = {};
+    }
+    const width = String(settings.item_width || "").trim();
+    const align = String(settings.item_align || "start").trim();
+    item.style.width = "";
+    item.style.maxWidth = "";
+    item.style.marginLeft = "";
+    item.style.marginRight = "";
+    if (!width) {
+      item.removeAttribute("data-nx-item-width");
+      return;
+    }
+    item.setAttribute("data-nx-item-width", width);
+    item.style.width = "100%";
+    item.style.maxWidth = width;
+    if (align === "center") {
+      item.style.marginLeft = "auto";
+      item.style.marginRight = "auto";
+    } else if (align === "end" || align === "right") {
+      item.style.marginLeft = "auto";
+      item.style.marginRight = "0";
+    } else {
+      item.style.marginLeft = "0";
+      item.style.marginRight = "auto";
+    }
   }
 
   function setActivePaletteCategoryForWidget(widgetKey) {
@@ -961,7 +1079,7 @@
 
       const handle = document.createElement("div");
       handle.className = "nx-example-handle";
-      handle.textContent = "⋮⋮";
+      handle.textContent = "â‹®â‹®";
 
       const inner = document.createElement("div");
       inner.className = "nx-example-inner";
@@ -1054,7 +1172,7 @@
 
       const handle = document.createElement("div");
       handle.className = "nx-example-handle";
-      handle.textContent = "⋮⋮";
+      handle.textContent = "â‹®â‹®";
 
       const inner = document.createElement("div");
       inner.className = "nx-example-inner";
@@ -1101,6 +1219,90 @@
 
     examplesPanel.classList.add("nx-examples-visible");
     bindExamplesSortable();
+  }
+
+  function renderExamplesForCategoryWidgets(categoryEl, label, itemsOverride) {
+    ensureExamplesPanel();
+    if (!examplesPanel || !examplesBody || !categoryEl) return;
+
+    const items = Array.isArray(itemsOverride)
+      ? itemsOverride
+      : Array.from(categoryEl.querySelectorAll(".nx-pal-item"));
+    examplesBody.innerHTML = "";
+
+    if (!items.length) {
+      examplesPanel.classList.remove("nx-examples-visible");
+      if (examplesEmptyEl) examplesEmptyEl.classList.remove("d-none");
+      return;
+    }
+
+    if (examplesTitleEl) {
+      examplesTitleEl.textContent = label || "Widgets";
+    }
+    if (examplesEmptyEl) examplesEmptyEl.classList.add("d-none");
+
+    items.forEach((item) => {
+      const widgetKey =
+        item.getAttribute("data-pal-key") ||
+        item.getAttribute("data-nx-key") ||
+        "";
+      const widgetTitle =
+        item.getAttribute("data-pal-title") ||
+        item.getAttribute("data-nx-title") ||
+        widgetKey;
+
+      const div = document.createElement("div");
+      div.className = "nx-example-item";
+      div.setAttribute("data-pal-key", widgetKey);
+      div.setAttribute("data-pal-title", widgetTitle);
+
+      const allowed = item.getAttribute("data-allowed");
+      if (allowed) div.setAttribute("data-allowed", allowed);
+
+      const presetSettings = item.getAttribute("data-pal-settings");
+      if (presetSettings) div.setAttribute("data-pal-settings", presetSettings);
+
+      const handle = document.createElement("div");
+      handle.className = "nx-example-handle";
+      handle.textContent = "â‹®â‹®";
+
+      const inner = document.createElement("div");
+      inner.className = "nx-example-inner";
+
+      const titleEl = document.createElement("div");
+      titleEl.className = "nx-example-title small fw-semibold mb-1";
+      titleEl.textContent = widgetTitle;
+      inner.appendChild(titleEl);
+
+      const metaEl = document.createElement("div");
+      metaEl.className = "nx-example-desc text-muted small mb-2";
+      metaEl.textContent = widgetKey;
+      inner.appendChild(metaEl);
+
+      const preview = document.createElement("div");
+      preview.className = "nx-pal-preview nx-pal-preview-generic";
+      for (let i = 0; i < 3; i++) {
+        preview.appendChild(document.createElement("span"));
+      }
+      inner.appendChild(preview);
+
+      div.appendChild(handle);
+      div.appendChild(inner);
+      examplesBody.appendChild(div);
+    });
+
+    examplesPanel.classList.add("nx-examples-visible");
+    bindExamplesSortable();
+  }
+
+  function renderExamplesForPluginCategory(categoryEl, pluginGroup, label) {
+    ensureExamplesPanel();
+    if (!examplesPanel || !examplesBody || !categoryEl) return;
+
+    const items = Array.from(categoryEl.querySelectorAll(".nx-pal-item")).filter(
+      (item) => (item.getAttribute("data-plugin-group") || "").trim() === pluginGroup
+    );
+    renderExamplesForCategoryWidgets(categoryEl, label || pluginGroup, items);
   }
 
   function createShellFromBundleEntry(entry) {
@@ -1165,6 +1367,7 @@
       c.className = "nx-live-content";
       c.innerHTML =
         html || '<div class="alert alert-warning small">leer</div>';
+      applyItemLayout(el);
       if (!res.ok) console.error("render error", res.status, html);
       try {
         // Overlay/ScrollFill (Navbar) nach jedem Render aktivieren (Builder)
@@ -1176,6 +1379,15 @@
       if (c)
         c.innerHTML =
           '<div class="alert alert-danger small">Render-Fehler</div>';
+      applyItemLayout(el);
+    }
+  }
+
+  async function rerenderSettingsItem(el) {
+    if (!el) return;
+    await renderInto(el);
+    if (currentSettingsItem === el) {
+      await openSettingsForItem(el);
     }
   }
 
@@ -1204,39 +1416,39 @@
         if (overlay) nav.classList.add("nx-nav-overlay");
         else nav.classList.remove("nx-nav-overlay", "nx-nav-filled");
 
-        // Abstand zum ersten Text (Builder): Navbar-Höhe + Zusatzabstand
+        // Abstand zum ersten Text (Builder): Navbar-HÃ¶he + Zusatzabstand
         if (overlay) {
           try {
             const navH = nav.getBoundingClientRect().height || 0;
             const h = navH + 28;
             document.documentElement.style.setProperty("--nx-overlay-safe-top", h + "px");
-            // Overlay soll "über" dem Header liegen (Header nicht als Block nach unten schieben).
-            // Safe-Top lösen wir über CSS am Header-Text, nicht über padding-top am Header-Block.
+            // Overlay soll "Ã¼ber" dem Header liegen (Header nicht als Block nach unten schieben).
+            // Safe-Top lÃ¶sen wir Ã¼ber CSS am Header-Text, nicht Ã¼ber padding-top am Header-Block.
             const hero = document.querySelector(".nx-hero, .nx-hero-split");
             if (hero) hero.classList.add("nx-overlay-push");
 
-            // Marker für CSS: mindestens eine Overlay-Nav ist aktiv
+            // Marker fÃ¼r CSS: mindestens eine Overlay-Nav ist aktiv
             try {
               document.documentElement.classList.add("nx-has-overlay-nav");
             } catch (e) {}
 
-            // Builder-Overlay: Nav soll über dem NÄCHSTEN Block (z.B. Header) liegen,
-            // ohne position:fixed (das lässt die Nav im Builder "verschwinden").
+            // Builder-Overlay: Nav soll Ã¼ber dem NÃ„CHSTEN Block (z.B. Header) liegen,
+            // ohne position:fixed (das lÃ¤sst die Nav im Builder "verschwinden").
             if (liveItem) {
               liveItem.classList.add("nx-builder-overlay-nav");
               liveItem.style.position = "relative";
               liveItem.style.zIndex = "50";
-              // Nächsten Block hinter die Nav ziehen
+              // NÃ¤chsten Block hinter die Nav ziehen
               if (navH > 0) {
                 liveItem.style.marginBottom = "-" + Math.round(navH) + "px";
               }
-              // Content-Zone darf überlappen
+              // Content-Zone darf Ã¼berlappen
               const zone = liveItem.closest ? liveItem.closest('[data-nx-zone="content"]') : null;
               if (zone) zone.style.overflow = "visible";
             }
 
             // WICHTIG (Builder): Header-Textlayer IMMER unter die Nav schieben (Padding),
-            // unabhängig davon, wo der Header im DOM steht.
+            // unabhÃ¤ngig davon, wo der Header im DOM steht.
             try {
               document
                 .querySelectorAll('header.nx-header .nx-header-image > .position-absolute.d-flex')
@@ -1247,7 +1459,7 @@
             } catch (e) {}
           } catch (e) {}
         } else {
-          // Overlay aus: Overlap-Styling zurücksetzen
+          // Overlay aus: Overlap-Styling zurÃ¼cksetzen
           if (liveItem && liveItem.classList.contains("nx-builder-overlay-nav")) {
             liveItem.classList.remove("nx-builder-overlay-nav");
             liveItem.style.marginBottom = "";
@@ -1258,7 +1470,7 @@
             document.documentElement.classList.remove("nx-has-overlay-nav");
           } catch (e) {}
 
-          // Builder: Header-Textlayer Padding zurücksetzen
+          // Builder: Header-Textlayer Padding zurÃ¼cksetzen
           try {
             document
               .querySelectorAll('header.nx-header .nx-header-image > .position-absolute.d-flex')
@@ -1270,15 +1482,15 @@
         }
 
         if (!scrollFill) {
-          // Wichtig: Overlay ohne ScrollFill soll NICHT weiß gefüllt sein.
-          // (Standalone-Navbar ohne ScrollFill bleibt "sofort gefüllt" wie bisher.)
+          // Wichtig: Overlay ohne ScrollFill soll NICHT weiÃŸ gefÃ¼llt sein.
+          // (Standalone-Navbar ohne ScrollFill bleibt "sofort gefÃ¼llt" wie bisher.)
           if (overlay) {
             nav.style.setProperty("--nx-overlay-progress", "0");
             nav.classList.remove("nx-nav-filled");
             nav.classList.remove("shadow-sm", "shadow", "shadow-lg");
             if (filledShadow) nav.classList.remove(filledShadow);
           } else {
-            // Ohne "Füllen nach scroll" soll sofort gefüllt sein.
+            // Ohne "FÃ¼llen nach scroll" soll sofort gefÃ¼llt sein.
             nav.style.setProperty("--nx-overlay-progress", "1");
             nav.classList.add("nx-nav-filled");
             nav.classList.remove("shadow-sm", "shadow", "shadow-lg");
@@ -1343,7 +1555,7 @@
                 0
             ) +
             "</span>";
-          // Kein automatischer Active-State – wird nur gesetzt, wenn Vorlagen-Sidebar wirklich offen ist
+          // Kein automatischer Active-State â€“ wird nur gesetzt, wenn Vorlagen-Sidebar wirklich offen ist
           wrapper.appendChild(btn);
           palList.appendChild(wrapper);
         });
@@ -1405,14 +1617,14 @@
       return;
     }
 
-    // Standardmodus (ohne Templates): ursprüngliche Palette + PRESETS-Hover
+    // Standardmodus (ohne Templates): ursprÃ¼ngliche Palette + PRESETS-Hover
 
     var palOpts = {
       group: { name: "nx-builder", pull: "clone", put: false },
       sort: false,
       animation: 150,
       ghostClass: "ghost",
-      // Ebenfalls HTML5-Drag, damit sich alles gleich anfühlt
+      // Ebenfalls HTML5-Drag, damit sich alles gleich anfÃ¼hlt
       fallbackOnBody: false,
       forceFallback: false,
       onStart() {
@@ -1421,7 +1633,7 @@
       },
       onMove: function (evt) {
         if (!evt.to) return true;
-        // Palette-Widgets dürfen grundsätzlich überall hin gezogen werden – keine Blockierung
+        // Palette-Widgets dÃ¼rfen grundsÃ¤tzlich Ã¼berall hin gezogen werden â€“ keine Blockierung
         nxMark(evt.to, true);
         return true;
       },
@@ -1440,6 +1652,63 @@
     // Hover auf Palette: passende Beispielvorlagen im Examples-Panel zeigen
     ensureExamplesPanel();
     if (palPanel) {
+      palPanel.querySelectorAll(".nx-pal-category-head").forEach((head) => {
+        head.addEventListener("click", () => {
+          palPanel
+            .querySelectorAll(".nx-pal-category-head")
+            .forEach((btn) => btn.classList.remove("active"));
+          head.classList.add("active");
+          cancelHideExamples();
+          const categoryEl = head.closest(".nx-pal-category");
+          const categoryName = (head.getAttribute("data-nx-cat") || head.textContent || "").trim();
+          if (categoryName === "Widgets") {
+            const content = categoryEl && categoryEl.querySelector(".nx-pal-category-content");
+            const isOpen = content && !content.hasAttribute("hidden");
+            palPanel.querySelectorAll(".nx-pal-category-content").forEach((el) => {
+              el.classList.add("d-none");
+              el.setAttribute("hidden", "");
+              el.setAttribute("aria-hidden", "true");
+            });
+            palPanel.querySelectorAll(".nx-pal-plugin").forEach((el) => el.classList.remove("active"));
+            if (content && !isOpen) {
+              content.classList.remove("d-none");
+              content.removeAttribute("hidden");
+              content.setAttribute("aria-hidden", "false");
+              head.setAttribute("aria-expanded", "true");
+            } else {
+              head.setAttribute("aria-expanded", "false");
+            }
+            if (examplesBody) examplesBody.innerHTML = "";
+            if (examplesTitleEl) examplesTitleEl.textContent = categoryName;
+            if (examplesEmptyEl) {
+              examplesEmptyEl.textContent = "Plugin unter Widgets auswÃ¤hlen.";
+              examplesEmptyEl.classList.remove("d-none");
+            }
+            if (examplesPanel) examplesPanel.classList.remove("nx-examples-visible");
+          } else {
+            palPanel.querySelectorAll(".nx-pal-category-content").forEach((el) => {
+              el.classList.add("d-none");
+              el.setAttribute("hidden", "");
+              el.setAttribute("aria-hidden", "true");
+            });
+            palPanel.querySelectorAll(".nx-pal-category-head").forEach((btn) => {
+              if (btn !== head) btn.setAttribute("aria-expanded", "false");
+            });
+            renderExamplesForCategoryWidgets(categoryEl, head.textContent.trim());
+          }
+        });
+      });
+      palPanel.querySelectorAll(".nx-pal-plugin").forEach((plugin) => {
+        plugin.addEventListener("click", () => {
+          const categoryEl = plugin.closest(".nx-pal-category");
+          const pluginGroup = (plugin.getAttribute("data-plugin-group") || "").trim();
+          if (!categoryEl || !pluginGroup) return;
+          palPanel.querySelectorAll(".nx-pal-plugin").forEach((el) => el.classList.remove("active"));
+          plugin.classList.add("active");
+          cancelHideExamples();
+          renderExamplesForPluginCategory(categoryEl, pluginGroup, pluginGroup);
+        });
+      });
       palPanel.querySelectorAll(".nx-pal-item").forEach((item) => {
         item.addEventListener("mouseenter", () => {
           const key =
@@ -1470,14 +1739,31 @@
         const term = (searchInput.value || "").toLowerCase().trim();
         const cats = palPanel.querySelectorAll(".nx-pal-category");
         cats.forEach((cat) => {
+          const categoryName = ((cat.querySelector(".nx-pal-category-head") && cat.querySelector(".nx-pal-category-head").getAttribute("data-nx-cat")) || "").trim();
           let visibleCount = 0;
-          cat.querySelectorAll(".nx-pal-item").forEach((item) => {
-            const title = (item.getAttribute("data-pal-title") || item.getAttribute("data-nx-title") || "").toLowerCase();
-            const key = (item.getAttribute("data-pal-key") || item.getAttribute("data-nx-key") || "").toLowerCase();
-            const match = !term || title.indexOf(term) !== -1 || key.indexOf(term) !== -1;
-            item.style.display = match ? "" : "none";
-            if (match) visibleCount++;
-          });
+          if (categoryName === "Widgets") {
+            const pluginEls = cat.querySelectorAll(".nx-pal-plugin");
+            pluginEls.forEach((pluginEl) => {
+              const pluginName = (pluginEl.getAttribute("data-plugin-group") || pluginEl.textContent || "").toLowerCase();
+              const pluginItems = Array.from(cat.querySelectorAll('.nx-pal-item[data-plugin-group="' + (pluginEl.getAttribute("data-plugin-group") || "") + '"]'));
+              const widgetMatch = pluginItems.some((item) => {
+                const title = (item.getAttribute("data-pal-title") || item.getAttribute("data-nx-title") || "").toLowerCase();
+                const key = (item.getAttribute("data-pal-key") || item.getAttribute("data-nx-key") || "").toLowerCase();
+                return !term || title.indexOf(term) !== -1 || key.indexOf(term) !== -1;
+              });
+              const match = !term || pluginName.indexOf(term) !== -1 || widgetMatch;
+              pluginEl.style.display = match ? "" : "none";
+              if (match) visibleCount++;
+            });
+          } else {
+            cat.querySelectorAll(".nx-pal-item").forEach((item) => {
+              const title = (item.getAttribute("data-pal-title") || item.getAttribute("data-nx-title") || "").toLowerCase();
+              const key = (item.getAttribute("data-pal-key") || item.getAttribute("data-nx-key") || "").toLowerCase();
+              const match = !term || title.indexOf(term) !== -1 || key.indexOf(term) !== -1;
+              item.style.display = match ? "" : "none";
+              if (match) visibleCount++;
+            });
+          }
           const badge = cat.querySelector(".nx-pal-category-head .badge");
           if (badge) badge.textContent = String(visibleCount);
           cat.style.display = visibleCount > 0 ? "" : "none";
@@ -1536,7 +1822,7 @@
   function ensureIconPicker() {
     if (iconPickerEl) return;
 
-    // einfache Styles für Icon-Picker injizieren
+    // einfache Styles fÃ¼r Icon-Picker injizieren
     if (!iconPickerInitialized) {
       const styleEl = document.createElement("style");
       styleEl.textContent = `
@@ -1615,10 +1901,10 @@
     header.className = "nx-icon-picker-header";
     header.innerHTML = `
       <div class="d-flex flex-column">
-        <strong class="small">Icon auswählen</strong>
-        <span class="small text-muted">Bootstrap Icons – Klick zum Übernehmen</span>
+        <strong class="small">Icon auswÃ¤hlen</strong>
+        <span class="small text-muted">Bootstrap Icons â€“ Klick zum Ãœbernehmen</span>
       </div>
-      <button type="button" class="btn btn-sm btn-outline-secondary nx-icon-picker-close">Schließen</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary nx-icon-picker-close">SchlieÃŸen</button>
     `;
 
     const body = document.createElement("div");
@@ -1713,7 +1999,7 @@
       li.getAttribute("data-pal-title") ||
       li.getAttribute("data-nx-title") ||
       key;
-    // Vorkonfigurierte Settings aus einem Preset (Palette-Variante) übernehmen, falls vorhanden
+    // Vorkonfigurierte Settings aus einem Preset (Palette-Variante) Ã¼bernehmen, falls vorhanden
     let presetSettings = {};
     const rawPreset = li.getAttribute("data-pal-settings");
     if (rawPreset) {
@@ -1746,13 +2032,13 @@
     } catch (e) {
       li.setAttribute("data-nx-settings", "{}");
     }
-    const hintText = ALIGN_KEYS.indexOf(key) !== -1 ? "Klick: Ausrichtung · Doppelklick: Text bearbeiten" : "Doppelklick: Text bearbeiten";
-    li.innerHTML = `<div class="nx-drag-handle" title="Ziehen zum Verschieben">⋮⋮</div>
+    const hintText = ALIGN_KEYS.indexOf(key) !== -1 ? "Klick: Ausrichtung Â· Doppelklick: Text bearbeiten" : "Doppelklick: Text bearbeiten";
+    li.innerHTML = `<div class="nx-drag-handle" title="Ziehen zum Verschieben">â‹®â‹®</div>
       <div class="nx-live-controls btn-group btn-group-sm" role="group">
         <button type="button" class="btn btn-light btn-settings" title="Einstellungen"><i class="bi bi-sliders"></i></button>
         <button type="button" class="btn btn-outline-danger btn-remove" title="Entfernen"><i class="bi bi-x-lg"></i></button>
       </div>
-      <div class="nx-live-content" title="Ziehen, um in eine andere Zone zu verschieben"><div class="text-muted small">Lade Widget …</div></div>
+      <div class="nx-live-content" title="Ziehen, um in eine andere Zone zu verschieben"><div class="text-muted small">Lade Widget â€¦</div></div>
       <div class="nx-inline-hint">${hintText}</div>`;
     return li;
   }
@@ -1778,13 +2064,13 @@
         nxClearAllMarks();
       },
       onMove: (evt) => {
-        // Versuche, die Zone zu finden, die sich tatsächlich unter dem Mauszeiger befindet.
+        // Versuche, die Zone zu finden, die sich tatsÃ¤chlich unter dem Mauszeiger befindet.
         // WICHTIG: Den gerade gezogenen Block kurzfristig aus dem Hit-Testing nehmen,
         // damit wir die Zone *darunter* treffen (sonst liefert elementFromPoint nur das Ghost-Element).
         const ev = evt.originalEvent || evt.event;
         if (ev && typeof ev.clientX === "number" && typeof ev.clientY === "number") {
           const dragEl = evt.dragged;
-          // Sowohl Original-Element als auch evtl. Ghost-Element für das Hit-Testing kurz deaktivieren
+          // Sowohl Original-Element als auch evtl. Ghost-Element fÃ¼r das Hit-Testing kurz deaktivieren
           const ghostEl = document.querySelector(".sortable-ghost") || document.querySelector(".sortable-chosen");
           const prev = [];
           [dragEl, ghostEl].forEach((node, idx) => {
@@ -1793,7 +2079,7 @@
               node.style.pointerEvents = "none";
             }
           });
-          // Alle Elemente unter dem Mauszeiger holen und die *innerste* Zone wählen
+          // Alle Elemente unter dem Mauszeiger holen und die *innerste* Zone wÃ¤hlen
           const stack = document.elementsFromPoint(ev.clientX, ev.clientY) || [];
           let el = null;
           for (let i = 0; i < stack.length; i++) {
@@ -1809,7 +2095,7 @@
           });
           let hz = null;
           if (stack.length) {
-            // Von innen nach außen laufen und die tiefste data-nx-zone wählen
+            // Von innen nach auÃŸen laufen und die tiefste data-nx-zone wÃ¤hlen
             for (let i = stack.length - 1; i >= 0; i--) {
               const cand = stack[i];
               if (cand && cand.getAttribute && cand.hasAttribute("data-nx-zone")) {
@@ -1818,8 +2104,8 @@
               }
             }
           }
-          // Spezialfall: große Layout-Container (core_container, core_row, core_col)
-          // Wenn noch keine Zone gefunden wurde, aber wir über einem solchen Wrapper sind,
+          // Spezialfall: groÃŸe Layout-Container (core_container, core_row, core_col)
+          // Wenn noch keine Zone gefunden wurde, aber wir Ã¼ber einem solchen Wrapper sind,
           // dann dessen innere nx-live-zone als Drop-Ziel verwenden.
           const itemHost = el && el.closest ? el.closest(".nx-live-item") : null;
           if (!hz && itemHost) {
@@ -1842,8 +2128,8 @@
             (evt.dragged.getAttribute("data-nx-key") ||
               evt.dragged.getAttribute("data-pal-key"))) ||
           "";
-        // Während des Draggen niemals blockieren – Sortable soll überall hingehen können.
-        // Wir nutzen die Zone nur noch für die optische Hervorhebung.
+        // WÃ¤hrend des Draggen niemals blockieren â€“ Sortable soll Ã¼berall hingehen kÃ¶nnen.
+        // Wir nutzen die Zone nur noch fÃ¼r die optische Hervorhebung.
         if (!toZone || !key) {
           nxMark(targetZoneEl || evt.to, true);
           return true;
@@ -1858,7 +2144,7 @@
         }
         try {
           nxDebug("bindZone onAdd start");
-          // Nutze beim Drop bevorzugt die Zone, die zuletzt unter dem Mauszeiger war (feineres Einfügen in verschachtelte Zonen)
+          // Nutze beim Drop bevorzugt die Zone, die zuletzt unter dem Mauszeiger war (feineres EinfÃ¼gen in verschachtelte Zonen)
           let effectiveZoneEl =
             (lastHoverZone && lastHoverZone.isConnected && lastHoverZone) ||
             zone;
@@ -1866,7 +2152,7 @@
             try {
               effectiveZoneEl.appendChild(evt.item);
             } catch (e) {
-              // Fallback: falls append fehlschlägt, bleibt das Element dort, wo Sortable es eingefügt hat
+              // Fallback: falls append fehlschlÃ¤gt, bleibt das Element dort, wo Sortable es eingefÃ¼gt hat
             }
           }
 
@@ -1879,9 +2165,9 @@
                 evt.item.getAttribute("data-pal-key"))) ||
             "";
           nxDebug("bindZone onAdd: key=" + key + " toZone=" + toZone);
-          // Zonen-Restriktionen vorübergehend deaktiviert: keine Blockierung über
-          // nxIsAllowedUniversal, damit Vorlagen und Palette-Items überall abgelegt
-          // werden können.
+          // Zonen-Restriktionen vorÃ¼bergehend deaktiviert: keine Blockierung Ã¼ber
+          // nxIsAllowedUniversal, damit Vorlagen und Palette-Items Ã¼berall abgelegt
+          // werden kÃ¶nnen.
           if (evt.item && evt.item.hasAttribute("data-pal-bundle")) {
             let bundle = null;
             try {
@@ -1925,14 +2211,6 @@
               evt.item.setAttribute("data-nx-settings", JSON.stringify(s));
               evt.item.setAttribute("data-nx-col-span", String(s.span));
               evt.item.classList.add("col-12", "col-md-" + s.span);
-            }
-            // Footer-Widgets immer in der Content-Zone am Ende platzieren (auch wenn schon in content gedropt)
-            if (palKey && palKey.indexOf("core_footer_") === 0) {
-              const contentZone = document.querySelector('[data-nx-zone="content"]');
-              if (contentZone) {
-                contentZone.appendChild(evt.item);
-                effectiveZoneEl = contentZone;
-              }
             }
           }
           await saveState();
@@ -2063,11 +2341,11 @@
               else obj[key] = el.value;
             });
           }
-          // Speziell für Navigation: numerische Padding-Werte als px-Werte speichern
+          // Speziell fÃ¼r Navigation: numerische Padding-Werte als px-Werte speichern
           const currentKey = currentSettingsItem?.getAttribute("data-nx-key") || "";
           if (currentKey === "core_nav_demo") {
             // Overlay/ScrollFill robust normalisieren, damit Header-Nav nach Speichern
-            // nicht in einen inkonsistenten Zustand fällt.
+            // nicht in einen inkonsistenten Zustand fÃ¤llt.
             const toBool = (v, fallback = false) => {
               if (typeof v === "boolean") return v;
               if (typeof v === "number") return v === 1;
@@ -2084,20 +2362,37 @@
             if (typeof obj.paddingX === "string" && /^[0-9]+$/.test(obj.paddingX)) {
               obj.paddingX = obj.paddingX + "px";
             }
-            obj.overlayMode = toBool(obj.overlayMode, true);
-            obj.scrollFill = toBool(obj.scrollFill, true);
+            if (!["standard", "sticky", "agency"].includes(String(obj.navVariant ?? ""))) {
+              obj.navVariant = "standard";
+            }
+            const navVariant = String(obj.navVariant || "standard");
+            const overlayDefault = navVariant === "agency";
+            const scrollDefault = navVariant === "agency";
+            obj.overlayMode = toBool(obj.overlayMode, overlayDefault);
+            obj.scrollFill = toBool(obj.scrollFill, scrollDefault);
+            if (navVariant === "sticky") {
+              obj.overlayMode = false;
+              obj.scrollFill = false;
+            } else if (navVariant === "agency") {
+              obj.overlayMode = true;
+              obj.scrollFill = true;
+            }
             const ofsRaw = String(obj.scrollFillOffset ?? "").trim();
             obj.scrollFillOffset = /^[0-9]+$/.test(ofsRaw) ? parseInt(ofsRaw, 10) : 80;
             if (obj.overlayTextMode !== "dark") obj.overlayTextMode = "light";
             if (!["", "shadow-sm", "shadow", "shadow-lg"].includes(String(obj.filledShadow ?? ""))) {
               obj.filledShadow = "";
             }
+            ["navBgColor", "navTextColor", "navHoverColor", "navFillBgColor", "navFillTextColor"].forEach((prop) => {
+              obj[prop] = typeof obj[prop] === "string" ? obj[prop].trim() : "";
+            });
           }
           if (obj.targetBlank === true) obj.target = "_blank";
           else if (obj.targetBlank === false && obj.target === "_blank") delete obj.target;
           if (Object.prototype.hasOwnProperty.call(obj, "targetBlank")) delete obj.targetBlank;
           if (settingsTextarea) settingsTextarea.value = JSON.stringify(obj, null, 2);
           currentSettingsItem.setAttribute("data-nx-settings", JSON.stringify(obj));
+          applyItemLayout(currentSettingsItem);
           if (currentKey === "core_col") {
             var pz = currentSettingsItem.closest("[data-nx-zone]");
             if (pz && (pz.getAttribute("data-nx-zone") || "").indexOf("row_") === 0) {
@@ -2108,15 +2403,10 @@
             }
           }
           await saveState();
-          // Navigation: bei menuSource "plugin" neu rendern, damit Plugin-Menü im Canvas erscheint; sonst kein renderInto (Gear-Icons bleiben).
-          if (currentKey !== "core_nav_demo") {
-            await renderInto(currentSettingsItem);
-          } else if (currentKey === "core_nav_demo" && (obj.menuSource === "plugin")) {
-            await renderInto(currentSettingsItem);
-          }
+          await rerenderSettingsItem(currentSettingsItem);
         } catch (err) {
-          if (settingsError) settingsError.textContent = "Ungültiges JSON: " + err.message;
-          else alert("Ungültiges JSON: " + err.message);
+          if (settingsError) settingsError.textContent = "UngÃ¼ltiges JSON: " + err.message;
+          else alert("UngÃ¼ltiges JSON: " + err.message);
         }
       });
     }
@@ -2174,8 +2464,7 @@
             currentSettingsItem.setAttribute("data-nx-settings", JSON.stringify(obj));
             if (settingsTextarea) settingsTextarea.value = JSON.stringify(obj, null, 2);
             await saveState();
-            const key = currentSettingsItem.getAttribute("data-nx-key") || "";
-            if (key !== "core_nav_demo") await renderInto(currentSettingsItem);
+            await rerenderSettingsItem(currentSettingsItem);
           }
         } catch (err) { console.error("Image drop upload failed", err); }
       }, false);
@@ -2224,8 +2513,7 @@
             currentSettingsItem.setAttribute("data-nx-settings", JSON.stringify(obj));
             if (settingsTextarea) settingsTextarea.value = JSON.stringify(obj, null, 2);
             await saveState();
-            const key = currentSettingsItem.getAttribute("data-nx-key") || "";
-            if (key !== "core_nav_demo") await renderInto(currentSettingsItem);
+            await rerenderSettingsItem(currentSettingsItem);
           }
         } catch (err) {
           console.error("Image click upload failed", err);
@@ -2305,7 +2593,7 @@
       nxColorPickerEl.innerHTML = '<div class="nx-cp-popup"><div class="nx-cp-header">' +
         '<button type="button" class="nx-cp-btn nx-cp-btn-cancel" title="Abbrechen" aria-label="Abbrechen"><i class="bi bi-x-lg"></i></button>' +
         '<div class="nx-cp-hex-wrap"><input type="text" class="nx-cp-hex-input" placeholder="#000000" maxlength="9" spellcheck="false"></div>' +
-        '<button type="button" class="nx-cp-btn nx-cp-btn-apply" title="Übernehmen" aria-label="Übernehmen"><i class="bi bi-check-lg"></i></button></div>' +
+        '<button type="button" class="nx-cp-btn nx-cp-btn-apply" title="Ãœbernehmen" aria-label="Ãœbernehmen"><i class="bi bi-check-lg"></i></button></div>' +
         '<div class="nx-cp-sv-wrap"><div class="nx-cp-sv-inner"></div><div class="nx-cp-sv-cursor"></div></div>' +
         '<div class="nx-cp-strip-wrap nx-cp-hue"><div class="nx-cp-strip-cursor"></div></div>' +
         '<div class="nx-cp-strip-wrap nx-cp-alpha-wrap"><div class="nx-cp-alpha-inner"></div><div class="nx-cp-strip-cursor"></div></div></div>';
@@ -2440,7 +2728,7 @@
         if (!swatch.querySelector(".nx-swatch-x")) {
           var x = document.createElement("span");
           x.className = "nx-swatch-x";
-          x.textContent = "×";
+          x.textContent = "Ã—";
           swatch.appendChild(x);
         }
       }
@@ -2512,7 +2800,9 @@
     ensureSettingsSidebar();
     const labelEl = document.getElementById("nx-settings-label");
     if (labelEl) labelEl.textContent = "Basis-Design";
-    const opts = (window.NXB_BUILDER_VARS && window.NXB_BUILDER_VARS.THEME_OPTIONS) ? window.NXB_BUILDER_VARS.THEME_OPTIONS : {};
+    const opts = (window._nxCurrentThemeOptions && typeof window._nxCurrentThemeOptions === "object" && !Array.isArray(window._nxCurrentThemeOptions))
+      ? window._nxCurrentThemeOptions
+      : ((window.NXB_BUILDER_VARS && window.NXB_BUILDER_VARS.THEME_OPTIONS) ? window.NXB_BUILDER_VARS.THEME_OPTIONS : {});
     if (typeof opts === "object" && !Array.isArray(opts)) {
       window._nxCurrentThemeOptions = Object.assign({}, opts);
     } else {
@@ -2520,14 +2810,15 @@
     }
     const fields = [
       { key: "theme_bg_color", label: "Hintergrundfarbe", type: "color", placeholder: "#fff oder rgba(255,255,255,0.5)" },
+      { key: "theme_surface_bg", label: "Content-/Card-Farbe", type: "color", placeholder: "leer = automatisch aus Hintergrund" },
       { key: "theme_text_color", label: "Textfarbe", type: "color", placeholder: "#212529" },
-      { key: "theme_primary", label: "Primärfarbe", type: "color", placeholder: "#0d6efd" },
-      { key: "theme_secondary", label: "Sekundärfarbe", type: "color", placeholder: "#6c757d" },
+      { key: "theme_primary", label: "PrimÃ¤rfarbe", type: "color", placeholder: "#0d6efd" },
+      { key: "theme_secondary", label: "SekundÃ¤rfarbe", type: "color", placeholder: "#6c757d" },
       { key: "theme_link_color", label: "Linkfarbe", type: "color", placeholder: "#0d6efd" },
       { key: "theme_link_decoration", label: "Link-Decoration", type: "select", options: ["none", "underline"] },
-      { key: "theme_link_hover_color", label: "Linkfarbe (Hover)", type: "color", placeholder: "wie Primärfarbe" },
+      { key: "theme_link_hover_color", label: "Linkfarbe (Hover)", type: "color", placeholder: "wie PrimÃ¤rfarbe" },
       { key: "theme_link_hover_decoration", label: "Link-Decoration (Hover)", type: "select", options: ["none", "underline"] },
-      { key: "theme_font_size", label: "Schriftgröße (Basis)", type: "text", placeholder: "1rem" },
+      { key: "theme_font_size", label: "SchriftgrÃ¶ÃŸe (Basis)", type: "text", placeholder: "1rem" },
     ];
     let html = '<div class="nx-global-optik-form small">';
     fields.forEach((f) => {
@@ -2547,9 +2838,9 @@
         html += '<label class="form-label small">' + (f.label || f.key) + '</label>';
         html += '<div class="d-flex gap-1 align-items-center mb-1">';
         if (isLinkHoverEmpty) {
-          html += '<button type="button" class="nx-color-swatch nx-swatch-no-color" data-nx-color-swatch title="Farbwähler öffnen" style="width:2.25rem;height:2rem;padding:0;cursor:pointer;border:1px solid #dee2e6;border-radius:4px;background-color:#e9ecef;color:#6c757d;font-size:1.1rem;line-height:1;display:flex;align-items:center;justify-content:center;"><span class="nx-swatch-x">×</span></button>';
+          html += '<button type="button" class="nx-color-swatch nx-swatch-no-color" data-nx-color-swatch title="FarbwÃ¤hler Ã¶ffnen" style="width:2.25rem;height:2rem;padding:0;cursor:pointer;border:1px solid #dee2e6;border-radius:4px;background-color:#e9ecef;color:#6c757d;font-size:1.1rem;line-height:1;display:flex;align-items:center;justify-content:center;"><span class="nx-swatch-x">Ã—</span></button>';
         } else {
-          html += '<button type="button" class="nx-color-swatch" data-nx-color-swatch title="Farbwähler öffnen" style="width:2.25rem;height:2rem;padding:0;cursor:pointer;border:1px solid #dee2e6;border-radius:4px;background-color:' + (val && val.indexOf("rgba") === -1 ? val : "#808080") + ';"></button>';
+          html += '<button type="button" class="nx-color-swatch" data-nx-color-swatch title="FarbwÃ¤hler Ã¶ffnen" style="width:2.25rem;height:2rem;padding:0;cursor:pointer;border:1px solid #dee2e6;border-radius:4px;background-color:' + (val && val.indexOf("rgba") === -1 ? val : "#808080") + ';"></button>';
         }
         html += '<input type="text" class="form-control form-control-sm flex-grow-1" data-nx-theme-field="' + f.key + '" value="' + valEsc + '" placeholder="' + (f.placeholder || "") + '" spellcheck="false" style="min-width:8rem;">';
         html += '</div>';
@@ -2613,12 +2904,11 @@
     if (settingsPlaceholder) settingsPlaceholder.classList.add("d-none");
     if (settingsContent) settingsContent.classList.remove("d-none");
 
-    // Navigation: Bei menuSource "plugin" und leerem menu einmal Plugin-Menü laden und setzen (editierbar im Builder).
     if (item.getAttribute("data-nx-key") === "core_nav_demo") {
       var s = {};
       try { s = JSON.parse(item.getAttribute("data-nx-settings") || "{}"); } catch (e) {}
 
-      // Fehlende Defaults aus dem aktuell gerenderten Nav übernehmen, damit die UI
+      // Fehlende Defaults aus dem aktuell gerenderten Nav Ã¼bernehmen, damit die UI
       // (Selects) den aktiven Zustand widerspiegelt (z.B. Header+Navbar Preset).
       try {
         const navEl = item.querySelector(".nx-live-content nav.nx-nav-core-demo");
@@ -2648,7 +2938,7 @@
 
           if (typeof s.overlayMode === "undefined") s.overlayMode = overlayFallback;
           if (typeof s.scrollFill === "undefined") s.scrollFill = scrollFallback;
-          // Wenn Overlay an ist und scrollFill fehlt, soll es standardmäßig AN sein (wie gewollt im Frontend)
+          // Wenn Overlay an ist und scrollFill fehlt, soll es standardmÃ¤ÃŸig AN sein (wie gewollt im Frontend)
           if (nxToBool(s.overlayMode) === true && typeof s.scrollFill === "undefined") s.scrollFill = true;
           if (typeof s.scrollFillOffset === "undefined") s.scrollFillOffset = ofsFallback;
           if (typeof s.overlayTextMode === "undefined") s.overlayTextMode = textFallback;
@@ -2663,36 +2953,22 @@
         if (settingsTextarea) settingsTextarea.value = JSON.stringify(s, null, 2);
       } catch (e) {}
 
-      // Felder neu aufbauen, damit die Selects sicher passend befüllt werden
+      // Felder neu aufbauen, damit die Selects sicher passend befÃ¼llt werden
       if (settingsFields) {
         buildSettingsFields("core_nav_demo", s);
       }
 
-      if (s.menuSource === "plugin" && (!Array.isArray(s.menu) || s.menu.length === 0)) {
-        try {
-          var r = await fetch(RENDER_ENDPOINT, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "X-CSRF-Token": CSRF },
-            body: JSON.stringify({ action: "get_plugin_nav_menu", csrf: CSRF }),
-            credentials: "same-origin",
-          });
-          var data = await r.json();
-          if (data && data.ok && Array.isArray(data.menu) && data.menu.length > 0) {
-            s.menu = data.menu;
-            item.setAttribute("data-nx-settings", JSON.stringify(s));
-            if (settingsTextarea) settingsTextarea.value = JSON.stringify(s, null, 2);
-            if (typeof saveState === "function") await saveState();
-            if (typeof renderInto === "function") await renderInto(item);
-            if (settingsFields) buildSettingsFields("core_nav_demo", s);
-          }
-        } catch (e) { console.error("Plugin menu fetch failed", e); }
-      }
     }
   }
 
   document
     .getElementById("nx-live-save")
-    ?.addEventListener("click", saveState);
+    ?.addEventListener("click", async function (e) {
+      e.preventDefault();
+      const href = this.getAttribute("href") || window.location.href;
+      await saveState();
+      window.location.href = href;
+    });
 
   // === Inline-Editor: Ausrichtung, Text, Bild (ohne Endlosschleife: nur 1x renderInto bei Bild/Align) ===
   function ensureInlineEditing() {
@@ -2707,7 +2983,7 @@
       .nx-image-popover input{ width:100%; margin-bottom:8px; }
       .nx-image-popover .nx-img-actions{ display:flex; gap:8px; justify-content:flex-end; }
       .nx-inline-editing{ outline:2px solid #f97316; outline-offset:2px; }
-      /* Keine Outline außer unserer blauen: alle Inhalte zurücksetzen (Header/Theme/Browser) */
+      /* Keine Outline auÃŸer unserer blauen: alle Inhalte zurÃ¼cksetzen (Header/Theme/Browser) */
       body.builder-active .nx-live-content,
       body.builder-active .nx-live-content *,
       body.builder-active .nx-live-content *:focus,
@@ -2728,11 +3004,11 @@
       .nx-img-drop-zone.nx-drag-over{ background: rgba(13,110,253,.08) !important; box-shadow: 0 0 0 2px #0d6efd; }
       [data-nx-inline="image"].nx-canvas-drag-over, [data-nx-inline="src"].nx-canvas-drag-over{ background: rgba(13,110,253,.12) !important; box-shadow: 0 0 0 2px #0d6efd; }
       .nx-inline-img-drop-zone.nx-drag-over{ background: rgba(13,110,253,.1) !important; border-color: #0d6efd !important; }
-      /* Kontext-Popover für Navigation-Links (nur im Builder) */
+      /* Kontext-Popover fÃ¼r Navigation-Links (nur im Builder) */
       .nx-nav-popover{ position:fixed; z-index:2147480005; background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:8px; box-shadow:0 4px 8px rgba(0,0,0,.15); min-width:220px; }
       .nx-nav-popover .btn{ display:block; width:100%; text-align:left; margin-bottom:4px; font-size:11px; padding:4px 8px; }
       .nx-nav-popover .btn:last-child{ margin-bottom:0; }
-      /* Aktiver Nav-Link beim Bearbeiten (ähnlich orange-dashed-Zone) */
+      /* Aktiver Nav-Link beim Bearbeiten (Ã¤hnlich orange-dashed-Zone) */
       body.builder-active .nx-live-content .nx-nav-edit-active{
         outline:2px dashed #f97316 !important;
         outline-offset:0px;
@@ -2765,8 +3041,8 @@
         opacity:1;
         pointer-events:auto;
       }
-      /* In der Builder-Vorschau kein zusätzliches vertikales Padding über .navbar-brand,
-         damit die Gesamthöhe primär durch Logo-Höhe + Nav-Item-Padding bestimmt wird. */
+      /* In der Builder-Vorschau kein zusÃ¤tzliches vertikales Padding Ã¼ber .navbar-brand,
+         damit die GesamthÃ¶he primÃ¤r durch Logo-HÃ¶he + Nav-Item-Padding bestimmt wird. */
       body.builder-active .nx-live-content .navbar-brand{
         padding-top:0 !important;
         padding-bottom:0 !important;
@@ -2783,11 +3059,11 @@
     document.body.appendChild(alignToolbarEl);
     imagePopoverEl = document.createElement("div");
     imagePopoverEl.className = "nx-image-popover";
-    imagePopoverEl.innerHTML = '<div class="nx-inline-img-drop-zone border border-2 border-dashed rounded p-4 text-center mb-2" style="min-height:80px;"><span class="text-muted small">Bild hier ablegen</span></div><div class="d-flex gap-2 align-items-center"><button type="button" class="btn btn-sm btn-primary nx-inline-img-choose">Datei auswählen</button><button type="button" class="btn btn-sm btn-outline-secondary nx-inline-img-cancel">Abbrechen</button></div><input type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="d-none" id="nx-inline-img-file" />';
+    imagePopoverEl.innerHTML = '<div class="nx-inline-img-drop-zone border border-2 border-dashed rounded p-4 text-center mb-2" style="min-height:80px;"><span class="text-muted small">Bild hier ablegen</span></div><div class="d-flex gap-2 align-items-center"><button type="button" class="btn btn-sm btn-primary nx-inline-img-choose">Datei auswÃ¤hlen</button><button type="button" class="btn btn-sm btn-outline-secondary nx-inline-img-cancel">Abbrechen</button></div><input type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="d-none" id="nx-inline-img-file" />';
     imagePopoverEl.hidden = true;
     document.body.appendChild(imagePopoverEl);
 
-    // Kontext-Popover für Navigationslinks (Menu-Items)
+    // Kontext-Popover fÃ¼r Navigationslinks (Menu-Items)
     let navPopoverEl = document.createElement("div");
     navPopoverEl.className = "nx-nav-popover";
     navPopoverEl.innerHTML = ''
@@ -2797,11 +3073,11 @@
       + '  <button type="button" class="btn btn-sm btn-primary w-100" data-nx-nav-action="save_url">URL speichern</button>'
       + '</div>'
       + '<button type="button" class="btn btn-sm btn-outline-primary" data-nx-nav-action="add_dropdown">In Dropdown umwandeln</button>'
-      + '<button type="button" class="btn btn-sm btn-outline-primary" data-nx-nav-action="add_sublink">+ Unterlink hinzufügen</button>'
+      + '<button type="button" class="btn btn-sm btn-outline-primary" data-nx-nav-action="add_sublink">+ Unterlink hinzufÃ¼gen</button>'
       + '<button type="button" class="btn btn-sm btn-outline-warning" data-nx-nav-action="remove_dropdown">Dropdown entfernen</button>'
-      + '<button type="button" class="btn btn-sm btn-outline-success" data-nx-nav-action="add_link_after">+ Link nach diesem einfügen</button>'
-      + '<button type="button" class="btn btn-sm btn-outline-danger" data-nx-nav-action="remove_link">Link löschen</button>'
-      + '<button type="button" class="btn btn-sm btn-outline-danger" data-nx-nav-action="remove_sublink">Unterlink löschen</button>';
+      + '<button type="button" class="btn btn-sm btn-outline-success" data-nx-nav-action="add_link_after">+ Link nach diesem einfÃ¼gen</button>'
+      + '<button type="button" class="btn btn-sm btn-outline-danger" data-nx-nav-action="remove_link">Link lÃ¶schen</button>'
+      + '<button type="button" class="btn btn-sm btn-outline-danger" data-nx-nav-action="remove_sublink">Unterlink lÃ¶schen</button>';
     navPopoverEl.hidden = true;
     document.body.appendChild(navPopoverEl);
     navUrlInputEl = navPopoverEl.querySelector("[data-nx-nav-url-input]");
@@ -2848,8 +3124,7 @@
             settings[fieldName] = data.url;
             item.setAttribute("data-nx-settings", JSON.stringify(settings));
             await saveState();
-            const key = item.getAttribute("data-nx-key") || "";
-            if (key !== "core_nav_demo") await renderInto(item);
+            await rerenderSettingsItem(item);
           }
         } catch (err) { console.error("Canvas image drop upload failed", err); }
       }, false);
@@ -2859,7 +3134,7 @@
       document.querySelectorAll(".nx-live-item").forEach((item) => {
         let hint = item.querySelector(".nx-inline-hint");
         const key = item.getAttribute("data-nx-key") || "";
-        const text = ALIGN_KEYS.indexOf(key) !== -1 ? "Klick: Ausrichtung · Doppelklick: Text bearbeiten" : "Doppelklick: Text bearbeiten";
+        const text = ALIGN_KEYS.indexOf(key) !== -1 ? "Klick: Ausrichtung Â· Doppelklick: Text bearbeiten" : "Doppelklick: Text bearbeiten";
         if (!hint) {
           hint = document.createElement("div");
           hint.className = "nx-inline-hint";
@@ -2877,7 +3152,7 @@
     let navPopoverPath = "";
     let navActiveEl = null;
     let navActiveDropdownRoot = null;
-    /** Beim Inline-Bearbeiten: das DOM-Element, das text-start/center/end trägt (wird live umgehängt) */
+    /** Beim Inline-Bearbeiten: das DOM-Element, das text-start/center/end trÃ¤gt (wird live umgehÃ¤ngt) */
     let inlineEditAlignTargetEl = null;
 
     function getAlignTarget(el) {
@@ -3005,8 +3280,7 @@
           updateInlineImageInDom(imageTargetItem, imageFieldName, data.url);
           hideImagePopover();
           await saveState();
-          const key = imageTargetItem.getAttribute("data-nx-key") || "";
-          if (key !== "core_nav_demo") await renderInto(imageTargetItem);
+          await rerenderSettingsItem(imageTargetItem);
         }
       } catch (err) { console.error("Inline image upload failed", err); }
       if (inlineImgFileInput) inlineImgFileInput.value = "";
@@ -3084,7 +3358,7 @@
       navPopoverItem = item;
       navPopoverPath = pathStr;
 
-      // Menü-Kontext ermitteln
+      // MenÃ¼-Kontext ermitteln
       let settings = {};
       try {
         settings = JSON.parse(item.getAttribute("data-nx-settings") || "{}");
@@ -3121,7 +3395,7 @@
       }
 
       if (pathStr === "login") {
-        // Login-Link: nur URL-Zeile anzeigen, keine Menü-Aktionen
+        // Login-Link: nur URL-Zeile anzeigen, keine MenÃ¼-Aktionen
         if (urlRow) urlRow.style.display = "";
         setVis("save_url", true);
         setVis("add_dropdown", false);
@@ -3131,7 +3405,7 @@
         setVis("remove_link", false);
         setVis("remove_sublink", false);
       } else if (isChild) {
-        // Unterlink: URL-Editor + Unterlink löschen
+        // Unterlink: URL-Editor + Unterlink lÃ¶schen
         if (urlRow) urlRow.style.display = "";
         setVis("remove_sublink", true);
         setVis("add_dropdown", false);
@@ -3163,7 +3437,7 @@
       if (navActiveEl && navActiveEl.classList) {
         navActiveEl.classList.remove("nx-nav-edit-active");
       }
-      // Für Gear-Button: zuerst versuchen, den benachbarten Link zu markieren
+      // FÃ¼r Gear-Button: zuerst versuchen, den benachbarten Link zu markieren
       let candidate = null;
       if (targetEl.classList && targetEl.classList.contains("nx-nav-gear")) {
         const prev = targetEl.previousElementSibling;
@@ -3201,14 +3475,14 @@
       const top = desiredTop + popH > window.innerHeight ? Math.max(rect.top - popH - 8, 40) : desiredTop;
       navPopoverEl.style.top = `${top}px`;
       navPopoverEl.style.left = `${Math.max(left, 10)}px`;
-      // Pfad an Buttons hängen
+      // Pfad an Buttons hÃ¤ngen
       navPopoverEl.querySelectorAll("[data-nx-nav-action]").forEach((btn) => {
         btn.setAttribute("data-nx-nav-path", pathStr);
       });
     }
 
-    // Sprachumschalter: in Capture-Phase (läuft vor allen anderen), Navigation explizit ausführen.
-    // Hinweis: Der Selector setzt die gewählte Sprache (Flagge), die Website schaltet aber derzeit nicht zuverlässig um (offenes Thema).
+    // Sprachumschalter: in Capture-Phase (lÃ¤uft vor allen anderen), Navigation explizit ausfÃ¼hren.
+    // Hinweis: Der Selector setzt die gewÃ¤hlte Sprache (Flagge), die Website schaltet aber derzeit nicht zuverlÃ¤ssig um (offenes Thema).
     document.addEventListener("click", function (e) {
       const langLink = e.target.closest("a[data-nx-lang-link], a[href*='lang='], a[href*='setlang=']");
       if (!langLink) return;
@@ -3223,7 +3497,7 @@
     document.addEventListener("click", async (e) => {
       if (e.target.closest(".nx-live-controls")) return;
 
-      // Klick auf Gear-Button: Konfig-Popover öffnen (früh behandeln)
+      // Klick auf Gear-Button: Konfig-Popover Ã¶ffnen (frÃ¼h behandeln)
       if (!e.target.closest(".nx-nav-popover")) {
         const gear = e.target.closest('[data-nx-nav-gear="1"]');
         if (gear && gear.closest(".nx-live-content")) {
@@ -3341,7 +3615,7 @@
         e.stopPropagation();
         return;
       }
-      // Klick außerhalb von Gear/Popover schließt das Popover
+      // Klick auÃŸerhalb von Gear/Popover schlieÃŸt das Popover
       if (!e.target.closest(".nx-nav-popover")) {
         hideNavPopover();
       }
@@ -3353,14 +3627,14 @@
         }
         return;
       }
-      // Sprachumschalter-Links durchlassen (nicht abfangen), damit Sprache im Frontend/Builder übernommen wird
+      // Sprachumschalter-Links durchlassen (nicht abfangen), damit Sprache im Frontend/Builder Ã¼bernommen wird
       const langLink = e.target.closest("a[data-nx-lang-link], a[href*='lang='], a[href*='setlang=']");
       if (langLink && content.contains(langLink)) {
         return;
       }
       const item = content.closest(".nx-live-item");
       if (!item) return;
-      // Ein einfacher Klick auf einen Widget-Inhalt öffnet immer die Einstellungen
+      // Ein einfacher Klick auf einen Widget-Inhalt Ã¶ffnet immer die Einstellungen
       openSettingsForItem(item);
       const inlineEl = e.target.closest("[data-nx-inline]");
       if (inlineEl && (inlineEl.tagName === "A" || inlineEl.closest("a"))) {
@@ -3371,7 +3645,7 @@
       const imgOrPlaceholder = e.target.closest("[data-nx-inline]");
       const inlineField = imgOrPlaceholder && imgOrPlaceholder.getAttribute("data-nx-inline");
       if (inlineField === "src" || inlineField === "image") {
-        // Spezialfall: Logo in Navigation (core_nav_demo) – leite auf Logo-Upload im Sidebar-Panel um
+        // Spezialfall: Logo in Navigation (core_nav_demo) â€“ leite auf Logo-Upload im Sidebar-Panel um
         if (key === "core_nav_demo" && settingsFields) {
           const logoBtn = settingsFields.querySelector("[data-nx-navlogo-upload-btn]");
           if (logoBtn) {
@@ -3474,10 +3748,10 @@
         sel.removeAllRanges();
         sel.addRange(range);
       } catch (err) {}
-      const PLACEHOLDER_TEXTS = ["Untertitel – Doppelklick zum Hinzufügen", "Bildunterschrift – Doppelklick zum Hinzufügen", "Text – Doppelklick zum Hinzufügen", "Button – Doppelklick", "Zweiter Button – Doppelklick", "Autor – Doppelklick", "Quelle – Doppelklick", "Überschrift – Doppelklick", "Antwort – Doppelklick zum Hinzufügen"];
+      const PLACEHOLDER_TEXTS = ["Untertitel â€“ Doppelklick zum HinzufÃ¼gen", "Bildunterschrift â€“ Doppelklick zum HinzufÃ¼gen", "Text â€“ Doppelklick zum HinzufÃ¼gen", "Button â€“ Doppelklick", "Zweiter Button â€“ Doppelklick", "Autor â€“ Doppelklick", "Quelle â€“ Doppelklick", "Ãœberschrift â€“ Doppelklick", "Antwort â€“ Doppelklick zum HinzufÃ¼gen"];
       function finish() {
         let val;
-        // Für Features-Textareas (z. B. planX_features) sollen Zeilenumbrüche erhalten bleiben.
+        // FÃ¼r Features-Textareas (z. B. planX_features) sollen ZeilenumbrÃ¼che erhalten bleiben.
         if (settingsKey && settingsKey.endsWith("_features")) {
           let raw = (el.innerText || "");
           raw = raw.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
@@ -3547,7 +3821,7 @@
 
     const key = (widgetKey || "").trim();
 
-    // Nur für Core-Widgets spezielle Felder anzeigen
+    // Nur fÃ¼r Core-Widgets spezielle Felder anzeigen
     if (key === "core_heading") {
       const wrapper = document.createElement("div");
       wrapper.innerHTML = `
@@ -3608,14 +3882,19 @@
           <input type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml" class="d-none" data-nx-navlogo-upload-input />
         </div>
         <div class="mb-2">
-          <label class="form-label small">Menüquelle</label>
-          <select class="form-select form-select-sm" data-nx-field="menuSource" data-bs-toggle="tooltip" data-bs-placement="top" title="Bei Plugin-Navigation kommen Einträge aus der Datenbank zusammenhängend mit dem Plugin &quot;Navigation.&quot; Logo, Padding, Hover-Effekt bleiben anpassbar.">
-            <option value="custom">Eigenes Menü (im Canvas bearbeiten)</option>
-            <option value="plugin">Plugin-Navigation (Kategorien & Links aus Admin)</option>
-          </select>
+          <label class="form-label small">Menü</label>
+          <div class="form-text small text-muted">Links bearbeitest du direkt im Canvas über Doppelklick und Zahnrad.</div>
         </div>
         <hr class="my-2">
         <div class="row g-2 mb-2">
+          <div class="col-4">
+            <label class="form-label small">Variante</label>
+            <select class="form-select form-select-sm" data-nx-field="navVariant">
+              <option value="standard">Standard</option>
+              <option value="sticky">Sticky</option>
+              <option value="agency">Agency</option>
+            </select>
+          </div>
           <div class="col-4">
             <label class="form-label small">Farbschema</label>
             <select class="form-select form-select-sm" data-nx-field="scheme">
@@ -3679,6 +3958,27 @@
         </div>
         <hr class="my-2">
         <div class="mb-2">
+          <label class="form-label small">Navbar-Hintergrund</label>
+          <input type="text" class="form-control form-control-sm" data-nx-field="navBgColor" placeholder="leer = Basis-Design / z.B. #ffffff" />
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Navbar-Textfarbe</label>
+          <input type="text" class="form-control form-control-sm" data-nx-field="navTextColor" placeholder="leer = automatisch / z.B. #171717" />
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Navbar-Hoverfarbe</label>
+          <input type="text" class="form-control form-control-sm" data-nx-field="navHoverColor" placeholder="leer = Primärfarbe / z.B. #fe821d" />
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Scroll-Hintergrund</label>
+          <input type="text" class="form-control form-control-sm" data-nx-field="navFillBgColor" placeholder="für Agency / leer = Navbar-Hintergrund" />
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Scroll-Textfarbe</label>
+          <input type="text" class="form-control form-control-sm" data-nx-field="navFillTextColor" placeholder="für Agency / leer = Navbar-Textfarbe" />
+        </div>
+        <hr class="my-2">
+        <div class="mb-2">
           <label class="form-label small">Overlay über erstem Hero (transparent)</label>
           <select class="form-select form-select-sm" data-nx-field="overlayMode">
             <option value="0">Aus</option>
@@ -3707,7 +4007,7 @@
           </div>
         </div>
         <div class="mb-2">
-          <label class="form-label small">Schatten (gefüllt)</label>
+          <label class="form-label small">Schatten (gefÃ¼llt)</label>
           <select class="form-select form-select-sm" data-nx-field="filledShadow">
             <option value="">Kein Schatten</option>
             <option value="shadow-sm">Leicht</option>
@@ -3721,43 +4021,23 @@
       if (brandInput) {
         brandInput.placeholder = brandPlaceholder;
         brandInput.setAttribute("title", clanFromSettings
-          ? "Priorität hat der Clanname aus den Backend-Einstellungen (aktuell: \"" + clanFromSettings + "\"). Feld leer lassen = Clanname anzeigen; hier nur Override eingeben, wenn gewünscht."
-          : "Priorität hat der Clanname aus den Backend-Einstellungen. Wenn dort nichts gesetzt ist, erscheint dieser Text (oder ein Logo-Bild).");
+          ? "PrioritÃ¤t hat der Clanname aus den Backend-Einstellungen (aktuell: \"" + clanFromSettings + "\"). Feld leer lassen = Clanname anzeigen; hier nur Override eingeben, wenn gewÃ¼nscht."
+          : "PrioritÃ¤t hat der Clanname aus den Backend-Einstellungen. Wenn dort nichts gesetzt ist, erscheint dieser Text (oder ein Logo-Bild).");
       }
-      // Bei Wechsel auf "Plugin-Navigation" Menü aus Admin laden und setzen (editierbar)
-      const menuSourceSelect = wrapper.querySelector('[data-nx-field="menuSource"]');
-      if (menuSourceSelect) {
-        menuSourceSelect.addEventListener("change", async function () {
-          if (this.value !== "plugin" || !currentSettingsItem) return;
-          try {
-            var res = await fetch(RENDER_ENDPOINT, {
-              method: "POST",
-              headers: { "Content-Type": "application/json", "X-CSRF-Token": CSRF },
-              body: JSON.stringify({ action: "get_plugin_nav_menu", csrf: CSRF }),
-              credentials: "same-origin",
-            });
-            var data = await res.json();
-            if (data && data.ok && Array.isArray(data.menu)) {
-              var obj = {};
-              try { obj = JSON.parse(currentSettingsItem.getAttribute("data-nx-settings") || "{}"); } catch (e) {}
-              obj.menuSource = "plugin";
-              obj.menu = data.menu;
-              currentSettingsItem.setAttribute("data-nx-settings", JSON.stringify(obj));
-              if (settingsTextarea) settingsTextarea.value = JSON.stringify(obj, null, 2);
-              if (typeof saveState === "function") await saveState();
-              if (typeof renderInto === "function") await renderInto(currentSettingsItem);
-            }
-          } catch (e) { console.error("Plugin menu fetch failed", e); }
-        });
-      }
-
-      // Live-Vorschau für Schema / Schatten / Container / Padding im Builder anpassen
+      // Bei Wechsel auf "Plugin-Navigation" MenÃ¼ aus Admin laden und setzen (editierbar)
+      // Live-Vorschau fÃ¼r Schema / Schatten / Container / Padding im Builder anpassen
+      const navVariantSelect = wrapper.querySelector('[data-nx-field="navVariant"]');
       const schemeSelect = wrapper.querySelector('[data-nx-field="scheme"]');
       const shadowSelect = wrapper.querySelector('[data-nx-field="shadow"]');
       const containerSelect = wrapper.querySelector('[data-nx-field="container"]');
       const paddingInput = wrapper.querySelector('[data-nx-field="paddingY"]');
       const paddingXInput = wrapper.querySelector('[data-nx-field="paddingX"]');
       const hoverEffectSelect = wrapper.querySelector('[data-nx-field="hoverEffect"]');
+      const navBgColorInput = wrapper.querySelector('[data-nx-field="navBgColor"]');
+      const navTextColorInput = wrapper.querySelector('[data-nx-field="navTextColor"]');
+      const navHoverColorInput = wrapper.querySelector('[data-nx-field="navHoverColor"]');
+      const navFillBgColorInput = wrapper.querySelector('[data-nx-field="navFillBgColor"]');
+      const navFillTextColorInput = wrapper.querySelector('[data-nx-field="navFillTextColor"]');
       const overlayModeSelect = wrapper.querySelector('[data-nx-field="overlayMode"]');
       const overlayTextModeSelect = wrapper.querySelector('[data-nx-field="overlayTextMode"]');
       const scrollFillSelect = wrapper.querySelector('[data-nx-field="scrollFill"]');
@@ -3769,6 +4049,7 @@
         if (!currentSettingsItem) return;
         const nav = currentSettingsItem.querySelector(".nx-live-content nav.navbar");
         if (!nav) return;
+        const navVariant = navVariantSelect ? navVariantSelect.value || "standard" : "standard";
         const scheme = schemeSelect ? schemeSelect.value || "light" : "light";
         const shadow = shadowSelect ? shadowSelect.value || "" : "";
         const containerMode = containerSelect ? containerSelect.value || "fluid" : "fluid";
@@ -3779,21 +4060,40 @@
         const padXNumeric = padXRaw && /^[0-9]+$/.test(padXRaw) ? parseInt(padXRaw, 10) : null;
         const padX = padXNumeric !== null ? padXNumeric + "px" : padXRaw;
         const hoverEffect = hoverEffectSelect ? hoverEffectSelect.value || "default" : "default";
-        const overlayMode = overlayModeSelect ? overlayModeSelect.value === "1" : false;
+        const navBgColor = navBgColorInput ? String(navBgColorInput.value || "").trim() : "";
+        const navTextColor = navTextColorInput ? String(navTextColorInput.value || "").trim() : "";
+        const navHoverColor = navHoverColorInput ? String(navHoverColorInput.value || "").trim() : "";
+        const navFillBgColor = navFillBgColorInput ? String(navFillBgColorInput.value || "").trim() : "";
+        const navFillTextColor = navFillTextColorInput ? String(navFillTextColorInput.value || "").trim() : "";
+        let overlayMode = overlayModeSelect ? overlayModeSelect.value === "1" : false;
         const overlayTextMode = overlayTextModeSelect ? overlayTextModeSelect.value || "light" : "light";
+        if (navVariant === "sticky") {
+          overlayMode = false;
+          if (overlayModeSelect) overlayModeSelect.value = "0";
+        } else if (navVariant === "agency") {
+          overlayMode = true;
+          if (overlayModeSelect) overlayModeSelect.value = "1";
+        }
         // Overlay + ScrollFill sollen zusammen funktionieren:
-        // Wenn Overlay aktiv ist, ist ScrollFill standardmäßig AN (sonst wirkt es "weiß & statisch").
+        // Wenn Overlay aktiv ist, ist ScrollFill standardmÃ¤ÃŸig AN (sonst wirkt es "weiÃŸ & statisch").
         if (overlayMode && scrollFillSelect && scrollFillSelect.value !== "1") {
           scrollFillSelect.value = "1";
         }
-        const scrollFill = scrollFillSelect ? scrollFillSelect.value === "1" : false;
+        let scrollFill = scrollFillSelect ? scrollFillSelect.value === "1" : false;
+        if (navVariant === "sticky") {
+          scrollFill = false;
+          if (scrollFillSelect) scrollFillSelect.value = "0";
+        } else if (navVariant === "agency") {
+          scrollFill = true;
+          if (scrollFillSelect) scrollFillSelect.value = "1";
+        }
         const scrollFillOffsetRaw = scrollFillOffsetInput ? String(scrollFillOffsetInput.value || "").trim() : "";
         const scrollFillOffset = scrollFillOffsetRaw && /^[0-9]+$/.test(scrollFillOffsetRaw) ? parseInt(scrollFillOffsetRaw, 10) : 80;
         const filledShadow = filledShadowSelect ? filledShadowSelect.value || "" : "";
 
         // Farbschema
         nav.classList.remove("navbar-light", "navbar-dark", "bg-white", "bg-dark", "border-bottom");
-        nav.classList.remove("bg-transparent");
+        nav.classList.remove("bg-transparent", "sticky-top", "nx-nav-variant-standard", "nx-nav-variant-sticky", "nx-nav-variant-agency");
         if (overlayMode) {
           nav.classList.add("bg-transparent");
           if (overlayTextMode === "dark") nav.classList.add("navbar-light");
@@ -3801,14 +4101,31 @@
         } else if (scheme === "dark") {
           nav.classList.add("navbar-dark", "bg-dark");
         } else {
-          // Keine zusätzliche Border-Bottom-Linie – die Unterstreichungs-Effekte übernehmen die Betonung
+          // Keine zusÃ¤tzliche Border-Bottom-Linie â€“ die Unterstreichungs-Effekte Ã¼bernehmen die Betonung
           nav.classList.add("navbar-light", "bg-white");
         }
+        if (navVariant === "sticky") {
+          nav.classList.add("sticky-top", "nx-nav-variant-sticky");
+        } else if (navVariant === "agency") {
+          nav.classList.add("nx-nav-variant-agency");
+        } else {
+          nav.classList.add("nx-nav-variant-standard");
+        }
+
+        const setCssVar = (prop, value) => {
+          if (value) nav.style.setProperty(prop, value);
+          else nav.style.removeProperty(prop);
+        };
+        setCssVar("--nx-demo-nav-bg", navBgColor);
+        setCssVar("--nx-demo-nav-text", navTextColor);
+        setCssVar("--nx-demo-nav-hover", navHoverColor);
+        setCssVar("--nx-demo-nav-fill-bg", navFillBgColor || navBgColor);
+        setCssVar("--nx-demo-nav-fill-text", navFillTextColor || navTextColor);
 
         // Schatten
         nav.classList.remove("shadow-sm", "shadow", "shadow-lg");
         if (!overlayMode && shadow) nav.classList.add(shadow);
-        // Zusätzliche, explizite Schatten im Builder setzen, falls Theme/Bootstrap die Utility-Klassen überschreibt
+        // ZusÃ¤tzliche, explizite Schatten im Builder setzen, falls Theme/Bootstrap die Utility-Klassen Ã¼berschreibt
         nav.style.boxShadow = "";
         if (!overlayMode && shadow === "shadow-sm") {
           nav.style.boxShadow = "0 .125rem .25rem rgba(0,0,0,.075)";
@@ -3852,7 +4169,7 @@
         }
 
         // Padding-Wert auch direkt in den Widget-Settings speichern,
-        // damit er im Live-Builder erhalten bleibt (z.B. nach erneutem Öffnen / globalem Speichern).
+        // damit er im Live-Builder erhalten bleibt (z.B. nach erneutem Ã–ffnen / globalem Speichern).
         if (currentSettingsItem) {
           try {
             const rawSettings = currentSettingsItem.getAttribute("data-nx-settings") || "{}";
@@ -3860,11 +4177,17 @@
             parsed.paddingY = padY || "";
             parsed.paddingX = padX || "";
             parsed.hoverEffect = hoverEffect;
+            parsed.navVariant = navVariant;
             parsed.overlayMode = overlayMode;
             parsed.overlayTextMode = overlayTextMode;
             parsed.scrollFill = scrollFill;
             parsed.scrollFillOffset = scrollFillOffset;
             parsed.filledShadow = filledShadow;
+            parsed.navBgColor = navBgColor;
+            parsed.navTextColor = navTextColor;
+            parsed.navHoverColor = navHoverColor;
+            parsed.navFillBgColor = navFillBgColor;
+            parsed.navFillTextColor = navFillTextColor;
             currentSettingsItem.setAttribute("data-nx-settings", JSON.stringify(parsed));
             if (settingsTextarea) {
               settingsTextarea.value = JSON.stringify(parsed, null, 2);
@@ -3876,7 +4199,8 @@
 
         nav.setAttribute("data-nx-overlay", overlayMode ? "1" : "0");
         nav.setAttribute("data-nx-overlay-text", overlayTextMode);
-        // Für die gefüllte Hintergrundfarbe (scheme light/dark) – damit Header+Nav identisch zur standalone Nav wirkt
+        nav.setAttribute("data-nx-nav-variant", navVariant);
+        // FÃ¼r die gefÃ¼llte Hintergrundfarbe (scheme light/dark) â€“ damit Header+Nav identisch zur standalone Nav wirkt
         nav.setAttribute("data-nx-fill-scheme", scheme);
         nav.setAttribute("data-nx-scrollfill", scrollFill ? "1" : "0");
         nav.setAttribute("data-nx-scrollfill-offset", String(scrollFillOffset));
@@ -3894,7 +4218,7 @@
           // WICHTIG: Immer nx-keep-container setzen, damit der Builder dieses Demo-Container-Layout nicht auf volle Breite zieht
           inner.classList.add("nx-keep-container");
         }
-        // Nav-Marker-Klasse für Builder (fixed vs. fluid)
+        // Nav-Marker-Klasse fÃ¼r Builder (fixed vs. fluid)
         nav.classList.remove("nx-nav-fixed", "nx-nav-fluid");
         nav.classList.add(containerMode === "fixed" ? "nx-nav-fixed" : "nx-nav-fluid");
       };
@@ -3905,14 +4229,14 @@
         if (!nav) return;
         const brand = nav.querySelector(".navbar-brand");
         if (!brand) return;
-        // Ersetze den Brand-Inhalt durch ein Logo-Bild mit finaler Höhe
+        // Ersetze den Brand-Inhalt durch ein Logo-Bild mit finaler HÃ¶he
         brand.classList.remove("d-flex", "align-items-center", "gap-2");
         brand.innerHTML =
           '<img src="' +
           logoUrl +
-          '" alt="" style="max-height:calc(70px);height:70px;" class="d-inline-block align-text-bottom" data-nx-inline="image" title="Klick: Logo ändern">';
+          '" alt="" style="max-height:calc(70px);height:70px;" class="d-inline-block align-text-bottom" data-nx-inline="image" title="Klick: Logo Ã¤ndern">';
       };
-      // Initialwerte aus Settings übernehmen
+      // Initialwerte aus Settings Ã¼bernehmen
       if (paddingInput) {
         let initial = 0;
         if (typeof settings.paddingY === "string") {
@@ -3940,6 +4264,18 @@
             : "default";
         hoverEffectSelect.value = initialEffect;
       }
+      if (navVariantSelect) {
+        const initialVariant =
+          typeof settings.navVariant === "string" && settings.navVariant
+            ? settings.navVariant
+            : "standard";
+        navVariantSelect.value = ["standard", "sticky", "agency"].includes(initialVariant) ? initialVariant : "standard";
+      }
+      if (navBgColorInput) navBgColorInput.value = typeof settings.navBgColor === "string" ? settings.navBgColor : "";
+      if (navTextColorInput) navTextColorInput.value = typeof settings.navTextColor === "string" ? settings.navTextColor : "";
+      if (navHoverColorInput) navHoverColorInput.value = typeof settings.navHoverColor === "string" ? settings.navHoverColor : "";
+      if (navFillBgColorInput) navFillBgColorInput.value = typeof settings.navFillBgColor === "string" ? settings.navFillBgColor : "";
+      if (navFillTextColorInput) navFillTextColorInput.value = typeof settings.navFillTextColor === "string" ? settings.navFillTextColor : "";
 
       // Fallback: Wenn Settings im JSON fehlen (z.B. nach Bundle/Reload),
       // nehmen wir die bereits gerenderten Nav-Attribute als Quelle.
@@ -3981,19 +4317,25 @@
       const offsetFallback = navOffsetAttr && /^[0-9]+$/.test(String(navOffsetAttr)) ? String(navOffsetAttr) : "80";
       const overlayTextFallback = navOverlayTextAttr === "dark" ? "dark" : "light";
       const filledShadowFallback = typeof navFilledShadowAttr === "string" && navFilledShadowAttr ? navFilledShadowAttr : "";
+      const navVariantDefault =
+        settings && typeof settings.navVariant === "string" && ["standard", "sticky", "agency"].includes(settings.navVariant)
+          ? settings.navVariant
+          : "standard";
+      const variantOverlayDefault = navVariantDefault === "agency" ? "1" : "0";
+      const variantScrollDefault = navVariantDefault === "agency" ? "1" : "0";
 
       // Defaults: im Header+Navbar Preset sollen diese beiden Optionen nachvollziehbar AN sein.
       setSelectValueSafe(
         overlayModeSelect,
-        nxToBool(settings && settings.overlayMode, true) ? "1" : "0",
-        "1"
+        nxToBool(settings && settings.overlayMode, navVariantDefault === "agency") ? "1" : "0",
+        variantOverlayDefault
       );
       if (overlayTextModeSelect) overlayTextModeSelect.value =
         (settings && typeof settings.overlayTextMode === "string" && settings.overlayTextMode) || overlayTextFallback;
       setSelectValueSafe(
         scrollFillSelect,
-        nxToBool(settings && settings.scrollFill, true) ? "1" : "0",
-        "1"
+        nxToBool(settings && settings.scrollFill, navVariantDefault === "agency") ? "1" : "0",
+        variantScrollDefault
       );
       if (scrollFillOffsetInput) scrollFillOffsetInput.value =
         settings && typeof settings.scrollFillOffset !== "undefined" ? String(settings.scrollFillOffset) : offsetFallback;
@@ -4005,19 +4347,25 @@
 
       // Wenn Selects aus irgendeinem Grund leer bleiben, hart auf Defaults setzen.
       if (overlayModeSelect && (overlayModeSelect.value !== "0" && overlayModeSelect.value !== "1")) {
-        overlayModeSelect.value = "1";
+        overlayModeSelect.value = variantOverlayDefault;
       }
       if (scrollFillSelect && (scrollFillSelect.value !== "0" && scrollFillSelect.value !== "1")) {
-        scrollFillSelect.value = "1";
+        scrollFillSelect.value = variantScrollDefault;
       }
 
       [
+        navVariantSelect,
         schemeSelect,
         shadowSelect,
         containerSelect,
         paddingInput,
         paddingXInput,
         hoverEffectSelect,
+        navBgColorInput,
+        navTextColorInput,
+        navHoverColorInput,
+        navFillBgColorInput,
+        navFillTextColorInput,
         overlayModeSelect,
         overlayTextModeSelect,
         scrollFillSelect,
@@ -4037,6 +4385,15 @@
       if (scrollFillOffsetInput) {
         scrollFillOffsetInput.addEventListener("input", applyNavDemoPreview);
       }
+      [
+        navBgColorInput,
+        navTextColorInput,
+        navHoverColorInput,
+        navFillBgColorInput,
+        navFillTextColorInput,
+      ].forEach((input) => {
+        if (input) input.addEventListener("input", applyNavDemoPreview);
+      });
 
       // Direkt einmal aufrufen, damit die Builder-Vorschau (Transparenz/Background)
       // exakt zu den aktuell gerenderten Nav-Attributen passt.
@@ -4048,14 +4405,15 @@
         if (currentSettingsItem) {
           const raw = currentSettingsItem.getAttribute("data-nx-settings") || "{}";
           const parsed = raw.trim() ? JSON.parse(raw) : {};
-          if (typeof parsed.overlayMode === "undefined") parsed.overlayMode = true;
-          if (typeof parsed.scrollFill === "undefined") parsed.scrollFill = true;
+          if (typeof parsed.navVariant === "undefined") parsed.navVariant = "standard";
+          if (typeof parsed.overlayMode === "undefined") parsed.overlayMode = parsed.navVariant === "agency";
+          if (typeof parsed.scrollFill === "undefined") parsed.scrollFill = parsed.navVariant === "agency";
           currentSettingsItem.setAttribute("data-nx-settings", JSON.stringify(parsed));
           if (settingsTextarea) settingsTextarea.value = JSON.stringify(parsed, null, 2);
         }
       } catch (e) {}
 
-      // Upload-Button für Logo-Bild anbinden (gleiches Muster wie Header/Images)
+      // Upload-Button fÃ¼r Logo-Bild anbinden (gleiches Muster wie Header/Images)
       const navLogoUploadBtn = wrapper.querySelector("[data-nx-navlogo-upload-btn]");
       const navLogoUploadInput = wrapper.querySelector("[data-nx-navlogo-upload-input]");
       const navLogoField = wrapper.querySelector('[data-nx-field="image"]');
@@ -4085,8 +4443,8 @@
                   applyNavLogoPreview(activeNavItem, data.url);
                 }
                 // Settings speichern, damit das Logo nach Reload erhalten bleibt.
-                // WICHTIG: Bestehende Settings (z. B. menu für Dropdowns) vom Item übernehmen,
-                // nur Formularfelder überschreiben – sonst gehen Dropdowns und Gear-Icons verloren.
+                // WICHTIG: Bestehende Settings (z. B. menu fÃ¼r Dropdowns) vom Item Ã¼bernehmen,
+                // nur Formularfelder Ã¼berschreiben â€“ sonst gehen Dropdowns und Gear-Icons verloren.
                 if (activeNavItem && settingsFields) {
                   let obj = {};
                   try {
@@ -4099,7 +4457,7 @@
                     else if (el.tagName === "SELECT") obj[key] = el.value;
                     else obj[key] = el.value;
                   });
-                  // Speziell für Navigation: Padding-Werte wieder als px normalisieren,
+                  // Speziell fÃ¼r Navigation: Padding-Werte wieder als px normalisieren,
                   // damit das Frontend korrekt rendert (nicht "26" sondern "26px").
                   const currentKey = activeNavItem.getAttribute("data-nx-key") || "";
                   if (currentKey === "core_nav_demo") {
@@ -4133,7 +4491,7 @@
       wrapper.innerHTML = `
         <div class="mb-2">
           <label class="form-label small">Titel</label>
-          <input type="text" class="form-control form-control-sm" data-nx-field="title" placeholder="Überschrift" />
+          <input type="text" class="form-control form-control-sm" data-nx-field="title" placeholder="Ãœberschrift" />
         </div>
         <div class="mb-2">
           <label class="form-label small">Untertitel (optional)</label>
@@ -4142,14 +4500,14 @@
         <div class="mb-2">
           <label class="form-label small">Bild (optional)</label>
           <div class="input-group input-group-sm nx-img-drop-zone" title="Bild hier ablegen">
-            <input type="text" class="form-control form-control-sm" data-nx-field="image" placeholder="/images/content/…" />
+            <input type="text" class="form-control form-control-sm" data-nx-field="image" placeholder="/images/content/â€¦" />
             <button type="button" class="btn btn-outline-secondary" data-nx-header-upload-btn title="Bild hochladen">Hochladen</button>
           </div>
           <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="d-none" data-nx-header-upload-input />
         </div>
         <div class="row g-2 mb-2">
           <div class="col-6">
-            <label class="form-label small">Bildhöhe (optional)</label>
+            <label class="form-label small">BildhÃ¶he (optional)</label>
             <input type="text" class="form-control form-control-sm" data-nx-field="imageHeight" placeholder="z. B. 280" />
           </div>
           <div class="col-6">
@@ -4162,7 +4520,7 @@
           </div>
         </div>
         <div class="mb-2">
-          <label class="form-label small">Vignette Größe <span class="nx-vignette-size-val text-muted">40</span>%</label>
+          <label class="form-label small">Vignette GrÃ¶ÃŸe <span class="nx-vignette-size-val text-muted">40</span>%</label>
           <input type="range" class="form-range" data-nx-field="vignetteSize" min="0" max="100" value="40" />
         </div>
         <div class="mb-2">
@@ -4182,7 +4540,7 @@
             </select>
           </div>
           <div class="col-6">
-            <label class="form-label small">Größe (optional)</label>
+            <label class="form-label small">GrÃ¶ÃŸe (optional)</label>
             <select class="form-select form-select-sm" data-nx-field="display">
               <option value="">Standard</option>
               <option value="display-6">Display 6</option>
@@ -4262,11 +4620,11 @@
           </div>
           <div class="col-6">
             <label class="form-label small">Link (URL)</label>
-            <input type="url" class="form-control form-control-sm" placeholder="https://…" data-nx-field="url" />
+            <input type="url" class="form-control form-control-sm" placeholder="https://â€¦" data-nx-field="url" />
           </div>
         </div>
         <div class="mb-2">
-          <label class="form-label small">Zusätzliche CSS-Klassen (optional)</label>
+          <label class="form-label small">ZusÃ¤tzliche CSS-Klassen (optional)</label>
           <input type="text" class="form-control form-control-sm" placeholder="z.B. rounded-pill" data-nx-field="class" />
         </div>
         <div class="row g-2 mb-2">
@@ -4292,21 +4650,21 @@
             </select>
           </div>
           <div class="col-6">
-            <label class="form-label small">Größe</label>
+            <label class="form-label small">GrÃ¶ÃŸe</label>
             <select class="form-select form-select-sm" data-nx-field="size">
               <option value="md">Normal</option>
               <option value="sm">Klein</option>
-              <option value="lg">Groß</option>
+              <option value="lg">GroÃŸ</option>
             </select>
           </div>
         </div>
         <div class="form-check form-switch mb-2">
           <input class="form-check-input" type="checkbox" id="nx-field-block" data-nx-field="block">
-          <label class="form-check-label small" for="nx-field-block">Über gesamte Breite</label>
+          <label class="form-check-label small" for="nx-field-block">Ãœber gesamte Breite</label>
         </div>
         <div class="form-check form-switch mb-2">
           <input class="form-check-input" type="checkbox" id="nx-field-targetblank" data-nx-field="targetBlank">
-          <label class="form-check-label small" for="nx-field-targetblank">In neuem Tab öffnen</label>
+          <label class="form-check-label small" for="nx-field-targetblank">In neuem Tab Ã¶ffnen</label>
         </div>
         <hr class="my-2">
         <div class="row g-2 mb-2">
@@ -4337,7 +4695,7 @@
         <div class="mb-2">
           <label class="form-label small">Text (einfach)</label>
           <textarea class="form-control form-control-sm" rows="3" data-nx-field="text"></textarea>
-          <div class="form-text small">Für komplexere Inhalte kannst du unten den HTML/JSON-Block verwenden.</div>
+          <div class="form-text small">FÃ¼r komplexere Inhalte kannst du unten den HTML/JSON-Block verwenden.</div>
         </div>
         <div class="row g-2 mb-2">
           <div class="col-6">
@@ -4367,7 +4725,7 @@
         <div class="mb-2">
           <label class="form-label small">Bild</label>
           <div class="input-group input-group-sm nx-img-drop-zone" title="Bild hier ablegen">
-            <input type="text" class="form-control form-control-sm" data-nx-field="src" placeholder="https://… oder /images/content/…" />
+            <input type="text" class="form-control form-control-sm" data-nx-field="src" placeholder="https://â€¦ oder /images/content/â€¦" />
             <button type="button" class="btn btn-outline-secondary" data-nx-upload-btn title="Bild hochladen">Hochladen</button>
           </div>
           <small class="text-muted d-block mt-1">oder Bild per Drag &amp; Drop hier ablegen</small>
@@ -4395,7 +4753,7 @@
             </select>
           </div>
           <div class="col-6">
-            <label class="form-label small">Seitenverhältnis (optional)</label>
+            <label class="form-label small">SeitenverhÃ¤ltnis (optional)</label>
             <select class="form-select form-select-sm" data-nx-field="ratio">
               <option value="">Automatisch</option>
               <option value="16:9">16:9</option>
@@ -4460,7 +4818,7 @@
         </div>
         <div class="mb-2">
           <label class="form-label small">Untertitel</label>
-          <input type="text" class="form-control form-control-sm" data-nx-field="subtitle" placeholder="Kurzer Eyecatcher über der Überschrift" />
+          <input type="text" class="form-control form-control-sm" data-nx-field="subtitle" placeholder="Kurzer Eyecatcher Ã¼ber der Ãœberschrift" />
         </div>
         <div class="mb-2">
           <label class="form-label small">Text</label>
@@ -4473,23 +4831,23 @@
           </div>
           <div class="col-6">
             <label class="form-label small">Haupt-Button URL</label>
-            <input type="url" class="form-control form-control-sm" data-nx-field="primaryUrl" placeholder="https://…" />
+            <input type="url" class="form-control form-control-sm" data-nx-field="primaryUrl" placeholder="https://â€¦" />
           </div>
         </div>
         <div class="row g-2 mb-2">
           <div class="col-6">
-            <label class="form-label small">Sekundär-Button Label</label>
+            <label class="form-label small">SekundÃ¤r-Button Label</label>
             <input type="text" class="form-control form-control-sm" data-nx-field="secondaryLabel" placeholder="Optional, z.B. Mehr erfahren" />
           </div>
           <div class="col-6">
-            <label class="form-label small">Sekundär-Button URL</label>
-            <input type="url" class="form-control form-control-sm" data-nx-field="secondaryUrl" placeholder="https://…" />
+            <label class="form-label small">SekundÃ¤r-Button URL</label>
+            <input type="url" class="form-control form-control-sm" data-nx-field="secondaryUrl" placeholder="https://â€¦" />
           </div>
         </div>
         <div class="mb-2">
           <label class="form-label small">Hintergrundbild</label>
           <div class="input-group input-group-sm nx-img-drop-zone" title="Bild hier ablegen">
-            <input type="text" class="form-control form-control-sm" data-nx-field="bgImage" placeholder="/images/content/…" />
+            <input type="text" class="form-control form-control-sm" data-nx-field="bgImage" placeholder="/images/content/â€¦" />
             <button type="button" class="btn btn-outline-secondary" data-nx-hero-upload-btn title="Bild hochladen">Hochladen</button>
           </div>
           <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="d-none" data-nx-hero-upload-input />
@@ -4507,20 +4865,20 @@
           <div class="col-6">
             <label class="form-label small">Textmodus</label>
             <select class="form-select form-select-sm" data-nx-field="mode">
-              <option value="light">Hell (für dunklen Hintergrund)</option>
-              <option value="dark">Dunkel (für hellen Hintergrund)</option>
+              <option value="light">Hell (fÃ¼r dunklen Hintergrund)</option>
+              <option value="dark">Dunkel (fÃ¼r hellen Hintergrund)</option>
             </select>
           </div>
         </div>
         <div class="row g-2 mb-2">
           <div class="col-6">
-            <label class="form-label small">Hero-Höhe</label>
+            <label class="form-label small">Hero-HÃ¶he</label>
             <select class="form-select form-select-sm" data-nx-field="heightMode">
               <option value="">Automatisch (Inhalt)</option>
               <option value="vh-40">Kompakt (ca. 40vh)</option>
               <option value="vh-50">Mittel (ca. 50vh)</option>
-              <option value="vh-60">Groß (ca. 60vh)</option>
-              <option value="vh-80">Sehr groß (ca. 80vh)</option>
+              <option value="vh-60">GroÃŸ (ca. 60vh)</option>
+              <option value="vh-80">Sehr groÃŸ (ca. 80vh)</option>
               <option value="vh-100">Vollbild (100vh)</option>
             </select>
           </div>
@@ -4529,7 +4887,7 @@
             <select class="form-select form-select-sm" data-nx-field="padding">
               <option value="py-5">Standard</option>
               <option value="py-4">Kompakter</option>
-              <option value="py-6">Groß</option>
+              <option value="py-6">GroÃŸ</option>
               <option value="py-0">Ohne</option>
             </select>
           </div>
@@ -4598,7 +4956,7 @@
             <select class="form-select form-select-sm" data-nx-field="padding">
               <option value="py-3">Klein (py-3)</option>
               <option value="py-4">Standard (py-4)</option>
-              <option value="py-5">Groß (py-5)</option>
+              <option value="py-5">GroÃŸ (py-5)</option>
               <option value="py-0">Ohne</option>
             </select>
           </div>
@@ -4606,6 +4964,11 @@
             <label class="form-label small">Hintergrund (CSS-Klasse)</label>
             <input type="text" class="form-control form-control-sm" placeholder="z.B. bg-light" data-nx-field="bg" />
           </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Contentbreite</label>
+          <input type="text" class="form-control form-control-sm" placeholder="z.B. 1200px, 90rem, 100%" data-nx-field="content_width" />
+          <div class="form-text small">Leer = Bootstrap-Standardbreite.</div>
         </div>
         <div class="mb-2">
           <label class="form-label small">Sichtbarkeit</label>
@@ -4636,7 +4999,7 @@
             <select class="form-select form-select-sm" data-nx-field="padding">
               <option value="py-3">Klein (py-3)</option>
               <option value="py-4">Standard (py-4)</option>
-              <option value="py-5">Groß (py-5)</option>
+              <option value="py-5">GroÃŸ (py-5)</option>
               <option value="py-0">Ohne</option>
             </select>
           </div>
@@ -4644,6 +5007,11 @@
             <label class="form-label small">Hintergrund (CSS-Klasse)</label>
             <input type="text" class="form-control form-control-sm" placeholder="z.B. bg-light" data-nx-field="bg" />
           </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Contentbreite</label>
+          <input type="text" class="form-control form-control-sm" placeholder="z.B. 1200px, 90rem, 100%" data-nx-field="content_width" />
+          <div class="form-text small">Leer = Bootstrap-Standardbreite.</div>
         </div>
         <div class="mb-2">
           <label class="form-label small">Sichtbarkeit</label>
@@ -4655,7 +5023,7 @@
             <option value="d-block d-lg-none">Versteckt Desktop</option>
           </select>
         </div>
-        <p class="small text-muted mb-0 mt-2">Nur Cols in die Row ziehen – dann in jede Col beliebige Blöcke.</p>
+        <p class="small text-muted mb-0 mt-2">Nur Cols in die Row ziehen â€“ dann in jede Col beliebige BlÃ¶cke.</p>
       `;
       settingsFields.appendChild(wrapper);
     } else if (key === "core_col") {
@@ -4682,7 +5050,7 @@
             <option value="d-block d-lg-none">Versteckt Desktop</option>
           </select>
         </div>
-        <p class="small text-muted mb-0 mt-2">Col muss in einer Row liegen. In die Col beliebige Blöcke ziehen.</p>
+        <p class="small text-muted mb-0 mt-2">Col muss in einer Row liegen. In die Col beliebige BlÃ¶cke ziehen.</p>
       `;
       settingsFields.appendChild(wrapper);
     } else if (key === "core_section_full" || key === "core_section_two_col" || key === "core_section_three_col") {
@@ -4698,7 +5066,7 @@
             <select class="form-select form-select-sm" data-nx-field="padding">
               <option value="py-5">Standard (py-5)</option>
               <option value="py-4">Kompakt (py-4)</option>
-              <option value="py-6">Groß (py-6)</option>
+              <option value="py-6">GroÃŸ (py-6)</option>
               <option value="py-0">Ohne</option>
             </select>
           </div>
@@ -4709,6 +5077,11 @@
             <option value="container">Container</option>
             <option value="container-fluid">Container Fluid</option>
           </select>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Contentbreite</label>
+          <input type="text" class="form-control form-control-sm" placeholder="z.B. 1200px, 90rem, 100%" data-nx-field="content_width" />
+          <div class="form-text small">Leer = Bootstrap-Standardbreite.</div>
         </div>
         <hr class="my-2">
         <div class="mb-2">
@@ -4757,7 +5130,7 @@
         <hr class="my-2">
         <p class="small text-muted mb-1">Features</p>
         ${[1, 2, 3].map((i) => `
-        <div class="border rounded-3 p-2 mb-2 bg-light-subtle">
+        <div class="border rounded-3 p-2 mb-2 bg-white" style="background:#ffffff;color:#111827;border-color:#dbe3ee !important;">
           <div class="mb-1">
             <label class="form-label small mb-0">Titel ${i}</label>
             <input type="text" class="form-control form-control-sm" data-nx-field="item${i}_title" />
@@ -4850,9 +5223,9 @@
           </div>
         </div>
         <hr class="my-2">
-        <p class="small text-muted mb-1">FAQ-Einträge (bis zu 6 Fragen &amp; Antworten)</p>
+        <p class="small text-muted mb-1">FAQ-EintrÃ¤ge (bis zu 6 Fragen &amp; Antworten)</p>
         ${[1, 2, 3, 4, 5, 6].map((i) => `
-        <div class="border rounded-3 p-2 mb-2 bg-light-subtle">
+        <div class="border rounded-3 p-2 mb-2 bg-white" style="background:#ffffff !important;color:#111827 !important;border-color:#dbe3ee !important;">
           <div class="mb-1">
             <label class="form-label small mb-0">Frage ${i}</label>
             <input type="text" class="form-control form-control-sm" data-nx-field="item${i}_title" placeholder="Frage ${i}" />
@@ -4907,10 +5280,10 @@
         <hr class="my-2">
         <p class="small text-muted mb-1">Testimonials (bis zu 6 Referenzen)</p>
         ${[1, 2, 3, 4, 5, 6].map((i) => `
-        <div class="border rounded-3 p-2 mb-2 bg-light-subtle">
+        <div class="border rounded-3 p-2 mb-2 bg-white" style="background:#ffffff !important;color:#111827 !important;border-color:#dbe3ee !important;">
           <div class="mb-1">
             <label class="form-label small mb-0">Zitat ${i}</label>
-            <textarea class="form-control form-control-sm" rows="2" data-nx-field="item${i}_quote" placeholder="„Großartiges Projekt…“"></textarea>
+            <textarea class="form-control form-control-sm" rows="2" data-nx-field="item${i}_quote" placeholder="â€žGroÃŸartiges Projektâ€¦â€œ"></textarea>
           </div>
           <div class="mb-1">
             <label class="form-label small mb-0">Name ${i} (optional)</label>
@@ -4927,7 +5300,7 @@
           <div class="mb-1">
             <label class="form-label small mb-0">Bild (optional)</label>
             <div class="input-group input-group-sm nx-img-drop-zone" title="Bild hier ablegen">
-              <input type="text" class="form-control form-control-sm" data-nx-field="item${i}_image" placeholder="/images/content/…" />
+              <input type="text" class="form-control form-control-sm" data-nx-field="item${i}_image" placeholder="/images/content/â€¦" />
             </div>
           </div>
         </div>
@@ -5005,9 +5378,9 @@
           </div>
         </div>
         <hr class="my-2">
-        <p class="small text-muted mb-1">Schritte (bis zu 8 Timeline-Einträge)</p>
+        <p class="small text-muted mb-1">Schritte (bis zu 8 Timeline-EintrÃ¤ge)</p>
         ${[1, 2, 3, 4, 5, 6, 7, 8].map((i) => `
-        <div class="border rounded-3 p-2 mb-2 bg-light-subtle">
+        <div class="border rounded-3 p-2 mb-2 bg-white" style="background:#ffffff !important;color:#111827 !important;border-color:#dbe3ee !important;">
           <div class="mb-1">
             <label class="form-label small mb-0">Titel ${i}</label>
             <input type="text" class="form-control form-control-sm" data-nx-field="item${i}_title" placeholder="Schritt ${i}" />
@@ -5106,11 +5479,11 @@
         <hr class="my-2">
         <p class="small text-muted mb-1">Slides (bis zu 6 Bilder mit Caption)</p>
         ${[1, 2, 3, 4, 5, 6].map((i) => `
-        <div class="border rounded-3 p-2 mb-2 bg-light-subtle">
+        <div class="border rounded-3 p-2 mb-2 bg-white" style="background:#ffffff !important;color:#111827 !important;border-color:#dbe3ee !important;">
           <div class="mb-1">
             <label class="form-label small mb-0">Bild ${i}</label>
             <div class="input-group input-group-sm nx-img-drop-zone" title="Bild hier ablegen">
-              <input type="text" class="form-control" placeholder="/images/content/…" data-nx-field="item${i}_src" />
+              <input type="text" class="form-control" placeholder="/images/content/â€¦" data-nx-field="item${i}_src" />
               <button type="button" class="btn btn-outline-secondary nx-slider-upload-btn" data-slider-index="${i}">Hochladen</button>
             </div>
             <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="d-none" data-nx-slider-upload-input data-slider-index="${i}" />
@@ -5163,15 +5536,15 @@
         </div>
         <div class="mb-2">
           <label class="form-label small">Untertitel (optional)</label>
-          <input type="text" class="form-control form-control-sm" data-nx-field="subtitle" placeholder="Kurze Einleitung zur Preisübersicht" />
+          <input type="text" class="form-control form-control-sm" data-nx-field="subtitle" placeholder="Kurze Einleitung zur PreisÃ¼bersicht" />
         </div>
         <div class="row g-2 mb-2">
           <div class="col-4">
             <label class="form-label small">Spalten</label>
             <select class="form-select form-select-sm" data-nx-field="columns">
-              <option value="2">2 Pläne</option>
-              <option value="3" selected>3 Pläne</option>
-              <option value="4">4 Pläne</option>
+              <option value="2">2 PlÃ¤ne</option>
+              <option value="3" selected>3 PlÃ¤ne</option>
+              <option value="4">4 PlÃ¤ne</option>
             </select>
           </div>
           <div class="col-4">
@@ -5194,11 +5567,11 @@
           </div>
         </div>
         <hr class="my-2">
-        <p class="small text-muted mb-1">Pläne (bis zu 4 Pricing-Karten)</p>
+        <p class="small text-muted mb-1">PlÃ¤ne (bis zu 4 Pricing-Karten)</p>
         ${[1, 2, 3, 4].map((i) => `
-        <div class="border rounded-3 p-2 mb-2 bg-light-subtle">
+        <div class="border rounded-3 p-2 mb-2 bg-white" style="background:#ffffff !important;color:#111827 !important;border-color:#dbe3ee !important;">
           <div class="mb-1">
-            <label class="form-label small mb-0">Plan ${i} – Name</label>
+            <label class="form-label small mb-0">Plan ${i} â€“ Name</label>
             <input type="text" class="form-control form-control-sm" data-nx-field="plan${i}_name" placeholder="z. B. Starter" />
           </div>
           <div class="row g-2 mb-1">
@@ -5242,7 +5615,7 @@
         </div>
         <div class="mb-2">
           <label class="form-label small">Text</label>
-          <textarea class="form-control form-control-sm" rows="4" data-nx-field="text" placeholder="Inhalt für den Collapse-Block"></textarea>
+          <textarea class="form-control form-control-sm" rows="4" data-nx-field="text" placeholder="Inhalt fÃ¼r den Collapse-Block"></textarea>
         </div>
         <div class="row g-2 mb-2">
           <div class="col-6">
@@ -5268,7 +5641,7 @@
           <div class="col-4">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" data-nx-field="open" id="nx-collapse-open">
-              <label class="form-check-label small" for="nx-collapse-open">Standard geöffnet</label>
+              <label class="form-check-label small" for="nx-collapse-open">Standard geÃ¶ffnet</label>
             </div>
           </div>
           <div class="col-4">
@@ -5338,7 +5711,7 @@
           </div>
         </div>
         <hr class="my-2">
-        <p class="small text-muted mb-1">Einträge (Text + optional Badge)</p>
+        <p class="small text-muted mb-1">EintrÃ¤ge (Text + optional Badge)</p>
         ${Array.from({ length: 10 }).map((_, i) => {
           const idx = i + 1;
           return `
@@ -5365,14 +5738,14 @@
         </div>
         <div class="mb-2">
           <label class="form-label small">URL</label>
-          <input type="text" class="form-control form-control-sm" data-nx-field="href" placeholder="https://…" />
+          <input type="text" class="form-control form-control-sm" data-nx-field="href" placeholder="https://â€¦" />
         </div>
         <div class="row g-2 mb-2">
           <div class="col-4">
             <label class="form-label small">Stil</label>
             <select class="form-select form-select-sm" data-nx-field="style">
-              <option value="primary">Primär</option>
-              <option value="secondary">Sekundär</option>
+              <option value="primary">PrimÃ¤r</option>
+              <option value="secondary">SekundÃ¤r</option>
               <option value="muted">Dezent</option>
             </select>
           </div>
@@ -5415,14 +5788,14 @@
       const wrapper = document.createElement("div");
       wrapper.innerHTML = `
         <div class="mb-2">
-          <label class="form-label small">Abstandsgröße</label>
+          <label class="form-label small">AbstandsgrÃ¶ÃŸe</label>
           <select class="form-select form-select-sm" data-nx-field="size">
             <option value="py-1">Sehr klein (py-1)</option>
             <option value="py-2">Klein (py-2)</option>
             <option value="py-3">Mittel (py-3)</option>
             <option value="py-4">Standard (py-4)</option>
-            <option value="py-5">Groß (py-5)</option>
-            <option value="py-6">Sehr groß (py-6)</option>
+            <option value="py-5">GroÃŸ (py-5)</option>
+            <option value="py-6">Sehr groÃŸ (py-6)</option>
           </select>
         </div>
         <div class="mb-2">
@@ -5442,7 +5815,7 @@
       wrapper.innerHTML = `
         <div class="mb-2">
           <label class="form-label small">Zitat-Text</label>
-          <textarea class="form-control form-control-sm" rows="4" data-nx-field="text" placeholder="Zitat hier eingeben …"></textarea>
+          <textarea class="form-control form-control-sm" rows="4" data-nx-field="text" placeholder="Zitat hier eingeben â€¦"></textarea>
         </div>
         <div class="mb-2">
           <label class="form-label small">Autor (optional)</label>
@@ -5450,7 +5823,7 @@
         </div>
         <div class="mb-2">
           <label class="form-label small">Quelle (optional)</label>
-          <input type="text" class="form-control form-control-sm" data-nx-field="source" placeholder="Buch, Link, …" />
+          <input type="text" class="form-control form-control-sm" data-nx-field="source" placeholder="Buch, Link, â€¦" />
         </div>
         <div class="row g-2 mb-2">
           <div class="col-6">
@@ -5511,7 +5884,7 @@
         <div class="border rounded-3 p-2 mb-2 bg-light-subtle">
           <label class="form-label small mb-1">Bild ${i}</label>
           <div class="input-group input-group-sm mb-1 nx-img-drop-zone" title="Bild hier ablegen">
-            <input type="text" class="form-control" placeholder="/images/content/…" data-nx-field="item${i}_src" />
+            <input type="text" class="form-control" placeholder="/images/content/â€¦" data-nx-field="item${i}_src" />
             <button type="button" class="btn btn-outline-secondary nx-gallery-upload-btn" data-gallery-index="${i}">Hochladen</button>
           </div>
           <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="d-none" data-nx-gallery-upload-input data-gallery-index="${i}" />
@@ -5575,10 +5948,10 @@
         <p class="small text-muted mb-2">Bis zu 5 Reiter. Titel und Inhalt pro Tab eingeben.</p>
         ${[1, 2, 3, 4, 5].map((i) => `
         <div class="border rounded-3 p-2 mb-2 bg-light-subtle">
-          <label class="form-label small mb-1">Tab ${i} – Titel</label>
+          <label class="form-label small mb-1">Tab ${i} â€“ Titel</label>
           <input type="text" class="form-control form-control-sm mb-1" placeholder="Reiter-Bezeichnung" data-nx-field="tab${i}_title" />
-          <label class="form-label small mb-1">Tab ${i} – Inhalt</label>
-          <textarea class="form-control form-control-sm" rows="3" placeholder="Inhalt für diesen Tab" data-nx-field="tab${i}_content"></textarea>
+          <label class="form-label small mb-1">Tab ${i} â€“ Inhalt</label>
+          <textarea class="form-control form-control-sm" rows="3" placeholder="Inhalt fÃ¼r diesen Tab" data-nx-field="tab${i}_content"></textarea>
         </div>
         `).join("")}
       `;
@@ -5593,9 +5966,9 @@
               <option value="">Standard</option>
               <option value="opacity-25">Dezent</option>
               <option value="opacity-50">Mittel</option>
-              <option value="opacity-100">Kräftig</option>
+              <option value="opacity-100">KrÃ¤ftig</option>
               <option value="my-4">Mit Abstand (my-4)</option>
-              <option value="my-5">Großer Abstand (my-5)</option>
+              <option value="my-5">GroÃŸer Abstand (my-5)</option>
             </select>
           </div>
           <div class="col-6">
@@ -5690,7 +6063,7 @@
         </div>
         <div class="mb-2">
           <label class="form-label small">Tabellenbeschreibung (Caption)</label>
-          <input type="text" class="form-control form-control-sm" data-nx-field="caption" placeholder="z. B. Übersicht Server-Auslastung" />
+          <input type="text" class="form-control form-control-sm" data-nx-field="caption" placeholder="z. B. Ãœbersicht Server-Auslastung" />
         </div>
         <p class="small text-muted mb-0">Zellen direkt in der Tabelle per Doppelklick bearbeiten.</p>
       `;
@@ -5701,7 +6074,7 @@
         <div class="mb-2">
           <label class="form-label small">Typ</label>
           <select class="form-select form-select-sm" data-nx-field="type">
-            <option value="ul">Aufzählung (ul)</option>
+            <option value="ul">AufzÃ¤hlung (ul)</option>
             <option value="ol">Nummeriert (ol)</option>
           </select>
         </div>
@@ -5709,7 +6082,7 @@
           <label class="form-label small">Icon (optional, z.B. bi-check2)</label>
           <input type="text" class="form-control form-control-sm" placeholder="leer = keine Icons" data-nx-field="icon" />
         </div>
-        <p class="small text-muted mb-1">Einträge (bis zu 10)</p>
+        <p class="small text-muted mb-1">EintrÃ¤ge (bis zu 10)</p>
         ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => `
         <input type="text" class="form-control form-control-sm mb-1" placeholder="Eintrag ${i}" data-nx-field="item${i}" />
         `).join("")}
@@ -5751,15 +6124,15 @@
         </div>
         <div class="mb-2">
           <label class="form-label small">Titel (optional)</label>
-          <input type="text" class="form-control form-control-sm" data-nx-field="title" placeholder="Überschrift der Box" />
+          <input type="text" class="form-control form-control-sm" data-nx-field="title" placeholder="Ãœberschrift der Box" />
         </div>
         <div class="mb-2">
           <label class="form-label small">Text</label>
-          <textarea class="form-control form-control-sm" rows="3" data-nx-field="text" placeholder="Hinweistext …"></textarea>
+          <textarea class="form-control form-control-sm" rows="3" data-nx-field="text" placeholder="Hinweistext â€¦"></textarea>
         </div>
         <div class="form-check form-switch mb-2">
           <input class="form-check-input" type="checkbox" data-nx-field="dismissible">
-          <label class="form-check-label small">Schließen-Button anzeigen</label>
+          <label class="form-check-label small">SchlieÃŸen-Button anzeigen</label>
         </div>
         <div class="mb-2">
           <label class="form-label small">Sichtbarkeit</label>
@@ -5826,12 +6199,12 @@
     } else if (key === "core_accordion") {
       const wrapper = document.createElement("div");
       wrapper.innerHTML = `
-        <p class="small text-muted mb-2">Bis zu 6 Einträge (Titel + Inhalt).</p>
+        <p class="small text-muted mb-2">Bis zu 6 EintrÃ¤ge (Titel + Inhalt).</p>
         ${[1, 2, 3, 4, 5, 6].map((i) => `
         <div class="border rounded-3 p-2 mb-2 bg-light-subtle">
-          <label class="form-label small mb-1">Eintrag ${i} – Titel</label>
-          <input type="text" class="form-control form-control-sm mb-1" data-nx-field="item${i}_title" placeholder="Überschrift" />
-          <label class="form-label small mb-1">Eintrag ${i} – Inhalt</label>
+          <label class="form-label small mb-1">Eintrag ${i} â€“ Titel</label>
+          <input type="text" class="form-control form-control-sm mb-1" data-nx-field="item${i}_title" placeholder="Ãœberschrift" />
+          <label class="form-label small mb-1">Eintrag ${i} â€“ Inhalt</label>
           <textarea class="form-control form-control-sm" rows="2" data-nx-field="item${i}_content" placeholder="Inhalt"></textarea>
         </div>
         `).join("")}
@@ -5871,8 +6244,8 @@
       wrapper.innerHTML = `
         <div class="mb-2">
           <label class="form-label small">HTML / Code</label>
-          <textarea class="form-control form-control-sm font-monospace" rows="6" data-nx-field="html" placeholder="<div>…</div> oder Embed-Code"></textarea>
-          <p class="form-text small">Nur vertrauenswürdigen Inhalt einfügen (Admin-Bereich).</p>
+          <textarea class="form-control form-control-sm font-monospace" rows="6" data-nx-field="html" placeholder="<div>â€¦</div> oder Embed-Code"></textarea>
+          <p class="form-text small">Nur vertrauenswÃ¼rdigen Inhalt einfÃ¼gen (Admin-Bereich).</p>
         </div>
         <div class="mb-2">
           <label class="form-label small">Sichtbarkeit</label>
@@ -5895,12 +6268,12 @@
             <select class="form-select form-select-sm" data-nx-field="width">
               <option value="small">Klein (ca. 18rem)</option>
               <option value="medium">Mittel (ca. 24rem)</option>
-              <option value="large">Groß (ca. 32rem)</option>
+              <option value="large">GroÃŸ (ca. 32rem)</option>
               <option value="full">Vollbreite (100%)</option>
             </select>
           </div>
           <div class="col-6">
-            <label class="form-label small">Bild-Seitenverhältnis</label>
+            <label class="form-label small">Bild-SeitenverhÃ¤ltnis</label>
             <select class="form-select form-select-sm" data-nx-field="imageRatio">
               <option value="">Automatisch</option>
               <option value="16:9">16:9</option>
@@ -5912,7 +6285,7 @@
         <div class="mb-2">
           <label class="form-label small">Bild (optional)</label>
           <div class="input-group input-group-sm nx-img-drop-zone" title="Bild hier ablegen">
-            <input type="text" class="form-control" data-nx-field="image" placeholder="/images/content/…" />
+            <input type="text" class="form-control" data-nx-field="image" placeholder="/images/content/â€¦" />
             <button type="button" class="btn btn-outline-secondary nx-card-upload-btn">Hochladen</button>
           </div>
           <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="d-none" data-nx-card-upload-input />
@@ -6026,7 +6399,7 @@
     } else if (key === "core_breadcrumb") {
       const wrapper = document.createElement("div");
       wrapper.innerHTML = `
-        <p class="small text-muted mb-2">Bis zu 5 Einträge (letzter = aktuell).</p>
+        <p class="small text-muted mb-2">Bis zu 5 EintrÃ¤ge (letzter = aktuell).</p>
         ${[1, 2, 3, 4, 5].map((i) => `
         <div class="row g-1 mb-1">
           <div class="col-5"><input type="text" class="form-control form-control-sm" placeholder="Label ${i}" data-nx-field="item${i}_label" /></div>
@@ -6064,7 +6437,7 @@
             <select class="form-select form-select-sm" data-nx-field="padding">
               <option value="py-4">Standard</option>
               <option value="py-3">Klein</option>
-              <option value="py-5">Groß</option>
+              <option value="py-5">GroÃŸ</option>
               <option value="py-0">Ohne</option>
             </select>
           </div>
@@ -6130,7 +6503,7 @@
       wrapper.innerHTML = `
         <div class="row g-2 mb-2">
           <div class="col-6">
-            <label class="form-label small">Wert (0–100)</label>
+            <label class="form-label small">Wert (0â€“100)</label>
             <input type="number" class="form-control form-control-sm" min="0" max="100" data-nx-field="value" placeholder="75" />
           </div>
           <div class="col-6">
@@ -6174,7 +6547,7 @@
         ${[1, 2, 3, 4, 5, 6].map((i) => `
         <div class="border rounded-3 p-2 mb-2 bg-light-subtle">
           <div class="input-group input-group-sm mb-1 nx-img-drop-zone" title="Bild hier ablegen">
-            <input type="text" class="form-control" placeholder="/images/content/…" data-nx-field="item${i}_src" />
+            <input type="text" class="form-control" placeholder="/images/content/â€¦" data-nx-field="item${i}_src" />
             <button type="button" class="btn btn-outline-secondary nx-logo-upload-btn" data-logo-idx="${i}">Hochladen</button>
           </div>
           <input type="file" accept="image/*" class="d-none" data-nx-logo-upload-input data-logo-idx="${i}" />
@@ -6234,23 +6607,23 @@
     } else if (key === "core_social_links") {
       const wrapper = document.createElement("div");
       wrapper.innerHTML = `
-        <p class="small text-muted mb-2">URLs eintragen – nur ausgefüllte werden angezeigt.</p>
+        <p class="small text-muted mb-2">URLs eintragen â€“ nur ausgefÃ¼llte werden angezeigt.</p>
         <div class="row g-2 mb-2">
-          <div class="col-6"><label class="form-label small">Facebook</label><input type="url" class="form-control form-control-sm" data-nx-field="facebook" placeholder="https://…" /></div>
-          <div class="col-6"><label class="form-label small">Twitter/X</label><input type="url" class="form-control form-control-sm" data-nx-field="twitter" placeholder="https://…" /></div>
-          <div class="col-6"><label class="form-label small">Instagram</label><input type="url" class="form-control form-control-sm" data-nx-field="instagram" placeholder="https://…" /></div>
-          <div class="col-6"><label class="form-label small">YouTube</label><input type="url" class="form-control form-control-sm" data-nx-field="youtube" placeholder="https://…" /></div>
-          <div class="col-6"><label class="form-label small">LinkedIn</label><input type="url" class="form-control form-control-sm" data-nx-field="linkedin" placeholder="https://…" /></div>
-          <div class="col-6"><label class="form-label small">GitHub</label><input type="url" class="form-control form-control-sm" data-nx-field="github" placeholder="https://…" /></div>
-          <div class="col-6"><label class="form-label small">Xing</label><input type="url" class="form-control form-control-sm" data-nx-field="xing" placeholder="https://…" /></div>
+          <div class="col-6"><label class="form-label small">Facebook</label><input type="url" class="form-control form-control-sm" data-nx-field="facebook" placeholder="https://â€¦" /></div>
+          <div class="col-6"><label class="form-label small">Twitter/X</label><input type="url" class="form-control form-control-sm" data-nx-field="twitter" placeholder="https://â€¦" /></div>
+          <div class="col-6"><label class="form-label small">Instagram</label><input type="url" class="form-control form-control-sm" data-nx-field="instagram" placeholder="https://â€¦" /></div>
+          <div class="col-6"><label class="form-label small">YouTube</label><input type="url" class="form-control form-control-sm" data-nx-field="youtube" placeholder="https://â€¦" /></div>
+          <div class="col-6"><label class="form-label small">LinkedIn</label><input type="url" class="form-control form-control-sm" data-nx-field="linkedin" placeholder="https://â€¦" /></div>
+          <div class="col-6"><label class="form-label small">GitHub</label><input type="url" class="form-control form-control-sm" data-nx-field="github" placeholder="https://â€¦" /></div>
+          <div class="col-6"><label class="form-label small">Xing</label><input type="url" class="form-control form-control-sm" data-nx-field="xing" placeholder="https://â€¦" /></div>
         </div>
         <div class="row g-2 mb-2">
           <div class="col-6">
-            <label class="form-label small">Größe</label>
+            <label class="form-label small">GrÃ¶ÃŸe</label>
             <select class="form-select form-select-sm" data-nx-field="size">
               <option value="fs-5">Klein</option>
               <option value="fs-4">Standard</option>
-              <option value="fs-3">Groß</option>
+              <option value="fs-3">GroÃŸ</option>
             </select>
           </div>
           <div class="col-6">
@@ -6274,14 +6647,508 @@
         </div>
       `;
       settingsFields.appendChild(wrapper);
+    } else if (key === "core_footer_simple") {
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = `
+        <p class="small text-muted mb-2">Footer-Inhalte lassen sich hier direkt pflegen. Doppelklick im Canvas bleibt zusÃ¤tzlich mÃ¶glich.</p>
+        <div class="row g-2 mb-2">
+          <div class="col-8">
+            <label class="form-label small">Markenname</label>
+            <input type="text" class="form-control form-control-sm" data-nx-field="brand" placeholder="Nexpell" />
+          </div>
+          <div class="col-4">
+            <label class="form-label small">Jahr</label>
+            <input type="text" class="form-control form-control-sm" data-nx-field="year" placeholder="2026" />
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">MenÃ¼punkte</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="nav1" placeholder="Link 1" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="nav2" placeholder="Link 2" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="nav3" placeholder="Link 3" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="nav4" placeholder="Link 4" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="nav5" placeholder="Link 5" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="nav6" placeholder="Link 6" /></div>
+            <div class="col-12"><input type="text" class="form-control form-control-sm" data-nx-field="nav7" placeholder="Link 7" /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Link-URLs</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="nav1_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="nav2_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="nav3_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="nav4_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="nav5_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="nav6_url" placeholder="https://..." /></div>
+            <div class="col-12"><input type="url" class="form-control form-control-sm" data-nx-field="nav7_url" placeholder="https://..." /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Sichtbarkeit</label>
+          <select class="form-select form-select-sm" data-nx-field="visibility">
+            <option value="">Immer</option>
+            <option value="d-none d-md-block">Ab Tablet</option>
+            <option value="d-block d-md-none">Nur Mobil</option>
+            <option value="d-none d-lg-block">Nur Desktop</option>
+            <option value="d-block d-lg-none">Versteckt Desktop</option>
+          </select>
+        </div>
+      `;
+      settingsFields.appendChild(wrapper);
+    } else if (key === "core_footer_3col") {
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = `
+        <div class="mb-2">
+          <label class="form-label small">Marke</label>
+          <input type="text" class="form-control form-control-sm" data-nx-field="brand" placeholder="Nexpell" />
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Kurzbeschreibung</label>
+          <textarea class="form-control form-control-sm" rows="3" data-nx-field="about" placeholder="Kurzer EinfÃ¼hrungstext"></textarea>
+        </div>
+        <div class="row g-2 mb-2">
+          <div class="col-6">
+            <label class="form-label small">Spaltentitel 1</label>
+            <input type="text" class="form-control form-control-sm" data-nx-field="about_title" placeholder="About Us" />
+          </div>
+          <div class="col-6">
+            <label class="form-label small">Spaltentitel 2</label>
+            <input type="text" class="form-control form-control-sm" data-nx-field="help_title" placeholder="Help Center" />
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Links Spalte 1</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="about1" placeholder="Link 1" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="about2" placeholder="Link 2" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="about3" placeholder="Link 3" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="about4" placeholder="Link 4" /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">URLs Spalte 1</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="about1_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="about2_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="about3_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="about4_url" placeholder="https://..." /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Links Spalte 2</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="help1" placeholder="Link 1" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="help2" placeholder="Link 2" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="help3" placeholder="Link 3" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="help4" placeholder="Link 4" /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">URLs Spalte 2</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="help1_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="help2_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="help3_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="help4_url" placeholder="https://..." /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Sichtbarkeit</label>
+          <select class="form-select form-select-sm" data-nx-field="visibility">
+            <option value="">Immer</option>
+            <option value="d-none d-md-block">Ab Tablet</option>
+            <option value="d-block d-md-none">Nur Mobil</option>
+            <option value="d-none d-lg-block">Nur Desktop</option>
+            <option value="d-block d-lg-none">Versteckt Desktop</option>
+          </select>
+        </div>
+      `;
+      settingsFields.appendChild(wrapper);
+    } else if (key === "core_footer_2col") {
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = `
+        <div class="row g-2 mb-2">
+          <div class="col-8">
+            <label class="form-label small">Marke</label>
+            <input type="text" class="form-control form-control-sm" data-nx-field="brand" placeholder="Nexpell" />
+          </div>
+          <div class="col-4">
+            <label class="form-label small">Jahr</label>
+            <input type="text" class="form-control form-control-sm" data-nx-field="year" placeholder="2026" />
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Beschreibung</label>
+          <textarea class="form-control form-control-sm" rows="3" data-nx-field="about" placeholder="Beschreibung der Marke oder Plattform"></textarea>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">SpaltenÃ¼berschriften</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="platform_title" placeholder="Platform" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="resources_title" placeholder="Resources" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="company_title" placeholder="Company" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="support_title" placeholder="Support" /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Platform-Links</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="platform1" placeholder="Link 1" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="platform2" placeholder="Link 2" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="platform3" placeholder="Link 3" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="platform4" placeholder="Link 4" /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Platform-URLs</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="platform1_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="platform2_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="platform3_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="platform4_url" placeholder="https://..." /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Resources-Links</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="resources1" placeholder="Link 1" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="resources2" placeholder="Link 2" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="resources3" placeholder="Link 3" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="resources4" placeholder="Link 4" /></div>
+            <div class="col-12"><input type="text" class="form-control form-control-sm" data-nx-field="resources5" placeholder="Link 5" /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Resources-URLs</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="resources1_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="resources2_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="resources3_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="resources4_url" placeholder="https://..." /></div>
+            <div class="col-12"><input type="url" class="form-control form-control-sm" data-nx-field="resources5_url" placeholder="https://..." /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Company-Links</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="company1" placeholder="Link 1" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="company2" placeholder="Link 2" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="company3" placeholder="Link 3" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="company4" placeholder="Link 4" /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Company-URLs</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="company1_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="company2_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="company3_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="company4_url" placeholder="https://..." /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Support-Links</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="support1" placeholder="Link 1" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="support2" placeholder="Link 2" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="support3" placeholder="Link 3" /></div>
+            <div class="col-6"><input type="text" class="form-control form-control-sm" data-nx-field="support4" placeholder="Link 4" /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Support-URLs</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="support1_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="support2_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="support3_url" placeholder="https://..." /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="support4_url" placeholder="https://..." /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Social-Links</label>
+          <div class="row g-2">
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="facebook" placeholder="Facebook URL" /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="twitter" placeholder="Twitter/X URL" /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="instagram" placeholder="Instagram URL" /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="youtube" placeholder="YouTube URL" /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="linkedin" placeholder="LinkedIn URL" /></div>
+            <div class="col-6"><input type="url" class="form-control form-control-sm" data-nx-field="github" placeholder="GitHub URL" /></div>
+          </div>
+        </div>
+        <div class="row g-2 mb-2">
+          <div class="col-6">
+            <label class="form-label small">Social-GrÃ¶ÃŸe</label>
+            <select class="form-select form-select-sm" data-nx-field="size">
+              <option value="fs-5">Klein</option>
+              <option value="fs-4">Standard</option>
+              <option value="fs-3">GroÃŸ</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label class="form-label small">Copyright-Text</label>
+            <input type="text" class="form-control form-control-sm" data-nx-field="copyright_text" placeholder="Alle Rechte vorbehalten." />
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Policy-Links</label>
+          <div class="row g-2 mb-2">
+            <div class="col-5"><input type="text" class="form-control form-control-sm" data-nx-field="policy_privacy" placeholder="Datenschutz" /></div>
+            <div class="col-7"><input type="url" class="form-control form-control-sm" data-nx-field="policy_privacy_url" placeholder="https://..." /></div>
+            <div class="col-5"><input type="text" class="form-control form-control-sm" data-nx-field="policy_cookies" placeholder="Cookies" /></div>
+            <div class="col-7"><input type="url" class="form-control form-control-sm" data-nx-field="policy_cookies_url" placeholder="https://..." /></div>
+            <div class="col-5"><input type="text" class="form-control form-control-sm" data-nx-field="policy_terms" placeholder="Nutzungsbedingungen" /></div>
+            <div class="col-7"><input type="url" class="form-control form-control-sm" data-nx-field="policy_terms_url" placeholder="https://..." /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Sichtbarkeit</label>
+          <select class="form-select form-select-sm" data-nx-field="visibility">
+            <option value="">Immer</option>
+            <option value="d-none d-md-block">Ab Tablet</option>
+            <option value="d-block d-md-none">Nur Mobil</option>
+            <option value="d-none d-lg-block">Nur Desktop</option>
+            <option value="d-block d-lg-none">Versteckt Desktop</option>
+          </select>
+        </div>
+      `;
+      settingsFields.appendChild(wrapper);
+    } else if (key === "core_footer_centered") {
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = `
+        <div class="row g-2 mb-2">
+          <div class="col-8">
+            <label class="form-label small">Marke</label>
+            <input type="text" class="form-control form-control-sm" data-nx-field="brand" placeholder="Nexpell" />
+          </div>
+          <div class="col-4">
+            <label class="form-label small">Jahr</label>
+            <input type="text" class="form-control form-control-sm" data-nx-field="year" placeholder="2026" />
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Beschreibung</label>
+          <textarea class="form-control form-control-sm" rows="3" data-nx-field="description" placeholder="Kurze Footer-Beschreibung"></textarea>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Zentrale Links</label>
+          <div class="row g-2">
+            <div class="col-5"><input type="text" class="form-control form-control-sm" data-nx-field="nav1" placeholder="Link 1" /></div>
+            <div class="col-7"><input type="url" class="form-control form-control-sm" data-nx-field="nav1_url" placeholder="https://..." /></div>
+            <div class="col-5"><input type="text" class="form-control form-control-sm" data-nx-field="nav2" placeholder="Link 2" /></div>
+            <div class="col-7"><input type="url" class="form-control form-control-sm" data-nx-field="nav2_url" placeholder="https://..." /></div>
+            <div class="col-5"><input type="text" class="form-control form-control-sm" data-nx-field="nav3" placeholder="Link 3" /></div>
+            <div class="col-7"><input type="url" class="form-control form-control-sm" data-nx-field="nav3_url" placeholder="https://..." /></div>
+            <div class="col-5"><input type="text" class="form-control form-control-sm" data-nx-field="nav4" placeholder="Link 4" /></div>
+            <div class="col-7"><input type="url" class="form-control form-control-sm" data-nx-field="nav4_url" placeholder="https://..." /></div>
+            <div class="col-5"><input type="text" class="form-control form-control-sm" data-nx-field="nav5" placeholder="Link 5" /></div>
+            <div class="col-7"><input type="url" class="form-control form-control-sm" data-nx-field="nav5_url" placeholder="https://..." /></div>
+            <div class="col-5"><input type="text" class="form-control form-control-sm" data-nx-field="nav6" placeholder="Link 6" /></div>
+            <div class="col-7"><input type="url" class="form-control form-control-sm" data-nx-field="nav6_url" placeholder="https://..." /></div>
+            <div class="col-5"><input type="text" class="form-control form-control-sm" data-nx-field="nav7" placeholder="Link 7" /></div>
+            <div class="col-7"><input type="url" class="form-control form-control-sm" data-nx-field="nav7_url" placeholder="https://..." /></div>
+            <div class="col-5"><input type="text" class="form-control form-control-sm" data-nx-field="nav8" placeholder="Link 8" /></div>
+            <div class="col-7"><input type="url" class="form-control form-control-sm" data-nx-field="nav8_url" placeholder="https://..." /></div>
+          </div>
+        </div>
+        <div class="row g-2 mb-2">
+          <div class="col-12">
+            <label class="form-label small">Copyright-Text</label>
+            <input type="text" class="form-control form-control-sm" data-nx-field="copyright_text" placeholder="Alle Rechte vorbehalten." />
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Rechtslinks</label>
+          <div class="row g-2">
+            <div class="col-5"><input type="text" class="form-control form-control-sm" data-nx-field="policy_privacy" placeholder="Datenschutz" /></div>
+            <div class="col-7"><input type="url" class="form-control form-control-sm" data-nx-field="policy_privacy_url" placeholder="https://..." /></div>
+            <div class="col-5"><input type="text" class="form-control form-control-sm" data-nx-field="policy_cookies" placeholder="Cookies" /></div>
+            <div class="col-7"><input type="url" class="form-control form-control-sm" data-nx-field="policy_cookies_url" placeholder="https://..." /></div>
+            <div class="col-5"><input type="text" class="form-control form-control-sm" data-nx-field="policy_terms" placeholder="Nutzungsbedingungen" /></div>
+            <div class="col-7"><input type="url" class="form-control form-control-sm" data-nx-field="policy_terms_url" placeholder="https://..." /></div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Sichtbarkeit</label>
+          <select class="form-select form-select-sm" data-nx-field="visibility">
+            <option value="">Immer</option>
+            <option value="d-none d-md-block">Ab Tablet</option>
+            <option value="d-block d-md-none">Nur Mobil</option>
+            <option value="d-none d-lg-block">Nur Desktop</option>
+            <option value="d-block d-lg-none">Versteckt Desktop</option>
+          </select>
+        </div>
+      `;
+      settingsFields.appendChild(wrapper);
+    } else if (key.indexOf("widget_news_") === 0) {
+      const wrapper = document.createElement("div");
+      const isMasonry = key === "widget_news_masonry";
+      const isCarousel = key === "widget_news_carousel";
+      const isFeatured = key === "widget_news_featured_list";
+      const isFlip = key === "widget_news_flip";
+      const isMagazine = key === "widget_news_magazine";
+      wrapper.innerHTML = `
+        <div class="row g-2 mb-2">
+          <div class="col-12">
+            <label class="form-label small">Titel</label>
+            <input class="form-control form-control-sm" type="text" data-nx-field="title" placeholder="News">
+          </div>
+          <div class="col-6">
+            <label class="form-label small">Anzahl</label>
+            <input class="form-control form-control-sm" type="number" min="1" max="24" data-nx-field="limit">
+          </div>
+          <div class="col-6">
+            <label class="form-label small">Kategorie-ID</label>
+            <input class="form-control form-control-sm" type="number" min="0" data-nx-field="category_id" placeholder="0 = alle">
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small">Sortierung</label>
+          <select class="form-select form-select-sm" data-nx-field="order">
+            <option value="latest">Neueste zuerst</option>
+            <option value="sort_desc">Sortierung absteigend</option>
+            <option value="sort_asc">Sortierung aufsteigend</option>
+            <option value="title_asc">Titel A-Z</option>
+          </select>
+        </div>
+        <div class="row g-2 mb-2">
+          <div class="col-4">
+            <div class="form-check mt-4">
+              <input class="form-check-input" type="checkbox" id="nx-news-show-heading" data-nx-field="show_heading">
+              <label class="form-check-label small" for="nx-news-show-heading">Titel</label>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-check mt-4">
+              <input class="form-check-input" type="checkbox" id="nx-news-show-date" data-nx-field="show_date">
+              <label class="form-check-label small" for="nx-news-show-date">Datum</label>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-check mt-4">
+              <input class="form-check-input" type="checkbox" id="nx-news-show-category" data-nx-field="show_category">
+              <label class="form-check-label small" for="nx-news-show-category">Kategorie</label>
+            </div>
+          </div>
+        </div>
+      `;
+      if (isMasonry) {
+        wrapper.innerHTML += `
+          <div class="row g-2 mb-2">
+            <div class="col-4">
+              <label class="form-label small">Desktop</label>
+              <input class="form-control form-control-sm" type="number" min="1" max="4" data-nx-field="columns_desktop">
+            </div>
+            <div class="col-4">
+              <label class="form-label small">Tablet</label>
+              <input class="form-control form-control-sm" type="number" min="1" max="3" data-nx-field="columns_tablet">
+            </div>
+            <div class="col-4">
+              <label class="form-label small">Mobil</label>
+              <input class="form-control form-control-sm" type="number" min="1" max="2" data-nx-field="columns_mobile">
+            </div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label small">TextlÃ¤nge</label>
+            <input class="form-control form-control-sm" type="number" min="40" max="1000" data-nx-field="excerpt_chars">
+          </div>
+        `;
+      }
+      if (isCarousel) {
+        wrapper.innerHTML += `
+          <div class="row g-2 mb-2">
+            <div class="col-4">
+              <label class="form-label small">Slides Mobil</label>
+              <input class="form-control form-control-sm" type="number" min="1" max="2" data-nx-field="slides_mobile">
+            </div>
+            <div class="col-4">
+              <label class="form-label small">Slides Tablet</label>
+              <input class="form-control form-control-sm" type="number" min="1" max="3" data-nx-field="slides_tablet">
+            </div>
+            <div class="col-4">
+              <label class="form-label small">Slides Desktop</label>
+              <input class="form-control form-control-sm" type="number" min="1" max="4" data-nx-field="slides_desktop">
+            </div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label small">Autoplay (ms, 0 = aus)</label>
+            <input class="form-control form-control-sm" type="number" min="0" max="20000" step="500" data-nx-field="autoplay_delay">
+          </div>
+        `;
+      }
+      if (isFeatured) {
+        wrapper.innerHTML += `
+          <div class="row g-2 mb-2">
+            <div class="col-6">
+              <label class="form-label small">Featured TextlÃ¤nge</label>
+              <input class="form-control form-control-sm" type="number" min="60" max="1200" data-nx-field="featured_excerpt_chars">
+            </div>
+            <div class="col-6">
+              <label class="form-label small">Listen-TextlÃ¤nge</label>
+              <input class="form-control form-control-sm" type="number" min="40" max="800" data-nx-field="list_excerpt_chars">
+            </div>
+          </div>
+        `;
+      }
+      if (isFlip) {
+        wrapper.innerHTML += `
+          <div class="mb-2">
+            <label class="form-label small">RÃ¼ckseiten-TextlÃ¤nge</label>
+            <input class="form-control form-control-sm" type="number" min="60" max="1600" data-nx-field="content_chars">
+          </div>
+        `;
+      }
+      if (isMagazine) {
+        wrapper.innerHTML += `
+          <div class="mb-2">
+            <label class="form-label small">Featured TextlÃ¤nge</label>
+            <input class="form-control form-control-sm" type="number" min="60" max="1200" data-nx-field="featured_excerpt_chars">
+          </div>
+        `;
+      }
+      settingsFields.appendChild(wrapper);
     } else {
-      // Für Nicht-Core-Widgets nur einen Hinweis anzeigen
+      // FÃ¼r Nicht-Core-Widgets nur einen Hinweis anzeigen
       const info = document.createElement("p");
       info.className = "small text-muted mb-2";
       info.textContent =
-        "Für dieses Widget stehen derzeit nur die JSON-Einstellungen zur Verfügung.";
+        "FÃ¼r dieses Widget stehen derzeit nur die JSON-Einstellungen zur VerfÃ¼gung.";
       settingsFields.appendChild(info);
     }
+
+    const genericLayout = document.createElement("div");
+    genericLayout.innerHTML = `
+      <div class="row g-2 mb-2">
+        <div class="col-6">
+          <label class="form-label small">Breite</label>
+          <select class="form-select form-select-sm" data-nx-field="item_width">
+            <option value="">Standard</option>
+            <option value="100%">100%</option>
+            <option value="75%">75%</option>
+            <option value="66.666667%">66%</option>
+            <option value="50%">50%</option>
+            <option value="33.333333%">33%</option>
+            <option value="25%">25%</option>
+            <option value="320px">320px</option>
+            <option value="480px">480px</option>
+            <option value="640px">640px</option>
+            <option value="800px">800px</option>
+            <option value="960px">960px</option>
+            <option value="1200px">1200px</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label class="form-label small">Ausrichtung</label>
+          <select class="form-select form-select-sm" data-nx-field="item_align">
+            <option value="start">Links</option>
+            <option value="center">Zentriert</option>
+            <option value="end">Rechts</option>
+          </select>
+        </div>
+      </div>
+    `;
+    settingsFields.appendChild(genericLayout);
 
     // Felder in logische Accordion-Sektionen gruppieren
     applySettingsAccordion();
@@ -6305,9 +7172,44 @@
       } else if (el.tagName === "SELECT") {
         if (val !== undefined) el.value = String(val);
       } else if (el.tagName === "TEXTAREA" || el.tagName === "INPUT") {
-        if (val !== undefined) el.value = String(val);
+        if (val !== undefined) {
+          if (
+            widgetKey === "core_nav_demo" &&
+            el.type === "range" &&
+            (fieldKey === "paddingY" || fieldKey === "paddingX")
+          ) {
+            const numeric = typeof val === "number"
+              ? val
+              : parseInt(String(val).match(/([0-9]+)/)?.[1] || "0", 10);
+            el.value = String(Number.isFinite(numeric) ? numeric : 0);
+          } else {
+            el.value = String(val);
+          }
+        }
       }
     });
+    if (widgetKey === "core_nav_demo") {
+      const navPaddingField = settingsFields.querySelector('[data-nx-field="paddingY"]');
+      const navPaddingXField = settingsFields.querySelector('[data-nx-field="paddingX"]');
+      const navPaddingLabel = settingsFields.querySelector("[data-nx-nav-padding-value]");
+      const navPaddingXLabel = settingsFields.querySelector("[data-nx-nav-paddingx-value]");
+      if (navPaddingField) {
+        const numeric = typeof settings?.paddingY === "number"
+          ? settings.paddingY
+          : parseInt(String(settings?.paddingY ?? "").match(/([0-9]+)/)?.[1] || "0", 10);
+        const safeValue = Number.isFinite(numeric) ? numeric : 0;
+        navPaddingField.value = String(safeValue);
+        if (navPaddingLabel) navPaddingLabel.textContent = String(safeValue);
+      }
+      if (navPaddingXField) {
+        const numeric = typeof settings?.paddingX === "number"
+          ? settings.paddingX
+          : parseInt(String(settings?.paddingX ?? "").match(/([0-9]+)/)?.[1] || "0", 10);
+        const safeValue = Number.isFinite(numeric) ? numeric : 0;
+        navPaddingXField.value = String(safeValue);
+        if (navPaddingXLabel) navPaddingXLabel.textContent = String(safeValue);
+      }
+    }
     var sizeRange = settingsFields.querySelector("[data-nx-field=\"vignetteSize\"]");
     var opacityRange = settingsFields.querySelector("[data-nx-field=\"vignetteOpacity\"]");
     if (sizeRange) {
@@ -6341,7 +7243,7 @@
         if (!k) return;
         if (k === "visibility") {
           bucket = "responsive";
-        } else if (/^(align|padding|bg|background|container|columns?|rows?|span|ratio|effect|captionstyle)$/.test(k)) {
+        } else if (/^(align|padding|bg|background|container|columns?|rows?|span|ratio|effect|captionstyle|item_width|item_align)$/.test(k)) {
           if (bucket === "advanced") bucket = "layout";
         } else if (/(title|subtitle|text|label|html|quote|content|name|caption|item\d+_|plan\d+_)/.test(k)) {
           bucket = "content";
@@ -6407,6 +7309,7 @@
       updateSaveStatus();
       nxDebug("initAll getZones().forEach(bindZone)");
       getZones().forEach(bindZone);
+      document.querySelectorAll(".nx-live-item").forEach((el) => applyItemLayout(el));
       nxDebug("initAll ensureDropHints");
       ensureDropHints();
       ensureInlineEditing();
@@ -6431,7 +7334,7 @@
           });
           const j = await r.json().catch(() => null);
           if (!j || !j.ok) {
-            console.warn("❌ Undo/Redo Save failed", j);
+            console.warn("âŒ Undo/Redo Save failed", j);
             return;
           }
           undoIndex = newIndex;
@@ -6471,3 +7374,5 @@
     initAll();
   }
 })();
+
+

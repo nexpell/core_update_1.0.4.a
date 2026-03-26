@@ -52,10 +52,7 @@ class ThemeUninstaller
         }
 
         if ($_database instanceof \mysqli) {
-            $themeFolderEscaped = $_database->real_escape_string($themeFolder);
-            safe_query("DELETE FROM settings_themes_installed WHERE modulname = '" . $themeFolderEscaped . "' OR folder = '" . $themeFolderEscaped . "'");
-            safe_query("DELETE FROM settings_theme_options WHERE theme_slug = '" . $themeFolderEscaped . "'");
-            $this->log[] = ['type' => 'info', 'message' => 'Eintraege in der Datenbank geloescht.'];
+            $this->log[] = ['type' => 'info', 'message' => 'Keine Theme-Datenbankeintraege mehr vorhanden.'];
         }
     }
 

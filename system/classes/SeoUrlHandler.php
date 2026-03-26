@@ -1010,6 +1010,10 @@ private static function shouldBypassCanonical(array $query, string $requestPath)
 {
     $site = strtolower((string)($query['site'] ?? ''));
 
+    if ((string)($query['builder'] ?? '') === '1') {
+        return true;
+    }
+
     if ($site === '') {
         return false;
     }

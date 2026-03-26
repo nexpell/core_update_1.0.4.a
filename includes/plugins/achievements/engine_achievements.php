@@ -16,6 +16,16 @@ if (!function_exists('table_Exists')) {
     }
 }
 
+if (!function_exists('column_Exists')) {
+    function column_Exists($table, $column) {
+        global $_database;
+        $table = $_database->real_escape_string((string)$table);
+        $column = $_database->real_escape_string((string)$column);
+        $result = $_database->query("SHOW COLUMNS FROM `{$table}` LIKE '{$column}'");
+        return $result && $result->num_rows > 0;
+    }
+}
+
 function achievements_get_trackable_activities_config(): array {
     return [
         ['type'=>'Artikel',        'lang_key'=>'articles',  'table'=>'plugins_articles',         'user_col'=>'userID', 'plugin'=>'Artikel',        'source'=>'plugin'],
@@ -39,6 +49,10 @@ function achievements_get_trackable_activities_config(): array {
 
 function achievements_get_activity_count(string $table, string $userCol, int $userID): int {
     global $_database;
+
+    if (!table_Exists($table) || !column_Exists($table, $userCol)) {
+        return 0;
+    }
 
     if ($table === 'plugins_partners') {
         $stmt = $_database->prepare("

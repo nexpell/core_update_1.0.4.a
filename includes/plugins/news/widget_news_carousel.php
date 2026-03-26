@@ -8,14 +8,14 @@ use nexpell\LanguageService;
 use nexpell\SeoUrlHandler;
 
 global $languageService;
+require_once __DIR__ . '/builder_widget_helper.php';
 
 $lang = $languageService->detectLanguage();
 $languageService->readPluginModule('news');
-// widget_news_carousel.php
-// News Carousel mit Swiper.js
-
-
-$limit = 8; // Anzahl der News im Slider
+$newsBuilderSettings = news_widget_builder_settings('widget_news_carousel', isset($settings) && is_array($settings) ? $settings : []);
+$limit = (int)$newsBuilderSettings['limit'];
+$orderSql = news_widget_builder_order_sql((string)$newsBuilderSettings['order']);
+$whereSql = news_widget_builder_where_sql($GLOBALS['_database'], $newsBuilderSettings);
 
 echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">';
 echo '<link rel="stylesheet" href="/includes/plugins/news/css/news_carousel.css">';
@@ -25,17 +25,16 @@ $query = "
            c.name AS category_name, c.image AS category_image
     FROM plugins_news a
     LEFT JOIN plugins_news_categories c ON a.category_id = c.id
-    WHERE a.is_active = 1
-    ORDER BY a.updated_at DESC
+    {$whereSql}
+    {$orderSql}
     LIMIT " . intval($limit);
 
 $res = safe_query($query);
 
 if (mysqli_num_rows($res) > 0):
 ?>
-<h1>News Carousel</h1>
 <div class="news-carousel-widget">
-  <h5 class="mb-3">News Carousel</h5>
+  <?= news_widget_builder_heading_html($newsBuilderSettings, 'News Carousel', 'h5', 'mb-3') ?>
   
   <div class="swiper newsSwiper">
     <div class="swiper-wrapper">
@@ -68,8 +67,10 @@ if (mysqli_num_rows($res) > 0):
 
             <!-- Datum links, Kategorie rechts -->
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <small class="text-muted"><?= $day ?> <?= $languageService->get($month) ?> <?= $year ?></small>
+                <small class="text-muted"><?= !empty($newsBuilderSettings['show_date']) ? $day . ' ' . $languageService->get($month) . ' ' . $year : '&nbsp;' ?></small>
+                <?php if (!empty($newsBuilderSettings['show_category'])): ?>
                 <span class="badge bg-primary"><?= $category_name ?></span>
+                <?php endif; ?>
             </div>
 
             <a href="<?= htmlspecialchars($url_watch) ?>" class="btn btn-sm btn-primary mt-auto">Mehr lesen</a>
@@ -91,13 +92,15 @@ if (mysqli_num_rows($res) > 0):
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
 var swiper = new Swiper(".newsSwiper", {
-  slidesPerView: 1,
+  slidesPerView: <?= (int)$newsBuilderSettings['slides_mobile'] ?>,
   spaceBetween: 15,
   loop: true, // Endlos-Loop
+  <?php if ((int)$newsBuilderSettings['autoplay_delay'] > 0): ?>
   autoplay: {
-    delay: 4000, // Zeit zwischen den Slides in ms
+    delay: <?= (int)$newsBuilderSettings['autoplay_delay'] ?>,
     disableOnInteraction: false, // auch nach Klick weiterlaufen
   },
+  <?php endif; ?>
   navigation: {
     nextEl: ".news-carousel-widget .swiper-button-next",
     prevEl: ".news-carousel-widget .swiper-button-prev",
@@ -107,8 +110,8 @@ var swiper = new Swiper(".newsSwiper", {
     clickable: true,
   },
   breakpoints: {
-    768: { slidesPerView: 2 },
-    992: { slidesPerView: 3 }
+    768: { slidesPerView: <?= (int)$newsBuilderSettings['slides_tablet'] ?> },
+    992: { slidesPerView: <?= (int)$newsBuilderSettings['slides_desktop'] ?> }
   }
 });
 </script>

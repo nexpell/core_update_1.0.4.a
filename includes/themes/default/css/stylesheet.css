@@ -69,6 +69,33 @@ body {
   margin-top: auto;
 }
 
+.nx-footer {
+  color: var(--bs-body-color, #212529);
+}
+
+.nx-footer .nx-footer-muted,
+.nx-footer .text-muted,
+.nx-footer .text-light-50 {
+  color: var(--bs-body-color, #212529) !important;
+  opacity: 0.72;
+}
+
+.nx-footer a,
+.nx-footer .nav-link,
+.nx-footer .nx-footer-link {
+  color: var(--bs-link-color, var(--bs-body-color, #212529)) !important;
+}
+
+.nx-footer a:hover,
+.nx-footer a:focus,
+.nx-footer .nav-link:hover,
+.nx-footer .nav-link:focus,
+.nx-footer .nx-footer-link:hover,
+.nx-footer .nx-footer-link:focus {
+  color: var(--bs-link-hover-color, var(--bs-primary, #0d6efd)) !important;
+  opacity: 1;
+}
+
 /* Hero-Sections aus dem Builder (core_hero)
    Höhe wird über nx-hero-h-* (40/50/60/80/100vh) gesteuert. */
 .nx-hero {
@@ -277,18 +304,13 @@ nav.nx-nav-core-demo.nx-nav-overlay{
   z-index: 1030;
   --nx-overlay-progress: 0;
   /* Hintergrundfarbe im gefüllten Zustand abhängig von scheme/light-dark */
-  --nx-fill-r: 255;
-  --nx-fill-g: 255;
-  --nx-fill-b: 255;
-  background-color: rgba(var(--nx-fill-r), var(--nx-fill-g), var(--nx-fill-b), var(--nx-overlay-progress)) !important;
+  background-color: transparent !important;
   box-shadow: none;
   transition: background-color .32s cubic-bezier(.22,.61,.36,1), box-shadow .32s cubic-bezier(.22,.61,.36,1), color .24s ease;
   will-change: background-color, box-shadow;
 }
 nav.nx-nav-core-demo.nx-nav-overlay[data-nx-fill-scheme="dark"]{
-  --nx-fill-r: 33;
-  --nx-fill-g: 37;
-  --nx-fill-b: 41; /* #212529 (Bootstrap bg-dark) */
+  --nx-demo-nav-fill-bg: var(--nx-demo-nav-fill-bg, #212529);
 }
 /* Startzustand: Alpha/Progress macht die Transparenz.
    Box-Shadow/Backdrop nur im NOT-filled Zustand hart unterdrücken. */
@@ -302,24 +324,28 @@ nav.nx-nav-core-demo.nx-nav-overlay:not(.nx-nav-filled){
 }
 /* Wichtig: Bootstrap bg-* Utilities (z.B. bg-transparent) können sonst das ScrollFill überschreiben. */
 nav.nx-nav-core-demo.nx-nav-overlay.nx-nav-filled{
-  background-color: rgba(var(--nx-fill-r), var(--nx-fill-g), var(--nx-fill-b), var(--nx-overlay-progress, 1)) !important;
+  background-color: var(--nx-demo-nav-fill-bg, var(--nx-demo-nav-bg, var(--bs-body-bg, #ffffff))) !important;
   background-image: none !important;
 }
 nav.nx-nav-core-demo.nx-nav-overlay[data-nx-overlay-text="light"] .navbar-nav .nav-link,
 nav.nx-nav-core-demo.nx-nav-overlay[data-nx-overlay-text="light"] .navbar-brand{
-  color: rgba(255,255,255,.92) !important;
+  color: var(--nx-demo-nav-text, rgba(255,255,255,.92)) !important;
 }
 nav.nx-nav-core-demo.nx-nav-overlay[data-nx-overlay-text="dark"] .navbar-nav .nav-link,
 nav.nx-nav-core-demo.nx-nav-overlay[data-nx-overlay-text="dark"] .navbar-brand{
-  color: rgba(15,23,42,.92) !important;
+  color: var(--nx-demo-nav-text, rgba(15,23,42,.92)) !important;
 }
 nav.nx-nav-core-demo.nx-nav-overlay.nx-nav-filled[data-nx-fill-scheme="dark"] .navbar-nav .nav-link,
 nav.nx-nav-core-demo.nx-nav-overlay.nx-nav-filled[data-nx-fill-scheme="dark"] .navbar-brand{
-  color: rgba(255,255,255,.92) !important;
+  color: var(--nx-demo-nav-fill-text, rgba(255,255,255,.92)) !important;
 }
 nav.nx-nav-core-demo.nx-nav-overlay.nx-nav-filled:not([data-nx-fill-scheme="dark"]) .navbar-nav .nav-link,
 nav.nx-nav-core-demo.nx-nav-overlay.nx-nav-filled:not([data-nx-fill-scheme="dark"]) .navbar-brand{
-  color: rgba(15,23,42,.92) !important;
+  color: var(--nx-demo-nav-fill-text, rgba(15,23,42,.92)) !important;
+}
+
+nav.nx-nav-core-demo.nx-nav-variant-sticky{
+  z-index: 1025;
 }
 
 /* Overlay-Abstand: JS setzt --nx-overlay-safe-top + Klasse auf den ersten Hero */

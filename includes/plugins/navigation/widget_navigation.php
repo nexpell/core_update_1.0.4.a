@@ -430,7 +430,7 @@ if ($theme_engine === 1) {
 $navbar_class = "";
 $navbar_shadow = "";
 $theme_toggle = "";
-$html_theme = "light";
+$html_theme = "";
 $navbar_theme = "";
 $nav_data_attrs = "";
 
@@ -458,14 +458,6 @@ if ($theme_engine === 0) {
     $dynamic_logo_attr = '';
 
     $navbar_modus = $settings["navbar_modus"] ?? "auto";
-    if ($navbar_modus === "auto") {
-        $theme_toggle = "
-            <li class='nav-item ms-2'>
-                <button id='themeToggle' type='button' class='btn btn-sm btn-outline-secondary border-0' aria-label='Theme umschalten'>
-                    <i id='themeIcon' class='bi bi-moon-stars fs-5'></i>
-                </button>
-            </li>";
-    }
 }
 
 // MODE 1 → Theme Engine aktiv
@@ -483,15 +475,9 @@ elseif ($theme_engine === 1) {
     $logo_style = 'style="max-height: calc('.$nav_height_value.' - 10px);"';
     $dynamic_logo_attr = '';
 
-    $theme = ($navbar_modus === "auto") ? "light" : $navbar_modus;
-    $navbar_theme = 'data-bs-theme="' . htmlspecialchars($theme, ENT_QUOTES) . '"';
-    $html_theme = $navbar_theme;
-
-    $navbar_class = match($navbar_modus) {
-    "light" => "bg-light navbar-light",
-    "dark"  => "bg-dark navbar-dark",
-    default => "", // auto: neutral
-    };
+    $navbar_theme = "";
+    $html_theme = "";
+    $navbar_class = "";
 
     // ================================
     // EXTRA NAV SETTINGS (Mode 1 only)
@@ -538,22 +524,13 @@ elseif ($theme_engine === 1) {
 
     $nav_height_style = 'style="' . implode(' ', $styleVars) . '"';
 
-    if ($navbar_modus === "auto") {
-        $theme_toggle = "
-            <li class='nav-item ms-2'>
-                <button id='themeToggle' type='button' class='btn btn-sm btn-outline-secondary border-0' aria-label='Theme umschalten'>
-                    <i id='themeIcon' class='bi bi-moon-stars fs-5'></i>
-                </button>
-            </li>";
-    }
 }
 
 elseif ($theme_engine === 2) {
 
     // Theme bestimmt ALLES
     $navbar_shadow = $settings["navbar_shadow"] ?? "";
-    $theme = $settings['navbar_theme'] ?? 'light';
-    $html_theme = 'data-bs-theme="' . htmlspecialchars($theme, ENT_QUOTES) . '"';
+    $html_theme = '';
 
     // KEIN nav_height_style → Theme bestimmt Höhe
     $nav_height_style = 'style="--nav-height: '.$nav_height_value.';"';
@@ -565,11 +542,7 @@ elseif ($theme_engine === 2) {
     $dynamic_logo_attr = 'data-dynamic-logo="1"';
 
     $navbar_modus = $settings["navbar_modus"] ?? "auto";
-    $navbar_class = match($navbar_modus) {
-        "light" => "navbar-light",
-        "dark"  => "navbar-dark",
-        default => "",
-    };
+    $navbar_class = "";
 
     $dropdown_animation = "";
 }
@@ -580,7 +553,7 @@ $data_array = [
     "html_theme"         => $html_theme,
     "navbar_class"       => $navbar_class,
     "navbar_shadow"      => $navbar_shadow,
-    "navbar_theme"       => ($navbar_theme !== "" ? $navbar_theme : $html_theme),
+    "navbar_theme"       => $navbar_theme,
     "nav_height_style"   => $nav_height_style,
     "nav_data_attrs"     => $nav_data_attrs,
     "logo_height"        => $logo_style,

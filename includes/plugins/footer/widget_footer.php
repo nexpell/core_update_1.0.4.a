@@ -315,7 +315,7 @@ if (!empty($legal) && $legalTitle !== '') {
 
     $legalBlockHtml = '
       <div class="footer-legal-block footer-links text-start">
-        <div class="text-uppercase text-white-50 small fw-semibold mb-3">'
+        <div class="footer-muted text-uppercase small fw-semibold mb-3">'
           . htmlspecialchars($legalTitle, ENT_QUOTES) .
         '</div>
         <ul class="footer-links footer-links-inline footer-links-legal">
@@ -465,7 +465,7 @@ foreach ($platforms as $p) {
 if ($social_icons !== '') {
     $social_block = '
       <div class="footer-social-block">
-        <h6 class="text-uppercase text-white-50 small fw-semibold mb-3">' . $languageService->get('title_social_follow') . '</h6>
+        <h6 class="footer-muted text-uppercase small fw-semibold mb-3">' . $languageService->get('title_social_follow') . '</h6>
         <div class="footer-social-icons">' . $social_icons . '</div>
       </div>
     ';

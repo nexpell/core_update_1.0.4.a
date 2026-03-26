@@ -1,7 +1,18 @@
 <!-- Footer Consent -->
-<?php if (!empty($_GET['builder']) && $_GET['builder']==='1'): ?><div class="nx-fixed-block" data-nx-fixed-label="Footer" data-nx-fixed-hint="Fester Block – im Admincenter bearbeiten (nicht im Live-Builder)."><?php endif; ?>
-<?php /* <?= $pluginManager->getFooterModule(); ?> */ ?>
-<?php if (!empty($_GET['builder']) && $_GET['builder']==='1'): ?></div><?php endif; ?>
+<?php
+$nxbFooterWidgets = $GLOBALS['nxb_widgets_by_position']['footer'] ?? [];
+$nxbIsBuilder = !empty($_GET['builder']) && $_GET['builder'] === '1';
+if ($nxbIsBuilder || !empty($nxbFooterWidgets)): ?>
+<div class="nx-fixed-block">
+  <div class="nx-live-zone nx-zone" data-nx-zone="footer" style="margin:0;padding:0;border:none;">
+    <?php if (!empty($nxbFooterWidgets)): ?>
+      <?php foreach ($nxbFooterWidgets as $w) echo $w; ?>
+    <?php elseif ($nxbIsBuilder): ?>
+      <div class="builder-placeholder">Footer hier ablegen</div>
+    <?php endif; ?>
+  </div>
+</div>
+<?php endif; ?>
 </div>
 
 

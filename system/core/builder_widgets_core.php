@@ -265,6 +265,77 @@ if (!function_exists('nxb_core_widgets_list')) {
     }
 
     /**
+     * Optionales max-width-Style fuer innere Content-Wrapper.
+     */
+    function nxb_core_inline_max_width_style(array $settings): string
+    {
+        $value = trim((string)($settings['content_width'] ?? ''));
+        if ($value === '') {
+            return '';
+        }
+        if (!preg_match('/^(none|\\d+(?:\\.\\d+)?(?:px|rem|em|%|vw|vh))$/i', $value)) {
+            return '';
+        }
+        return ' style="max-width:' . nxb_core_h($value) . ';margin-left:auto;margin-right:auto;"';
+    }
+
+    function nxb_core_widget_item_style(array $settings): string
+    {
+        $width = trim((string)($settings['item_width'] ?? ''));
+        if ($width === '') {
+            return '';
+        }
+        if (!preg_match('/^(none|\\d+(?:\\.\\d+)?(?:px|rem|em|%|vw|vh))$/i', $width)) {
+            return '';
+        }
+        $align = trim((string)($settings['item_align'] ?? 'start'));
+        $marginLeft = '0';
+        $marginRight = 'auto';
+        if ($align === 'center') {
+            $marginLeft = 'auto';
+            $marginRight = 'auto';
+        } elseif ($align === 'end' || $align === 'right') {
+            $marginLeft = 'auto';
+            $marginRight = '0';
+        }
+        return 'max-width:' . nxb_core_h($width) . ';width:100%;margin-left:' . $marginLeft . ';margin-right:' . $marginRight . ';';
+    }
+
+    function nxb_wrap_widget_output(string $html, array $settings): string
+    {
+        $style = nxb_core_widget_item_style($settings);
+        if ($style === '') {
+            return $html;
+        }
+        return '<div class="nx-widget-width-wrap" style="' . $style . '">' . $html . '</div>';
+    }
+
+    function nxb_footer_link_href(array $settings, string $field): string
+    {
+        $value = trim((string)($settings[$field . '_url'] ?? ''));
+        return $value !== '' ? $value : '#';
+    }
+
+    function nxb_render_frontend_widget_html(string $widgetKey, string $instanceId, array $settings, string $title): string
+    {
+        if (strpos($widgetKey, 'core_') === 0) {
+            $html = nxb_render_core_widget_html($widgetKey, $settings, $title);
+        } else {
+            global $pluginManager;
+            $html = '';
+            if ($pluginManager instanceof \nexpell\PluginManager) {
+                $html = $pluginManager->renderWidget($widgetKey, [
+                    'instanceId' => $instanceId,
+                    'settings' => $settings,
+                    'title' => $title,
+                    'ctx' => ['builder' => false, 'widget_key' => $widgetKey, 'instance_id' => $instanceId, 'title' => $title],
+                ]);
+            }
+        }
+        return nxb_wrap_widget_output($html, $settings);
+    }
+
+    /**
      * Liest Anzeigenamen aus navigation_website_lang für die aktuelle Sprache.
      * Schema: content_key, language, content, modulname.
      * Lookup: content_key (z. B. "main_1", "sub_5" oder modulname) → content.
@@ -364,9 +435,9 @@ if (!function_exists('nxb_core_widgets_list')) {
     }
 
     /**
-     * Liefert die Menüstruktur aus der Plugin-Navigation (navigation_website_main + _sub)
+     * Liefert die gespeicherte Menüstruktur aus navigation_website_main + _sub
      * im Format [{label, url, children: [{label, url}]}]. Nutzt navigation_website_lang
-     * für übersetzte Anzeigenamen (aktuelle Sprache). Für core_nav_demo bei menuSource === 'plugin'.
+     * für übersetzte Anzeigenamen (aktuelle Sprache).
      */
     function nxb_get_plugin_navigation_menu(): array
     {
@@ -1242,6 +1313,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                 $bg = trim((string)($settings['bg'] ?? ''));
                 $pad = trim((string)($settings['padding'] ?? 'py-4'));
                 $container = (string)($settings['container'] ?? 'container');
+                $contentWidthStyle = nxb_core_inline_max_width_style($settings);
                 if ($container !== 'container-fluid') {
                     $container = 'container';
                 }
@@ -1258,14 +1330,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                         if (function_exists('nxb_live_wrap') && function_exists('nxb_render_widget_content')) {
                             $inner .= nxb_live_wrap($w, nxb_render_widget_content($widgetKey, $instanceId, $wSettings, $wTitle));
                         } else {
-                            if (strpos($widgetKey, 'core_') === 0) {
-                                $inner .= nxb_render_core_widget_html($widgetKey, $wSettings, $wTitle);
-                            } else {
-                                global $pluginManager;
-                                if ($pluginManager instanceof \nexpell\PluginManager) {
-                                    $inner .= $pluginManager->renderWidget($widgetKey);
-                                }
-                            }
+                            $inner .= nxb_render_frontend_widget_html($widgetKey, $instanceId, $wSettings, $wTitle);
                         }
                     }
                 }
@@ -1277,7 +1342,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                 $outerClasses = trim('nx-container ' . $pad . ' ' . $bg . ($vis !== '' ? ' ' . $vis : ''));
 
                 return '<div class="' . nxb_core_h($outerClasses) . '">
-  <div class="' . nxb_core_h($container) . '">
+  <div class="' . nxb_core_h($container) . '"' . $contentWidthStyle . '>
     <div class="' . nxb_core_h($zoneClasses) . '" data-nx-zone="' . nxb_core_h($zoneName) . '">
       ' . $inner . '
     </div>
@@ -1290,6 +1355,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                 $bg = trim((string)($settings['bg'] ?? ''));
                 $pad = trim((string)($settings['padding'] ?? 'py-4'));
                 $container = (string)($settings['container'] ?? 'container');
+                $contentWidthStyle = nxb_core_inline_max_width_style($settings);
                 if ($container !== 'container-fluid') {
                     $container = 'container';
                 }
@@ -1318,14 +1384,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                             }
                             $inner .= nxb_live_wrap($w, $content, $wrapClasses, $wrapData);
                         } else {
-                            if (strpos($widgetKey, 'core_') === 0) {
-                                $inner .= nxb_render_core_widget_html($widgetKey, $wSettings, $wTitle);
-                            } else {
-                                global $pluginManager;
-                                if ($pluginManager instanceof \nexpell\PluginManager) {
-                                    $inner .= $pluginManager->renderWidget($widgetKey);
-                                }
-                            }
+                            $inner .= nxb_render_frontend_widget_html($widgetKey, $instanceId, $wSettings, $wTitle);
                         }
                     }
                 }
@@ -1337,7 +1396,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                 $outerClasses = trim('nx-row ' . $pad . ' ' . $bg . ($vis !== '' ? ' ' . $vis : ''));
 
                 return '<section class="' . nxb_core_h($outerClasses) . '">
-  <div class="' . nxb_core_h($container) . '">
+  <div class="' . nxb_core_h($container) . '"' . $contentWidthStyle . '>
     <div class="' . nxb_core_h($zoneClasses) . '" data-nx-zone="' . nxb_core_h($zoneName) . '">
       ' . $inner . '
     </div>
@@ -1365,14 +1424,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                         if (function_exists('nxb_live_wrap') && function_exists('nxb_render_widget_content')) {
                             $inner .= nxb_live_wrap($w, nxb_render_widget_content($widgetKey, $instanceId, $wSettings, $wTitle));
                         } else {
-                            if (strpos($widgetKey, 'core_') === 0) {
-                                $inner .= nxb_render_core_widget_html($widgetKey, $wSettings, $wTitle);
-                            } else {
-                                global $pluginManager;
-                                if ($pluginManager instanceof \nexpell\PluginManager) {
-                                    $inner .= $pluginManager->renderWidget($widgetKey);
-                                }
-                            }
+                            $inner .= nxb_render_frontend_widget_html($widgetKey, $instanceId, $wSettings, $wTitle);
                         }
                     }
                 }
@@ -1395,6 +1447,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                 $bg = trim((string)($settings['bg'] ?? ''));
                 $pad = trim((string)($settings['padding'] ?? 'py-5'));
                 $container = (string)($settings['container'] ?? 'container'); // container oder container-fluid
+                $contentWidthStyle = nxb_core_inline_max_width_style($settings);
 
                 $vis = nxb_visibility_class($settings);
                 $outerClasses = trim('nx-section ' . $pad . ' ' . $bg . ($vis !== '' ? ' ' . $vis : ''));
@@ -1418,7 +1471,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                 }
 
                 $html = '<section class="' . nxb_core_h($outerClasses) . ' nx-section">
-  <div class="' . nxb_core_h($container) . '">
+  <div class="' . nxb_core_h($container) . '"' . $contentWidthStyle . '>
     <div class="row g-4 nx-section-cols">';
 
                 foreach ($cols as $col) {
@@ -1447,14 +1500,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                             } else {
                                 // Im öffentlichen Frontend: Core-Widgets direkt rendern,
                                 // Plugin-Widgets über PluginManager
-                                if (strpos($widgetKey, 'core_') === 0) {
-                                    $inner .= nxb_render_core_widget_html($widgetKey, $wSettings, $wTitle);
-                                } else {
-                                    global $pluginManager;
-                                    if ($pluginManager instanceof \nexpell\PluginManager) {
-                                        $inner .= $pluginManager->renderWidget($widgetKey);
-                                    }
-                                }
+                                $inner .= nxb_render_frontend_widget_html($widgetKey, $instanceId, $wSettings, $wTitle);
                             }
                         }
                     }
@@ -2016,14 +2062,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                             if (function_exists('nxb_live_wrap') && function_exists('nxb_render_widget_content')) {
                                 $inner .= nxb_live_wrap($w, nxb_render_widget_content($widgetKey, $instanceId, $wSettings, $wTitle));
                             } else {
-                                if (strpos($widgetKey, 'core_') === 0) {
-                                    $inner .= nxb_render_core_widget_html($widgetKey, $wSettings, $wTitle);
-                                } else {
-                                    global $pluginManager;
-                                    if ($pluginManager instanceof \nexpell\PluginManager) {
-                                        $inner .= $pluginManager->renderWidget($widgetKey);
-                                    }
-                                }
+                                $inner .= nxb_render_frontend_widget_html($widgetKey, $instanceId, $wSettings, $wTitle);
                             }
                         }
                     }
@@ -2136,15 +2175,15 @@ if (!function_exists('nxb_core_widgets_list')) {
                 $html .= '    <span class="fw-semibold" data-nx-inline="brand" title="Doppelklick zum Bearbeiten">' . nxb_core_h($brand) . '</span>';
                 $html .= '  </div>';
                 $html .= '  <ul class="nav justify-content-center flex-wrap gap-2 mb-0">';
-                $html .= '    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted" data-nx-inline="nav1" title="Doppelklick zum Bearbeiten">' . nxb_core_h($nav1) . '</a></li>';
-                $html .= '    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted" data-nx-inline="nav2" title="Doppelklick zum Bearbeiten">' . nxb_core_h($nav2) . '</a></li>';
-                $html .= '    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted" data-nx-inline="nav3" title="Doppelklick zum Bearbeiten">' . nxb_core_h($nav3) . '</a></li>';
-                $html .= '    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted" data-nx-inline="nav4" title="Doppelklick zum Bearbeiten">' . nxb_core_h($nav4) . '</a></li>';
-                $html .= '    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted" data-nx-inline="nav5" title="Doppelklick zum Bearbeiten">' . nxb_core_h($nav5) . '</a></li>';
-                $html .= '    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted" data-nx-inline="nav6" title="Doppelklick zum Bearbeiten">' . nxb_core_h($nav6) . '</a></li>';
-                $html .= '    <li class="nav-item"><a href="#" class="nav-link px-2 text-muted" data-nx-inline="nav7" title="Doppelklick zum Bearbeiten">' . nxb_core_h($nav7) . '</a></li>';
+                $html .= '    <li class="nav-item"><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'nav1')) . '" class="nav-link px-2 nx-footer-link nx-footer-muted" data-nx-inline="nav1" title="Doppelklick zum Bearbeiten">' . nxb_core_h($nav1) . '</a></li>';
+                $html .= '    <li class="nav-item"><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'nav2')) . '" class="nav-link px-2 nx-footer-link nx-footer-muted" data-nx-inline="nav2" title="Doppelklick zum Bearbeiten">' . nxb_core_h($nav2) . '</a></li>';
+                $html .= '    <li class="nav-item"><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'nav3')) . '" class="nav-link px-2 nx-footer-link nx-footer-muted" data-nx-inline="nav3" title="Doppelklick zum Bearbeiten">' . nxb_core_h($nav3) . '</a></li>';
+                $html .= '    <li class="nav-item"><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'nav4')) . '" class="nav-link px-2 nx-footer-link nx-footer-muted" data-nx-inline="nav4" title="Doppelklick zum Bearbeiten">' . nxb_core_h($nav4) . '</a></li>';
+                $html .= '    <li class="nav-item"><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'nav5')) . '" class="nav-link px-2 nx-footer-link nx-footer-muted" data-nx-inline="nav5" title="Doppelklick zum Bearbeiten">' . nxb_core_h($nav5) . '</a></li>';
+                $html .= '    <li class="nav-item"><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'nav6')) . '" class="nav-link px-2 nx-footer-link nx-footer-muted" data-nx-inline="nav6" title="Doppelklick zum Bearbeiten">' . nxb_core_h($nav6) . '</a></li>';
+                $html .= '    <li class="nav-item"><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'nav7')) . '" class="nav-link px-2 nx-footer-link nx-footer-muted" data-nx-inline="nav7" title="Doppelklick zum Bearbeiten">' . nxb_core_h($nav7) . '</a></li>';
                 $html .= '  </ul>';
-                $html .= '  <div class="text-muted">';
+                $html .= '  <div class="nx-footer-muted">';
                 $html .= '    © <span data-nx-inline="year" title="Doppelklick zum Bearbeiten">' . nxb_core_h($year) . '</span>';
                 $html .= '  </div>';
                 $html .= '</div></div></footer>';
@@ -2174,26 +2213,26 @@ if (!function_exists('nxb_core_widgets_list')) {
                 $html .= '<div class="d-flex align-items-center gap-2 mb-2">';
                 $html .= '<span class="fw-semibold" data-nx-inline="brand" title="Doppelklick zum Bearbeiten">' . nxb_core_h($brand) . '</span>';
                 $html .= '</div>';
-                $html .= '<p class="mb-0 text-muted" data-nx-inline="about" title="Doppelklick zum Bearbeiten">' . nxb_core_h($about) . '</p>';
+                $html .= '<p class="mb-0 nx-footer-muted" data-nx-inline="about" title="Doppelklick zum Bearbeiten">' . nxb_core_h($about) . '</p>';
                 $html .= '</div>';
                 // About Us links
                 $html .= '<div class="col-6 col-md-3">';
                 $html .= '<h6 class="fw-semibold mb-2" data-nx-inline="about_title" title="Doppelklick zum Bearbeiten">' . nxb_core_h($aboutTitle) . '</h6>';
                 $html .= '<ul class="list-unstyled mb-0">';
-                $html .= '<li><a href="#" class="text-decoration-none text-muted d-inline-block mb-1" data-nx-inline="about1" title="Doppelklick zum Bearbeiten">' . nxb_core_h($about1) . '</a></li>';
-                $html .= '<li><a href="#" class="text-decoration-none text-muted d-inline-block mb-1" data-nx-inline="about2" title="Doppelklick zum Bearbeiten">' . nxb_core_h($about2) . '</a></li>';
-                $html .= '<li><a href="#" class="text-decoration-none text-muted d-inline-block mb-1" data-nx-inline="about3" title="Doppelklick zum Bearbeiten">' . nxb_core_h($about3) . '</a></li>';
-                $html .= '<li><a href="#" class="text-decoration-none text-muted d-inline-block mb-1" data-nx-inline="about4" title="Doppelklick zum Bearbeiten">' . nxb_core_h($about4) . '</a></li>';
+                $html .= '<li><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'about1')) . '" class="text-decoration-none nx-footer-link nx-footer-muted d-inline-block mb-1" data-nx-inline="about1" title="Doppelklick zum Bearbeiten">' . nxb_core_h($about1) . '</a></li>';
+                $html .= '<li><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'about2')) . '" class="text-decoration-none nx-footer-link nx-footer-muted d-inline-block mb-1" data-nx-inline="about2" title="Doppelklick zum Bearbeiten">' . nxb_core_h($about2) . '</a></li>';
+                $html .= '<li><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'about3')) . '" class="text-decoration-none nx-footer-link nx-footer-muted d-inline-block mb-1" data-nx-inline="about3" title="Doppelklick zum Bearbeiten">' . nxb_core_h($about3) . '</a></li>';
+                $html .= '<li><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'about4')) . '" class="text-decoration-none nx-footer-link nx-footer-muted d-inline-block mb-1" data-nx-inline="about4" title="Doppelklick zum Bearbeiten">' . nxb_core_h($about4) . '</a></li>';
                 $html .= '</ul>';
                 $html .= '</div>';
                 // Help Center links
                 $html .= '<div class="col-6 col-md-3">';
                 $html .= '<h6 class="fw-semibold mb-2" data-nx-inline="help_title" title="Doppelklick zum Bearbeiten">' . nxb_core_h($helpTitle) . '</h6>';
                 $html .= '<ul class="list-unstyled mb-0">';
-                $html .= '<li><a href="#" class="text-decoration-none text-muted d-inline-block mb-1" data-nx-inline="help1" title="Doppelklick zum Bearbeiten">' . nxb_core_h($help1) . '</a></li>';
-                $html .= '<li><a href="#" class="text-decoration-none text-muted d-inline-block mb-1" data-nx-inline="help2" title="Doppelklick zum Bearbeiten">' . nxb_core_h($help2) . '</a></li>';
-                $html .= '<li><a href="#" class="text-decoration-none text-muted d-inline-block mb-1" data-nx-inline="help3" title="Doppelklick zum Bearbeiten">' . nxb_core_h($help3) . '</a></li>';
-                $html .= '<li><a href="#" class="text-decoration-none text-muted d-inline-block mb-1" data-nx-inline="help4" title="Doppelklick zum Bearbeiten">' . nxb_core_h($help4) . '</a></li>';
+                $html .= '<li><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'help1')) . '" class="text-decoration-none nx-footer-link nx-footer-muted d-inline-block mb-1" data-nx-inline="help1" title="Doppelklick zum Bearbeiten">' . nxb_core_h($help1) . '</a></li>';
+                $html .= '<li><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'help2')) . '" class="text-decoration-none nx-footer-link nx-footer-muted d-inline-block mb-1" data-nx-inline="help2" title="Doppelklick zum Bearbeiten">' . nxb_core_h($help2) . '</a></li>';
+                $html .= '<li><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'help3')) . '" class="text-decoration-none nx-footer-link nx-footer-muted d-inline-block mb-1" data-nx-inline="help3" title="Doppelklick zum Bearbeiten">' . nxb_core_h($help3) . '</a></li>';
+                $html .= '<li><a href="' . nxb_core_h(nxb_footer_link_href($settings, 'help4')) . '" class="text-decoration-none nx-footer-link nx-footer-muted d-inline-block mb-1" data-nx-inline="help4" title="Doppelklick zum Bearbeiten">' . nxb_core_h($help4) . '</a></li>';
                 $html .= '</ul>';
                 $html .= '</div>';
                 $html .= '</div></div></footer>';
@@ -2246,7 +2285,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                 $html .= '<div class="col-lg-4 col-md-6 col-12">';
                 $html .= '  <div class="d-flex flex-column gap-3">';
                 $html .= '    <div class="fw-semibold fs-5" data-nx-inline="brand" title="Doppelklick zum Bearbeiten">' . nxb_core_h($brand) . '</div>';
-                $html .= '    <p class="mb-0 text-muted" data-nx-inline="about" title="Doppelklick zum Bearbeiten">' . nxb_core_h($about) . '</p>';
+                $html .= '    <p class="mb-0 nx-footer-muted" data-nx-inline="about" title="Doppelklick zum Bearbeiten">' . nxb_core_h($about) . '</p>';
                 $html .= '    <div class="fs-4 d-flex flex-row gap-3">';
                 $html .= nxb_render_core_widget_html('core_social_links', $settings, 'Social');
                 $html .= '    </div>';
@@ -2262,7 +2301,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                     if ($val === '') {
                         continue;
                     }
-                    $html .= '<li><a href="#" class="nav-link px-0 text-light-50" data-nx-inline="' . nxb_core_h($field) . '" title="Doppelklick zum Bearbeiten">' . nxb_core_h($val) . '</a></li>';
+                    $html .= '<li><a href="' . nxb_core_h(nxb_footer_link_href($settings, $field)) . '" class="nav-link px-0 nx-footer-link nx-footer-muted" data-nx-inline="' . nxb_core_h($field) . '" title="Doppelklick zum Bearbeiten">' . nxb_core_h($val) . '</a></li>';
                 }
                 $html .= '    </ul>';
                 $html .= '  </div>';
@@ -2277,7 +2316,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                     if ($val === '') {
                         continue;
                     }
-                    $html .= '<li><a href="#" class="nav-link px-0 text-light-50" data-nx-inline="' . nxb_core_h($field) . '" title="Doppelklick zum Bearbeiten">' . nxb_core_h($val) . '</a></li>';
+                    $html .= '<li><a href="' . nxb_core_h(nxb_footer_link_href($settings, $field)) . '" class="nav-link px-0 nx-footer-link nx-footer-muted" data-nx-inline="' . nxb_core_h($field) . '" title="Doppelklick zum Bearbeiten">' . nxb_core_h($val) . '</a></li>';
                 }
                 $html .= '    </ul>';
                 $html .= '  </div>';
@@ -2292,7 +2331,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                     if ($val === '') {
                         continue;
                     }
-                    $html .= '<li><a href="#" class="nav-link px-0 text-light-50" data-nx-inline="' . nxb_core_h($field) . '" title="Doppelklick zum Bearbeiten">' . nxb_core_h($val) . '</a></li>';
+                    $html .= '<li><a href="' . nxb_core_h(nxb_footer_link_href($settings, $field)) . '" class="nav-link px-0 nx-footer-link nx-footer-muted" data-nx-inline="' . nxb_core_h($field) . '" title="Doppelklick zum Bearbeiten">' . nxb_core_h($val) . '</a></li>';
                 }
                 $html .= '    </ul>';
                 $html .= '  </div>';
@@ -2307,7 +2346,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                     if ($val === '') {
                         continue;
                     }
-                    $html .= '<li><a href="#" class="nav-link px-0 text-light-50" data-nx-inline="' . nxb_core_h($field) . '" title="Doppelklick zum Bearbeiten">' . nxb_core_h($val) . '</a></li>';
+                    $html .= '<li><a href="' . nxb_core_h(nxb_footer_link_href($settings, $field)) . '" class="nav-link px-0 nx-footer-link nx-footer-muted" data-nx-inline="' . nxb_core_h($field) . '" title="Doppelklick zum Bearbeiten">' . nxb_core_h($val) . '</a></li>';
                 }
                 $html .= '    </ul>';
                 $html .= '  </div>';
@@ -2321,9 +2360,9 @@ if (!function_exists('nxb_core_widgets_list')) {
                 $html .= '  </div>';
                 $html .= '  <div class="col-md-6 col-12 d-flex justify-content-center justify-content-md-end">';
                 $html .= '    <nav class="nav nav-footer">';
-                $html .= '      <a href="#" class="nav-link ps-0 text-light-50" data-nx-inline="policy_privacy" title="Doppelklick zum Bearbeiten">' . nxb_core_h($policyPrivacy) . '</a>';
-                $html .= '      <a href="#" class="nav-link px-2 px-md-3 text-light-50" data-nx-inline="policy_cookies" title="Doppelklick zum Bearbeiten">' . nxb_core_h($policyCookies) . '</a>';
-                $html .= '      <a href="#" class="nav-link text-light-50" data-nx-inline="policy_terms" title="Doppelklick zum Bearbeiten">' . nxb_core_h($policyTerms) . '</a>';
+                $html .= '      <a href="' . nxb_core_h(nxb_footer_link_href($settings, 'policy_privacy')) . '" class="nav-link ps-0 nx-footer-link nx-footer-muted" data-nx-inline="policy_privacy" title="Doppelklick zum Bearbeiten">' . nxb_core_h($policyPrivacy) . '</a>';
+                $html .= '      <a href="' . nxb_core_h(nxb_footer_link_href($settings, 'policy_cookies')) . '" class="nav-link px-2 px-md-3 nx-footer-link nx-footer-muted" data-nx-inline="policy_cookies" title="Doppelklick zum Bearbeiten">' . nxb_core_h($policyCookies) . '</a>';
+                $html .= '      <a href="' . nxb_core_h(nxb_footer_link_href($settings, 'policy_terms')) . '" class="nav-link nx-footer-link nx-footer-muted" data-nx-inline="policy_terms" title="Doppelklick zum Bearbeiten">' . nxb_core_h($policyTerms) . '</a>';
                 $html .= '    </nav>';
                 $html .= '  </div>';
                 $html .= '</div>'; // row copyright
@@ -2358,7 +2397,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                 $html .= '  <div class="col-12 col-md-12 col-xxl-6 px-0">';
                 $html .= '    <div class="mb-4">';
                 $html .= '      <div class="mb-3 fw-semibold fs-4" data-nx-inline="brand" title="Doppelklick zum Bearbeiten">' . nxb_core_h($brand) . '</div>';
-                $html .= '      <p class="lead mb-0 text-muted" data-nx-inline="description" title="Doppelklick zum Bearbeiten">' . nxb_core_h($description) . '</p>';
+                $html .= '      <p class="lead mb-0 nx-footer-muted" data-nx-inline="description" title="Doppelklick zum Bearbeiten">' . nxb_core_h($description) . '</p>';
                 $html .= '    </div>';
                 $html .= '    <nav class="nav nav-footer justify-content-center flex-wrap">';
                 $links = [
@@ -2379,7 +2418,7 @@ if (!function_exists('nxb_core_widgets_list')) {
                     if ($i > 0) {
                         $html .= '<span class="my-2 vr opacity-50"></span>';
                     }
-                    $html .= '<a class="nav-link" href="#" data-nx-inline="' . nxb_core_h($field) . '" title="Doppelklick zum Bearbeiten">' . nxb_core_h($label) . '</a>';
+                    $html .= '<a class="nav-link nx-footer-link" href="' . nxb_core_h(nxb_footer_link_href($settings, $field)) . '" data-nx-inline="' . nxb_core_h($field) . '" title="Doppelklick zum Bearbeiten">' . nxb_core_h($label) . '</a>';
                     $i++;
                 }
                 $html .= '    </nav>';
@@ -2392,9 +2431,9 @@ if (!function_exists('nxb_core_widgets_list')) {
                 $html .= '  </div>';
                 $html .= '  <div class="col-12 col-md-6 col-lg-7 d-lg-flex justify-content-center">';
                 $html .= '    <nav class="nav nav-footer">';
-                $html .= '      <a class="nav-link ps-0" href="#" data-nx-inline="policy_privacy" title="Doppelklick zum Bearbeiten">' . nxb_core_h($policyPrivacy) . '</a>';
-                $html .= '      <a class="nav-link px-2 px-md-0" href="#" data-nx-inline="policy_cookies" title="Doppelklick zum Bearbeiten">' . nxb_core_h($policyCookies) . '</a>';
-                $html .= '      <a class="nav-link" href="#" data-nx-inline="policy_terms" title="Doppelklick zum Bearbeiten">' . nxb_core_h($policyTerms) . '</a>';
+                $html .= '      <a class="nav-link ps-0 nx-footer-link" href="' . nxb_core_h(nxb_footer_link_href($settings, 'policy_privacy')) . '" data-nx-inline="policy_privacy" title="Doppelklick zum Bearbeiten">' . nxb_core_h($policyPrivacy) . '</a>';
+                $html .= '      <a class="nav-link px-2 px-md-0 nx-footer-link" href="' . nxb_core_h(nxb_footer_link_href($settings, 'policy_cookies')) . '" data-nx-inline="policy_cookies" title="Doppelklick zum Bearbeiten">' . nxb_core_h($policyCookies) . '</a>';
+                $html .= '      <a class="nav-link nx-footer-link" href="' . nxb_core_h(nxb_footer_link_href($settings, 'policy_terms')) . '" data-nx-inline="policy_terms" title="Doppelklick zum Bearbeiten">' . nxb_core_h($policyTerms) . '</a>';
                 $html .= '    </nav>';
                 $html .= '  </div>';
                 $html .= '</div>';
@@ -2411,12 +2450,31 @@ if (!function_exists('nxb_core_widgets_list')) {
                 $brandImage  = trim((string)($settings['image'] ?? ''));
                 $scheme      = (string)($settings['scheme'] ?? 'light'); // light|dark
                 $shadow      = (string)($settings['shadow'] ?? 'shadow-sm'); // '', shadow-sm, shadow, shadow-lg
+                $navVariant  = (string)($settings['navVariant'] ?? 'standard'); // standard|sticky|agency
+                if (!in_array($navVariant, ['standard', 'sticky', 'agency'], true)) {
+                    $navVariant = 'standard';
+                }
+                $navBgColor  = trim((string)($settings['navBgColor'] ?? ''));
+                $navTextColor = trim((string)($settings['navTextColor'] ?? ''));
+                $navHoverColor = trim((string)($settings['navHoverColor'] ?? ''));
+                $navFillBgColor = trim((string)($settings['navFillBgColor'] ?? ''));
+                $navFillTextColor = trim((string)($settings['navFillTextColor'] ?? ''));
                 $overlayMode = !empty($settings['overlayMode']);
                 $overlayTextMode = (string)($settings['overlayTextMode'] ?? 'light'); // light|dark
                 $scrollFill  = !empty($settings['scrollFill']);
                 $scrollFillOffset = isset($settings['scrollFillOffset']) ? (int)$settings['scrollFillOffset'] : 80;
                 if ($scrollFillOffset < 0) $scrollFillOffset = 0;
                 $filledShadow = (string)($settings['filledShadow'] ?? $shadow);
+                if ($navVariant === 'sticky') {
+                    $overlayMode = false;
+                    $scrollFill = false;
+                } elseif ($navVariant === 'agency') {
+                    $overlayMode = true;
+                    $scrollFill = true;
+                    if ($filledShadow === '') {
+                        $filledShadow = 'shadow-sm';
+                    }
+                }
                 $container   = (string)($settings['container'] ?? 'fluid'); // fluid|fixed
                 $paddingY    = trim((string)($settings['paddingY'] ?? ''));
                 $paddingX    = trim((string)($settings['paddingX'] ?? ''));
@@ -2438,8 +2496,11 @@ if (!function_exists('nxb_core_widgets_list')) {
                 }
                 // Marker-Klasse für Builder-CSS: fixed vs. fluid Container
                 $navClasses[] = $container === 'fixed' ? 'nx-nav-fixed' : 'nx-nav-fluid';
+                $navClasses[] = 'nx-nav-variant-' . $navVariant;
                 if ($overlayMode) {
                     $navClasses[] = 'nx-nav-overlay';
+                } elseif ($navVariant === 'sticky') {
+                    $navClasses[] = 'sticky-top';
                 }
                 // Standardmäßig kein vertikales Padding auf der Navbar selbst (Padding kommt von den Nav-Items)
                 $navClasses[] = 'py-0';
@@ -2453,6 +2514,21 @@ if (!function_exists('nxb_core_widgets_list')) {
                 if ($noShadow) {
                     $navStyleParts[] = 'box-shadow:none;';
                 }
+                if ($navBgColor !== '') {
+                    $navStyleParts[] = '--nx-demo-nav-bg:' . nxb_core_h($navBgColor) . ';';
+                }
+                if ($navTextColor !== '') {
+                    $navStyleParts[] = '--nx-demo-nav-text:' . nxb_core_h($navTextColor) . ';';
+                }
+                if ($navHoverColor !== '') {
+                    $navStyleParts[] = '--nx-demo-nav-hover:' . nxb_core_h($navHoverColor) . ';';
+                }
+                if (($navFillBgColor !== '' ? $navFillBgColor : $navBgColor) !== '') {
+                    $navStyleParts[] = '--nx-demo-nav-fill-bg:' . nxb_core_h($navFillBgColor !== '' ? $navFillBgColor : $navBgColor) . ';';
+                }
+                if (($navFillTextColor !== '' ? $navFillTextColor : $navTextColor) !== '') {
+                    $navStyleParts[] = '--nx-demo-nav-fill-text:' . nxb_core_h($navFillTextColor !== '' ? $navFillTextColor : $navTextColor) . ';';
+                }
                 $navStyle = empty($navStyleParts) ? '' : ' style="' . implode('', $navStyleParts) . '"';
                 $containerClass = $container === 'fixed' ? 'container nx-keep-container' : 'container-fluid nx-keep-container';
 
@@ -2460,22 +2536,19 @@ if (!function_exists('nxb_core_widgets_list')) {
                 $navId = 'nx-nav-demo-' . substr(md5(json_encode($settings)), 0, 8);
 
                 // Neues Menü-Modell: settings.menu = [{label,url,children:[{label,url}]}]
-                // menuSource === 'plugin': Wenn settings.menu leer ist → aus DB; sonst bearbeitete Kopie aus settings.menu nutzen (editierbar).
-                $menuSourceIsPlugin = !empty($settings['menuSource']) && (string)$settings['menuSource'] === 'plugin';
+                // Wenn noch kein eigenes Menü im Widget gepflegt ist, nutze die bestehende Website-Navigation.
+                $menuSourceIsPlugin = false;
                 $menu = $settings['menu'] ?? null;
-                if ($menuSourceIsPlugin && function_exists('nxb_get_plugin_navigation_menu')) {
-                    $hasMenu = is_array($menu) && !empty($menu);
-                    if (!$hasMenu) {
-                        $pluginMenu = nxb_get_plugin_navigation_menu();
-                        if (is_array($pluginMenu) && !empty($pluginMenu)) {
-                            $menu = $pluginMenu;
-                        }
-                    }
-                }
                 if (!is_array($menu)) {
                     $menu = null;
                 }
-
+                if (($menu === null || empty($menu)) && function_exists('nxb_get_plugin_navigation_menu')) {
+                    $fallbackMenu = nxb_get_plugin_navigation_menu();
+                    if (!empty($fallbackMenu)) {
+                        $menu = $fallbackMenu;
+                        $menuSourceIsPlugin = true;
+                    }
+                }
                 // Brand: entweder Text (inline-editierbar) oder Logo-Bild (inline austauschbar)
                 if ($brandImage !== '') {
                     $brandHtml = '<a class="navbar-brand fw-semibold" href="#"><img src="' . nxb_core_h($brandImage) . '" alt="' . nxb_core_h($brandTitle) . '" style="max-height:calc(70px);height:70px;" class="d-inline-block align-text-bottom" data-nx-inline="image" title="Klick: Logo ändern"></a>';
@@ -2517,6 +2590,12 @@ if (!function_exists('nxb_core_widgets_list')) {
                     . '.nx-nav-core-demo .navbar-nav .nav-link:focus,.nx-nav-core-demo .navbar-nav .nav-link.dropdown-toggle:focus{outline:none !important;box-shadow:none !important;}'
                     . '.nx-nav-core-demo .navbar-nav .nav-link.dropdown-toggle::after{display:none !important;}'
                     . '.nx-nav-core-demo .navbar-nav .nav-link{position:relative;}'
+                    . '.nx-nav-core-demo{background-color:var(--nx-demo-nav-bg, var(--bs-body-bg, #ffffff)) !important;color:var(--nx-demo-nav-text, var(--bs-body-color, #212529)) !important;}'
+                    . '.nx-nav-core-demo .navbar-brand,.nx-nav-core-demo .navbar-nav .nav-link,.nx-nav-core-demo .navbar-toggler{color:var(--nx-demo-nav-text, var(--bs-body-color, #212529)) !important;}'
+                    . '.nx-nav-core-demo .navbar-nav .nav-link:hover,.nx-nav-core-demo .navbar-nav .nav-link:focus,.nx-nav-core-demo .nav-item.dropdown.show > .nav-link,.nx-nav-core-demo .nav-item.dropdown:hover > .nav-link,.nx-nav-core-demo .navbar-brand:hover,.nx-nav-core-demo .navbar-brand:focus{color:var(--nx-demo-nav-hover, var(--bs-primary)) !important;}'
+                    . '.nx-nav-core-demo .dropdown-menu{background:var(--nx-demo-nav-bg, var(--bs-body-bg, #ffffff)) !important;}'
+                    . '.nx-nav-core-demo .dropdown-item{color:var(--nx-demo-nav-text, var(--bs-body-color, #212529)) !important;}'
+                    . '.nx-nav-core-demo .dropdown-item:hover,.nx-nav-core-demo .dropdown-item:focus{color:var(--nx-demo-nav-hover, var(--bs-primary)) !important;}'
                     . '.nx-nav-core-demo .navbar-nav .nav-link.nx-nav-effect-default::before,'
                     . '.nx-nav-core-demo .navbar-nav .nav-link.nx-nav-effect-center::before,'
                     . '.nx-nav-core-demo .navbar-nav .nav-link.nx-nav-effect-swipe::before{content:"";position:absolute;left:0;right:0;bottom:0;height:2px !important;min-height:2px !important;max-height:2px !important;background-color:var(--bs-primary);transform:scaleX(0);transform-origin:left center;transition:transform .25s ease-out;pointer-events:none;}'
@@ -2530,6 +2609,7 @@ if (!function_exists('nxb_core_widgets_list')) {
 
                 // Layout-Varianten
                 $navDataAttrs = '';
+                $navDataAttrs .= ' data-nx-nav-variant="' . nxb_core_h($navVariant) . '"';
                 if ($overlayMode) $navDataAttrs .= ' data-nx-overlay="1" data-nx-overlay-text="' . nxb_core_h($overlayTextMode) . '" data-nx-fill-scheme="' . nxb_core_h($scheme) . '"';
                 if ($scrollFill) $navDataAttrs .= ' data-nx-scrollfill="1" data-nx-scrollfill-offset="' . (int)$scrollFillOffset . '"';
                 if ($filledShadow !== '') $navDataAttrs .= ' data-nx-filled-shadow="' . nxb_core_h($filledShadow) . '"';
@@ -2608,8 +2688,8 @@ if (!function_exists('nxb_core_widgets_list')) {
                 $item4      = trim((string)($settings['item4_label'] ?? 'Ressourcen'));
                 $loginLabel = trim((string)($settings['login_label'] ?? 'Login'));
                 $loginUrl   = trim((string)($settings['login_url'] ?? ''));
-                if ($loginUrl === '') {
-                    $loginUrl = '#';
+                if ($loginUrl === '' || $loginUrl === '#') {
+                    $loginUrl = \nexpell\SeoUrlHandler::convertToSeoUrl('index.php?site=login');
                 }
                 $ctaLabel   = trim((string)($settings['cta_label'] ?? 'Jetzt starten'));
 
@@ -2668,133 +2748,119 @@ if (!function_exists('nxb_core_widgets_list')) {
                     $html .= '<li class="nav-item"><a class="nav-link' . $hoverClass . '" href="#" data-nx-inline="item3_label" title="Doppelklick zum Bearbeiten"' . $linkPaddingStyle . '>' . nxb_core_h($item3) . '</a></li>';
                     $html .= '<li class="nav-item"><a class="nav-link' . $hoverClass . '" href="#" data-nx-inline="item4_label" title="Doppelklick zum Bearbeiten"' . $linkPaddingStyle . '>' . nxb_core_h($item4) . '</a></li>';
                 }
-                // Login-/User-UI:
-                // - menuSource=plugin: exakt wie das navigation-Widget (Profil/Admincenter/Logout Dropdown)
-                // - sonst: eigener Login-Link (Template steuerbar)
-                if ($menuSourceIsPlugin) {
-                    if (session_status() === PHP_SESSION_NONE) session_start();
-                    global $_database;
-                    $uid = isset($_SESSION['userID']) ? (int)$_SESSION['userID'] : 0;
-                    if ($uid <= 0) {
-                        $loginText = $loginLabel !== '' ? $loginLabel : 'Login';
-                        $loginHref = \nexpell\SeoUrlHandler::convertToSeoUrl('index.php?site=login');
-                        $html .= '<li class="nav-item ms-lg-3">';
-                        $html .= '<a class="nav-link' . $hoverClass . '" href="' . nxb_core_h($loginHref) . '" title="Doppelklick zum Bearbeiten"' . $linkPaddingStyle . '><i class="bi bi-box-arrow-in-right me-1"></i> ' . nxb_core_h($loginText) . '</a>';
-                        $html .= '</li>';
-                    } else {
-                        $avatar = htmlspecialchars(getavatar($uid), ENT_QUOTES, 'UTF-8');
-                        $username = htmlspecialchars(getusername($uid), ENT_QUOTES, 'UTF-8');
-                        $canAdmin = class_exists(\nexpell\AccessControl::class) ? \nexpell\AccessControl::canAccessAdmin($_database, $uid) : false;
-                        // Messenger/Forum Symbole (inkl. Badge, nur wenn count > 0) – analog zum navigation-Widget
-                        $messengerBadgeHtml = '';
-                        $forumBadgeHtml = '';
-                        $messengerUrl = \nexpell\SeoUrlHandler::convertToSeoUrl('index.php?site=messenger');
-                        $forumUrl      = \nexpell\SeoUrlHandler::convertToSeoUrl('index.php?site=forum');
-
-                        if (!$isBuilder) {
-                            // Messenger unread count
-                            try {
-                                if (class_exists(\nexpell\PluginManager::class) && \nexpell\PluginManager::isActive('messenger')) {
-                                    $check = $_database->query("SHOW TABLES LIKE 'plugins_messages'");
-                                    if ($check && $check->num_rows > 0) {
-                                        $row = mysqli_fetch_assoc(safe_query("
-                                            SELECT COUNT(*) AS unread
-                                            FROM plugins_messages
-                                            WHERE receiver_id = {$uid}
-                                              AND is_read = 0
-                                        "));
-                                        $unread = (int)($row['unread'] ?? 0);
-                                        if ($unread > 0) {
-                                            $badge = ($unread > 99) ? '99+' : (string)$unread;
-                                            $messengerBadgeHtml = "<span class='badge rounded-pill bg-danger'>{$badge}</span>";
-                                        }
-                                    }
-                                }
-                            } catch (\Throwable $e) {}
-
-                            // Forum new posts count
-                            try {
-                                if (class_exists(\nexpell\PluginManager::class) && \nexpell\PluginManager::isActive('forum')) {
-                                    $check = $_database->query("SHOW TABLES LIKE 'plugins_forum_read'");
-                                    if ($check && $check->num_rows > 0) {
-                                        $row2 = mysqli_fetch_assoc(safe_query("
-                                            SELECT COUNT(*) AS new_posts
-                                            FROM plugins_forum_posts p
-                                            INNER JOIN plugins_forum_threads t
-                                                ON t.threadID = p.threadID
-                                               AND t.is_deleted = 0
-                                            LEFT JOIN plugins_forum_read r
-                                                ON r.userID = {$uid}
-                                               AND r.threadID = p.threadID
-                                            WHERE p.is_deleted = 0
-                                              AND p.created_at > IFNULL(r.last_read_at, '1970-01-01')
-                                        "));
-                                        $count = (int)($row2['new_posts'] ?? 0);
-                                        if ($count > 0) {
-                                            $badge2 = ($count > 99) ? '99+' : (string)$count;
-                                            $forumBadgeHtml = "<span class='badge rounded-pill bg-danger'>{$badge2}</span>";
-                                        }
-                                    }
-                                }
-                            } catch (\Throwable $e) {}
-                        }
-
-                        $messengerHtml = '';
-                        if (class_exists(\nexpell\PluginManager::class) && \nexpell\PluginManager::isActive('messenger')) {
-                            $messengerHtml = "
-                                <li class='nav-item'>
-                                    <a class='nav-link nav-icon-badge{$hoverClass} d-inline-flex align-items-center' href='{$messengerUrl}'{$linkPaddingStyle}>
-                                        <span class='icon-wrapper'>
-                                            <i class='bi bi-envelope fs-5'></i>
-                                            {$messengerBadgeHtml}
-                                        </span>
-                                    </a>
-                                </li>";
-                        }
-                        $forumHtml = '';
-                        if (class_exists(\nexpell\PluginManager::class) && \nexpell\PluginManager::isActive('forum')) {
-                            $forumHtml = "
-                                <li class='nav-item'>
-                                    <a class='nav-link nav-icon-badge{$hoverClass} d-inline-flex align-items-center' href='{$forumUrl}'{$linkPaddingStyle}>
-                                        <span class='icon-wrapper'>
-                                            <i class='bi bi-chat-dots fs-5'></i>
-                                            {$forumBadgeHtml}
-                                        </span>
-                                    </a>
-                                </li>";
-                        }
-
-                        if ($messengerHtml !== '') $html .= $messengerHtml;
-                        if ($forumHtml !== '') $html .= $forumHtml;
-                        $profileHref = \nexpell\SeoUrlHandler::convertToSeoUrl('index.php?site=profile&userID=' . $uid);
-                        $logoutHref  = \nexpell\SeoUrlHandler::convertToSeoUrl('index.php?site=logout');
-                        $adminHref   = '/admin/admincenter.php';
-
-                        $html .= '<li class="nav-item dropdown ms-lg-3">';
-                        $html .= '<a class="nav-link' . $hoverClass . ' d-flex align-items-center gap-1" href="#" data-bs-toggle="dropdown" aria-expanded="false"' . $linkPaddingStyle . '>';
-                        $html .= '<img src="' . $avatar . '" class="navbar-avatar" style="width:22px;height:22px;border-radius:4px;" alt="' . $username . '">';
-                        $html .= $username . '<i class="bi bi-chevron-down ms-1"></i></a>';
-                        $html .= '<ul class="dropdown-menu dropdown-menu-end">';
-                        $html .= '<li><a class="dropdown-item" href="' . nxb_core_h($profileHref) . '"><i class="bi bi-person me-2"></i> Profil</a></li>';
-                        if ($canAdmin) {
-                            $html .= '<li><a class="dropdown-item" href="' . nxb_core_h($adminHref) . '" target="_blank"><i class="bi bi-speedometer2 me-2"></i> Admincenter</a></li>';
-                        }
-                        $html .= '<li><hr class="dropdown-divider"></li>';
-                        $html .= '<li><a class="dropdown-item" href="' . nxb_core_h($logoutHref) . '"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>';
-                        $html .= '</ul></li>';
-                    }
-                } else {
-                    // Login als normaler Nav-Link (gleiche Farbe wie andere), ohne Button-CTA – Padding auf dem Link.
-                    // Im Builder zusätzlich mit Gear-Icon für URL-Konfiguration (eigene login_url-Einstellung).
+                // Login-/User-UI kommt direkt aus dem Builder-Widget.
+                if (session_status() === PHP_SESSION_NONE) session_start();
+                global $_database;
+                $uid = isset($_SESSION['userID']) ? (int)$_SESSION['userID'] : 0;
+                if ($uid <= 0) {
                     if ($loginLabel !== '' || $isBuilder) {
                         $loginText = $loginLabel !== '' ? $loginLabel : 'Login';
+                        $loginHref = $loginUrl !== '' ? $loginUrl : \nexpell\SeoUrlHandler::convertToSeoUrl('index.php?site=login');
                         $html .= '<li class="nav-item ms-lg-3">';
-                        $html .= '<a class="nav-link' . $hoverClass . '" href="' . nxb_core_h($loginUrl) . '" data-nx-inline="login_label" title="Doppelklick zum Bearbeiten"' . $linkPaddingStyle . '>' . nxb_core_h($loginText) . '</a>';
+                        $html .= '<a class="nav-link' . $hoverClass . '" href="' . nxb_core_h($loginHref) . '" data-nx-inline="login_label" title="Doppelklick zum Bearbeiten"' . $linkPaddingStyle . '><i class="bi bi-box-arrow-in-right me-1"></i> ' . nxb_core_h($loginText) . '</a>';
                         if ($isBuilder) {
                             $html .= '<button type="button" class="btn btn-sm btn-outline-secondary ms-1 nx-nav-gear" data-nx-nav-gear="1" data-nx-nav-path="login" title="Link-Einstellungen"><i class="bi bi-gear"></i></button>';
                         }
                         $html .= '</li>';
                     }
+                } else {
+                    $avatar = htmlspecialchars(getavatar($uid), ENT_QUOTES, 'UTF-8');
+                    $username = htmlspecialchars(getusername($uid), ENT_QUOTES, 'UTF-8');
+                    $canAdmin = class_exists(\nexpell\AccessControl::class) ? \nexpell\AccessControl::canAccessAdmin($_database, $uid) : false;
+                    $messengerBadgeHtml = '';
+                    $forumBadgeHtml = '';
+                    $messengerUrl = \nexpell\SeoUrlHandler::convertToSeoUrl('index.php?site=messenger');
+                    $forumUrl      = \nexpell\SeoUrlHandler::convertToSeoUrl('index.php?site=forum');
+
+                    if (!$isBuilder) {
+                        try {
+                            if (class_exists(\nexpell\PluginManager::class) && \nexpell\PluginManager::isActive('messenger')) {
+                                $check = $_database->query("SHOW TABLES LIKE 'plugins_messages'");
+                                if ($check && $check->num_rows > 0) {
+                                    $row = mysqli_fetch_assoc(safe_query("
+                                        SELECT COUNT(*) AS unread
+                                        FROM plugins_messages
+                                        WHERE receiver_id = {$uid}
+                                          AND is_read = 0
+                                    "));
+                                    $unread = (int)($row['unread'] ?? 0);
+                                    if ($unread > 0) {
+                                        $badge = ($unread > 99) ? '99+' : (string)$unread;
+                                        $messengerBadgeHtml = "<span class='badge rounded-pill bg-danger'>{$badge}</span>";
+                                    }
+                                }
+                            }
+                        } catch (\Throwable $e) {}
+
+                        try {
+                            if (class_exists(\nexpell\PluginManager::class) && \nexpell\PluginManager::isActive('forum')) {
+                                $check = $_database->query("SHOW TABLES LIKE 'plugins_forum_read'");
+                                if ($check && $check->num_rows > 0) {
+                                    $row2 = mysqli_fetch_assoc(safe_query("
+                                        SELECT COUNT(*) AS new_posts
+                                        FROM plugins_forum_posts p
+                                        INNER JOIN plugins_forum_threads t
+                                            ON t.threadID = p.threadID
+                                           AND t.is_deleted = 0
+                                        LEFT JOIN plugins_forum_read r
+                                            ON r.userID = {$uid}
+                                           AND r.threadID = p.threadID
+                                        WHERE p.is_deleted = 0
+                                          AND p.created_at > IFNULL(r.last_read_at, '1970-01-01')
+                                    "));
+                                    $count = (int)($row2['new_posts'] ?? 0);
+                                    if ($count > 0) {
+                                        $badge2 = ($count > 99) ? '99+' : (string)$count;
+                                        $forumBadgeHtml = "<span class='badge rounded-pill bg-danger'>{$badge2}</span>";
+                                    }
+                                }
+                            }
+                        } catch (\Throwable $e) {}
+                    }
+
+                    $messengerHtml = '';
+                    if (class_exists(\nexpell\PluginManager::class) && \nexpell\PluginManager::isActive('messenger')) {
+                        $messengerHtml = "
+                            <li class='nav-item'>
+                                <a class='nav-link nav-icon-badge{$hoverClass} d-inline-flex align-items-center' href='{$messengerUrl}'{$linkPaddingStyle}>
+                                    <span class='icon-wrapper'>
+                                        <i class='bi bi-envelope fs-5'></i>
+                                        {$messengerBadgeHtml}
+                                    </span>
+                                </a>
+                            </li>";
+                    }
+                    $forumHtml = '';
+                    if (class_exists(\nexpell\PluginManager::class) && \nexpell\PluginManager::isActive('forum')) {
+                        $forumHtml = "
+                            <li class='nav-item'>
+                                <a class='nav-link nav-icon-badge{$hoverClass} d-inline-flex align-items-center' href='{$forumUrl}'{$linkPaddingStyle}>
+                                    <span class='icon-wrapper'>
+                                        <i class='bi bi-chat-dots fs-5'></i>
+                                        {$forumBadgeHtml}
+                                    </span>
+                                </a>
+                            </li>";
+                    }
+
+                    if ($messengerHtml !== '') $html .= $messengerHtml;
+                    if ($forumHtml !== '') $html .= $forumHtml;
+                    $profileHref = \nexpell\SeoUrlHandler::convertToSeoUrl('index.php?site=profile&userID=' . $uid);
+                    $logoutHref  = \nexpell\SeoUrlHandler::convertToSeoUrl('index.php?site=logout');
+                    $adminHref   = '/admin/admincenter.php';
+
+                    $html .= '<li class="nav-item dropdown ms-lg-3">';
+                    $html .= '<a class="nav-link' . $hoverClass . ' d-flex align-items-center gap-1" href="#" data-bs-toggle="dropdown" aria-expanded="false"' . $linkPaddingStyle . '>';
+                    $html .= '<img src="' . $avatar . '" class="navbar-avatar" style="width:22px;height:22px;border-radius:4px;" alt="' . $username . '">';
+                    $html .= $username . '<i class="bi bi-chevron-down ms-1"></i></a>';
+                    $html .= '<ul class="dropdown-menu dropdown-menu-end">';
+                    $html .= '<li><a class="dropdown-item" href="' . nxb_core_h($profileHref) . '"><i class="bi bi-person me-2"></i> Profil</a></li>';
+                    if ($canAdmin) {
+                        $html .= '<li><a class="dropdown-item" href="' . nxb_core_h($adminHref) . '" target="_blank"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>';
+                    }
+                    $html .= '<li><hr class="dropdown-divider"></li>';
+                    $html .= '<li><a class="dropdown-item" href="' . nxb_core_h($logoutHref) . '"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>';
+                    $html .= '</ul></li>';
                 }
                 $html .= function_exists('nxb_nav_language_selector_html') ? nxb_nav_language_selector_html($linkPaddingStyle) : '';
                 $html .= '</ul></div></div></nav>';

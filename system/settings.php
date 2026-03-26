@@ -551,6 +551,44 @@ function safe_query($query = "")
             $query = \nexpell\LegacySettingsCompatibility::rewriteSelectQuery($query);
         }
 
+        // Builder-driven theme compatibility after removing legacy theme tables.
+        if (is_string($query) && preg_match('/\bfrom\s+`?settings_themes`?\b/i', $query)) {
+            if (preg_match('/^\s*select\b/i', $query)) {
+                return $_database->query(
+                    "SELECT
+                        1 AS themeID,
+                        'Default' AS name,
+                        'default' AS modulname,
+                        'default' AS slug,
+                        'default' AS pfad,
+                        '1.0.0' AS version,
+                        1 AS active,
+                        'default' AS themename,
+                        'bg-light' AS navbar_class,
+                        'light' AS navbar_theme,
+                        0 AS express_active,
+                        'default_logo.png' AS logo_pic,
+                        'default_login_bg.jpg' AS reg_pic,
+                        'headlines_03.css' AS headlines,
+                        0 AS sort,
+                        'includes/themes/default/theme.json' AS manifest_path,
+                        'index.php' AS layout_file,
+                        'images/default_logo.png' AS preview_image,
+                        'Builder-driven default theme.' AS description"
+                );
+            }
+
+            return true;
+        }
+
+        if (is_string($query) && preg_match('/\bfrom\s+`?settings_themes_installed`?\b/i', $query)) {
+            if (preg_match('/^\s*select\b/i', $query)) {
+                return $_database->query("SELECT 1 AS aggregate_value");
+            }
+
+            return true;
+        }
+
         $_mysql_querys[] = $query;
 
         // Überprüfe, ob die Abfrage leer ist
@@ -616,17 +654,13 @@ $components = $themeManager instanceof \nexpell\ThemeManager
         'css' => array(
             '/components/bootstrap/css/bootstrap-icons.min.css',
             '/components/css/page.css',
-            '/components/css/headstyles.css',
-            '/includes/plugins/navigation/css/navigation.css',
-            '/includes/plugins/footer/css/footer.css'
+            '/components/css/headstyles.css'
         ),
         'js' => array(
             '/components/jquery/jquery.min.js',
             '/components/bootstrap/js/bootstrap.bundle.min.js',
             '/components/cookie/cookie-consent.js',
-            '/includes/themes/default/js/page.js',
-            '/includes/plugins/navigation/js/navigation.js',
-            '/includes/plugins/footer/js/footer.js'
+            '/includes/themes/default/js/page.js'
         )
     );
 
@@ -708,7 +742,7 @@ if ($themeManager instanceof \nexpell\ThemeManager) {
     $theme_template_dir = $themeManager->getTemplateDirectory();
     $theme_favicons = $themeManager->getFaviconPaths();
     $theme_slug = $themeManager->getActiveThemeSlug();
-    $currentTheme = (string)($activeTheme['themename'] ?? 'yeti');
+    $currentTheme = (string)($activeTheme['themename'] ?? 'default');
 } else {
     $theme_manifest = [];
     $theme_web_path = '/includes/themes/' . $theme_name;
