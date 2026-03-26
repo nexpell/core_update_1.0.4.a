@@ -93,6 +93,63 @@ $getFooterLang = function (string $contentKey, string $lang, string $fallback = 
     return $fallback;
 };
 
+if (
+    $colRowType !== '' && $colCatKey !== '' && $colSecTit !== '' &&
+    $colSecSort !== '' && $colLinkSort !== '' && $colName !== '' &&
+    $colUrl !== '' && $colNewTab !== '' && $colId !== ''
+) {
+    $legalCategoryKey = md5('Rechtliches');
+    $legalKeyEsc = $_database->real_escape_string($legalCategoryKey);
+    $cookieUrl = 'index.php?site=cookie_policy';
+    $cookieUrlEsc = $_database->real_escape_string($cookieUrl);
+
+    $_database->query("
+      INSERT INTO plugins_footer
+        (`{$colRowType}`, `{$colCatKey}`, `{$colSecTit}`, `{$colSecSort}`, `{$colLinkSort}`, `{$colName}`, `{$colUrl}`, `{$colNewTab}`)
+      SELECT 'link', '{$legalKeyEsc}', 'Rechtliches', 2, 4, '', '{$cookieUrlEsc}', 0
+      FROM DUAL
+      WHERE NOT EXISTS (
+        SELECT 1
+        FROM plugins_footer
+        WHERE `{$colRowType}`='link'
+          AND `{$colCatKey}`='{$legalKeyEsc}'
+          AND `{$colUrl}`='{$cookieUrlEsc}'
+      )
+    ");
+
+    if ($footerLangEnabled) {
+        $linkIdRes = $_database->query("
+          SELECT `{$colId}` AS id
+          FROM plugins_footer
+          WHERE `{$colRowType}`='link'
+            AND `{$colCatKey}`='{$legalKeyEsc}'
+            AND `{$colUrl}`='{$cookieUrlEsc}'
+          ORDER BY `{$colId}` ASC
+          LIMIT 1
+        ");
+        if ($linkIdRes && ($linkRow = mysqli_fetch_assoc($linkIdRes))) {
+            $linkId = (int)($linkRow['id'] ?? 0);
+            if ($linkId > 0) {
+                $translations = [
+                    'de' => 'Cookie-Richtlinie',
+                    'en' => 'Cookie Policy',
+                    'it' => 'Informativa sui Cookie',
+                ];
+                foreach ($translations as $iso => $text) {
+                    $contentKeyEsc = $_database->real_escape_string('link_name_' . $linkId);
+                    $isoEsc = $_database->real_escape_string($iso);
+                    $textEsc = $_database->real_escape_string($text);
+                    $_database->query("
+                      INSERT INTO plugins_footer_lang (content_key, language, content, updated_at)
+                      VALUES ('{$contentKeyEsc}', '{$isoEsc}', '{$textEsc}', NOW())
+                      ON DUPLICATE KEY UPDATE content=VALUES(content), updated_at=NOW()
+                    ");
+                }
+            }
+        }
+    }
+}
+
 // Footer-Template nach Auswahl setzen
 $footerTemplate = 'standard';
 if ($colName !== '' && $colRowType !== '') {

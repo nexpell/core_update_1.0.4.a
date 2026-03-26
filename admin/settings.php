@@ -372,7 +372,7 @@ echo '<form method="post" action="">
                     <div class="card-header position-relative pe-5">
                         <div class="card-title mb-0">
                             <i class="bi bi-shield-lock me-1"></i>
-                            <span>' . $languageService->get('reCaptcha') . '</span><br>
+                            <span>' . $languageService->get('recaptcha') . '</span><br>
                             <small class="text-muted">' . $languageService->get('recaptcha_description') . '</small>
                         </div>
                         <img src="/admin/images/recapcha.png" alt="Google reCAPTCHA" class="position-absolute top-0 end-0 m-2" style="max-height:80px; opacity:0.9;">
@@ -406,7 +406,10 @@ echo '<form method="post" action="">
                                 <input class="form-check-input" type="checkbox" name="twofa_force_all"' . (!empty($ds['twofa_force_all']) ? ' checked' : '') . '>
                             </div>
                         </div>
-                        <p class="text-muted small mb-0">' . htmlspecialchars($languageService->get('twofa_force_all_desc')) . '</p>
+                        <p class="text-muted small mb-3">' . htmlspecialchars($languageService->get('twofa_force_all_desc')) . '</p>
+                        <hr class="my-3">
+                        <div class="fw-semibold small mb-2">' . htmlspecialchars($languageService->get('twofa_remember_device_heading')) . '</div>
+                        <p class="text-muted small mb-0">' . htmlspecialchars($languageService->get('twofa_remember_device_hint')) . '</p>
                     </div>
                 </div>
             </div>

@@ -19,7 +19,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
 
 /* -------- DB Bootstrap -------- */
 require_once __DIR__ . '/../system/config.inc.php';
-require_once __DIR__ . '/../system/core/builder_core.php';
+require_once __DIR__ . '/../system/core/theme_options.php';
 $_database = $_database ?? new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 if ($_database->connect_errno) {
   http_response_code(500);
@@ -48,6 +48,16 @@ if (!$token || !$sess || !hash_equals($sess, $token)) {
 /* -------- Pflichtfelder -------- */
 $page = isset($input['page']) && is_string($input['page']) ? trim($input['page']) : '';
 $data = isset($input['data']) && is_array($input['data']) ? $input['data'] : [];
+/** @var array<string,string>|null $themeOptions */
+$themeOptions = null;
+if (isset($input['theme_options']) && is_array($input['theme_options'])) {
+  $themeOptions = [];
+  foreach ($input['theme_options'] as $k => $v) {
+    if (!is_string($k)) continue;
+    $key = strpos($k, 'theme_') === 0 ? $k : ('theme_' . ltrim((string)$k, 'theme_'));
+    $themeOptions[$key] = is_string($v) ? $v : (is_scalar($v) ? (string)$v : '');
+  }
+}
 
 if ($page === '') {
   http_response_code(400);
@@ -61,16 +71,11 @@ if (!preg_match('#^[A-Za-z0-9/_-]{1,128}$#', $page)) {
 }
 
 /* -------- optionale Flags -------- */
-$validPositions = nx_get_active_theme_zone_keys(true);
-if ($validPositions === []) {
-  $validPositions = defined('NX_ZONES') ? NX_ZONES : ['top','undertop','left','maintop','mainbottom','right','bottom'];
-}
-
-$flt = static function(array $arr) use ($validPositions): array {
-  $out=[]; foreach ($arr as $p) if (is_string($p) && in_array($p, $validPositions, true)) $out[$p]=true;
+$legacyPositions = ['top','undertop','left','maintop','mainbottom','right','bottom','content'];
+$flt = static function(array $arr) use ($legacyPositions): array {
+  $out=[]; foreach ($arr as $p) if (is_string($p) && in_array($p, $legacyPositions, true)) $out[$p]=true;
   return array_keys($out);
 };
-
 $replacePositions   = isset($input['replacePositions']) ? $flt((array)$input['replacePositions']) : [];
 $clearPositions     = isset($input['clearPositions'])   ? $flt((array)$input['clearPositions'])   : [];
 $removedInstanceIds = [];
@@ -108,6 +113,16 @@ if ($res = $_database->query("SHOW COLUMNS FROM `settings_widgets_positions` LIK
 try {
 
   $_database->begin_transaction();
+
+  /* =========================================================================
+   * Eine Zone: Alle Positionen dieser Seite löschen, dann nur data (content) neu schreiben
+   * ========================================================================= */
+  $delPage = $_database->prepare("DELETE FROM settings_widgets_positions WHERE page = ?");
+  if ($delPage) {
+    $delPage->bind_param('s', $page);
+    $delPage->execute();
+    $delPage->close();
+  }
 
   /* =========================================================================
    * AUTO-DELETE — Entfernt IMMER alle alten Positionen dieser instance_id
@@ -194,7 +209,10 @@ try {
    * ========================================================================= */
   foreach ($data as $position => $items) {
 
-    if (!in_array($position, $validPositions, true) || !is_array($items)) continue;
+    // Neue Layout-Varianten dürfen beliebige Positionsnamen verwenden (solange "harmlos")
+    if (!is_string($position) || !preg_match('#^[A-Za-z0-9/_-]{1,128}$#', $position) || !is_array($items)) {
+      continue;
+    }
 
     $sort = 0;
 
@@ -239,6 +257,11 @@ try {
 
       $sort++;
     }
+  }
+
+  // Theme-Optionen (Basis-Design) speichern, falls mitgeschickt
+  if ($themeOptions && function_exists('nx_set_theme_options')) {
+    nx_set_theme_options($themeOptions);
   }
 
   $_database->commit();

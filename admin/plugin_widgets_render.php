@@ -10,6 +10,7 @@ if (!defined('BASE_PATH')) {
     define('BASE_PATH', dirname(__DIR__));
 }
 require_once BASE_PATH . '/system/config.inc.php';
+require_once BASE_PATH . '/system/core/builder_widgets_core.php';
 
 // Debug
 if (!defined('NXB_DEBUG')) define('NXB_DEBUG', true);
@@ -61,6 +62,36 @@ $settings    = $in['settings'] ?? [];
 $page        = isset($in['page']) ? trim((string)$in['page']) : 'index';
 $langCode    = isset($in['lang']) ? strtolower(trim((string)$in['lang'])) : ($_SESSION['language'] ?? 'de');
 $builder     = !empty($in['builder']);
+
+// Basis-Query für Language-Selector in Core-Nav: gleiche Seite, nur lang wechseln (wie Plugin-Navigation)
+$GLOBALS['nxb_nav_base_query'] = ['site' => $page];
+// Damit nxb_is_builder() in Core-Widgets (Gear-Icons, Drop-Hinweise) beim AJAX-Render true liefert
+if ($builder) {
+    $_GET['builder'] = '1';
+    $GLOBALS['nxb_ajax_builder'] = true;
+    // builder_live.php wird beim AJAX-Render nicht geladen – Fallback
+    if (!function_exists('nxb_is_builder')) {
+        function nxb_is_builder(): bool { return !empty($_GET['builder']) && $_GET['builder'] === '1'; }
+    }
+}
+
+// === Action: Plugin-Navigation als JSON (für Builder: Menü seeden bei menuSource "plugin") ===
+if (isset($in['action']) && (string)$in['action'] === 'get_plugin_nav_menu') {
+    require_once BASE_PATH . '/system/core/init_widget.php';
+    $langFromRequest = isset($in['lang']) ? strtolower(trim((string)$in['lang'])) : ($_SESSION['language'] ?? 'de');
+    global $languageService;
+    if ($languageService instanceof \nexpell\LanguageService && $langFromRequest !== '') {
+        $languageService->setLanguage($langFromRequest);
+        $_SESSION['language'] = $langFromRequest;
+    }
+    $GLOBALS['languageService'] = $languageService;
+    if (!function_exists('nxb_get_plugin_navigation_menu')) {
+        require_once BASE_PATH . '/system/core/builder_widgets_core.php';
+    }
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(['ok' => true, 'menu' => nxb_get_plugin_navigation_menu()], JSON_UNESCAPED_UNICODE);
+    exit;
+}
 
 /* === Zonen-Restriktions-Logik START (nicht-invasiv) =================== */
 /* Optionales Feld "position" aus dem Request lesen. Wenn vorhanden,
@@ -129,6 +160,13 @@ function nxb_render_error_card(string $title, string $key, string $msg): string 
 // === Init Mini-Umgebung ===
 require_once BASE_PATH . '/system/core/init_widget.php';
 
+global $languageService;
+if ($languageService instanceof \nexpell\LanguageService && $langCode !== '') {
+    $languageService->setLanguage($langCode);
+    $_SESSION['language'] = $langCode;
+}
+$GLOBALS['languageService'] = $languageService;
+
 /* === Zonen-Restriktions-Logik START (Blocking vor Render) ============= */
 if ($position !== '') { // nur prüfen, wenn eine Zone übergeben wurde
     $allowed = nxb_is_zone_allowed_for_widget($_database, $widget_key, $position);
@@ -157,6 +195,20 @@ function nxb_render_widget_content_ajax(
     string $langCode
 ): string {
     global $_database;
+
+    // Core-Widgets direkt über gemeinsamen Renderer behandeln
+    if (function_exists('nxb_render_core_widget_html') && strpos($widget_key, 'core_') === 0) {
+        // Sektionen/Container: stabile ID für Zonen-Namen (sec_<id>_c1), damit Builder-Speichern/Laden passt
+        if (in_array($widget_key, ['core_section_full', 'core_section_two_col', 'core_section_three_col', 'core_container', 'core_row', 'core_col'], true)
+            && (empty($settings['id']) || !is_string($settings['id']))) {
+            $settings['id'] = $instance_id;
+        }
+        try {
+            return nxb_render_core_widget_html($widget_key, $settings, $title);
+        } catch (Throwable $e) {
+            return nxb_render_error_card($title, $widget_key, 'Core renderer exception: '.$e->getMessage());
+        }
+    }
 
     $ctx = [
         'builder'     => $builder,

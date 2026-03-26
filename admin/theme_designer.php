@@ -13,7 +13,7 @@ AccessControl::checkAdminAccess('ac_theme');
 if (!class_exists('nexpell\\ThemeManager')) {
     require_once __DIR__ . '/../system/classes/ThemeManager.php';
 }
-require_once __DIR__ . '/../system/core/theme_builder_helper.php';
+#require_once __DIR__ . '/../system/core/theme_builder_helper.php';
 require_once __DIR__ . '/../system/core/builder_core.php';
 
 $db = $GLOBALS['_database'] ?? null;
@@ -514,7 +514,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['reset_theme_s
     }
 }
 
-$runtimeSettings = nx_theme_builder_runtime_settings($themeManager, $activeThemeSlug);
+#$runtimeSettings = nx_theme_builder_runtime_settings($themeManager, $activeThemeSlug);
 $previewVersion = substr(md5(json_encode($runtimeSettings, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)), 0, 10);
 $liveBuilderUrl = $liveBuilderUrlBase . '&nxv=' . rawurlencode($previewVersion);
 
@@ -548,7 +548,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['save_widget_z
     }
 }
 
-$designerZones = nx_get_active_theme_zone_keys(false);
+#$designerZones = nx_get_active_theme_zone_keys(false);
 $designerWidgets = [];
 $widgetResult = safe_query("SELECT widget_key, title, plugin, modulname, allowed_zones FROM settings_widgets ORDER BY widget_key ASC");
 if ($widgetResult && mysqli_num_rows($widgetResult) > 0) {

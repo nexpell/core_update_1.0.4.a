@@ -23,7 +23,9 @@ define('SYSTEM_PATH', BASE_PATH . 'system/');
 require SYSTEM_PATH . 'config.inc.php';
 require SYSTEM_PATH . 'settings.php';
 require SYSTEM_PATH . 'functions.php';
-require SYSTEM_PATH . 'multi_language.php';
+require_once SYSTEM_PATH . 'classes/LanguageService.php';
+require_once SYSTEM_PATH . 'classes/LoginSecurity.php';
+require_once SYSTEM_PATH . 'classes/AccessControl.php';
 
 // ==================================================
 // NAMESPACES (KLASSEN SIND SCHON GELADEN)
@@ -35,12 +37,9 @@ use nexpell\AccessControl;
 // ==================================================
 // SPRACHE
 // ==================================================
-if (!isset($_SESSION['language'])) {
-    $_SESSION['language'] = 'de';
-}
-
 global $_database, $languageService;
 $languageService = new LanguageService($_database);
+$languageService->setLanguage($_SESSION['language'] ?? 'de');
 $languageService->readModule('login', true);
 
 // ==================================================
@@ -169,11 +168,6 @@ $_SESSION['userID']   = (int)$user['userID'];
 $_SESSION['username'] = $user['username'];
 $_SESSION['email']    = $user['email'];
 
-LoginSecurity::saveSession($user['userID']);
-
-header('Location: admincenter.php');
-exit;
-
     LoginSecurity::saveSession($user['userID']);
 
     $now = date('Y-m-d H:i:s');
@@ -191,7 +185,7 @@ exit;
 render:
 ?>
 <!DOCTYPE html>
-<html lang="<?= $languageService->language ?>">
+<html lang="<?= htmlspecialchars($languageService->currentLanguage, ENT_QUOTES, 'UTF-8') ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

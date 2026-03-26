@@ -1,7 +1,389 @@
-                                                        /* Main Layout */
-/*.sticky-footer-wrapper {
-    min-height: 100vh;
-    background: url("https://www.nightmare-esports.de/bilder/cod_ww2_forest_4k.png")
-        center center / cover no-repeat fixed;
-}    */                                            
+/* Main Layout */
 
+/* Sticky Footer Layout nur im Frontend-Theme
+   Struktur (Frontend, ohne Builder-Wrapper um die Widgets):
+   <body>
+     <div class="sticky-footer-wrapper">
+       ... Navigation / Lock-Modul ...
+       <main class="flex-fill">
+         [optional <div class="container">get_mainContent()</div>]
+         <div data-nx-zone="content">
+           <section>...</section>
+           ...
+           <footer class="nx-footer">...</footer>
+         </div>
+       </main>
+       <!-- Theme-/Plugin-Footer -->
+     </div>
+   </body>
+*/
+
+/* min-height statt height, damit die Seite mit dem Inhalt wächst und der Footer nie abgeschnitten wird */
+html {
+  min-height: 100%;
+}
+body {
+  min-height: 100vh;
+}
+
+.sticky-footer-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sticky-footer-wrapper > main.flex-fill {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Flex-Kind darf Platz bekommen; Inhalt wächst trotzdem durch min-height: auto der Zone */
+}
+
+.sticky-footer-wrapper > main.flex-fill > .container {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.sticky-footer-wrapper [data-nx-zone="content"] {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: min-content; /* Zone mindestens so hoch wie Inhalt (Footer in voller Höhe sichtbar) */
+  overflow: visible;
+}
+
+/* Fallback für ältere Browser ohne min-content */
+@supports not (min-height: min-content) {
+  .sticky-footer-wrapper [data-nx-zone="content"] {
+    min-height: auto;
+  }
+}
+
+/* Falls ein Page-/Content-Builder-Footer (class="nx-footer") als Block in der
+   Content-Zone liegt, wird er an das untere Ende des Viewports geschoben.
+   Footer sitzt in .nx-live-item > .nx-live-content > footer.nx-footer */
+.sticky-footer-wrapper [data-nx-zone="content"] > .nx-live-item:has(.nx-footer),
+.sticky-footer-wrapper [data-nx-zone="content"] > .nx-footer {
+  margin-top: auto;
+}
+
+/* Hero-Sections aus dem Builder (core_hero)
+   Höhe wird über nx-hero-h-* (40/50/60/80/100vh) gesteuert. */
+.nx-hero {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.nx-hero > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Stärkeres Overlay für Hero mit Hintergrundbild */
+.nx-hero .position-absolute.bg-dark.opacity-50 {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  opacity: 1 !important;
+}
+
+/* Linker Content-Block ähnlich "col-md-6" */
+.nx-hero .text-start {
+  max-width: 560px;
+}
+
+@media (max-width: 767.98px) {
+  .nx-hero .text-start {
+    max-width: 100%;
+  }
+}
+
+/* Split-Hero (core_hero_split) */
+.nx-hero-split {
+  /* Höhe steuert jetzt nx-hero-h-* (40/50/60/80/100vh) */
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.nx-hero-split .nx-hero-split-text {
+  max-width: 480px;
+}
+
+.nx-hero-split .nx-hero-split-image {
+  position: relative;
+  min-height: 100%;
+}
+.nx-hero-split .nx-hero-split-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.nx-hero-split .nx-hero-split-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #e5e7eb;
+}
+
+@media (min-width: 768px) {
+  .nx-hero-split .nx-hero-split-image {
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .nx-hero-split .nx-hero-split-text {
+    max-width: 100%;
+    text-align: center;
+  }
+}
+
+/* Dezenter Hover-Effekt für Navbar-Links + Abstand */
+.navbar-nav .nav-link {
+  position: relative;
+  border-bottom: 0 !important;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+/* Kein Fokus-Ring/Outline, damit nur die 2px-Unterstreichung sichtbar ist (keine 4px durch Überlagerung) */
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link.dropdown-toggle:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Animierte Unterstreichung mit ::before (damit .dropdown-toggle ::after für Bootstrap-Caret frei bleibt) */
+/* Nur außerhalb .nx-nav-core-demo – dort zeichnet das Widget eigenes Inline-::before, sonst doppelter/dicker Balken bei Dropdown */
+.navbar:not(.nx-nav-core-demo) .navbar-nav .nav-link.nx-nav-effect-default::before,
+.navbar:not(.nx-nav-core-demo) .navbar-nav .nav-link.nx-nav-effect-center::before,
+.navbar:not(.nx-nav-core-demo) .navbar-nav .nav-link.nx-nav-effect-swipe::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px !important;
+  min-height: 2px !important;
+  max-height: 2px !important;
+  background-color: var(--bs-primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease-out;
+  pointer-events: none;
+}
+
+.navbar:not(.nx-nav-core-demo) .navbar-nav .nav-link.nx-nav-effect-default:hover::before,
+.navbar:not(.nx-nav-core-demo) .navbar-nav .nav-link.nx-nav-effect-default:focus::before,
+.navbar:not(.nx-nav-core-demo) .nav-item.dropdown.show > .nav-link.nx-nav-effect-default::before,
+.navbar:not(.nx-nav-core-demo) .nav-item.dropdown:hover > .nav-link.nx-nav-effect-default::before {
+  transform: scaleX(1);
+}
+
+.navbar:not(.nx-nav-core-demo) .navbar-nav .nav-link.nx-nav-effect-center::before {
+  left: 50%;
+  right: auto;
+  width: 100%;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center center;
+}
+
+.navbar:not(.nx-nav-core-demo) .navbar-nav .nav-link.nx-nav-effect-center:hover::before,
+.navbar:not(.nx-nav-core-demo) .navbar-nav .nav-link.nx-nav-effect-center:focus::before,
+.navbar:not(.nx-nav-core-demo) .nav-item.dropdown.show > .nav-link.nx-nav-effect-center::before,
+.navbar:not(.nx-nav-core-demo) .nav-item.dropdown:hover > .nav-link.nx-nav-effect-center::before {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.navbar:not(.nx-nav-core-demo) .navbar-nav .nav-link.nx-nav-effect-swipe::before {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.navbar:not(.nx-nav-core-demo) .navbar-nav .nav-link.nx-nav-effect-swipe:hover::before,
+.navbar:not(.nx-nav-core-demo) .navbar-nav .nav-link.nx-nav-effect-swipe:focus::before,
+.navbar:not(.nx-nav-core-demo) .nav-item.dropdown.show > .nav-link.nx-nav-effect-swipe::before,
+.navbar:not(.nx-nav-core-demo) .nav-item.dropdown:hover > .nav-link.nx-nav-effect-swipe::before {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.navbar:not(.nx-nav-core-demo) .navbar-nav .nav-link.nx-nav-effect-swipe:not(:hover):not(:focus)::before {
+  transform: scaleX(0);
+  transform-origin: right center;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:focus,
+.navbar-light .nav-item.dropdown.show > .nav-link,
+.navbar-light .nav-item.dropdown:hover > .nav-link {
+  background: rgba(var(--bs-primary-rgb), 0.04);
+  /*background-color: rgba(15, 23, 42, 0.04);*/
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .nav-item.dropdown.show > .nav-link,
+.navbar-dark .nav-item.dropdown:hover > .nav-link {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Moderne Dropdown-Box für core_nav_demo */
+.nx-nav-core-demo .dropdown-menu {
+  padding: 0px;
+  margin: 0px;
+  border-radius: 0px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.96);
+  min-width: 12rem;
+  box-shadow: 0 4px 6px rgba(15, 23, 42, 0.08);
+}
+[data-bs-theme="dark"] .nx-nav-core-demo .dropdown-menu {
+  background: rgba(15, 23, 42, 0.96);
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
+.nx-nav-core-demo .dropdown-item {
+  padding: .8rem 1rem;
+  color: inherit !important;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+.nx-nav-core-demo .dropdown-item:hover,
+.nx-nav-core-demo .dropdown-item:focus {
+  background: rgba(0, 0, 0, 0.02) !important;
+  color: var(--bs-primary) !important;
+}
+.nx-nav-core-demo .dropdown-divider {
+  margin: .4rem .35rem;
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+/* Navbar-Brand: kein vertikales Padding, Höhe soll über Logo + Link-Padding kommen */
+.navbar-brand {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* =========================================================
+   core_nav_demo: Transparent Overlay + Scroll-Fill
+   ========================================================= */
+nav.nx-nav-core-demo.nx-nav-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  --nx-overlay-progress: 0;
+  /* Hintergrundfarbe im gefüllten Zustand abhängig von scheme/light-dark */
+  --nx-fill-r: 255;
+  --nx-fill-g: 255;
+  --nx-fill-b: 255;
+  background-color: rgba(var(--nx-fill-r), var(--nx-fill-g), var(--nx-fill-b), var(--nx-overlay-progress)) !important;
+  box-shadow: none;
+  transition: background-color .32s cubic-bezier(.22,.61,.36,1), box-shadow .32s cubic-bezier(.22,.61,.36,1), color .24s ease;
+  will-change: background-color, box-shadow;
+}
+nav.nx-nav-core-demo.nx-nav-overlay[data-nx-fill-scheme="dark"]{
+  --nx-fill-r: 33;
+  --nx-fill-g: 37;
+  --nx-fill-b: 41; /* #212529 (Bootstrap bg-dark) */
+}
+/* Startzustand: Alpha/Progress macht die Transparenz.
+   Box-Shadow/Backdrop nur im NOT-filled Zustand hart unterdrücken. */
+nav.nx-nav-core-demo.nx-nav-overlay:not(.nx-nav-filled){
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+/* Wichtig: Bootstrap bg-* Utilities (z.B. bg-transparent) können sonst das ScrollFill überschreiben. */
+nav.nx-nav-core-demo.nx-nav-overlay.nx-nav-filled{
+  background-color: rgba(var(--nx-fill-r), var(--nx-fill-g), var(--nx-fill-b), var(--nx-overlay-progress, 1)) !important;
+  background-image: none !important;
+}
+nav.nx-nav-core-demo.nx-nav-overlay[data-nx-overlay-text="light"] .navbar-nav .nav-link,
+nav.nx-nav-core-demo.nx-nav-overlay[data-nx-overlay-text="light"] .navbar-brand{
+  color: rgba(255,255,255,.92) !important;
+}
+nav.nx-nav-core-demo.nx-nav-overlay[data-nx-overlay-text="dark"] .navbar-nav .nav-link,
+nav.nx-nav-core-demo.nx-nav-overlay[data-nx-overlay-text="dark"] .navbar-brand{
+  color: rgba(15,23,42,.92) !important;
+}
+nav.nx-nav-core-demo.nx-nav-overlay.nx-nav-filled[data-nx-fill-scheme="dark"] .navbar-nav .nav-link,
+nav.nx-nav-core-demo.nx-nav-overlay.nx-nav-filled[data-nx-fill-scheme="dark"] .navbar-brand{
+  color: rgba(255,255,255,.92) !important;
+}
+nav.nx-nav-core-demo.nx-nav-overlay.nx-nav-filled:not([data-nx-fill-scheme="dark"]) .navbar-nav .nav-link,
+nav.nx-nav-core-demo.nx-nav-overlay.nx-nav-filled:not([data-nx-fill-scheme="dark"]) .navbar-brand{
+  color: rgba(15,23,42,.92) !important;
+}
+
+/* Overlay-Abstand: JS setzt --nx-overlay-safe-top + Klasse auf den ersten Hero */
+.nx-overlay-push{
+  padding-top: var(--nx-overlay-safe-top, 96px) !important;
+}
+
+/* Header (core_header): Textblock unter die Overlay-Navbar schieben,
+   ohne den Header-Block selbst nach unten zu drücken (Overlay bleibt Overlay). */
+html.nx-has-overlay-nav header.nx-header .nx-header-image > .position-absolute.d-flex{
+  justify-content: flex-start !important;
+  /* Deutlich unter die Navbar schieben, damit der Text im Builder gut editierbar ist
+     und nicht "hinter" der transparenten Nav sitzt. */
+  padding-top: calc(var(--nx-overlay-safe-top, 96px) + 3rem) !important;
+}
+
+/* Builder: Overlay-Nav darf nicht am .nx-live-item „kleben“ (position:relative) */
+body.builder-active nav.nx-nav-core-demo.nx-nav-overlay{
+  /* Im Builder innerhalb des Widget-Frames rendern, sonst verschwindet die Nav
+     (Builder-Layout/Overflow), und es bleibt nur der Rahmen sichtbar. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* Muss über Header-Textlayer liegen (core_header nutzt z-index:2 inline) */
+  z-index: 50;
+}
+
+/* Builder: core_nav_demo muss Layout-Höhe behalten, sonst wirkt es "leer" */
+body.builder-active .nx-live-item[data-nx-key="core_nav_demo"] .nx-live-content{
+  position: relative;
+  min-height: 72px;
+}
+
+/* Builder: Content-Zone muss Overlays zulassen (Header+Nav) */
+body.builder-active [data-nx-zone="content"]{
+  overflow: visible !important;
+}
+
+/* Icon-Badges (Messenger/Forum) – wie im navigation-Plugin */
+.nx-nav-core-demo .nav-icon-badge .icon-wrapper{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+.nx-nav-core-demo .nav-icon-badge .badge{
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  padding: 3px 6px;
+  font-size: .6rem;
+  line-height: 1;
+  border-radius: 50%;
+  z-index: 5;
+}
+.nx-nav-core-demo .navbar-avatar{
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+}

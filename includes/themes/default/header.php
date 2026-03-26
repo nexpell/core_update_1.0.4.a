@@ -7,7 +7,7 @@ global $hp_url;
 global $default_language;
 
 /* ==================================================
-   1. Aktive Sprachen dynamisch holen
+   1️⃣ Aktive Sprachen dynamisch holen
 ================================================== */
 $languagesData = $languageService->getActiveLanguages();
 
@@ -23,7 +23,7 @@ if (!in_array($defaultLang, $languages, true)) {
 }
 
 /* ==================================================
-   2. BASIS
+   2️⃣ BASIS
 ================================================== */
 $requestScheme = (!empty($_SERVER['HTTPS']) && strtolower((string)$_SERVER['HTTPS']) !== 'off') ? 'https' : 'http';
 $requestHost   = $_SERVER['HTTP_HOST'] ?? 'localhost';
@@ -53,7 +53,7 @@ if (!in_array($activeLang, $languages, true)) {
 }
 
 /* ==================================================
-   3. SEO-PFAD (ohne Sprache)
+   3️⃣ SEO-PFAD (ohne Sprache)
 ================================================== */
 $seoPath = SeoUrlHandler::convertToSeoUrl(
     'index.php?' . http_build_query($_GET)
@@ -68,12 +68,12 @@ if (!empty($languages)) {
 }
 
 /* ==================================================
-   4. CANONICAL
+   4️⃣ CANONICAL
 ================================================== */
 $canonical = $baseRoot . '/' . $activeLang . $seoPath;
 
 /* ==================================================
-   5. ROBOTS
+   5️⃣ ROBOTS
 ================================================== */
 $noindexParams = [
     'page','type','category','tag','q','search',
@@ -91,7 +91,7 @@ foreach ($_GET as $key => $value) {
 }
 
 /* ==================================================
-   6. ARTICLE ERKENNUNG
+   6️⃣ ARTICLE ERKENNUNG
 ================================================== */
 $isArticle = (
     ($_GET['site'] ?? '') === 'news'
@@ -99,22 +99,19 @@ $isArticle = (
 );
 
 /* ==================================================
-   7. ROBOTS FINAL
+   7️⃣ ROBOTS FINAL
 ================================================== */
-$robotsOverride = function_exists('nx_get_seo_robots_content') ? nx_get_seo_robots_content($_GET) : null;
-$robots = $robotsOverride !== null
-    ? str_replace(',', ', ', $robotsOverride)
-    : (($isArticle)
-        ? 'index, follow'
-        : (($isPaginated || $isFiltered) ? 'noindex, follow' : 'index, follow'));
+$robots = ($isArticle)
+    ? 'index, follow'
+    : (($isPaginated || $isFiltered) ? 'noindex, follow' : 'index, follow');
 
 /* ==================================================
-   8. OG TYPE
+   8️⃣ OG TYPE
 ================================================== */
 $ogType = $isArticle ? 'article' : 'website';
 
 /* ==================================================
-   9. JSON-LD (WebSite, Article, BreadcrumbList)
+   9️⃣ JSON-LD (WebSite, Article, BreadcrumbList)
 ================================================== */
 $jsonLdGraphs = [];
 
@@ -148,7 +145,7 @@ if ($isArticle) {
         $article['dateModified'] = (string)$meta['modified_time'];
     }
 
-    $articleImage = $meta['image'] ?? ($baseRoot . ($theme_web_path ?? ('/includes/themes/' . $theme_name)) . '/images/og-image.jpg');
+    $articleImage = $meta['image'] ?? ($baseRoot . '/includes/themes/' . $theme_name . '/images/og-image.jpg');
     if (!empty($articleImage)) {
         $article['image'] = [$articleImage];
     }
@@ -189,13 +186,6 @@ $jsonLdGraphs[] = [
     '@type'           => 'BreadcrumbList',
     'itemListElement' => $breadcrumbs,
 ];
-
-$socialImage = (string)($meta['image'] ?? '');
-if ($socialImage === '') {
-    $socialImage = $baseRoot . ($theme_web_path ?? ('/includes/themes/' . $theme_name)) . '/images/og-image.jpg';
-} elseif (!preg_match('~^https?://~i', $socialImage)) {
-    $socialImage = rtrim($baseRoot, '/') . '/' . ltrim($socialImage, '/');
-}
 ?>
 
 <!DOCTYPE html>
@@ -240,29 +230,13 @@ if ($socialImage === '') {
 <meta property="og:description"
       content="<?= htmlspecialchars($meta['description'], ENT_QUOTES) ?>">
 
-<meta property="og:site_name"
-      content="<?= htmlspecialchars($hp_title ?? 'nexpell', ENT_QUOTES) ?>">
-
-<meta property="og:locale"
-      content="<?= htmlspecialchars(str_replace('-', '_', $activeLang), ENT_QUOTES) ?>">
-
 <meta property="og:type" content="<?= $ogType ?>">
 
 <meta property="og:url"
       content="<?= htmlspecialchars($canonical, ENT_QUOTES) ?>">
 
 <meta property="og:image"
-      content="<?= htmlspecialchars($socialImage, ENT_QUOTES) ?>">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title"
-      content="<?= htmlspecialchars($meta['title'], ENT_QUOTES) ?>">
-<meta name="twitter:description"
-      content="<?= htmlspecialchars($meta['description'], ENT_QUOTES) ?>">
-<meta name="twitter:image"
-      content="<?= htmlspecialchars($socialImage, ENT_QUOTES) ?>">
-<meta name="twitter:url"
-      content="<?= htmlspecialchars($canonical, ENT_QUOTES) ?>">
+      content="<?= htmlspecialchars($baseRoot, ENT_QUOTES) ?>/includes/themes/<?= htmlspecialchars($theme_name, ENT_QUOTES) ?>/images/og-image.jpg">
 
 <?php if ($isArticle): ?>
 <meta property="article:author" content="nexpell.de">
@@ -283,53 +257,38 @@ if ($socialImage === '') {
 <!-- ===================== -->
 <!-- FAVICONS -->
 <!-- ===================== -->
-<link rel="icon" href="<?= htmlspecialchars($theme_favicons['ico'] ?? '/includes/themes/default/images/favicon.ico', ENT_QUOTES) ?>">
+<link rel="icon" href="/includes/themes/default/images/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32"
-      href="<?= htmlspecialchars($theme_favicons['png32'] ?? '/includes/themes/default/images/favicon-32.png', ENT_QUOTES) ?>">
+      href="/includes/themes/default/images/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192"
-      href="<?= htmlspecialchars($theme_favicons['png192'] ?? '/includes/themes/default/images/favicon-192.png', ENT_QUOTES) ?>">
+      href="/includes/themes/default/images/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180"
-      href="<?= htmlspecialchars($theme_favicons['apple180'] ?? '/includes/themes/default/images/favicon-180.png', ENT_QUOTES) ?>">
+      href="/includes/themes/default/images/favicon-180.png">
 
 <!-- ===================== -->
 <!-- CSS -->
 <!-- ===================== -->
 <base href="/">
+<link rel="stylesheet"
+      href="/includes/themes/<?= htmlspecialchars($theme_name, ENT_QUOTES) ?>/css/dist/<?= htmlspecialchars($currentTheme, ENT_QUOTES) ?>/bootstrap.min.css">
 
 <?= $components_css ?? '' ?>
 <?= $plugin_css ?? '' ?>
 <?= $theme_css ?? '' ?>
+<?php
+if (defined('BASE_PATH') && file_exists(BASE_PATH . '/system/core/theme_options.php')) {
+  require_once BASE_PATH . '/system/core/theme_options.php';
+  if (function_exists('nx_render_theme_options_css')) {
+    echo nx_render_theme_options_css();
+  }
+}
+?>
 
 </head>
 
-
-
-<?php
-$isBuilder = isset($isBuilder) ? (bool)$isBuilder : (isset($_GET['builder']) && $_GET['builder'] === '1');
-$widgetsByPosition = isset($widgetsByPosition) && is_array($widgetsByPosition) ? $widgetsByPosition : [];
-
-$bodyClasses = [];
-if ($isBuilder) {
-    $bodyClasses[] = 'builder-active';
-}
-$activeThemeSlug = preg_replace('/[^a-z0-9_-]+/i', '-', (string)($theme_name ?? 'default'));
-$activeThemeSlug = trim((string)$activeThemeSlug, '-');
-if ($activeThemeSlug === '') {
-    $activeThemeSlug = 'default';
-}
-$bodyClasses[] = 'theme-' . strtolower($activeThemeSlug);
-?>
-<body class="<?= htmlspecialchars(implode(' ', $bodyClasses), ENT_QUOTES) ?>">
+<body class="<?= isset($_GET['builder']) && $_GET['builder']==='1' ? 'builder-active' : '' ?>">
 <div class="d-flex flex-column sticky-footer-wrapper">
-    <!-- === TOP Widgets === -->
-    <?php if ($isBuilder || !empty($widgetsByPosition['top'])): ?>
-        <div class="nx-live-zone nx-zone" data-nx-zone="top">
-            <?php if (!empty($widgetsByPosition['top'])): ?>
-                <?php foreach ($widgetsByPosition['top'] as $widget) echo $widget; ?>
-            <?php elseif ($isBuilder): ?>
-                <div class="builder-placeholder">[Leere Zone: top]</div>
-            <?php endif; ?>
-        </div>
-    <?php endif; ?>
-    <?= $pluginManager->getNavigationModule(); ?>
-    
+    <?php if (!empty($_GET['builder']) && $_GET['builder']==='1'): ?><div class="nx-fixed-block" data-nx-fixed-label="Navbar" data-nx-fixed-hint="Fester Block – im Admincenter bearbeiten (nicht im Live-Builder)."><?php endif; ?>
+    <?php /* <?= $pluginManager->getNavigationModule(); ?> */ ?>
+    <?php if (!empty($_GET['builder']) && $_GET['builder']==='1'): ?></div><?php endif; ?>
+    <?= get_lock_modul(); ?>

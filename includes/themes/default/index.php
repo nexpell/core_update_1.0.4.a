@@ -6,8 +6,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-
-
 require_once BASE_PATH . '/system/core/init.php';
 require_once BASE_PATH . '/system/core/builder_live.php';
 
@@ -24,10 +22,17 @@ if ($isBuilder) {
     AccessControl::checkAdminAccess('ac_plugin_widgets_setting');
 }
 
-
 // Seite bestimmen
 $pageSlug = $_GET['site'] ?? 'index';
-$widgetsByPosition = nxb_prepare_builder($pageSlug);
+$widgetsByPosition = nxb_build_widgets_html($pageSlug);
+
+// Nur für Startseite: konfiguriertes Startseiten-Modul ausblenden (Layout nur über Content-Zone)
+$isStartpageView = false;
+if ($pageSlug === 'index' || $pageSlug === '') {
+    $res = safe_query("SELECT startpage FROM `settings` LIMIT 1");
+    $row = ($res && mysqli_num_rows($res)) ? mysqli_fetch_assoc($res) : null;
+    $isStartpageView = ($row && isset($row['startpage']) && (string)$row['startpage'] === 'startpage');
+}
 
 // Builder-Modus aktiv?
 $isBuilder = (isset($_GET['builder']) && $_GET['builder'] === '1');
@@ -95,202 +100,54 @@ require_once 'header.php';
 <?php endif;*/ ?>
 
 
-  <!-- === UnderTop Widgets === -->
-  <?php if ($isBuilder || !empty($widgetsByPosition['undertop'])): ?>
-  <div class="nx-live-zone nx-zone" data-nx-zone="undertop">
-    <?php if (!empty($widgetsByPosition['undertop'])): ?>
-      <?php foreach ($widgetsByPosition['undertop'] as $widget) echo $widget; ?>
-    <?php elseif ($isBuilder): ?>
-      <div class="builder-placeholder">[Leere Zone: undertop]</div>
-    <?php endif; ?>
-  </div>
-  <?php endif; ?>
-
+  <!-- Eine Zone: nur Content (Blöcke hier ablegen, Reihenfolge frei); ohne umschließenden Container, damit Container-Fluid volle Breite nutzen kann -->
   <main class="flex-fill">
+    <?php if (!$isStartpageView): ?>
     <div class="container">
-      <div class="row g-3 builder-row-fix"><!-- Fix: Spalten bleiben nebeneinander -->
-
-        <?php
-        // Zonen prüfen
-        $hasLeft  = !empty($widgetsByPosition['left']);
-        $hasRight = !empty($widgetsByPosition['right']);
-
-        // Spalten-Klassen bestimmen
-        if ($isBuilder) {
-            $leftClass  = 'col-md-3';
-            $mainClass  = 'col-md-6';
-            $rightClass = 'col-md-3';
-        } else {
-            if ($hasLeft && $hasRight) {
-                $leftClass  = 'col-md-3';
-                $mainClass  = 'col-md-6';
-                $rightClass = 'col-md-3';
-            } elseif ($hasLeft xor $hasRight) {
-                $leftClass  = $hasLeft  ? 'col-md-3' : 'd-none';
-                $rightClass = $hasRight ? 'col-md-3' : 'd-none';
-                $mainClass  = 'col-md-9';
-            } else {
-                $leftClass  = 'd-none';
-                $rightClass = 'd-none';
-                $mainClass  = 'col-12';
-            }
-        }
-        ?>
-
-        <!-- LEFT -->
-        <div class="<?= $leftClass ?> nx-live-zone nx-zone" data-nx-zone="left">
-          <?php
-          if ($hasLeft) {
-              foreach ($widgetsByPosition['left'] as $w) echo $w;
-          } elseif ($isBuilder) {
-              echo '<div class="builder-placeholder">[Leere Zone: left]</div>';
-          }
-          ?>
-        </div>
-
-        <!-- MAIN -->
-        <div class="<?= $mainClass ?> nx-live-zone nx-zone" data-nx-zone="main">
-
-          <!-- MainTop -->
-          <?php if ($isBuilder || !empty($widgetsByPosition['maintop'])): ?>
-          <div class="nx-live-zone nx-zone" data-nx-zone="maintop">
-            <?php if (!empty($widgetsByPosition['maintop'])): ?>
-              <div class="row">
-                <?php foreach ($widgetsByPosition['maintop'] as $w) echo $w; ?>
-              </div>
-            <?php elseif ($isBuilder): ?>
-              <div class="builder-placeholder">[Leere Zone: maintop]</div>
-            <?php endif; ?>
-          </div>
-          <?php endif; ?>
-
-          <!-- Hauptinhalt -->
-          <?= get_mainContent(); ?>
-
-          <!-- MainBottom -->
-          <?php if ($isBuilder || !empty($widgetsByPosition['mainbottom'])): ?>
-          <div class="nx-live-zone nx-zone" data-nx-zone="mainbottom">
-            <?php if (!empty($widgetsByPosition['mainbottom'])): ?>
-              <div class="row">
-                <?php foreach ($widgetsByPosition['mainbottom'] as $w) echo $w; ?>
-              </div>
-            <?php elseif ($isBuilder): ?>
-              <div class="builder-placeholder">[Leere Zone: mainbottom]</div>
-            <?php endif; ?>
-          </div>
-          <?php endif; ?>
-
-        </div>
-
-        <!-- RIGHT -->
-        <div class="<?= $rightClass ?> nx-live-zone nx-zone" data-nx-zone="right">
-          <?php
-          if ($hasRight) {
-              foreach ($widgetsByPosition['right'] as $w) echo $w;
-          } elseif ($isBuilder) {
-              echo '<div class="builder-placeholder">[Leere Zone: right]</div>';
-          }
-          ?>
-        </div>
-
-      </div>
+      <?php echo get_mainContent(); ?>
     </div>
+    <?php endif; ?>
+    <?php if ($isBuilder || !empty($widgetsByPosition['content'])): ?>
+    <div class="nx-live-zone nx-zone" data-nx-zone="content" style="margin:0;padding:0;border:none;">
+      <?php if (!empty($widgetsByPosition['content'])): ?>
+        <?php foreach ($widgetsByPosition['content'] as $w) echo $w; ?>
+      <?php elseif ($isBuilder): ?>
+        <div class="builder-placeholder">Hier Blöcke ablegen – Reihenfolge frei wählbar</div>
+      <?php endif; ?>
+    </div>
+    <?php endif; ?>
   </main>
 
-  <!-- === Bottom Widgets === -->
-  <?php if ($isBuilder || !empty($widgetsByPosition['bottom'])): ?>
-  <div class="nx-live-zone nx-zone" data-nx-zone="bottom">
-    <?php if (!empty($widgetsByPosition['bottom'])): ?>
-      <div class="row">
-        <?php foreach ($widgetsByPosition['bottom'] as $w) echo $w; ?>
-      </div>
-    <?php elseif ($isBuilder): ?>
-      <div class="builder-placeholder">[Leere Zone: bottom]</div>
-    <?php endif; ?>
-  </div>
-  <?php endif; ?>
-
+  <?php
+  if ($isBuilder) {
+    nxb_inject_live_overlay_with_palette($pageSlug);
+  }
+  ?>
   <?php require_once 'footer.php'; ?>
 
 
-<!-- === BUILDER LAYOUT FIX & STYLES === -->
+<!-- === BUILDER STYLES (eine Zone) === -->
 <style>
-
- /* --- Spaltenhöhe angleichen --- */
-.builder-row-fix {
-  display: flex;
-  align-items: stretch; /* alle Spalten gleich hoch */
-}
-
-.builder-row-fix > [data-nx-zone="left"],
-.builder-row-fix > [data-nx-zone="main"],
-.builder-row-fix > [data-nx-zone="right"] {
-  display: flex;
-  flex-direction: column;
-}
- 
 .builder-placeholder {
-  border: 1px dashed #bbb;
-  border-radius: 6px;
-  min-height: 80px;
-  padding: 0.75rem;
-  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 8rem;
+  padding: 1.5rem;
+  margin: 0;
   text-align: center;
-  font-size: 0.85rem;
-  color: #555;
-  background: #fafafa;
+  font-size: 0.875rem;
+  color: #94a3b8;
+  background: transparent;
+  border: none;
 }
-
-.nx-live-zone { min-height: 60px; }
-
-/* Fix: Spalten im Builder bleiben nebeneinander */
-body.builder-active .builder-row-fix {
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  align-items: flex-start;
+body.builder-active .nx-live-zone:not(:has(.nx-live-item)) .builder-placeholder {
+  min-height: 8rem;
+  /*border: 1px solid rgba(226,232,240,.9);*/
+  background: rgba(255,255,255,.6);
 }
-body.builder-active .builder-row-fix > .nx-live-zone {
-  flex: 1 1 auto !important;
-  max-width: none !important;
-}
-
-/* Farbmarkierungen für Builder */
-body.builder-active [data-nx-zone="top"]         { background-color: rgba(186,85,211,0.08); }
-body.builder-active [data-nx-zone="undertop"]    { background-color: rgba(0,0,0,0.03); }
-body.builder-active [data-nx-zone="left"]        { background-color: rgba(0,120,255,0.06); }
-body.builder-active [data-nx-zone="main"],
-body.builder-active [data-nx-zone="maintop"],
-body.builder-active [data-nx-zone="mainbottom"] { background-color: rgba(0,255,0,0.05); }
-body.builder-active [data-nx-zone="right"]       { background-color: rgba(255,165,0,0.08); }
-body.builder-active [data-nx-zone="bottom"]      { background-color: rgba(200,200,200,0.05); }
-
-/* Labels in jeder Zone */
-body.builder-active .nx-zone {
-  position: relative;
-}
+/* Zonen-Bezeichnungen (data-nx-zone) ausgeblendet – stören im Builder, werden intern nur für Speichern/Laden genutzt */
 body.builder-active .nx-zone::before {
-  content: attr(data-nx-zone);
-  position: absolute;
-  top: 0;
-  left: 4px;
-  font-size: 11px;
-  color: #555;
-  background: rgba(255,255,255,0.8);
-  padding: 1px 4px;
-  border-radius: 3px;
-  z-index: 99;
+  display: none;
 }
 </style>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const mainZone = document.querySelector('[data-nx-zone="main"]');
-  const leftZone = document.querySelector('[data-nx-zone="left"]');
-  const rightZone = document.querySelector('[data-nx-zone="right"]');
-
-  if (mainZone && (leftZone || rightZone)) {
-    const mainHeight = mainZone.offsetHeight;
-    if (leftZone) leftZone.style.minHeight = mainHeight + "px";
-    if (rightZone) rightZone.style.minHeight = mainHeight + "px";
-  }
-});
-</script>

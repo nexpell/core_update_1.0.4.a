@@ -62,6 +62,7 @@ safe_query("
     (3, 'link', '97cef6e0a43f670b6b06577a5530d1a4', 'Rechtliches', 2, 1, '', 'index.php?site=privacy_policy', 0),
     (4, 'link', '97cef6e0a43f670b6b06577a5530d1a4', 'Rechtliches', 2, 2, '', 'index.php?site=imprint', 0),
     (5, 'link', '97cef6e0a43f670b6b06577a5530d1a4', 'Rechtliches', 2, 3, '', 'index.php?site=terms_of_service', 0),
+    (9, 'link', '97cef6e0a43f670b6b06577a5530d1a4', 'Rechtliches', 2, 4, '', 'index.php?site=cookie_policy', 0),
     (6, 'link', '846495f9ceed11accf8879f555936a7d', 'Navigation', 1, 1, '', 'index.php?site=contact', 0),
     (7, 'footer_text', '', 'footer_description', 0, 0, '', '', 0),
     (8, 'footer_template', '', 'footer_template', 1, 1, 'standard', '', 0)
@@ -126,6 +127,9 @@ $upsertFooterLang('link_name_4', 'it', 'Impronta Editoriale');
 $upsertFooterLang('link_name_5', 'de', 'Nutzungsbedingungen');
 $upsertFooterLang('link_name_5', 'en', 'Terms and Conditions');
 $upsertFooterLang('link_name_5', 'it', 'Termini e condizioni');
+$upsertFooterLang('link_name_9', 'de', 'Cookie-Richtlinie');
+$upsertFooterLang('link_name_9', 'en', 'Cookie Policy');
+$upsertFooterLang('link_name_9', 'it', 'Informativa sui Cookie');
 $upsertFooterLang('link_name_6', 'de', 'Kontakt');
 $upsertFooterLang('link_name_6', 'en', 'Contact');
 $upsertFooterLang('link_name_6', 'it', 'Contatti');

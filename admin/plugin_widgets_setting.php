@@ -3,38 +3,17 @@ declare(strict_types=1);
 
 if (session_status() === PHP_SESSION_NONE) session_start();
 if (empty($_SESSION['csrf_token'])) $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-require_once __DIR__ . '/../system/core/builder_core.php';
 
 $action = $_GET['action'] ?? '';
 
 // Seitenliste aufbauen
 $pages = ['index' => 'Startseite'];
-$res = safe_query("SELECT modulname FROM settings_plugins ORDER BY modulname ASC");
-$exclude = ['navigation','carousel','error_404','footer','login','register','lostpassword','profile','edit_profile','lastlogin'];
-$currentLang = strtolower((string)$languageService->detectLanguage());
+$res = safe_query("SELECT modulname, name FROM settings_plugins ORDER BY name ASC");
+$exclude = ['navigation','carousel','error_404','footer_easy','login','register','lostpassword','profile','edit_profile','lastlogin'];
 while ($row = mysqli_fetch_assoc($res)) {
-  $module = (string)($row['modulname'] ?? '');
-  if ($module === '' || in_array($module, $exclude, true)) {
-    continue;
+  if (!in_array($row['modulname'], $exclude, true)) {
+    $pages[$row['modulname']] = $row['name'];
   }
-
-  $name = $module;
-  $candidates = [$module];
-
-  foreach (array_unique($candidates) as $candidate) {
-    $candidateEsc = escape($candidate);
-    $nameRes = safe_query("SELECT content FROM settings_plugins_lang WHERE content_key = 'plugin_name_" . $candidateEsc . "' AND language = '" . escape($currentLang) . "' LIMIT 1");
-    if ($nameRes && mysqli_num_rows($nameRes) > 0) {
-      $nameRow = mysqli_fetch_assoc($nameRes);
-      $translated = trim((string)($nameRow['content'] ?? ''));
-      if ($translated !== '') {
-        $name = $translated;
-        break;
-      }
-    }
-  }
-
-  $pages[$module] = $name;
 }
 
 // Zonen-Restriktions-Logik START
@@ -56,7 +35,7 @@ $__WIDGET_RESTRICTIONS = nx__load_widget_restrictions_map();
 
 // LIST- UND BEARBEITUNGSMODUS
     function nxb_normalize_allowed_zones(?array $zones): string {
-        $ALL = nx_get_active_theme_zone_keys(false);
+        $ALL = ['top','undertop','left','maintop','mainbottom','right','bottom'];
         if (empty($zones)) return '';
         $in = array_map('trim', $zones);
         $in = array_values(array_unique(array_filter($in, fn($z) => in_array($z, $ALL, true))));
@@ -161,7 +140,7 @@ $__WIDGET_RESTRICTIONS = nx__load_widget_restrictions_map();
                 </div>
 
                 <div class="d-flex flex-wrap gap-3">';
-        $zones = nx_get_active_theme_zone_keys(false);
+        $zones = ['top','undertop','left','maintop','mainbottom','right','bottom'];
         $allowed = explode(',', (string)$edit_data['allowed_zones']);
         foreach ($zones as $z) {
             $checked = in_array($z, $allowed, true) ? 'checked' : '';
@@ -182,7 +161,7 @@ $__WIDGET_RESTRICTIONS = nx__load_widget_restrictions_map();
             </div>
         </div>';
       }elseif (($action ?? '') === 'list') {
-        // Ãœbersicht
+        // Übersicht
         echo '<div class="card shadow-sm border-0 mb-4 mt-4">
                 <div class="card-header">
                   <div class="card-title">
@@ -410,4 +389,3 @@ updateFrameSrc();
 <?php
 }
 ?>
-

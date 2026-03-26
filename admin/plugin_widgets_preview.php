@@ -35,17 +35,12 @@ $liveHref = '/?site=' . urlencode($page) . '&builder=1';
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 
 <style>
-body{background:#fff;font-size:.92rem}
+body{background:#fff}
 .widget-list{min-height:46px;border:1px dashed #bbb;border-radius:.5rem;background:#fff;padding:6px;list-style:none;margin:0}
-.widget-item{position:relative;margin:6px;padding:7px 34px 7px 28px;background:#f8f9fa;border:1px solid #dee2e6;border-radius:.4rem;user-select:none;font-size:.84rem;line-height:1.35}
+.widget-item{position:relative;margin:6px;padding:8px 38px 8px 30px;background:#f8f9fa;border:1px solid #dee2e6;border-radius:.4rem;user-select:none}
 .widget-handle{position:absolute;left:8px;top:8px;cursor:grab;opacity:.75}
 .widget-actions{position:absolute;right:6px;top:6px;display:flex;gap:.25rem}
-.widget-actions .btn{ --bs-btn-padding-y:.08rem; --bs-btn-padding-x:.3rem; --bs-btn-font-size:.68rem; }
-.widget-title{font-size:.84rem}
-.bg-zone h6{font-size:.86rem}
-.bg-zone .badge{font-size:.68rem}
-.bg-zone .small,.form-text{font-size:.74rem}
-.btn.btn-sm{--bs-btn-font-size:.75rem}
+.widget-actions .btn{ --bs-btn-padding-y:.1rem; --bs-btn-padding-x:.35rem; --bs-btn-font-size:.75rem; }
 .ghost{opacity:.5}
 .bg-zone{background:#f6f8fa}
 .nx-zone{position:relative;min-height:80px}

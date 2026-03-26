@@ -1,5 +1,7 @@
 <!-- Footer Consent -->
-<?= $pluginManager->getFooterModule(); ?>
+<?php if (!empty($_GET['builder']) && $_GET['builder']==='1'): ?><div class="nx-fixed-block" data-nx-fixed-label="Footer" data-nx-fixed-hint="Fester Block – im Admincenter bearbeiten (nicht im Live-Builder)."><?php endif; ?>
+<?php /* <?= $pluginManager->getFooterModule(); ?> */ ?>
+<?php if (!empty($_GET['builder']) && $_GET['builder']==='1'): ?></div><?php endif; ?>
 </div>
 
 
@@ -15,24 +17,12 @@
     echo '<!--Plugin & Widget js END-->' . PHP_EOL;
 ?>
 
-<?php if (!empty($_SESSION['userID'])): ?>
-<script>
-window.nexpellPresence = {
-    enabled: true,
-    endpoint: "/system/user_presence.php",
-    heartbeatMs: 60000
-};
-</script>
-<script src="/components/js/user_presence.js"></script>
-<?php endif; ?>
-
 <!-- ... dein HTML-Header etc. ... -->
 
 <script defer src="/components/js/nx_editor.js"></script>
 
-<?php if (!empty($GLOBALS['nx_load_recaptcha'])): ?>
-<script src="https://www.google.com/recaptcha/api.js?hl=<?= urlencode((string)($_SESSION['language'] ?? 'de')) ?>" async defer></script>
-<?php endif; ?>
+<!-- reCAPTCHA Loader -->
+<script src="https://www.google.com/recaptcha/api.js?hl=de" async defer></script>
 
 
 <?php
@@ -67,8 +57,5 @@ if (defined('DEBUG_PERFORMANCE') && DEBUG_PERFORMANCE) {
     }
 }
 ?>
-
-
-
 </body>
 </html>

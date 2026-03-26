@@ -239,6 +239,69 @@ function footer_reconcile_data(mysqli $db): void
         )
     ");
 
+    $defaultLegalLinks = [
+        [
+            'url' => 'index.php?site=privacy_policy',
+            'sort' => 1,
+            'labels' => ['de' => 'Datenschutz', 'en' => 'Privacy Policy', 'it' => 'Informativa sulla Privacy'],
+        ],
+        [
+            'url' => 'index.php?site=imprint',
+            'sort' => 2,
+            'labels' => ['de' => 'Impressum', 'en' => 'Imprint', 'it' => 'Impronta Editoriale'],
+        ],
+        [
+            'url' => 'index.php?site=terms_of_service',
+            'sort' => 3,
+            'labels' => ['de' => 'Nutzungsbedingungen', 'en' => 'Terms and Conditions', 'it' => 'Termini e condizioni'],
+        ],
+        [
+            'url' => 'index.php?site=cookie_policy',
+            'sort' => 4,
+            'labels' => ['de' => 'Cookie-Richtlinie', 'en' => 'Cookie Policy', 'it' => 'Informativa sui Cookie'],
+        ],
+    ];
+
+    foreach ($defaultLegalLinks as $defaultLink) {
+        $urlEsc = mysqli_real_escape_string($db, (string)$defaultLink['url']);
+        $sort = (int)$defaultLink['sort'];
+        $existingLinkId = 0;
+
+        $existingLinkRes = mysqli_query($db, "
+            SELECT id
+            FROM plugins_footer
+            WHERE row_type='link'
+              AND category_key='{$legalKeyEsc}'
+              AND footer_link_url='{$urlEsc}'
+            ORDER BY id ASC
+            LIMIT 1
+        ");
+        if ($existingLinkRes && ($existingLink = mysqli_fetch_assoc($existingLinkRes))) {
+            $existingLinkId = (int)($existingLink['id'] ?? 0);
+        }
+
+        if ($existingLinkId > 0) {
+            mysqli_query($db, "
+                UPDATE plugins_footer
+                SET section_title='Rechtliches', link_sort={$sort}
+                WHERE id={$existingLinkId} AND row_type='link'
+                LIMIT 1
+            ");
+        } else {
+            mysqli_query($db, "
+                INSERT INTO plugins_footer
+                    (row_type, category_key, section_title, section_sort, link_sort, footer_link_name, footer_link_url, new_tab)
+                VALUES
+                    ('link', '{$legalKeyEsc}', 'Rechtliches', 2, {$sort}, '', '{$urlEsc}', 0)
+            ");
+            $existingLinkId = (int)mysqli_insert_id($db);
+        }
+
+        if ($existingLinkId > 0) {
+            footer_lang_upsert($db, 'link_name_' . $existingLinkId, (array)$defaultLink['labels'], (array)$defaultLink['labels']);
+        }
+    }
+
     $catByKey = [];
     $catByTitle = [];
     $catRes = mysqli_query($db, "SELECT category_key, section_title FROM plugins_footer WHERE row_type='category'");
@@ -274,6 +337,7 @@ function footer_reconcile_data(mysqli $db): void
             if (
                 strpos($urlLower, 'site=imprint') !== false
                 || strpos($urlLower, 'site=privacy_policy') !== false
+                || strpos($urlLower, 'site=cookie_policy') !== false
                 || strpos($urlLower, 'site=terms_of_service') !== false
             ) {
                 $targetKey = $legalKey;
@@ -454,7 +518,7 @@ function footer_isProtectedLegalLink(
     }
 
     $name = strtolower(trim($linkName));
-    if (in_array($name, ['imprint', 'privacy_policy', 'terms_of_service'], true)) {
+    if (in_array($name, ['imprint', 'privacy_policy', 'cookie_policy', 'terms_of_service'], true)) {
         return true;
     }
 
@@ -462,6 +526,7 @@ function footer_isProtectedLegalLink(
     return (
         strpos($url, 'site=imprint') !== false
         || strpos($url, 'site=privacy_policy') !== false
+        || strpos($url, 'site=cookie_policy') !== false
         || strpos($url, 'site=terms_of_service') !== false
     );
 }

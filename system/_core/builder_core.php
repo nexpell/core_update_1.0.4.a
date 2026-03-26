@@ -12,9 +12,7 @@ if (!defined('BASE_PATH')) {
   define('BASE_PATH', dirname(__DIR__, 2)); // zwei Ebenen hoch: /system/core → /
 }
 require_once BASE_PATH . '/system/config.inc.php';
-
-use nexpell\LanguageService;
-global $languageService;
+require_once BASE_PATH . '/system/core/theme_builder_helper.php';
 
 // --- DB Connection ---
 global $_database;
@@ -36,9 +34,9 @@ $CSRF = $_SESSION['csrf_token'];
    KONSTANTEN / GRUNDWERTE
    =========================================================== */
 
-// Eine Zone: alles in einer Drop-Area, Nutzer baut sich die Reihenfolge selbst
+// Definiert die gültigen Widget-Zonen
 if (!defined('NX_ZONES')) {
-  define('NX_ZONES', ['content']);
+  define('NX_ZONES', ['top','undertop','left','maintop','mainbottom','right','bottom']);
 }
 
 /* ===========================================================
@@ -176,4 +174,116 @@ function nx_render_widget(array $widget): string {
  */
 function nx_log(string $msg): void {
   // file_put_contents(BASE_PATH.'/logs/builder.log', '['.date('c').'] '.$msg.PHP_EOL, FILE_APPEND);
+}
+
+function nx_default_builder_zone_definitions(): array {
+  return [
+    ['key' => 'top', 'label' => 'Top', 'enabled' => true],
+    ['key' => 'undertop', 'label' => 'Unter Top', 'enabled' => true],
+    ['key' => 'left', 'label' => 'Linke Sidebar', 'enabled' => true],
+    ['key' => 'main', 'label' => 'Hauptinhalt', 'enabled' => true],
+    ['key' => 'maintop', 'label' => 'Main Top', 'enabled' => true],
+    ['key' => 'mainbottom', 'label' => 'Main Bottom', 'enabled' => true],
+    ['key' => 'right', 'label' => 'Rechte Sidebar', 'enabled' => true],
+    ['key' => 'bottom', 'label' => 'Bottom', 'enabled' => true],
+  ];
+}
+
+function nx_normalize_builder_zones(?array $zones): array {
+  $normalized = [];
+
+  foreach ($zones ?? [] as $zone) {
+    if (!is_array($zone)) {
+      continue;
+    }
+
+    $key = strtolower(trim((string)($zone['key'] ?? '')));
+    $key = preg_replace('/[^a-z0-9_-]/', '', $key);
+    if ($key === '') {
+      continue;
+    }
+
+    $normalized[$key] = [
+      'key' => $key,
+      'label' => trim((string)($zone['label'] ?? ucfirst(str_replace('_', ' ', $key)))) ?: ucfirst($key),
+      'enabled' => array_key_exists('enabled', $zone) ? (bool)$zone['enabled'] : true,
+    ];
+  }
+
+  return array_values($normalized);
+}
+
+function nx_get_active_theme_builder_zones(bool $enabledOnly = false): array {
+  static $cache = null;
+
+  if ($cache === null) {
+    $zones = [];
+    $themeManager = $GLOBALS['nx_theme_manager'] ?? null;
+
+    if ($themeManager instanceof \nexpell\ThemeManager) {
+      $runtime = nx_theme_builder_runtime_settings($themeManager);
+      $zones = nx_theme_builder_zones((string)($runtime['layout_preset'] ?? 'right-sidebar'));
+    }
+
+    if ($zones === []) {
+      $zones = nx_default_builder_zone_definitions();
+    }
+
+    $cache = $zones;
+  }
+
+  if (!$enabledOnly) {
+    return $cache;
+  }
+
+  $enabledZones = [];
+  foreach ($cache as $zone) {
+    $key = (string)($zone['key'] ?? '');
+    if ($key === '') {
+      continue;
+    }
+    if (!array_key_exists('enabled', $zone) || (bool)$zone['enabled']) {
+      $enabledZones[$key] = $zone;
+    }
+  }
+
+  $currentPage = preg_replace('/[^A-Za-z0-9_\/-]/', '', (string)($_GET['site'] ?? 'index'));
+  if ($currentPage === '') {
+    $currentPage = 'index';
+  }
+
+  if (isset($GLOBALS['_database']) && $GLOBALS['_database'] instanceof mysqli) {
+    $stmt = $GLOBALS['_database']->prepare("
+      SELECT DISTINCT position
+      FROM settings_widgets_positions
+      WHERE page = ?
+    ");
+    if ($stmt) {
+      $stmt->bind_param('s', $currentPage);
+      if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        while ($row = $result->fetch_assoc()) {
+          $position = strtolower(trim((string)($row['position'] ?? '')));
+          if ($position === '') {
+            continue;
+          }
+          foreach ($cache as $zone) {
+            if ((string)($zone['key'] ?? '') === $position) {
+              $enabledZones[$position] = array_merge($zone, ['enabled' => true]);
+              break;
+            }
+          }
+        }
+      }
+      $stmt->close();
+    }
+  }
+
+  return array_values($enabledZones);
+}
+
+function nx_get_active_theme_zone_keys(bool $enabledOnly = true): array {
+  return array_values(array_map(static function (array $zone): string {
+    return (string)$zone['key'];
+  }, nx_get_active_theme_builder_zones($enabledOnly)));
 }
